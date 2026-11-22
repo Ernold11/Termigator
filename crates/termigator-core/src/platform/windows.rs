@@ -96,19 +96,36 @@ fn user_sid() -> io::Result<&'static str> {
     .ok_or_else(|| io::Error::other("cannot read the user's SID (whoami /user)"))
 }
 
+/// Well-known groups an explicit entry may name: SYSTEM, Administrators, Users, Authenticated Users,
+/// Everyone, CREATOR OWNER.
+const BROAD_SIDS: [&str; 6] = [
+    "S-1-5-18",
+    "S-1-5-32-544",
+    "S-1-5-32-545",
+    "S-1-5-11",
+    "S-1-1-0",
+    "S-1-3-0",
+];
+
 // shortcut: one icacls run per call (~50 ms); the callers set up a handful of paths at start, not
 // per write. Upgrade to SetNamedSecurityInfoW in a crate that may use `unsafe` if that changes.
 fn restrict_to_user(p: &Path, rights: &str) -> io::Result<()> {
     use std::os::windows::process::CommandExt;
     let sid = user_sid()?;
+    // `/inheritance:r` drops only inherited entries; an object created where nothing is inherited
+    // (an elevated process, some temp dirs) carries explicit ones from the token's default DACL.
+    let mut args = vec!["/inheritance:r".to_owned()];
+    for broad in BROAD_SIDS {
+        args.extend(["/remove:g".to_owned(), format!("*{broad}")]);
+    }
+    args.extend([
+        "/grant:r".to_owned(),
+        format!("*{sid}:{rights}"),
+        "/q".to_owned(),
+    ]);
     let out = Command::new("icacls")
         .arg(p)
-        .args([
-            "/inheritance:r",
-            "/grant:r",
-            &format!("*{sid}:{rights}"),
-            "/q",
-        ])
+        .args(&args)
         .creation_flags(0x0800_0000) // CREATE_NO_WINDOW
         .output()?;
     if out.status.success() {
@@ -449,6 +466,13 @@ mod acl_tests {
         std::fs::write(&inherited, "x").expect("write");
         let other = base.join("export.txt");
         std::fs::write(&other, "x").expect("write");
+        // Explicit entries (not inherited) must go too, as on a CI runner's elevated temp dir.
+        let explicit = Command::new("icacls")
+            .arg(&other)
+            .args(["/grant", "*S-1-5-18:F", "/grant", "*S-1-5-32-545:R", "/q"])
+            .status()
+            .expect("icacls");
+        assert!(explicit.success());
         set_private_file(&other).expect("private file");
         let sid = user_sid().expect("sid");
         for p in [&dir, &inherited, &other] {
