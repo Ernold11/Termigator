@@ -248,10 +248,18 @@ fn handle(mut stream: IpcStream, secrets: &Secrets) -> io::Result<()> {
                 .map(|e| answer(prompt, &e.secret, e.target.as_ref()))
         })
         .flatten();
-    if let Some(reply) = reply {
-        stream.write_all(&reply)?;
+    // One line, `+answer` or `-` (refused): the helper stops at the newline instead of waiting
+    // for the end of the stream, which Windows' AF_UNIX sometimes does not deliver.
+    let mut out = Vec::with_capacity(reply.as_ref().map_or(2, |r| r.len() + 1));
+    match reply {
+        Some(reply) => {
+            out.push(b'+');
+            out.extend_from_slice(&reply);
+        }
+        None => out.extend_from_slice(b"-\n"),
     }
-    Ok(())
+    stream.write_all(&out)?;
+    stream.shutdown(std::net::Shutdown::Write)
 }
 
 static BROKER: OnceLock<Option<Server>> = OnceLock::new();
@@ -298,9 +306,12 @@ pub fn fetch(path: &Path, token: &str, prompt: &str) -> io::Result<Option<Vec<u8
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
     let prompt = prompt.replace(['\n', '\r', '\t'], " ");
     stream.write_all(format!("{token}\t{prompt}\n").as_bytes())?;
-    let mut reply = Vec::new();
-    (&stream).take(MAX_LINE).read_to_end(&mut reply)?;
-    Ok((!reply.is_empty()).then_some(reply))
+    let mut line = Vec::new();
+    BufReader::new((&stream).take(MAX_LINE)).read_until(b'\n', &mut line)?;
+    Ok(match line.split_first() {
+        Some((b'+', answer)) => Some(answer.to_vec()),
+        _ => None,
+    })
 }
 
 /// Channel name for one connection: unique per user and per attempt so another local process
