@@ -1597,7 +1597,7 @@ dependencies = [
  "filedescriptor",
  "getrandom 0.4.3",
  "libyaml-safer",
- "nix 0.28.0",
+ "nix 0.31.3",
  "percent-encoding",
  "portable-pty",
  "quick-xml",
