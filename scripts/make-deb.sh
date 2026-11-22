@@ -73,7 +73,10 @@ cp "$REPO/scripts/make-appimage.sh" "$SRC/scripts/"
 cp "$REPO/scripts/fetch-ghostty.sh" "$SRC/scripts/"
 cp "$REPO/scripts/third-party-licenses.py" "$SRC/scripts/"
 # Package version must match the sources we compile (HEAD archive), not an uncommitted Cargo.toml bump.
-VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$SRC/Cargo.toml" | head -1)+git$(git -C "$REPO" rev-parse --short HEAD)"
+# A build of the release tag (HEAD exactly at v<version>) gets the clean version, any other +git<commit>.
+VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$SRC/Cargo.toml" | head -1)"
+git -C "$REPO" describe --exact-match --tags --match "v$VERSION" HEAD >/dev/null 2>&1 ||
+  VERSION="$VERSION+git$(git -C "$REPO" rev-parse --short HEAD)"
 WT_VER="$(sed -n 's/^version = "\(.*\)"/\1/p' "$REPO/Cargo.toml" | head -1)"
 ARCH_VER="${VERSION%%+git*}"
 if [[ $WT_VER != "$ARCH_VER" ]]; then

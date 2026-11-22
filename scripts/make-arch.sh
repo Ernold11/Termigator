@@ -33,7 +33,10 @@ done
 USERNS=()
 [[ $CONTAINER == podman ]] && USERNS=(--userns=keep-id)
 
-VERSION="$(git -C "$REPO" show HEAD:Cargo.toml | sed -n 's/^version = "\(.*\)"/\1/p' | head -1)+git$(git -C "$REPO" rev-parse --short HEAD)"
+# A build of the release tag (HEAD exactly at v<version>) gets the clean version, any other +git<commit>.
+VERSION="$(git -C "$REPO" show HEAD:Cargo.toml | sed -n 's/^version = "\(.*\)"/\1/p' | head -1)"
+git -C "$REPO" describe --exact-match --tags --match "v$VERSION" HEAD >/dev/null 2>&1 ||
+  VERSION="$VERSION+git$(git -C "$REPO" rev-parse --short HEAD)"
 SRC="$(mktemp -d)"
 trap 'rm -rf "$SRC"' EXIT
 log "Exporting git HEAD as termigator-$VERSION.tar.gz"
