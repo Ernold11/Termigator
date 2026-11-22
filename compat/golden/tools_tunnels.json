@@ -1,0 +1,3987 @@
+{
+ "cases": [
+  {
+   "name": "parse:line:0",
+   "fn": "parse_forwards",
+   "input": "L 8080:db:5432",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:1",
+   "fn": "parse_forwards",
+   "input": "l 8080:db:5432",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:2",
+   "fn": "parse_forwards",
+   "input": "R 9000:localhost:22",
+   "expect": [
+    [
+     "R",
+     "9000:localhost:22"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:3",
+   "fn": "parse_forwards",
+   "input": "r 9000:localhost:22",
+   "expect": [
+    [
+     "R",
+     "9000:localhost:22"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:4",
+   "fn": "parse_forwards",
+   "input": "D 1080",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:5",
+   "fn": "parse_forwards",
+   "input": "d 1080",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:6",
+   "fn": "parse_forwards",
+   "input": "D 127.0.0.1:1080",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:7",
+   "fn": "parse_forwards",
+   "input": "D localhost:1080",
+   "expect": [
+    [
+     "D",
+     "localhost:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:8",
+   "fn": "parse_forwards",
+   "input": "D 0",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:0"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:9",
+   "fn": "parse_forwards",
+   "input": "D 08",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:08"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:10",
+   "fn": "parse_forwards",
+   "input": "D :1080",
+   "expect": [
+    [
+     "D",
+     ":1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:11",
+   "fn": "parse_forwards",
+   "input": "L\t8080:db:5432",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:12",
+   "fn": "parse_forwards",
+   "input": "  L   8080:db:5432  ",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:13",
+   "fn": "parse_forwards",
+   "input": "L 8080:db:5432 extra",
+   "error": "ForwardError",
+   "message": "forward 'L 8080:db:5432 extra': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:14",
+   "fn": "parse_forwards",
+   "input": "L8080:db:5432",
+   "error": "ForwardError",
+   "message": "forward 'L8080:db:5432': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:15",
+   "fn": "parse_forwards",
+   "input": "X 1",
+   "error": "ForwardError",
+   "message": "forward 'X 1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:16",
+   "fn": "parse_forwards",
+   "input": "L",
+   "error": "ForwardError",
+   "message": "forward 'L': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:17",
+   "fn": "parse_forwards",
+   "input": "L ",
+   "error": "ForwardError",
+   "message": "forward 'L': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:18",
+   "fn": "parse_forwards",
+   "input": "D",
+   "error": "ForwardError",
+   "message": "forward 'D': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:19",
+   "fn": "parse_forwards",
+   "input": "",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:line:20",
+   "fn": "parse_forwards",
+   "input": "   ",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:line:21",
+   "fn": "parse_forwards",
+   "input": "# comment",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:line:22",
+   "fn": "parse_forwards",
+   "input": "  # comment",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:line:23",
+   "fn": "parse_forwards",
+   "input": "L -oProxyCommand=x",
+   "error": "ForwardError",
+   "message": "forward 'L -oProxyCommand=x': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "parse:line:24",
+   "fn": "parse_forwards",
+   "input": "R -o x",
+   "error": "ForwardError",
+   "message": "forward 'R -o x': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:25",
+   "fn": "parse_forwards",
+   "input": "D -1080",
+   "error": "ForwardError",
+   "message": "forward 'D -1080': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "parse:line:26",
+   "fn": "parse_forwards",
+   "input": "L [::1]:8080:[::1]:80",
+   "expect": [
+    [
+     "L",
+     "[::1]:8080:[::1]:80"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:27",
+   "fn": "parse_forwards",
+   "input": "L 8080:db:5432:x",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432:x"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:28",
+   "fn": "parse_forwards",
+   "input": "LL 1",
+   "error": "ForwardError",
+   "message": "forward 'LL 1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:29",
+   "fn": "parse_forwards",
+   "input": "L 8080:db:5432",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:30",
+   "fn": "parse_forwards",
+   "input": "L 8080:db :5432",
+   "error": "ForwardError",
+   "message": "forward 'L 8080:db\\xa0:5432': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:31",
+   "fn": "parse_forwards",
+   "input": "D 1080\u001c",
+   "expect": [
+    [
+     "D",
+     "127.0.0.1:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:line:32",
+   "fn": "parse_forwards",
+   "input": "D \u001c1080",
+   "error": "ForwardError",
+   "message": "forward 'D': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:line:33",
+   "fn": "parse_forwards",
+   "input": "lx 1",
+   "error": "ForwardError",
+   "message": "forward 'lx 1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:text:all",
+   "fn": "parse_forwards",
+   "input": "L 8080:db:5432\nl 8080:db:5432\nR 9000:localhost:22\nr 9000:localhost:22\nD 1080\nd 1080",
+   "expect": [
+    [
+     "L",
+     "8080:db:5432"
+    ],
+    [
+     "L",
+     "8080:db:5432"
+    ],
+    [
+     "R",
+     "9000:localhost:22"
+    ],
+    [
+     "R",
+     "9000:localhost:22"
+    ],
+    [
+     "D",
+     "127.0.0.1:1080"
+    ],
+    [
+     "D",
+     "127.0.0.1:1080"
+    ]
+   ]
+  },
+  {
+   "name": "parse:text:crlf",
+   "fn": "parse_forwards",
+   "input": "L 1:h:2\r\nD 3\r\n",
+   "expect": [
+    [
+     "L",
+     "1:h:2"
+    ],
+    [
+     "D",
+     "127.0.0.1:3"
+    ]
+   ]
+  },
+  {
+   "name": "parse:text:blank",
+   "fn": "parse_forwards",
+   "input": "",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:text:only_comments",
+   "fn": "parse_forwards",
+   "input": "# a\n\n# b",
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:text:err_second",
+   "fn": "parse_forwards",
+   "input": "L 1:h:2\nX 3",
+   "error": "ForwardError",
+   "message": "forward 'X 3': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:text:cr",
+   "fn": "parse_forwards",
+   "input": "L 1:h:2\rD 3",
+   "expect": [
+    [
+     "L",
+     "1:h:2"
+    ],
+    [
+     "D",
+     "127.0.0.1:3"
+    ]
+   ]
+  },
+  {
+   "name": "parse:text:ls",
+   "fn": "parse_forwards",
+   "input": "L 1:h:2 D 3",
+   "expect": [
+    [
+     "L",
+     "1:h:2"
+    ],
+    [
+     "D",
+     "127.0.0.1:3"
+    ]
+   ]
+  },
+  {
+   "name": "parse:list:ok",
+   "fn": "parse_forwards",
+   "input": [
+    "L 1:h:2",
+    "D 3",
+    " R 4:h:5 "
+   ],
+   "expect": [
+    [
+     "L",
+     "1:h:2"
+    ],
+    [
+     "D",
+     "127.0.0.1:3"
+    ],
+    [
+     "R",
+     "4:h:5"
+    ]
+   ]
+  },
+  {
+   "name": "parse:list:empty",
+   "fn": "parse_forwards",
+   "input": [],
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:list:none",
+   "fn": "parse_forwards",
+   "input": null,
+   "error": "ForwardError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "parse:list:ints",
+   "fn": "parse_forwards",
+   "input": [
+    {
+     "$int": "1"
+    },
+    null
+   ],
+   "error": "ForwardError",
+   "message": "forward '1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "parse:list:mixed",
+   "fn": "parse_forwards",
+   "input": [
+    "L 1:h:2",
+    "# c",
+    "",
+    "D 9"
+   ],
+   "expect": [
+    [
+     "L",
+     "1:h:2"
+    ],
+    [
+     "D",
+     "127.0.0.1:9"
+    ]
+   ]
+  },
+  {
+   "name": "parse:list:err_first",
+   "fn": "parse_forwards",
+   "input": [
+    "bad",
+    "L 1:h:2"
+   ],
+   "error": "ForwardError",
+   "message": "forward 'bad': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "normalize:0",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "a"
+      ],
+      [
+       "via",
+       "b"
+      ],
+      [
+       "forwards",
+       "L 1:h:2\nD 3"
+      ],
+      [
+       "autostart",
+       true
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "via",
+       "x"
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "via": "b",
+     "forwards": [
+      "L 1:h:2",
+      "D 3"
+     ],
+     "autostart": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:1",
+   "fn": "normalize",
+   "input": [],
+   "expect": []
+  },
+  {
+   "name": "normalize:2",
+   "fn": "normalize",
+   "input": null,
+   "expect": []
+  },
+  {
+   "name": "normalize:3",
+   "fn": "normalize",
+   "input": "text",
+   "expect": []
+  },
+  {
+   "name": "normalize:4",
+   "fn": "normalize",
+   "input": {
+    "$map": [
+     [
+      "name",
+      "a"
+     ]
+    ]
+   },
+   "expect": []
+  },
+  {
+   "name": "normalize:5",
+   "fn": "normalize",
+   "input": {
+    "$int": "5"
+   },
+   "expect": []
+  },
+  {
+   "name": "normalize:6",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "  spaced  "
+      ],
+      [
+       "via",
+       "  v  "
+      ],
+      [
+       "forwards",
+       [
+        "  L 1:h:2  ",
+        "",
+        "  ",
+        "# c",
+        {
+         "$int": "5"
+        },
+        null
+       ]
+      ],
+      [
+       "autostart",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "spaced",
+     "via": "v",
+     "forwards": [
+      "L 1:h:2",
+      "# c",
+      "5",
+      "None"
+     ],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:7",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "a"
+      ],
+      [
+       "autostart",
+       "true"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "b"
+      ],
+      [
+       "autostart",
+       true
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "c"
+      ],
+      [
+       "autostart",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    },
+    {
+     "name": "b",
+     "via": "",
+     "forwards": [],
+     "autostart": true
+    },
+    {
+     "name": "c",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:8",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "  "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "0"
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "5",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    },
+    {
+     "name": "0",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:9",
+   "fn": "normalize",
+   "input": [
+    "x",
+    {
+     "$int": "1"
+    },
+    null,
+    [],
+    {
+     "$map": [
+      [
+       "name",
+       "ok"
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "ok",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:10",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "a"
+      ],
+      [
+       "forwards",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "b"
+      ],
+      [
+       "forwards",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "c"
+      ],
+      [
+       "forwards",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "d"
+      ],
+      [
+       "forwards",
+       "L 1:h:2\r\nL 3:h:4\n"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "e"
+      ],
+      [
+       "forwards",
+       "a b"
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    },
+    {
+     "name": "b",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    },
+    {
+     "name": "c",
+     "via": "",
+     "forwards": [],
+     "autostart": false
+    },
+    {
+     "name": "d",
+     "via": "",
+     "forwards": [
+      "L 1:h:2",
+      "L 3:h:4"
+     ],
+     "autostart": false
+    },
+    {
+     "name": "e",
+     "via": "",
+     "forwards": [
+      "a",
+      "b"
+     ],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:11",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "same"
+      ],
+      [
+       "via",
+       "1"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "same"
+      ],
+      [
+       "via",
+       "2"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "same "
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "same",
+     "via": "1",
+     "forwards": [],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:12",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "n"
+      ],
+      [
+       "via",
+       {
+        "$int": "7"
+       }
+      ],
+      [
+       "forwards",
+       {
+        "$int": "12"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "name",
+       "m"
+      ],
+      [
+       "via",
+       null
+      ],
+      [
+       "forwards",
+       true
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "n",
+     "via": "7",
+     "forwards": [
+      "12"
+     ],
+     "autostart": false
+    },
+    {
+     "name": "m",
+     "via": "",
+     "forwards": [
+      "True"
+     ],
+     "autostart": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:13",
+   "fn": "normalize",
+   "input": [
+    {
+     "$map": [
+      [
+       "name",
+       "é"
+      ],
+      [
+       "via",
+       "ü"
+      ],
+      [
+       "forwards",
+       [
+        "D 1"
+       ]
+      ],
+      [
+       "autostart",
+       true
+      ],
+      [
+       "extra",
+       "dropped"
+      ]
+     ]
+    }
+   ],
+   "expect": [
+    {
+     "name": "é",
+     "via": "ü",
+     "forwards": [
+      "D 1"
+     ],
+     "autostart": true
+    }
+   ]
+  },
+  {
+   "name": "argv:basic",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:keepalive_default",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:keepalive_secs",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive_seconds",
+      {
+       "$int": "30"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:control_master_forced_off",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_control_master",
+      true
+     ],
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:no_via",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": null,
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH entry 'bastion' not found — pick one of the saved SSH entries."
+  },
+  {
+   "name": "argv:no_via_name_none",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      [
+       "L 1:h:2"
+      ]
+     ]
+    ]
+   },
+   "via": null,
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH entry None not found — pick one of the saved SSH entries."
+  },
+  {
+   "name": "argv:no_via_name_int",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      {
+       "$int": "5"
+      }
+     ],
+     [
+      "forwards",
+      [
+       "L 1:h:2"
+      ]
+     ]
+    ]
+   },
+   "via": null,
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH entry 5 not found — pick one of the saved SSH entries."
+  },
+  {
+   "name": "argv:no_via_quote",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "it's"
+     ],
+     [
+      "forwards",
+      [
+       "L 1:h:2"
+      ]
+     ]
+    ]
+   },
+   "via": null,
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH entry \"it's\" not found — pick one of the saved SSH entries."
+  },
+  {
+   "name": "argv:bad_forward",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      [
+       "X 1"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "forward 'X 1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "argv:empty_forwards",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      []
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "argv:injection",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      [
+       "L -oProxyCommand=x"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "forward 'L -oProxyCommand=x': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "argv:all_kinds",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      [
+       "L 1:a:2",
+       "R 3:b:4",
+       "D 5",
+       "L 6:c:7",
+       "d 8",
+       "D host:9"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:5",
+    "-D",
+    "127.0.0.1:8",
+    "-D",
+    "host:9",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "1:a:2",
+    "-L",
+    "6:c:7",
+    "-R",
+    "3:b:4",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:text_forwards",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      "L 1:a:2\nD 5"
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:5",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "1:a:2",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:password",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "password",
+      "secret"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-p",
+    "2222",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:password_no_sshpass",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "password",
+      "secret"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [],
+   "error": "TunnelError",
+   "message": "Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "argv:password_empty",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:password_int",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "password",
+      {
+       "$int": "12345"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-p",
+    "2222",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:no_user",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "argv:no_host",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "argv:bad_host",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "-h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "host '-h': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "argv:bad_user",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "a b"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "user 'a b': must not contain spaces or control characters"
+  },
+  {
+   "name": "argv:port",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2200",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:port_text",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "2200"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2200",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:port_bad",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "Invalid port."
+  },
+  {
+   "name": "argv:port_range",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "70000"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "argv:identity",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "/no/such/key"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH key file not found (not a regular file): '/no/such/key' → '/no/such/key'. Use an absolute path or ~/.ssh/… and the private key, not .pub."
+  },
+  {
+   "name": "argv:identity_tilde",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "~/no/such/key"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "SSH key file not found (not a regular file): '~/no/such/key' → '/home/golden/no/such/key'. Use an absolute path or ~/.ssh/… and the private key, not .pub."
+  },
+  {
+   "name": "argv:proxy_jump",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "a@j1,j2:2200"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-J",
+    "a@j1,j2:2200",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:proxy_jump_list",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      [
+       "j1",
+       "u@j2"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-J",
+    "j1,u@j2",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:jumphost_alias",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "jumphost",
+      "j1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-J",
+    "j1",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:jump_host_alias",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "jump_host",
+      "j1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-J",
+    "j1",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:proxy_jump_bad",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "-oX"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "proxy_jump / jumphost '-oX': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "argv:strict",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "accept-new"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-L",
+    "15432:db:5432",
+    "-o",
+    "StrictHostKeyChecking=accept-new",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:strict_bad",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "maybe"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "strict_host_key_checking: use one of accept-new, ask, no, off, yes (got 'maybe')."
+  },
+  {
+   "name": "argv:compression",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "compression",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-L",
+    "15432:db:5432",
+    "-o",
+    "Compression=yes",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:extra_args",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      "-o Foo=bar -v"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "Foo=bar",
+    "-v",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:extra_args_list",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "-o",
+       "Foo=bar"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "Foo=bar",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:extra_args_bad",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      "-o 'x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "TunnelError",
+   "message": "Could not parse extra_ssh_args."
+  },
+  {
+   "name": "argv:dropped_keys",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "remote_command",
+      "ls"
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "forward_agent",
+      true
+     ],
+     [
+      "local_forwards",
+      [
+       "9:z:9"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "8:z:8"
+      ]
+     ],
+     [
+      "dynamic_forward",
+      "7"
+     ],
+     [
+      "ssh_keepalive",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-L",
+    "15432:db:5432",
+    "u@h"
+   ]
+  },
+  {
+   "name": "argv:launch_none",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:launch_empty",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "name",
+      "db"
+     ],
+     [
+      "via",
+      "bastion"
+     ],
+     [
+      "forwards",
+      [
+       "L 15432:db:5432",
+       "D 1080"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "127.0.0.1:1080",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "15432:db:5432",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:ipv6",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "b"
+     ],
+     [
+      "forwards",
+      [
+       "L [::1]:8080:[::1]:80",
+       "D ::1"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-D",
+    "::1",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-L",
+    "[::1]:8080:[::1]:80",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "argv:unicode",
+   "fn": "tunnel_argv",
+   "tunnel": {
+    "$map": [
+     [
+      "via",
+      "żółć"
+     ],
+     [
+      "forwards",
+      [
+       "L 1:zażółć:2"
+      ]
+     ]
+    ]
+   },
+   "via": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ],
+     [
+      "user",
+      "żółw"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "BatchMode=yes",
+    "-L",
+    "1:zażółć:2",
+    "żółw@zażółć"
+   ]
+  },
+  {
+   "name": "summary:0",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      [
+       "L 8080:db:5432",
+       "D 1080",
+       "r 9:x:9"
+      ]
+     ]
+    ]
+   },
+   "expect": "L 8080:db:5432, D 127.0.0.1:1080, R 9:x:9"
+  },
+  {
+   "name": "summary:1",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      "L 1:h:2\nD 3"
+     ]
+    ]
+   },
+   "expect": "L 1:h:2, D 127.0.0.1:3"
+  },
+  {
+   "name": "summary:2",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      []
+     ]
+    ]
+   },
+   "expect": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "summary:3",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      [
+       "X 1"
+      ]
+     ]
+    ]
+   },
+   "expect": "forward 'X 1': use 'L 8080:host:80', 'R 9000:localhost:22' or 'D 1080'."
+  },
+  {
+   "name": "summary:4",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      null
+     ]
+    ]
+   },
+   "expect": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "summary:5",
+   "fn": "summary",
+   "tunnel": {
+    "$map": []
+   },
+   "expect": "A tunnel needs at least one forward."
+  },
+  {
+   "name": "summary:6",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      [
+       "L -x"
+      ]
+     ]
+    ]
+   },
+   "expect": "forward 'L -x': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "summary:7",
+   "fn": "summary",
+   "tunnel": {
+    "$map": [
+     [
+      "forwards",
+      [
+       "# only"
+      ]
+     ]
+    ]
+   },
+   "expect": "A tunnel needs at least one forward."
+  }
+ ]
+}

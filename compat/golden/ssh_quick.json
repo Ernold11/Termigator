@@ -1,0 +1,753 @@
+{
+ "cases": [
+  {
+   "name": "quick:0:''",
+   "input": "",
+   "error": "SshError",
+   "message": "Enter user@host."
+  },
+  {
+   "name": "quick:1:'   '",
+   "input": "   ",
+   "error": "SshError",
+   "message": "Enter user@host."
+  },
+  {
+   "name": "quick:2:'hostonly'",
+   "input": "hostonly",
+   "error": "SshError",
+   "message": "Use user@host (e.g. root@server or ubuntu@10.0.0.5:2222)."
+  },
+  {
+   "name": "quick:3:'u@h'",
+   "input": "u@h",
+   "expect": [
+    "u",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:4:'u@h:2222'",
+   "input": "u@h:2222",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "2222"
+    }
+   ]
+  },
+  {
+   "name": "quick:5:'u@h:99999'",
+   "input": "u@h:99999",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:6:'u@h:0'",
+   "input": "u@h:0",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:7:'u@h:1'",
+   "input": "u@h:1",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "1"
+    }
+   ]
+  },
+  {
+   "name": "quick:8:'u@h:65535'",
+   "input": "u@h:65535",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "65535"
+    }
+   ]
+  },
+  {
+   "name": "quick:9:'u@h:65536'",
+   "input": "u@h:65536",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:10:'u@h:abc'",
+   "input": "u@h:abc",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:11:'u@h:'",
+   "input": "u@h:",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:12:'u@'",
+   "input": "u@",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:13:'@h'",
+   "input": "@h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:14:'@'",
+   "input": "@",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:15:'u@@h'",
+   "input": "u@@h",
+   "expect": [
+    "u",
+    "@h",
+    null
+   ]
+  },
+  {
+   "name": "quick:16:'a@b@c'",
+   "input": "a@b@c",
+   "expect": [
+    "a",
+    "b@c",
+    null
+   ]
+  },
+  {
+   "name": "quick:17:' u@h '",
+   "input": " u@h ",
+   "expect": [
+    "u",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:18:'u @h'",
+   "input": "u @h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:19:'u@ h'",
+   "input": "u@ h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:20:'u@h x'",
+   "input": "u@h x",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:21:'u\\t@h'",
+   "input": "u\t@h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:22:'u@h\\n'",
+   "input": "u@h\n",
+   "expect": [
+    "u",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:23:'u@[::1]'",
+   "input": "u@[::1]",
+   "expect": [
+    "u",
+    "::1",
+    null
+   ]
+  },
+  {
+   "name": "quick:24:'u@[::1]:22'",
+   "input": "u@[::1]:22",
+   "expect": [
+    "u",
+    "::1",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:25:'root@[2001:db8::1]:2222'",
+   "input": "root@[2001:db8::1]:2222",
+   "expect": [
+    "root",
+    "2001:db8::1",
+    {
+     "$int": "2222"
+    }
+   ]
+  },
+  {
+   "name": "quick:26:'u@[fe80::1%eth0]:22'",
+   "input": "u@[fe80::1%eth0]:22",
+   "expect": [
+    "u",
+    "fe80::1%eth0",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:27:'u@[fe80::1%eth0]'",
+   "input": "u@[fe80::1%eth0]",
+   "expect": [
+    "u",
+    "fe80::1%eth0",
+    null
+   ]
+  },
+  {
+   "name": "quick:28:'u@[::ffff:10.0.0.5]'",
+   "input": "u@[::ffff:10.0.0.5]",
+   "expect": [
+    "u",
+    "::ffff:10.0.0.5",
+    null
+   ]
+  },
+  {
+   "name": "quick:29:'u@[::ffff:10.0.0.5]:80'",
+   "input": "u@[::ffff:10.0.0.5]:80",
+   "expect": [
+    "u",
+    "::ffff:10.0.0.5",
+    {
+     "$int": "80"
+    }
+   ]
+  },
+  {
+   "name": "quick:30:'u@::1'",
+   "input": "u@::1",
+   "expect": [
+    "u",
+    "::1",
+    null
+   ]
+  },
+  {
+   "name": "quick:31:'u@2001:db8::1'",
+   "input": "u@2001:db8::1",
+   "expect": [
+    "u",
+    "2001:db8::1",
+    null
+   ]
+  },
+  {
+   "name": "quick:32:'u@fe80::1%eth0'",
+   "input": "u@fe80::1%eth0",
+   "expect": [
+    "u",
+    "fe80::1%eth0",
+    null
+   ]
+  },
+  {
+   "name": "quick:33:'u@::ffff:10.0.0.5'",
+   "input": "u@::ffff:10.0.0.5",
+   "expect": [
+    "u",
+    "::ffff:10.0.0.5",
+    null
+   ]
+  },
+  {
+   "name": "quick:34:'u@[::1'",
+   "input": "u@[::1",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:35:'u@::1]'",
+   "input": "u@::1]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:36:'u@[::1]:abc'",
+   "input": "u@[::1]:abc",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:37:'u@[::1]:99999'",
+   "input": "u@[::1]:99999",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:38:'u@[::1]:'",
+   "input": "u@[::1]:",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:39:'u@[]'",
+   "input": "u@[]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:40:'u@[]:22'",
+   "input": "u@[]:22",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:41:'u@zz::1::x!'",
+   "input": "u@zz::1::x!",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:42:'u@1:2'",
+   "input": "u@1:2",
+   "expect": [
+    "u",
+    "1",
+    {
+     "$int": "2"
+    }
+   ]
+  },
+  {
+   "name": "quick:43:'u@1:2:3'",
+   "input": "u@1:2:3",
+   "expect": [
+    "u",
+    "1:2:3",
+    null
+   ]
+  },
+  {
+   "name": "quick:44:'u@a:b:c'",
+   "input": "u@a:b:c",
+   "expect": [
+    "u",
+    "a:b:c",
+    null
+   ]
+  },
+  {
+   "name": "quick:45:'u@[1:2:3:4:5:6:7:8]'",
+   "input": "u@[1:2:3:4:5:6:7:8]",
+   "expect": [
+    "u",
+    "1:2:3:4:5:6:7:8",
+    null
+   ]
+  },
+  {
+   "name": "quick:46:'u@[host]'",
+   "input": "u@[host]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:47:'u@[host]:22'",
+   "input": "u@[host]:22",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:48:'u@h:22:33'",
+   "input": "u@h:22:33",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:49:'u@h:22x'",
+   "input": "u@h:22x",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:50:'u@[::1]x'",
+   "input": "u@[::1]x",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:51:'u@[[::1]]'",
+   "input": "u@[[::1]]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:52:'u@h]'",
+   "input": "u@h]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:53:'u@[h'",
+   "input": "u@[h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:54:'u@h['",
+   "input": "u@h[",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:55:'u@%'",
+   "input": "u@%",
+   "expect": [
+    "u",
+    "%",
+    null
+   ]
+  },
+  {
+   "name": "quick:56:'u@[%eth0]'",
+   "input": "u@[%eth0]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:57:'u@[::1%]'",
+   "input": "u@[::1%]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:58:'u@[::1%e th]'",
+   "input": "u@[::1%e th]",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:59:'u@::1%'",
+   "input": "u@::1%",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:60:'u@1.2.3.4'",
+   "input": "u@1.2.3.4",
+   "expect": [
+    "u",
+    "1.2.3.4",
+    null
+   ]
+  },
+  {
+   "name": "quick:61:'u@1.2.3.4:5'",
+   "input": "u@1.2.3.4:5",
+   "expect": [
+    "u",
+    "1.2.3.4",
+    {
+     "$int": "5"
+    }
+   ]
+  },
+  {
+   "name": "quick:62:'u@host.example:2222'",
+   "input": "u@host.example:2222",
+   "expect": [
+    "u",
+    "host.example",
+    {
+     "$int": "2222"
+    }
+   ]
+  },
+  {
+   "name": "quick:63:'żółw@zażółć:22'",
+   "input": "żółw@zażółć:22",
+   "expect": [
+    "żółw",
+    "zażółć",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:64:'u@ł'",
+   "input": "u@ł",
+   "expect": [
+    "u",
+    "ł",
+    null
+   ]
+  },
+  {
+   "name": "quick:65:'u@h:0022'",
+   "input": "u@h:0022",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:66:'u@h:00000000000000000000000000000022'",
+   "input": "u@h:00000000000000000000000000000022",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:67:'u@h:99999999999999999999999999'",
+   "input": "u@h:99999999999999999999999999",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:68:'u@h:-1'",
+   "input": "u@h:-1",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:69:'u@h:+1'",
+   "input": "u@h:+1",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:70:'user.name-1@a.b-c.example'",
+   "input": "user.name-1@a.b-c.example",
+   "expect": [
+    "user.name-1",
+    "a.b-c.example",
+    null
+   ]
+  },
+  {
+   "name": "quick:71:'-oProxy@h'",
+   "input": "-oProxy@h",
+   "expect": [
+    "-oProxy",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:72:'u@-h'",
+   "input": "u@-h",
+   "expect": [
+    "u",
+    "-h",
+    null
+   ]
+  },
+  {
+   "name": "quick:73:'u@h,x'",
+   "input": "u@h,x",
+   "expect": [
+    "u",
+    "h,x",
+    null
+   ]
+  },
+  {
+   "name": "quick:74:'u@h:22\\xa0'",
+   "input": "u@h:22 ",
+   "expect": [
+    "u",
+    "h",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "quick:75:'u@[::1]\\u2003'",
+   "input": "u@[::1] ",
+   "expect": [
+    "u",
+    "::1",
+    null
+   ]
+  },
+  {
+   "name": "quick:76:'u\\x1c@h'",
+   "input": "u\u001c@h",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:77:'u@h\\x85'",
+   "input": "u@h",
+   "expect": [
+    "u",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:78:'u@h\\x00'",
+   "input": "u@h\u0000",
+   "expect": [
+    "u",
+    "h\u0000",
+    null
+   ]
+  },
+  {
+   "name": "quick:79:'u@h/x'",
+   "input": "u@h/x",
+   "expect": [
+    "u",
+    "h/x",
+    null
+   ]
+  },
+  {
+   "name": "quick:80:'u@h;id'",
+   "input": "u@h;id",
+   "expect": [
+    "u",
+    "h;id",
+    null
+   ]
+  },
+  {
+   "name": "quick:81:\"u@'h'\"",
+   "input": "u@'h'",
+   "expect": [
+    "u",
+    "'h'",
+    null
+   ]
+  },
+  {
+   "name": "quick:82:'u@\"h\"'",
+   "input": "u@\"h\"",
+   "expect": [
+    "u",
+    "\"h\"",
+    null
+   ]
+  },
+  {
+   "name": "quick:83:'u@$(id)'",
+   "input": "u@$(id)",
+   "expect": [
+    "u",
+    "$(id)",
+    null
+   ]
+  },
+  {
+   "name": "quick:84:'u@`id`'",
+   "input": "u@`id`",
+   "expect": [
+    "u",
+    "`id`",
+    null
+   ]
+  },
+  {
+   "name": "quick:85:'u@h&'",
+   "input": "u@h&",
+   "expect": [
+    "u",
+    "h&",
+    null
+   ]
+  },
+  {
+   "name": "quick:86:'u@h|x'",
+   "input": "u@h|x",
+   "expect": [
+    "u",
+    "h|x",
+    null
+   ]
+  },
+  {
+   "name": "quick:87:'\\tu@h\\n'",
+   "input": "\tu@h\n",
+   "expect": [
+    "u",
+    "h",
+    null
+   ]
+  },
+  {
+   "name": "quick:88:'u@h:1e3'",
+   "input": "u@h:1e3",
+   "error": "SshError",
+   "message": "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, root@[2001:db8::1]:2222"
+  },
+  {
+   "name": "quick:89:'u@[::1]:0'",
+   "input": "u@[::1]:0",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:90:'u@[::1]:65535'",
+   "input": "u@[::1]:65535",
+   "expect": [
+    "u",
+    "::1",
+    {
+     "$int": "65535"
+    }
+   ]
+  },
+  {
+   "name": "quick:91:'u@[::1]:65536'",
+   "input": "u@[::1]:65536",
+   "error": "SshError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "quick:92:'u@[2001:DB8::A]:1'",
+   "input": "u@[2001:DB8::A]:1",
+   "expect": [
+    "u",
+    "2001:DB8::A",
+    {
+     "$int": "1"
+    }
+   ]
+  },
+  {
+   "name": "quick:93:'u@FE80::1'",
+   "input": "u@FE80::1",
+   "expect": [
+    "u",
+    "FE80::1",
+    null
+   ]
+  }
+ ]
+}

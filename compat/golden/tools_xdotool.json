@@ -1,0 +1,1020 @@
+{
+ "cases": [
+  {
+   "name": "window_id:0:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    ""
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:0:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    ""
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:1:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:1:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:2:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "12345\n"
+   ],
+   "expect": "12345",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:2:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "12345\n"
+   ],
+   "expect": "12345",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:3:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\n200\n300\n"
+   ],
+   "expect": "300",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:3:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\n200\n300\n"
+   ],
+   "expect": "300",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:4:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\n  200\n"
+   ],
+   "expect": "  200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:4:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\n  200\n"
+   ],
+   "expect": "  200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:5:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\nabc\n300\nx\n"
+   ],
+   "expect": "300",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:5:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\nabc\n300\nx\n"
+   ],
+   "expect": "300",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:6:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "abc\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:6:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "abc\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:7:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "12 3\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:7:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "12 3\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:8:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\n\n200\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:8:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\n\n200\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:9:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "  7  \n"
+   ],
+   "expect": "7",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:9:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "  7  \n"
+   ],
+   "expect": "7",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:10:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\r\n200\r\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:10:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\r\n200\r\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:11:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\n200"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:11:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\n200"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:12:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "-5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:12:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "-5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:13:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "+5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:13:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "+5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:14:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "1.5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:14:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "1.5\n"
+   ],
+   "expect": null,
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ],
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:15:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "0\n"
+   ],
+   "expect": "0",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:15:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "0\n"
+   ],
+   "expect": "0",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:16:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "100\n200\nWarning: x\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:16:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "100\n200\nWarning: x\n"
+   ],
+   "expect": "200",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "window_id:17:None",
+   "fn": "window_id",
+   "pid": null,
+   "outputs": [
+    "x\n100\n"
+   ],
+   "expect": "100",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--name",
+     "--onlyvisible",
+     "Konsole"
+    ]
+   ]
+  },
+  {
+   "name": "window_id:17:4242",
+   "fn": "window_id",
+   "pid": 4242,
+   "outputs": [
+    "x\n100\n"
+   ],
+   "expect": "100",
+   "argv": [
+    [
+     "xdotool",
+     "search",
+     "--pid",
+     "4242",
+     "--onlyvisible",
+     "."
+    ]
+   ]
+  },
+  {
+   "name": "geometry:0",
+   "fn": "geometry",
+   "output": "WINDOW=123\nX=10\nY=20\nWIDTH=800\nHEIGHT=600\nSCREEN=0\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "10"
+    },
+    {
+     "$int": "20"
+    },
+    {
+     "$int": "800"
+    },
+    {
+     "$int": "600"
+    }
+   ]
+  },
+  {
+   "name": "geometry:1",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\nHEIGHT=4",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "2"
+    },
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "4"
+    }
+   ]
+  },
+  {
+   "name": "geometry:2",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:3",
+   "fn": "geometry",
+   "output": "X=-1\nY=2\nWIDTH=3\nHEIGHT=4\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:4",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\nHEIGHT=4\nX=5\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "5"
+    },
+    {
+     "$int": "2"
+    },
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "4"
+    }
+   ]
+  },
+  {
+   "name": "geometry:5",
+   "fn": "geometry",
+   "output": " X=1 \n Y=2\nWIDTH=3\nHEIGHT=4\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "2"
+    },
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "4"
+    }
+   ]
+  },
+  {
+   "name": "geometry:6",
+   "fn": "geometry",
+   "output": "x=1\nY=2\nWIDTH=3\nHEIGHT=4\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:7",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\nHEIGHT=\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:8",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\nHEIGHT=4x\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:9",
+   "fn": "geometry",
+   "output": "",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:10",
+   "fn": "geometry",
+   "output": "\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:11",
+   "fn": "geometry",
+   "output": "X = 1\nY=2\nWIDTH=3\nHEIGHT=4\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": null
+  },
+  {
+   "name": "geometry:12",
+   "fn": "geometry",
+   "output": "X=0\nY=0\nWIDTH=1920\nHEIGHT=1080\r\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "0"
+    },
+    {
+     "$int": "0"
+    },
+    {
+     "$int": "1920"
+    },
+    {
+     "$int": "1080"
+    }
+   ]
+  },
+  {
+   "name": "geometry:13",
+   "fn": "geometry",
+   "output": "X=1\nY=2\nWIDTH=3\nHEIGHT=4\nWIDTH=9\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "2"
+    },
+    {
+     "$int": "9"
+    },
+    {
+     "$int": "4"
+    }
+   ]
+  },
+  {
+   "name": "geometry:14",
+   "fn": "geometry",
+   "output": "HEIGHT=4\nWIDTH=3\nY=2\nX=1\n",
+   "argv": [
+    [
+     "xdotool",
+     "getwindowgeometry",
+     "--shell",
+     "123"
+    ]
+   ],
+   "expect": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "2"
+    },
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "4"
+    }
+   ]
+  }
+ ]
+}

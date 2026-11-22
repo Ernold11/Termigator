@@ -1,0 +1,3299 @@
+{
+ "cases": [
+  {
+   "name": "telnet:0:host='sw1':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "sw1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:0:host='sw1':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "sw1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet sw1"
+   }
+  },
+  {
+   "name": "telnet:0:host='sw1':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "sw1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet sw1"
+   }
+  },
+  {
+   "name": "telnet:0:host='sw1':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "sw1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet sw1"
+   }
+  },
+  {
+   "name": "telnet:1:host='-x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:1:host='-x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "host '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:1:host='-x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "host '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:1:host='-x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "host '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:2:host=' sw 1 ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " sw 1 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host 'sw 1': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:2:host=' sw 1 ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " sw 1 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "host 'sw 1': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:2:host=' sw 1 ':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " sw 1 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'sw 1': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:2:host=' sw 1 ':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " sw 1 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'sw 1': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:3:host='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:3:host='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:3:host='':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:3:host='':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:4:host=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:4:host=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:4:host=None:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:4:host=None:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "telnet:5:host='a b':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host 'a b': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:5:host='a b':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "host 'a b': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:5:host='a b':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'a b': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:5:host='a b':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'a b': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:6:host='zażółć':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:6:host='zażółć':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 'zażółć'"
+   }
+  },
+  {
+   "name": "telnet:6:host='zażółć':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 'zażółć'"
+   }
+  },
+  {
+   "name": "telnet:6:host='zażółć':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 'zażółć'"
+   }
+  },
+  {
+   "name": "telnet:7:host='h\\xa0x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host 'h\\xa0x': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:7:host='h\\xa0x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "host 'h\\xa0x': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:7:host='h\\xa0x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'h\\xa0x': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:7:host='h\\xa0x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'h\\xa0x': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:8:host='h\\x1cx':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u001cx"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host 'h\\x1cx': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:8:host='h\\x1cx':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u001cx"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "host 'h\\x1cx': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:8:host='h\\x1cx':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u001cx"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'h\\x1cx': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:8:host='h\\x1cx':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u001cx"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "host 'h\\x1cx': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:9:host='ok-host':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ok-host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:9:host='ok-host':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ok-host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet ok-host"
+   }
+  },
+  {
+   "name": "telnet:9:host='ok-host':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ok-host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet ok-host"
+   }
+  },
+  {
+   "name": "telnet:9:host='ok-host':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ok-host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet ok-host"
+   }
+  },
+  {
+   "name": "telnet:10:host=7:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:10:host=7:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 7"
+   }
+  },
+  {
+   "name": "telnet:10:host=7:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 7"
+   }
+  },
+  {
+   "name": "telnet:10:host=7:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 7"
+   }
+  },
+  {
+   "name": "telnet:11:port=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:11:port=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:11:port=None:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:11:port=None:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:12:port=23:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:12:port=23:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:12:port=23:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:12:port=23:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:13:port='2323':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "2323"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:13:port='2323':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "2323"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:13:port='2323':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "2323"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:13:port='2323':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "2323"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:14:port='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:14:port='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:14:port='':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:14:port='':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:15:port='x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "telnet:15:port='x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "telnet:15:port='x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "telnet:15:port='x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "telnet:16:port=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:16:port=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:16:port=0:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:16:port=0:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:17:port=65536:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:17:port=65536:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:17:port=65536:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:17:port=65536:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "telnet:18:port=True:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:18:port=True:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 1"
+   }
+  },
+  {
+   "name": "telnet:18:port=True:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1 1"
+   }
+  },
+  {
+   "name": "telnet:18:port=True:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 1"
+   }
+  },
+  {
+   "name": "telnet:19:port=23.0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "23.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:19:port=23.0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "23.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:19:port=23.0:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "23.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:19:port=23.0:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "23.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1"
+   }
+  },
+  {
+   "name": "telnet:20:port=2323.7:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "2323.7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:20:port=2323.7:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "2323.7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:20:port=2323.7:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "2323.7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:20:port=2323.7:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$float": "2323.7"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:21:user='admin':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:21:user='admin':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet -l admin h"
+   }
+  },
+  {
+   "name": "telnet:21:user='admin':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet -l admin h"
+   }
+  },
+  {
+   "name": "telnet:21:user='admin':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet -l admin h"
+   }
+  },
+  {
+   "name": "telnet:22:user='-x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:22:user='-x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "user '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:22:user='-x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "user '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:22:user='-x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "user '-x': must not start with '-'"
+   }
+  },
+  {
+   "name": "telnet:23:user=' ad min ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      " ad min "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:23:user=' ad min ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      " ad min "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "user 'ad min': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:23:user=' ad min ':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      " ad min "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "user 'ad min': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:23:user=' ad min ':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      " ad min "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "user 'ad min': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:24:user='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:24:user='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:24:user='':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:24:user='':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:25:user=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:25:user=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:25:user=None:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:25:user=None:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:26:user='  u  ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "  u  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:26:user='  u  ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "  u  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet -l u h"
+   }
+  },
+  {
+   "name": "telnet:26:user='  u  ':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "  u  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet -l u h"
+   }
+  },
+  {
+   "name": "telnet:26:user='  u  ':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "  u  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet -l u h"
+   }
+  },
+  {
+   "name": "telnet:27:user=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:27:user=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:27:user=0:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:27:user=0:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:28:user='a\\tb':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "a\tb"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:28:user='a\\tb':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "a\tb"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "user 'a\\tb': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:28:user='a\\tb':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "a\tb"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "user 'a\\tb': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:28:user='a\\tb':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "a\tb"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "user 'a\\tb': must not contain spaces"
+   }
+  },
+  {
+   "name": "telnet:29:user=\"it's\":0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:29:user=\"it's\":0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet -l 'it'\"'\"'s' h"
+   }
+  },
+  {
+   "name": "telnet:29:user=\"it's\":0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet -l 'it'\"'\"'s' h"
+   }
+  },
+  {
+   "name": "telnet:29:user=\"it's\":0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet -l 'it'\"'\"'s' h"
+   }
+  },
+  {
+   "name": "telnet:30:pw='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:30:pw='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:30:pw='':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:30:pw='':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:31:pw='x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:31:pw='x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:31:pw='x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:31:pw='x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:32:pw=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:32:pw=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:32:pw=None:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:32:pw=None:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:33:pw=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:33:pw=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:33:pw=0:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet h"
+   }
+  },
+  {
+   "name": "telnet:33:pw=0:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet h"
+   }
+  },
+  {
+   "name": "telnet:34:pw=' ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:34:pw=' ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:34:pw=' ':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:34:pw=' ':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:35:full:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2323"
+      }
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "telnet is not installed (e.g. sudo apt install telnet)."
+   }
+  },
+  {
+   "name": "telnet:35:full:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2323"
+      }
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "ok": "telnet -l admin 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:35:full:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2323"
+      }
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "ok": "busybox telnet -l admin 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:35:full:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2323"
+      }
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "ok": "telnet -l admin 10.0.0.1 2323"
+   }
+  },
+  {
+   "name": "telnet:36:pw_and_bad_user:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:36:pw_and_bad_user:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:36:pw_and_bad_user:0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  },
+  {
+   "name": "telnet:36:pw_and_bad_user:0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-x"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "telnet",
+    "busybox"
+   ],
+   "expect": {
+    "err": "Telnet entries do not store a password (it would travel in clear text anyway)."
+   }
+  }
+ ]
+}

@@ -1,0 +1,1192 @@
+{
+ "cases": [
+  {
+   "name": "t:partial_tail",
+   "steps": [
+    "a 1%  1  1KB/s 00:01 ETA\rb 2%",
+    "  2  2KB/s 00:01 ETA\r\n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a 1%  1  1KB/s 00:01 ETA"
+     ],
+     "tail": "b 2%"
+    },
+    {
+     "lines": [
+      "b 2%  2  2KB/s 00:01 ETA"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "empty_chunk",
+   "steps": [
+    ""
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "only_cr",
+   "steps": [
+    "\r\r\r"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "crlf",
+   "steps": [
+    "a\r\nb\r\n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a",
+      "b"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "lf_only",
+   "steps": [
+    "a\nb\nc"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a",
+      "b"
+     ],
+     "tail": "c"
+    }
+   ]
+  },
+  {
+   "name": "blank_lines_dropped",
+   "steps": [
+    "a\n\n  \n\t\nb\n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a",
+      "b"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "cr_split_across",
+   "steps": [
+    "abc\r",
+    "\ndef",
+    "\r"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "abc"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "def"
+    },
+    {
+     "lines": [
+      "def"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "unicode",
+   "steps": [
+    "zażółć\rgęślą\n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "zażółć",
+      "gęślą"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "ws_only_tail",
+   "steps": [
+    "a\n   "
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a"
+     ],
+     "tail": "   "
+    }
+   ]
+  },
+  {
+   "name": "fs_line",
+   "steps": [
+    "\u001c\u001d\n"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "nbsp_line",
+   "steps": [
+    " \nx\n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "x"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:0",
+   "steps": [
+    "%a",
+    "b",
+    "a\rab%"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "%a"
+    },
+    {
+     "lines": [],
+     "tail": "%ab"
+    },
+    {
+     "lines": [
+      "%aba"
+     ],
+     "tail": "ab%"
+    }
+   ]
+  },
+  {
+   "name": "rand:1",
+   "steps": [
+    "\r",
+    "%",
+    "",
+    "\r"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "%"
+    },
+    {
+     "lines": [],
+     "tail": "%"
+    },
+    {
+     "lines": [
+      "%"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:2",
+   "steps": [
+    "",
+    "a\ra \n%",
+    "b\n",
+    " b\r\tbba\r",
+    "%\téé\t\n\r"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [
+      "a",
+      "a "
+     ],
+     "tail": "%"
+    },
+    {
+     "lines": [
+      "%b"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [
+      " b",
+      "\tbba"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [
+      "%\téé\t"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:3",
+   "steps": [
+    "b\né",
+    "é\nbb%"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "b"
+     ],
+     "tail": "é"
+    },
+    {
+     "lines": [
+      "éé"
+     ],
+     "tail": "bb%"
+    }
+   ]
+  },
+  {
+   "name": "rand:4",
+   "steps": [
+    " é%ab",
+    "\t\t\téébb\n"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": " é%ab"
+    },
+    {
+     "lines": [
+      " é%ab\t\t\téébb"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:5",
+   "steps": [
+    "a",
+    "é\n%\t",
+    "",
+    "\t béa\r\n"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "a"
+    },
+    {
+     "lines": [
+      "aé"
+     ],
+     "tail": "%\t"
+    },
+    {
+     "lines": [],
+     "tail": "%\t"
+    },
+    {
+     "lines": [
+      "%\t\t béa"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:6",
+   "steps": [
+    "%%é",
+    " "
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "%%é"
+    },
+    {
+     "lines": [],
+     "tail": "%%é "
+    }
+   ]
+  },
+  {
+   "name": "rand:7",
+   "steps": [
+    "\n %\n%\t",
+    "\r b  \r",
+    "aé ",
+    "\na %"
+   ],
+   "expect": [
+    {
+     "lines": [
+      " %"
+     ],
+     "tail": "%\t"
+    },
+    {
+     "lines": [
+      "%\t",
+      " b  "
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "aé "
+    },
+    {
+     "lines": [
+      "aé "
+     ],
+     "tail": "a %"
+    }
+   ]
+  },
+  {
+   "name": "rand:8",
+   "steps": [
+    "\t aé%",
+    "%%bé%a",
+    "b\ré",
+    "b\t",
+    ""
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "\t aé%"
+    },
+    {
+     "lines": [],
+     "tail": "\t aé%%%bé%a"
+    },
+    {
+     "lines": [
+      "\t aé%%%bé%ab"
+     ],
+     "tail": "é"
+    },
+    {
+     "lines": [],
+     "tail": "éb\t"
+    },
+    {
+     "lines": [],
+     "tail": "éb\t"
+    }
+   ]
+  },
+  {
+   "name": "rand:9",
+   "steps": [
+    ""
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:10",
+   "steps": [
+    "b\t",
+    "",
+    "\r",
+    " \n\t\téb",
+    "é"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "b\t"
+    },
+    {
+     "lines": [],
+     "tail": "b\t"
+    },
+    {
+     "lines": [
+      "b\t"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "\t\téb"
+    },
+    {
+     "lines": [],
+     "tail": "\t\tébé"
+    }
+   ]
+  },
+  {
+   "name": "rand:11",
+   "steps": [
+    "é\nb b\t\n",
+    " a\r\t a\n",
+    "\n",
+    "\t \t\r\t\r\r\r"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "é",
+      "b b\t"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [
+      " a",
+      "\t a"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:12",
+   "steps": [
+    "\ré\t",
+    "",
+    "",
+    "é\n\r\t"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "é\t"
+    },
+    {
+     "lines": [],
+     "tail": "é\t"
+    },
+    {
+     "lines": [],
+     "tail": "é\t"
+    },
+    {
+     "lines": [
+      "é\té"
+     ],
+     "tail": "\t"
+    }
+   ]
+  },
+  {
+   "name": "rand:13",
+   "steps": [
+    "\tb\rb\r",
+    "\r\t\réaé\t",
+    "b",
+    "\ré %\tb"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "\tb",
+      "b"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "éaé\t"
+    },
+    {
+     "lines": [],
+     "tail": "éaé\tb"
+    },
+    {
+     "lines": [
+      "éaé\tb"
+     ],
+     "tail": "é %\tb"
+    }
+   ]
+  },
+  {
+   "name": "rand:14",
+   "steps": [
+    "%b   a ",
+    " é\t  aa",
+    " ",
+    "\r\ra\n\r\n"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "%b   a "
+    },
+    {
+     "lines": [],
+     "tail": "%b   a  é\t  aa"
+    },
+    {
+     "lines": [],
+     "tail": "%b   a  é\t  aa "
+    },
+    {
+     "lines": [
+      "%b   a  é\t  aa ",
+      "a"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:15",
+   "steps": [
+    "\t\n%",
+    "a\t",
+    "%  aé a",
+    "  ",
+    "ba\téba\r"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "%"
+    },
+    {
+     "lines": [],
+     "tail": "%a\t"
+    },
+    {
+     "lines": [],
+     "tail": "%a\t%  aé a"
+    },
+    {
+     "lines": [],
+     "tail": "%a\t%  aé a  "
+    },
+    {
+     "lines": [
+      "%a\t%  aé a  ba\téba"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:16",
+   "steps": [
+    "abéa",
+    "é"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "abéa"
+    },
+    {
+     "lines": [],
+     "tail": "abéaé"
+    }
+   ]
+  },
+  {
+   "name": "rand:17",
+   "steps": [
+    "\r\néé\r\n\ré",
+    "%b",
+    "é\tb\r%b"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "éé"
+     ],
+     "tail": "é"
+    },
+    {
+     "lines": [],
+     "tail": "é%b"
+    },
+    {
+     "lines": [
+      "é%bé\tb"
+     ],
+     "tail": "%b"
+    }
+   ]
+  },
+  {
+   "name": "rand:18",
+   "steps": [
+    "b \t ",
+    " é\rb"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "b \t "
+    },
+    {
+     "lines": [
+      "b \t  é"
+     ],
+     "tail": "b"
+    }
+   ]
+  },
+  {
+   "name": "rand:19",
+   "steps": [
+    " \r %%\t%",
+    "\t\tb",
+    "a\tééa",
+    "\t\nbb\rb"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": " %%\t%"
+    },
+    {
+     "lines": [],
+     "tail": " %%\t%\t\tb"
+    },
+    {
+     "lines": [],
+     "tail": " %%\t%\t\tba\tééa"
+    },
+    {
+     "lines": [
+      " %%\t%\t\tba\tééa\t",
+      "bb"
+     ],
+     "tail": "b"
+    }
+   ]
+  },
+  {
+   "name": "rand:20",
+   "steps": [
+    "\na \n"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "a "
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:21",
+   "steps": [
+    "\n% é\tb",
+    "a %b"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "% é\tb"
+    },
+    {
+     "lines": [],
+     "tail": "% é\tba %b"
+    }
+   ]
+  },
+  {
+   "name": "rand:22",
+   "steps": [
+    "",
+    "\n",
+    "\r"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:23",
+   "steps": [
+    "béa\t"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "béa\t"
+    }
+   ]
+  },
+  {
+   "name": "rand:24",
+   "steps": [
+    "\n a\rb ",
+    "a \r\n",
+    "\r\né ",
+    "\ta\na",
+    ""
+   ],
+   "expect": [
+    {
+     "lines": [
+      " a"
+     ],
+     "tail": "b "
+    },
+    {
+     "lines": [
+      "b a "
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "é "
+    },
+    {
+     "lines": [
+      "é \ta"
+     ],
+     "tail": "a"
+    },
+    {
+     "lines": [],
+     "tail": "a"
+    }
+   ]
+  },
+  {
+   "name": "rand:25",
+   "steps": [
+    "\ré\réb%é%"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "é"
+     ],
+     "tail": "éb%é%"
+    }
+   ]
+  },
+  {
+   "name": "rand:26",
+   "steps": [
+    "\r\r\t\r",
+    "%\t",
+    "",
+    "ab",
+    "% ab"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "%\t"
+    },
+    {
+     "lines": [],
+     "tail": "%\t"
+    },
+    {
+     "lines": [],
+     "tail": "%\tab"
+    },
+    {
+     "lines": [],
+     "tail": "%\tab% ab"
+    }
+   ]
+  },
+  {
+   "name": "rand:27",
+   "steps": [
+    "\n\r\naé  \n",
+    "a\n\t\t\t\ra",
+    "\r\t a",
+    "%bé\n\r"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "aé  "
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [
+      "a"
+     ],
+     "tail": "a"
+    },
+    {
+     "lines": [
+      "a"
+     ],
+     "tail": "\t a"
+    },
+    {
+     "lines": [
+      "\t a%bé"
+     ],
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "name": "rand:28",
+   "steps": [
+    "ab\nb %a%",
+    ""
+   ],
+   "expect": [
+    {
+     "lines": [
+      "ab"
+     ],
+     "tail": "b %a%"
+    },
+    {
+     "lines": [],
+     "tail": "b %a%"
+    }
+   ]
+  },
+  {
+   "name": "rand:29",
+   "steps": [
+    "\rb %",
+    "é \n a",
+    "% a\rbaa "
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "b %"
+    },
+    {
+     "lines": [
+      "b %é "
+     ],
+     "tail": " a"
+    },
+    {
+     "lines": [
+      " a% a"
+     ],
+     "tail": "baa "
+    }
+   ]
+  },
+  {
+   "name": "rand:30",
+   "steps": [
+    "%",
+    "aa\ré\naé",
+    "b"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "%"
+    },
+    {
+     "lines": [
+      "%aa",
+      "é"
+     ],
+     "tail": "aé"
+    },
+    {
+     "lines": [],
+     "tail": "aéb"
+    }
+   ]
+  },
+  {
+   "name": "rand:31",
+   "steps": [
+    "é",
+    "b\n\r\r",
+    "éé%",
+    "é",
+    "a\rb "
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "é"
+    },
+    {
+     "lines": [
+      "éb"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [],
+     "tail": "éé%"
+    },
+    {
+     "lines": [],
+     "tail": "éé%é"
+    },
+    {
+     "lines": [
+      "éé%éa"
+     ],
+     "tail": "b "
+    }
+   ]
+  },
+  {
+   "name": "rand:32",
+   "steps": [
+    "\n aé",
+    "",
+    "\nb\ré\n\né"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": " aé"
+    },
+    {
+     "lines": [],
+     "tail": " aé"
+    },
+    {
+     "lines": [
+      " aé",
+      "b",
+      "é"
+     ],
+     "tail": "é"
+    }
+   ]
+  },
+  {
+   "name": "rand:33",
+   "steps": [
+    "b\r\nbéa\n",
+    "bé\n%\r\rb",
+    " ",
+    "\n\t \nb\t\ré"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "b",
+      "béa"
+     ],
+     "tail": ""
+    },
+    {
+     "lines": [
+      "bé",
+      "%"
+     ],
+     "tail": "b"
+    },
+    {
+     "lines": [],
+     "tail": "b "
+    },
+    {
+     "lines": [
+      "b ",
+      "b\t"
+     ],
+     "tail": "é"
+    }
+   ]
+  },
+  {
+   "name": "rand:34",
+   "steps": [
+    "a aéé%",
+    " %\t%",
+    "b\ta\t\t",
+    "b\ra\n\n\t"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "a aéé%"
+    },
+    {
+     "lines": [],
+     "tail": "a aéé% %\t%"
+    },
+    {
+     "lines": [],
+     "tail": "a aéé% %\t%b\ta\t\t"
+    },
+    {
+     "lines": [
+      "a aéé% %\t%b\ta\t\tb",
+      "a"
+     ],
+     "tail": "\t"
+    }
+   ]
+  },
+  {
+   "name": "rand:35",
+   "steps": [
+    "%b\t%\na"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "%b\t%"
+     ],
+     "tail": "a"
+    }
+   ]
+  },
+  {
+   "name": "rand:36",
+   "steps": [
+    "a",
+    " \r\n%",
+    "\t\r\t%a%\rb"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": "a"
+    },
+    {
+     "lines": [
+      "a "
+     ],
+     "tail": "%"
+    },
+    {
+     "lines": [
+      "%\t",
+      "\t%a%"
+     ],
+     "tail": "b"
+    }
+   ]
+  },
+  {
+   "name": "rand:37",
+   "steps": [
+    "é \néa "
+   ],
+   "expect": [
+    {
+     "lines": [
+      "é "
+     ],
+     "tail": "éa "
+    }
+   ]
+  },
+  {
+   "name": "rand:38",
+   "steps": [
+    "%\t\n\n\n\n%",
+    "\né%"
+   ],
+   "expect": [
+    {
+     "lines": [
+      "%\t"
+     ],
+     "tail": "%"
+    },
+    {
+     "lines": [
+      "%"
+     ],
+     "tail": "é%"
+    }
+   ]
+  },
+  {
+   "name": "rand:39",
+   "steps": [
+    " b"
+   ],
+   "expect": [
+    {
+     "lines": [],
+     "tail": " b"
+    }
+   ]
+  }
+ ]
+}

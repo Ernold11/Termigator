@@ -1,0 +1,49 @@
+name: Bug report
+description: Something does not work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security problems: please do not open an issue, see SECURITY.md.
+        **Remove real host names, user names and passwords** from everything you paste.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "`termigator --version`, or the commit when built from source"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: Distribution and desktop (e.g. Arch Linux, KDE Plasma 6.5, Wayland) or Windows version
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installed from
+      options: [.deb, bundled .deb (Mint / Ubuntu 24.04), Arch package, AppImage, Windows installer, source (install.sh / cargo)]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. …\n2. …"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected and what happened
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: "Started from a terminal or with ./run-termigator.sh (log in /tmp/termigator.log)"
+      render: text

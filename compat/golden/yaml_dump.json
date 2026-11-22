@@ -1,0 +1,5438 @@
+{
+ "cases": [
+  {
+   "name": "file:config_commented.yaml",
+   "value": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "expect": "window:\n  width: 1280\n  height: 0\n  list_width: 320\n  always_on_top: true\n  default_terminal: embedded\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:\n    - 900\n    - 640\n    ConnectionDialog:\n    - 720\n    - 560\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: zsh\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90\n  umask: 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: Hack\n  font_size: 11\nfavorites:\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:session_canonical.yaml",
+   "value": [
+    {
+     "$map": [
+      [
+       "label",
+       "web-01"
+      ],
+      [
+       "host",
+       "web-01.example.test"
+      ],
+      [
+       "user",
+       "deploy"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "terminal",
+       "embedded"
+      ],
+      [
+       "group",
+       "Production/Web"
+      ],
+      [
+       "protocol",
+       "ssh"
+      ],
+      [
+       "password",
+       "enc:v1:QUFBQUFBQUFBQUFBQUFBQS1ub3QtYS1yZWFsLXNlYWxlZC1wYXNzd29yZC1qdXN0LWEtZml4dHVyZQ=="
+      ],
+      [
+       "identity_file",
+       "~/.ssh/id_ed25519_fixture"
+      ],
+      [
+       "extra_ssh_args",
+       "-o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o ServerAliveCountMax=4 -C"
+      ],
+      [
+       "local_forwards",
+       [
+        "8080:localhost:80",
+        "15432:db.internal.test:5432"
+       ]
+      ],
+      [
+       "remote_forwards",
+       []
+      ],
+      [
+       "dynamic_forward",
+       "1080"
+      ],
+      [
+       "forward_agent",
+       true
+      ],
+      [
+       "compression",
+       false
+      ],
+      [
+       "tags",
+       [
+        "prod",
+        "web",
+        "nginx"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Serwer główny – Łódź (zażółć gęślą jaźń)"
+      ],
+      [
+       "host",
+       "192.0.2.10"
+      ],
+      [
+       "user",
+       "admin"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Biuro/Łódź/Piętro 2"
+      ],
+      [
+       "password",
+       "hunter2-fixture"
+      ],
+      [
+       "jump_host",
+       "bastion@198.51.100.7:2200"
+      ],
+      [
+       "startup_commands",
+       [
+        "cd /srv/app",
+        "export LANG=pl_PL.UTF-8",
+        "tmux attach || tmux"
+       ]
+      ],
+      [
+       "notes",
+       "Line one\nLine two: with colon\n\n  indented line\ntrailing spaces   "
+      ],
+      [
+       "remote_locale",
+       "pl_PL.UTF-8"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "yes"
+      ],
+      [
+       "host",
+       "0777"
+      ],
+      [
+       "user",
+       "1:30"
+      ],
+      [
+       "port",
+       "2026-01-02"
+      ],
+      [
+       "group",
+       "on"
+      ],
+      [
+       "protocol",
+       "3.14"
+      ],
+      [
+       "password",
+       "1e3"
+      ],
+      [
+       "identity_file",
+       "1_000"
+      ],
+      [
+       "extra_ssh_args",
+       "0x1F"
+      ],
+      [
+       "terminal",
+       "~"
+      ],
+      [
+       "tags",
+       [
+        "null",
+        "No",
+        "OFF",
+        "true",
+        ".inf",
+        "-.5",
+        "+1",
+        "0b101",
+        "<<",
+        "=",
+        "y",
+        "n",
+        "190:20:30"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "quotes 'single' and \"double\""
+      ],
+      [
+       "host",
+       "host-with-#hash.example.test"
+      ],
+      [
+       "user",
+       "  leading and trailing  "
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "group",
+       "a: b"
+      ],
+      [
+       "password",
+       "#not a comment"
+      ],
+      [
+       "identity_file",
+       ""
+      ],
+      [
+       "extra_ssh_args",
+       "-L 9000:localhost:9000 # forward"
+      ],
+      [
+       "remote_command",
+       "echo 'it''s' && printf \"%s\\n\" \"$HOME\""
+      ],
+      [
+       "notes",
+       "tab\there, backslash \\ and bell \u0007 and nel  end"
+      ],
+      [
+       "tags",
+       []
+      ],
+      [
+       "request_tty",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "A very long label that goes well past the eighty column limit of PyYAML emitter width"
+      ],
+      [
+       "host",
+       "2001:db8::1"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "65535"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "domain",
+       "EXAMPLE"
+      ],
+      [
+       "resolution",
+       "1920x1080"
+      ],
+      [
+       "shared_folders",
+       [
+        "/home/user/Shared Folder With Spaces",
+        "/tmp"
+       ]
+      ],
+      [
+       "fullscreen",
+       true
+      ],
+      [
+       "multimon",
+       false
+      ],
+      [
+       "notes",
+       "averyveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylongwordwithoutspaces"
+      ],
+      [
+       "description",
+       "Ten opis jest bardzo długi i zawiera polskie znaki ąćęłńóśźż oraz emoji 🚀 żeby sprawdzić zawijanie wierszy przez emiter"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "serial-console"
+      ],
+      [
+       "protocol",
+       "serial"
+      ],
+      [
+       "device",
+       "/dev/ttyUSB0"
+      ],
+      [
+       "baud",
+       {
+        "$int": "115200"
+       }
+      ],
+      [
+       "parity",
+       "none"
+      ],
+      [
+       "stop_bits",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "flow",
+       "none"
+      ],
+      [
+       "port",
+       {
+        "$int": "-1"
+       }
+      ],
+      [
+       "ratio",
+       {
+        "$float": "0.5"
+       }
+      ],
+      [
+       "big",
+       {
+        "$int": "12345678901234567"
+       }
+      ],
+      [
+       "tiny",
+       {
+        "$float": "1e-07"
+       }
+      ],
+      [
+       "huge",
+       {
+        "$float": "1e+17"
+       }
+      ],
+      [
+       "neg_zero",
+       {
+        "$float": "-0.0"
+       }
+      ],
+      [
+       "groups",
+       {
+        "$map": [
+         [
+          "nested",
+          {
+           "$map": [
+            [
+             "deeper",
+             [
+              {
+               "$int": "1"
+              },
+              [
+               {
+                "$int": "2"
+               },
+               {
+                "$int": "3"
+               }
+              ],
+              {
+               "$map": [
+                [
+                 "k",
+                 "v"
+                ]
+               ]
+              }
+             ]
+            ],
+            [
+             "empty_map",
+             {
+              "$map": []
+             }
+            ],
+            [
+             "empty_list",
+             []
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "telnet-router"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ],
+      [
+       "host",
+       "router.example.test"
+      ],
+      [
+       "port",
+       {
+        "$int": "23"
+       }
+      ],
+      [
+       "group",
+       "Network/Routers/Core"
+      ],
+      [
+       "user",
+       null
+      ],
+      [
+       "password",
+       null
+      ],
+      [
+       "vnc_password",
+       "- dash start"
+      ],
+      [
+       "x",
+       "? question"
+      ],
+      [
+       "y",
+       ": colon start"
+      ],
+      [
+       "z",
+       "@at"
+      ],
+      [
+       "w",
+       "`backtick"
+      ],
+      [
+       "v",
+       "%percent"
+      ],
+      [
+       "u",
+       "!bang"
+      ],
+      [
+       "t",
+       "&amp"
+      ],
+      [
+       "s",
+       "*star"
+      ],
+      [
+       "r",
+       "|pipe"
+      ],
+      [
+       "q",
+       ">gt"
+      ],
+      [
+       "p",
+       "[bracket"
+      ],
+      [
+       "o",
+       "{brace"
+      ],
+      [
+       "m",
+       "comma, inside"
+      ],
+      [
+       "l",
+       "trailing colon:"
+      ],
+      [
+       "k",
+       "--- document"
+      ],
+      [
+       "j",
+       "... end"
+      ]
+     ]
+    }
+   ],
+   "expect": "- label: web-01\n  host: web-01.example.test\n  user: deploy\n  port: 22\n  terminal: embedded\n  group: Production/Web\n  protocol: ssh\n  password: enc:v1:QUFBQUFBQUFBQUFBQUFBQS1ub3QtYS1yZWFsLXNlYWxlZC1wYXNzd29yZC1qdXN0LWEtZml4dHVyZQ==\n  identity_file: ~/.ssh/id_ed25519_fixture\n  extra_ssh_args: -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o\n    ServerAliveCountMax=4 -C\n  local_forwards:\n  - 8080:localhost:80\n  - 15432:db.internal.test:5432\n  remote_forwards: []\n  dynamic_forward: '1080'\n  forward_agent: true\n  compression: false\n  tags:\n  - prod\n  - web\n  - nginx\n- label: Serwer główny – Łódź (zażółć gęślą jaźń)\n  host: 192.0.2.10\n  user: admin\n  port: 2222\n  group: Biuro/Łódź/Piętro 2\n  password: hunter2-fixture\n  jump_host: bastion@198.51.100.7:2200\n  startup_commands:\n  - cd /srv/app\n  - export LANG=pl_PL.UTF-8\n  - tmux attach || tmux\n  notes: \"Line one\\nLine two: with colon\\n\\n  indented line\\ntrailing spaces   \"\n  remote_locale: pl_PL.UTF-8\n- label: 'yes'\n  host: '0777'\n  user: '1:30'\n  port: '2026-01-02'\n  group: 'on'\n  protocol: '3.14'\n  password: 1e3\n  identity_file: '1_000'\n  extra_ssh_args: '0x1F'\n  terminal: '~'\n  tags:\n  - 'null'\n  - 'No'\n  - 'OFF'\n  - 'true'\n  - '.inf'\n  - -.5\n  - '+1'\n  - '0b101'\n  - '<<'\n  - '='\n  - y\n  - n\n  - '190:20:30'\n- label: quotes 'single' and \"double\"\n  host: host-with-#hash.example.test\n  user: '  leading and trailing  '\n  port: 0\n  group: 'a: b'\n  password: '#not a comment'\n  identity_file: ''\n  extra_ssh_args: '-L 9000:localhost:9000 # forward'\n  remote_command: echo 'it''s' && printf \"%s\\n\" \"$HOME\"\n  notes: \"tab\\there, backslash \\\\ and bell \\a and nel \\N end\"\n  tags: []\n  request_tty: null\n- label: A very long label that goes well past the eighty column limit of PyYAML emitter\n    width\n  host: 2001:db8::1\n  user: u\n  port: 65535\n  protocol: rdp\n  domain: EXAMPLE\n  resolution: 1920x1080\n  shared_folders:\n  - /home/user/Shared Folder With Spaces\n  - /tmp\n  fullscreen: true\n  multimon: false\n  notes: averyveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylongwordwithoutspaces\n  description: Ten opis jest bardzo długi i zawiera polskie znaki ąćęłńóśźż oraz emoji\n    🚀 żeby sprawdzić zawijanie wierszy przez emiter\n- label: serial-console\n  protocol: serial\n  device: /dev/ttyUSB0\n  baud: 115200\n  parity: none\n  stop_bits: 1\n  flow: none\n  port: -1\n  ratio: 0.5\n  big: 12345678901234567\n  tiny: 1.0e-07\n  huge: 1.0e+17\n  neg_zero: -0.0\n  groups:\n    nested:\n      deeper:\n      - 1\n      - - 2\n        - 3\n      - k: v\n      empty_map: {}\n      empty_list: []\n- label: telnet-router\n  protocol: telnet\n  host: router.example.test\n  port: 23\n  group: Network/Routers/Core\n  user: null\n  password: null\n  vnc_password: '- dash start'\n  x: '? question'\n  y: ': colon start'\n  z: '@at'\n  w: '`backtick'\n  v: '%percent'\n  u: '!bang'\n  t: '&amp'\n  s: '*star'\n  r: '|pipe'\n  q: '>gt'\n  p: '[bracket'\n  o: '{brace'\n  m: comma, inside\n  l: 'trailing colon:'\n  k: '--- document'\n  j: '... end'\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:session_handwritten.yaml",
+   "value": {
+    "$map": [
+     [
+      "defaults",
+      {
+       "$map": [
+        [
+         "user",
+         "ops"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "terminal",
+         "embedded"
+        ],
+        [
+         "forward_agent",
+         true
+        ],
+        [
+         "compression",
+         false
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "user",
+          "ops"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "terminal",
+          "embedded"
+         ],
+         [
+          "forward_agent",
+          true
+         ],
+         [
+          "compression",
+          false
+         ],
+         [
+          "label",
+          "db-primary"
+         ],
+         [
+          "host",
+          "db-01.example.test"
+         ],
+         [
+          "group",
+          "Production/DB"
+         ],
+         [
+          "local_forwards",
+          [
+           "5432:localhost:5432",
+           "6432:localhost:6432"
+          ]
+         ],
+         [
+          "tags",
+          [
+           "prod",
+           "db"
+          ]
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "user",
+          "ops"
+         ],
+         [
+          "port",
+          {
+           "$int": "2202"
+          }
+         ],
+         [
+          "terminal",
+          "embedded"
+         ],
+         [
+          "forward_agent",
+          true
+         ],
+         [
+          "compression",
+          false
+         ],
+         [
+          "label",
+          "db-replica"
+         ],
+         [
+          "host",
+          "db-02.example.test"
+         ],
+         [
+          "tags",
+          [
+           "prod",
+           "db"
+          ]
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Kraków – biuro"
+         ],
+         [
+          "host",
+          "192.0.2.44"
+         ],
+         [
+          "user",
+          "root"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "password",
+          "it's a secret, isn't it"
+         ],
+         [
+          "group",
+          "Biuro / Kraków"
+         ],
+         [
+          "notes",
+          "First line\n  indented second line\n\nafter an empty line\n"
+         ],
+         [
+          "banner",
+          "folded text joined with spaces"
+         ],
+         [
+          "script",
+          "keep trailing newlines\n\n"
+         ],
+         [
+          "timeout",
+          {
+           "$int": "90"
+          }
+         ],
+         [
+          "umask",
+          {
+           "$int": "18"
+          }
+         ],
+         [
+          "started",
+          {
+           "$timestamp": "2026-01-02"
+          }
+         ],
+         [
+          "seen",
+          {
+           "$timestamp": "2026-01-02 10:20:30.500000+02:00"
+          }
+         ],
+         [
+          "ratio",
+          {
+           "$float": "1000.5"
+          }
+         ],
+         [
+          "nothing",
+          null
+         ],
+         [
+          "empty",
+          null
+         ],
+         [
+          "nan",
+          {
+           "$float": "nan"
+          }
+         ],
+         [
+          "inf",
+          {
+           "$float": "-inf"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "flow-entry"
+         ],
+         [
+          "host",
+          "flow.example.test"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "tags",
+          [
+           "a",
+           "b"
+          ]
+         ],
+         [
+          "x11",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "multi line plain"
+         ],
+         [
+          "host",
+          "plain.example.test"
+         ],
+         [
+          "description",
+          "this plain scalar continues on the next line and the next"
+         ],
+         [
+          "quoted",
+          "double quoted folded across lines\twith\\escapes Aą🚀"
+         ],
+         [
+          "single",
+          "single quoted\nwith a blank line"
+         ],
+         [
+          "complex key",
+          "complex value"
+         ],
+         [
+          "quoted key",
+          {
+           "$int": "1"
+          }
+         ],
+         [
+          {
+           "$int": "123"
+          },
+          "int key"
+         ],
+         [
+          true,
+          "bool key"
+         ],
+         [
+          null,
+          "null key"
+         ],
+         [
+          {
+           "$float": "1.5"
+          },
+          "float key"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expect": "defaults:\n  user: ops\n  port: 22\n  terminal: embedded\n  forward_agent: true\n  compression: false\nconnections:\n- user: ops\n  port: 22\n  terminal: embedded\n  forward_agent: true\n  compression: false\n  label: db-primary\n  host: db-01.example.test\n  group: Production/DB\n  local_forwards:\n  - 5432:localhost:5432\n  - 6432:localhost:6432\n  tags:\n  - prod\n  - db\n- user: ops\n  port: 2202\n  terminal: embedded\n  forward_agent: true\n  compression: false\n  label: db-replica\n  host: db-02.example.test\n  tags:\n  - prod\n  - db\n- label: Kraków – biuro\n  host: 192.0.2.44\n  user: root\n  port: 22\n  password: it's a secret, isn't it\n  group: Biuro / Kraków\n  notes: \"First line\\n  indented second line\\n\\nafter an empty line\\n\"\n  banner: folded text joined with spaces\n  script: 'keep trailing newlines\n\n\n    '\n  timeout: 90\n  umask: 18\n  started: 2026-01-02\n  seen: 2026-01-02 10:20:30.500000+02:00\n  ratio: 1000.5\n  nothing: null\n  empty: null\n  nan: .nan\n  inf: -.inf\n- label: flow-entry\n  host: flow.example.test\n  port: 22\n  tags:\n  - a\n  - b\n  x11: false\n- label: multi line plain\n  host: plain.example.test\n  description: this plain scalar continues on the next line and the next\n  quoted: \"double quoted folded across lines\\twith\\\\escapes Aą\\U0001F680\"\n  single: 'single quoted\n\n    with a blank line'\n  complex key: complex value\n  quoted key: 1\n  123: int key\n  true: bool key\n  null: null key\n  1.5: float key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_anchors.yaml",
+   "value": {
+    "$map": [
+     [
+      "base",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ]
+       ]
+      }
+     ],
+     [
+      "extra",
+      {
+       "$map": [
+        [
+         "user",
+         "extra"
+        ],
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ],
+     [
+      "scalar",
+      "hello"
+     ],
+     [
+      "list",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       }
+      ]
+     ],
+     [
+      "use_scalar",
+      "hello"
+     ],
+     [
+      "use_list",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       }
+      ]
+     ],
+     [
+      "merged_one",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "2222"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ]
+       ]
+      }
+     ],
+     [
+      "merged_list",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "extra"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "label",
+         "both"
+        ]
+       ]
+      }
+     ],
+     [
+      "merged_after",
+      {
+       "$map": [
+        [
+         "host",
+         "own.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ],
+        [
+         "label",
+         "own first"
+        ]
+       ]
+      }
+     ],
+     [
+      "inline_merge",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "b",
+         {
+          "$int": "3"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "hello",
+      "aliased key"
+     ],
+     [
+      "under_score",
+      "x"
+     ],
+     [
+      "use_under",
+      "x"
+     ],
+     [
+      "<<",
+      "quoted merge key is a plain string key"
+     ]
+    ]
+   },
+   "expect": "base:\n  host: base.example.test\n  port: 22\n  user: base\nextra:\n  user: extra\n  shell: zsh\nscalar: hello\nlist:\n- 1\n- 2\nuse_scalar: hello\nuse_list:\n- 1\n- 2\nmerged_one:\n  host: base.example.test\n  port: 2222\n  user: base\nmerged_list:\n  host: base.example.test\n  port: 22\n  user: extra\n  shell: zsh\n  label: both\nmerged_after:\n  host: own.example.test\n  port: 22\n  user: base\n  label: own first\ninline_merge:\n  a: 1\n  b: 3\nhello: aliased key\nunder_score: x\nuse_under: x\n'<<': quoted merge key is a plain string key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_documents.yaml",
+   "value": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "expect": "a: 1\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_flow.yaml",
+   "value": {
+    "$map": [
+     [
+      "seq",
+      [
+       "a",
+       "b",
+       "c"
+      ]
+     ],
+     [
+      "trailing",
+      [
+       "a",
+       "b"
+      ]
+     ],
+     [
+      "nested",
+      [
+       [
+        {
+         "$int": "1"
+        },
+        {
+         "$int": "2"
+        }
+       ],
+       {
+        "$map": [
+         [
+          "k",
+          "v"
+         ]
+        ]
+       },
+       []
+      ]
+     ],
+     [
+      "map",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "b",
+         "two"
+        ],
+        [
+         "c",
+         [
+          "x",
+          "y"
+         ]
+        ]
+       ]
+      }
+     ],
+     [
+      "empty_value",
+      {
+       "$map": [
+        [
+         "a",
+         null
+        ],
+        [
+         "b",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "single_pair",
+      [
+       {
+        "$map": [
+         [
+          "a",
+          {
+           "$int": "1"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "b",
+          {
+           "$int": "2"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "json_like",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "y",
+         [
+          true,
+          false,
+          null
+         ]
+        ]
+       ]
+      }
+     ],
+     [
+      "multi_line",
+      [
+       "one",
+       "two",
+       "three continued"
+      ]
+     ],
+     [
+      "question",
+      {
+       "$map": [
+        [
+         "k",
+         "v"
+        ]
+       ]
+      }
+     ],
+     [
+      "colon_plain",
+      {
+       "$map": [
+        [
+         "url",
+         "http://example.test:80"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "expect": "seq:\n- a\n- b\n- c\ntrailing:\n- a\n- b\nnested:\n- - 1\n  - 2\n- k: v\n- []\nmap:\n  a: 1\n  b: two\n  c:\n  - x\n  - y\nempty_value:\n  a: null\n  b: 1\nsingle_pair:\n- a: 1\n- b: 2\njson_like:\n  x: 1\n  y:\n  - true\n  - false\n  - null\nmulti_line:\n- one\n- two\n- three continued\nquestion:\n  k: v\ncolon_plain:\n  url: http://example.test:80\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_keys.yaml",
+   "value": {
+    "$map": [
+     [
+      "dup",
+      "second"
+     ],
+     [
+      "other",
+      "x"
+     ],
+     [
+      {
+       "$int": "1"
+      },
+      "float one replaces again"
+     ],
+     [
+      "=",
+      "equals key"
+     ],
+     [
+      "block key\n",
+      "block key value"
+     ]
+    ]
+   },
+   "expect": "dup: second\nother: x\n1: float one replaces again\n'=': equals key\n? 'block key\n\n  '\n: block key value\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_scalars.yaml",
+   "value": {
+    "$map": [
+     [
+      "escapes",
+      "tab\t nl\n cr\r bs\\ quote\" slash/ nul\u0000 bell\u0007 esc\u001b nel nbsp  ls  ps  xA ué U😀 sp end"
+     ],
+     [
+      "continued",
+      "first second"
+     ],
+     [
+      "literal_keep",
+      "kept\n\n\n"
+     ],
+     [
+      "literal_strip",
+      "stripped"
+     ],
+     [
+      "literal_indent",
+      "  two extra spaces\nbase\n"
+     ],
+     [
+      "folded",
+      "folded lines\nparagraph\n  more indented\nback\n"
+     ],
+     [
+      "folded_strip",
+      "a b"
+     ],
+     [
+      "plain_hash",
+      "a#b"
+     ],
+     [
+      "plain_colon",
+      "a:b"
+     ],
+     [
+      "plain_url",
+      "http://example.test:8080/path?q=1#frag"
+     ],
+     [
+      "plain_comment",
+      "value"
+     ],
+     [
+      "plain_dash",
+      "-dash"
+     ],
+     [
+      "plain_question",
+      "?q"
+     ],
+     [
+      "plain_multi",
+      "first second\nthird"
+     ],
+     [
+      "single_multi",
+      "one two\nthree"
+     ],
+     [
+      "empty_single",
+      ""
+     ],
+     [
+      "empty_double",
+      ""
+     ],
+     [
+      "spaces_double",
+      "  "
+     ]
+    ]
+   },
+   "expect": "escapes: \"tab\\t nl\\n cr\\r bs\\\\ quote\\\" slash/ nul\\0 bell\\a esc\\e nel\\N nbsp  ls\\L\\\n  \\ ps\\P xA ué U\\U0001F600 sp end\"\ncontinued: first second\nliteral_keep: 'kept\n\n\n\n  '\nliteral_strip: stripped\nliteral_indent: '  two extra spaces\n\n  base\n\n  '\nfolded: \"folded lines\\nparagraph\\n  more indented\\nback\\n\"\nfolded_strip: a b\nplain_hash: a#b\nplain_colon: a:b\nplain_url: http://example.test:8080/path?q=1#frag\nplain_comment: value\nplain_dash: -dash\nplain_question: ?q\nplain_multi: 'first second\n\n  third'\nsingle_multi: 'one two\n\n  three'\nempty_single: ''\nempty_double: ''\nspaces_double: '  '\n",
+   "roundtrips": true
+  },
+  {
+   "name": "file:syntax_tags.yaml",
+   "value": {
+    "$map": [
+     [
+      "str_int",
+      "123"
+     ],
+     [
+      "int_str",
+      {
+       "$int": "42"
+      }
+     ],
+     [
+      "float_int",
+      {
+       "$float": "1.0"
+      }
+     ],
+     [
+      "float_exp",
+      {
+       "$float": "1000.0"
+      }
+     ],
+     [
+      "bool_str",
+      true
+     ],
+     [
+      "null_str",
+      null
+     ],
+     [
+      "nonspecific_plain",
+      {
+       "$int": "12"
+      }
+     ],
+     [
+      "nonspecific_quoted",
+      {
+       "$int": "12"
+      }
+     ],
+     [
+      "seq",
+      [
+       "a"
+      ]
+     ],
+     [
+      "map",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "verbatim",
+      "5"
+     ],
+     [
+      "handle",
+      {
+       "$int": "7"
+      }
+     ],
+     [
+      "timestamp",
+      {
+       "$timestamp": "2026-01-02"
+      }
+     ],
+     [
+      "str_yes",
+      "yes"
+     ]
+    ]
+   },
+   "expect": "str_int: '123'\nint_str: 42\nfloat_int: 1.0\nfloat_exp: 1000.0\nbool_str: true\nnull_str: null\nnonspecific_plain: 12\nnonspecific_quoted: 12\nseq:\n- a\nmap:\n  a: 1\nverbatim: '5'\nhandle: 7\ntimestamp: 2026-01-02\nstr_yes: 'yes'\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:0:''",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ""
+     ],
+     [
+      "in_list",
+      [
+       ""
+      ]
+     ],
+     [
+      "",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ''\nin_list:\n- ''\n? ''\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:1:' '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      " "
+     ],
+     [
+      "in_list",
+      [
+       " "
+      ]
+     ],
+     [
+      " ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ' '\nin_list:\n- ' '\n' ': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:2:'  '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "  "
+     ],
+     [
+      "in_list",
+      [
+       "  "
+      ]
+     ],
+     [
+      "  ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '  '\nin_list:\n- '  '\n'  ': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:3:'a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a"
+     ],
+     [
+      "in_list",
+      [
+       "a"
+      ]
+     ],
+     [
+      "a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a\nin_list:\n- a\na: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:4:'abc def'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "abc def"
+     ],
+     [
+      "in_list",
+      [
+       "abc def"
+      ]
+     ],
+     [
+      "abc def",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: abc def\nin_list:\n- abc def\nabc def: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:5:'a  b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a  b"
+     ],
+     [
+      "in_list",
+      [
+       "a  b"
+      ]
+     ],
+     [
+      "a  b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a  b\nin_list:\n- a  b\na  b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:6:'a\\tb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a\tb"
+     ],
+     [
+      "in_list",
+      [
+       "a\tb"
+      ]
+     ],
+     [
+      "a\tb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"a\\tb\"\nin_list:\n- \"a\\tb\"\n\"a\\tb\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:7:'\\t'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\t"
+     ],
+     [
+      "in_list",
+      [
+       "\t"
+      ]
+     ],
+     [
+      "\t",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"\\t\"\nin_list:\n- \"\\t\"\n\"\\t\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:8:'tab\\t'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "tab\t"
+     ],
+     [
+      "in_list",
+      [
+       "tab\t"
+      ]
+     ],
+     [
+      "tab\t",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"tab\\t\"\nin_list:\n- \"tab\\t\"\n\"tab\\t\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:9:'x\\n'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "x\n"
+     ],
+     [
+      "in_list",
+      [
+       "x\n"
+      ]
+     ],
+     [
+      "x\n",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'x\n\n  '\nin_list:\n- 'x\n\n  '\n? 'x\n\n  '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:10:'\\n'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\n"
+     ],
+     [
+      "in_list",
+      [
+       "\n"
+      ]
+     ],
+     [
+      "\n",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '\n\n  '\nin_list:\n- '\n\n  '\n? '\n\n  '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:11:'\\n\\n'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\n\n"
+     ],
+     [
+      "in_list",
+      [
+       "\n\n"
+      ]
+     ],
+     [
+      "\n\n",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '\n\n\n  '\nin_list:\n- '\n\n\n  '\n? '\n\n\n  '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:12:'a\\n\\nb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a\n\nb"
+     ],
+     [
+      "in_list",
+      [
+       "a\n\nb"
+      ]
+     ],
+     [
+      "a\n\nb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'a\n\n\n  b'\nin_list:\n- 'a\n\n\n  b'\n? 'a\n\n\n  b'\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:13:'a\\n b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a\n b"
+     ],
+     [
+      "in_list",
+      [
+       "a\n b"
+      ]
+     ],
+     [
+      "a\n b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"a\\n b\"\nin_list:\n- \"a\\n b\"\n? \"a\\n b\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:14:' a\\nb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      " a\nb"
+     ],
+     [
+      "in_list",
+      [
+       " a\nb"
+      ]
+     ],
+     [
+      " a\nb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ' a\n\n  b'\nin_list:\n- ' a\n\n  b'\n? ' a\n\n  b'\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:15:'a \\nb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a \nb"
+     ],
+     [
+      "in_list",
+      [
+       "a \nb"
+      ]
+     ],
+     [
+      "a \nb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"a \\nb\"\nin_list:\n- \"a \\nb\"\n? \"a \\nb\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:16:'a  \\nb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a  \nb"
+     ],
+     [
+      "in_list",
+      [
+       "a  \nb"
+      ]
+     ],
+     [
+      "a  \nb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"a  \\nb\"\nin_list:\n- \"a  \\nb\"\n? \"a  \\nb\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:17:'text\\n  '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "text\n  "
+     ],
+     [
+      "in_list",
+      [
+       "text\n  "
+      ]
+     ],
+     [
+      "text\n  ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"text\\n  \"\nin_list:\n- \"text\\n  \"\n? \"text\\n  \"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:18:'\\nfoo'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\nfoo"
+     ],
+     [
+      "in_list",
+      [
+       "\nfoo"
+      ]
+     ],
+     [
+      "\nfoo",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '\n\n  foo'\nin_list:\n- '\n\n  foo'\n? '\n\n  foo'\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:19:'line\\r\\nwin'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "line\r\nwin"
+     ],
+     [
+      "in_list",
+      [
+       "line\r\nwin"
+      ]
+     ],
+     [
+      "line\r\nwin",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"line\\r\\nwin\"\nin_list:\n- \"line\\r\\nwin\"\n? \"line\\r\\nwin\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:20:'\\r'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\r"
+     ],
+     [
+      "in_list",
+      [
+       "\r"
+      ]
+     ],
+     [
+      "\r",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"\\r\"\nin_list:\n- \"\\r\"\n\"\\r\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:21:'a\\rb'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a\rb"
+     ],
+     [
+      "in_list",
+      [
+       "a\rb"
+      ]
+     ],
+     [
+      "a\rb",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"a\\rb\"\nin_list:\n- \"a\\rb\"\n\"a\\rb\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:22:'nel\\x85'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "nel"
+     ],
+     [
+      "in_list",
+      [
+       "nel"
+      ]
+     ],
+     [
+      "nel",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'nel  '\nin_list:\n- 'nel  '\n? 'nel  '\n: as key\n",
+   "roundtrips": false
+  },
+  {
+   "name": "string:23:'\\x85'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ""
+     ],
+     [
+      "in_list",
+      [
+       ""
+      ]
+     ],
+     [
+      "",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '  '\nin_list:\n- '  '\n? '  '\n: as key\n",
+   "roundtrips": false
+  },
+  {
+   "name": "string:24:'ls\\u2028'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "ls "
+     ],
+     [
+      "in_list",
+      [
+       "ls "
+      ]
+     ],
+     [
+      "ls ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'ls   '\nin_list:\n- 'ls   '\n? 'ls   '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:25:'a\\u2028b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a b"
+     ],
+     [
+      "in_list",
+      [
+       "a b"
+      ]
+     ],
+     [
+      "a b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'a   b'\nin_list:\n- 'a   b'\n? 'a   b'\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:26:'ps\\u2029'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "ps "
+     ],
+     [
+      "in_list",
+      [
+       "ps "
+      ]
+     ],
+     [
+      "ps ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'ps   '\nin_list:\n- 'ps   '\n? 'ps   '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:27:'bom\\ufeff'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "bom﻿"
+     ],
+     [
+      "in_list",
+      [
+       "bom﻿"
+      ]
+     ],
+     [
+      "bom﻿",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"bom\\uFEFF\"\nin_list:\n- \"bom\\uFEFF\"\n\"bom\\uFEFF\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:28:'\\ufeffbom'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "﻿bom"
+     ],
+     [
+      "in_list",
+      [
+       "﻿bom"
+      ]
+     ],
+     [
+      "﻿bom",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"\\uFEFFbom\"\nin_list:\n- \"\\uFEFFbom\"\n\"\\uFEFFbom\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:29:'nul\\x00'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "nul\u0000"
+     ],
+     [
+      "in_list",
+      [
+       "nul\u0000"
+      ]
+     ],
+     [
+      "nul\u0000",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"nul\\0\"\nin_list:\n- \"nul\\0\"\n\"nul\\0\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:30:'bell\\x07'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "bell\u0007"
+     ],
+     [
+      "in_list",
+      [
+       "bell\u0007"
+      ]
+     ],
+     [
+      "bell\u0007",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"bell\\a\"\nin_list:\n- \"bell\\a\"\n\"bell\\a\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:31:'esc\\x1b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "esc\u001b"
+     ],
+     [
+      "in_list",
+      [
+       "esc\u001b"
+      ]
+     ],
+     [
+      "esc\u001b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"esc\\e\"\nin_list:\n- \"esc\\e\"\n\"esc\\e\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:32:'del\\x7f'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "del"
+     ],
+     [
+      "in_list",
+      [
+       "del"
+      ]
+     ],
+     [
+      "del",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"del\\x7F\"\nin_list:\n- \"del\\x7F\"\n\"del\\x7F\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:33:'c1\\x9b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "c1"
+     ],
+     [
+      "in_list",
+      [
+       "c1"
+      ]
+     ],
+     [
+      "c1",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"c1\\x9B\"\nin_list:\n- \"c1\\x9B\"\n\"c1\\x9B\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:34:'nbsp\\xa0'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "nbsp "
+     ],
+     [
+      "in_list",
+      [
+       "nbsp "
+      ]
+     ],
+     [
+      "nbsp ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: nbsp \nin_list:\n- nbsp \nnbsp : as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:35:'\\xa0lead'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      " lead"
+     ],
+     [
+      "in_list",
+      [
+       " lead"
+      ]
+     ],
+     [
+      " lead",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value:  lead\nin_list:\n-  lead\n lead: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:36:'private \\ue000'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "private "
+     ],
+     [
+      "in_list",
+      [
+       "private "
+      ]
+     ],
+     [
+      "private ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: private \nin_list:\n- private \nprivate : as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:37:'nonchar \\ufffe'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "nonchar ￾"
+     ],
+     [
+      "in_list",
+      [
+       "nonchar ￾"
+      ]
+     ],
+     [
+      "nonchar ￾",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"nonchar \\uFFFE\"\nin_list:\n- \"nonchar \\uFFFE\"\n\"nonchar \\uFFFE\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:38:'astral 🚀'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "astral 🚀"
+     ],
+     [
+      "in_list",
+      [
+       "astral 🚀"
+      ]
+     ],
+     [
+      "astral 🚀",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: astral 🚀\nin_list:\n- astral 🚀\nastral 🚀: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:39:'\\U0010ffff'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "􏿿"
+     ],
+     [
+      "in_list",
+      [
+       "􏿿"
+      ]
+     ],
+     [
+      "􏿿",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"\\U0010FFFF\"\nin_list:\n- \"\\U0010FFFF\"\n\"\\U0010FFFF\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:40:'Zażółć gęślą jaźń'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "Zażółć gęślą jaźń"
+     ],
+     [
+      "in_list",
+      [
+       "Zażółć gęślą jaźń"
+      ]
+     ],
+     [
+      "Zażółć gęślą jaźń",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: Zażółć gęślą jaźń\nin_list:\n- Zażółć gęślą jaźń\nZażółć gęślą jaźń: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:41:'ŁÓDŹ'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "ŁÓDŹ"
+     ],
+     [
+      "in_list",
+      [
+       "ŁÓDŹ"
+      ]
+     ],
+     [
+      "ŁÓDŹ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ŁÓDŹ\nin_list:\n- ŁÓDŹ\nŁÓDŹ: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:42:'日本語テキスト'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "日本語テキスト"
+     ],
+     [
+      "in_list",
+      [
+       "日本語テキスト"
+      ]
+     ],
+     [
+      "日本語テキスト",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 日本語テキスト\nin_list:\n- 日本語テキスト\n日本語テキスト: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:43:'-'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "-"
+     ],
+     [
+      "in_list",
+      [
+       "-"
+      ]
+     ],
+     [
+      "-",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '-'\nin_list:\n- '-'\n'-': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:44:'--'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "--"
+     ],
+     [
+      "in_list",
+      [
+       "--"
+      ]
+     ],
+     [
+      "--",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: --\nin_list:\n- --\n--: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:45:'---'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "---"
+     ],
+     [
+      "in_list",
+      [
+       "---"
+      ]
+     ],
+     [
+      "---",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '---'\nin_list:\n- '---'\n'---': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:46:'...'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "..."
+     ],
+     [
+      "in_list",
+      [
+       "..."
+      ]
+     ],
+     [
+      "...",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '...'\nin_list:\n- '...'\n'...': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:47:'- a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "- a"
+     ],
+     [
+      "in_list",
+      [
+       "- a"
+      ]
+     ],
+     [
+      "- a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '- a'\nin_list:\n- '- a'\n'- a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:48:'-a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "-a"
+     ],
+     [
+      "in_list",
+      [
+       "-a"
+      ]
+     ],
+     [
+      "-a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: -a\nin_list:\n- -a\n-a: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:49:'?'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "?"
+     ],
+     [
+      "in_list",
+      [
+       "?"
+      ]
+     ],
+     [
+      "?",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '?'\nin_list:\n- '?'\n'?': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:50:'? a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "? a"
+     ],
+     [
+      "in_list",
+      [
+       "? a"
+      ]
+     ],
+     [
+      "? a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '? a'\nin_list:\n- '? a'\n'? a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:51:'?a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "?a"
+     ],
+     [
+      "in_list",
+      [
+       "?a"
+      ]
+     ],
+     [
+      "?a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ?a\nin_list:\n- ?a\n?a: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:52:':'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ":"
+     ],
+     [
+      "in_list",
+      [
+       ":"
+      ]
+     ],
+     [
+      ":",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ':'\nin_list:\n- ':'\n':': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:53:': a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ": a"
+     ],
+     [
+      "in_list",
+      [
+       ": a"
+      ]
+     ],
+     [
+      ": a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ': a'\nin_list:\n- ': a'\n': a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:54:':a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ":a"
+     ],
+     [
+      "in_list",
+      [
+       ":a"
+      ]
+     ],
+     [
+      ":a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: :a\nin_list:\n- :a\n:a: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:55:'a:'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a:"
+     ],
+     [
+      "in_list",
+      [
+       "a:"
+      ]
+     ],
+     [
+      "a:",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'a:'\nin_list:\n- 'a:'\n'a:': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:56:'a:b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a:b"
+     ],
+     [
+      "in_list",
+      [
+       "a:b"
+      ]
+     ],
+     [
+      "a:b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a:b\nin_list:\n- a:b\na:b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:57:'a: b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a: b"
+     ],
+     [
+      "in_list",
+      [
+       "a: b"
+      ]
+     ],
+     [
+      "a: b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'a: b'\nin_list:\n- 'a: b'\n'a: b': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:58:'a :b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a :b"
+     ],
+     [
+      "in_list",
+      [
+       "a :b"
+      ]
+     ],
+     [
+      "a :b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a :b\nin_list:\n- a :b\na :b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:59:'a #b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a #b"
+     ],
+     [
+      "in_list",
+      [
+       "a #b"
+      ]
+     ],
+     [
+      "a #b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'a #b'\nin_list:\n- 'a #b'\n'a #b': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:60:'a#b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a#b"
+     ],
+     [
+      "in_list",
+      [
+       "a#b"
+      ]
+     ],
+     [
+      "a#b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a#b\nin_list:\n- a#b\na#b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:61:'#'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "#"
+     ],
+     [
+      "in_list",
+      [
+       "#"
+      ]
+     ],
+     [
+      "#",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '#'\nin_list:\n- '#'\n'#': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:62:'# c'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "# c"
+     ],
+     [
+      "in_list",
+      [
+       "# c"
+      ]
+     ],
+     [
+      "# c",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '# c'\nin_list:\n- '# c'\n'# c': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:63:'&a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "&a"
+     ],
+     [
+      "in_list",
+      [
+       "&a"
+      ]
+     ],
+     [
+      "&a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '&a'\nin_list:\n- '&a'\n'&a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:64:'*a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "*a"
+     ],
+     [
+      "in_list",
+      [
+       "*a"
+      ]
+     ],
+     [
+      "*a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '*a'\nin_list:\n- '*a'\n'*a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:65:'!a'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "!a"
+     ],
+     [
+      "in_list",
+      [
+       "!a"
+      ]
+     ],
+     [
+      "!a",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '!a'\nin_list:\n- '!a'\n'!a': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:66:'|'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "|"
+     ],
+     [
+      "in_list",
+      [
+       "|"
+      ]
+     ],
+     [
+      "|",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '|'\nin_list:\n- '|'\n'|': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:67:'>'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ">"
+     ],
+     [
+      "in_list",
+      [
+       ">"
+      ]
+     ],
+     [
+      ">",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '>'\nin_list:\n- '>'\n'>': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:68:\"'\"",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "'"
+     ],
+     [
+      "in_list",
+      [
+       "'"
+      ]
+     ],
+     [
+      "'",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ''''\nin_list:\n- ''''\n'''': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:69:'\"'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "\""
+     ],
+     [
+      "in_list",
+      [
+       "\""
+      ]
+     ],
+     [
+      "\"",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '\"'\nin_list:\n- '\"'\n'\"': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:70:'%'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "%"
+     ],
+     [
+      "in_list",
+      [
+       "%"
+      ]
+     ],
+     [
+      "%",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '%'\nin_list:\n- '%'\n'%': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:71:'@'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "@"
+     ],
+     [
+      "in_list",
+      [
+       "@"
+      ]
+     ],
+     [
+      "@",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '@'\nin_list:\n- '@'\n'@': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:72:'`'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "`"
+     ],
+     [
+      "in_list",
+      [
+       "`"
+      ]
+     ],
+     [
+      "`",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '`'\nin_list:\n- '`'\n'`': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:73:','",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ","
+     ],
+     [
+      "in_list",
+      [
+       ","
+      ]
+     ],
+     [
+      ",",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ','\nin_list:\n- ','\n',': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:74:'a,b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a,b"
+     ],
+     [
+      "in_list",
+      [
+       "a,b"
+      ]
+     ],
+     [
+      "a,b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a,b\nin_list:\n- a,b\na,b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:75:'a, b'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a, b"
+     ],
+     [
+      "in_list",
+      [
+       "a, b"
+      ]
+     ],
+     [
+      "a, b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a, b\nin_list:\n- a, b\na, b: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:76:'['",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "["
+     ],
+     [
+      "in_list",
+      [
+       "["
+      ]
+     ],
+     [
+      "[",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '['\nin_list:\n- '['\n'[': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:77:']'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "]"
+     ],
+     [
+      "in_list",
+      [
+       "]"
+      ]
+     ],
+     [
+      "]",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ']'\nin_list:\n- ']'\n']': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:78:'{'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "{"
+     ],
+     [
+      "in_list",
+      [
+       "{"
+      ]
+     ],
+     [
+      "{",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '{'\nin_list:\n- '{'\n'{': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:79:'}'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "}"
+     ],
+     [
+      "in_list",
+      [
+       "}"
+      ]
+     ],
+     [
+      "}",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '}'\nin_list:\n- '}'\n'}': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:80:'[]'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "[]"
+     ],
+     [
+      "in_list",
+      [
+       "[]"
+      ]
+     ],
+     [
+      "[]",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '[]'\nin_list:\n- '[]'\n'[]': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:81:'{}'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "{}"
+     ],
+     [
+      "in_list",
+      [
+       "{}"
+      ]
+     ],
+     [
+      "{}",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '{}'\nin_list:\n- '{}'\n'{}': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:82:'a[b]'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a[b]"
+     ],
+     [
+      "in_list",
+      [
+       "a[b]"
+      ]
+     ],
+     [
+      "a[b]",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a[b]\nin_list:\n- a[b]\na[b]: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:83:'a{b}'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a{b}"
+     ],
+     [
+      "in_list",
+      [
+       "a{b}"
+      ]
+     ],
+     [
+      "a{b}",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a{b}\nin_list:\n- a{b}\na{b}: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:84:'<<'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "<<"
+     ],
+     [
+      "in_list",
+      [
+       "<<"
+      ]
+     ],
+     [
+      "<<",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '<<'\nin_list:\n- '<<'\n'<<': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:85:'='",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "="
+     ],
+     [
+      "in_list",
+      [
+       "="
+      ]
+     ],
+     [
+      "=",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '='\nin_list:\n- '='\n'=': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:86:'~'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "~"
+     ],
+     [
+      "in_list",
+      [
+       "~"
+      ]
+     ],
+     [
+      "~",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '~'\nin_list:\n- '~'\n'~': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:87:'null'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "null"
+     ],
+     [
+      "in_list",
+      [
+       "null"
+      ]
+     ],
+     [
+      "null",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'null'\nin_list:\n- 'null'\n'null': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:88:'NULL'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "NULL"
+     ],
+     [
+      "in_list",
+      [
+       "NULL"
+      ]
+     ],
+     [
+      "NULL",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'NULL'\nin_list:\n- 'NULL'\n'NULL': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:89:'Null'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "Null"
+     ],
+     [
+      "in_list",
+      [
+       "Null"
+      ]
+     ],
+     [
+      "Null",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'Null'\nin_list:\n- 'Null'\n'Null': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:90:'yes'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "yes"
+     ],
+     [
+      "in_list",
+      [
+       "yes"
+      ]
+     ],
+     [
+      "yes",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'yes'\nin_list:\n- 'yes'\n'yes': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:91:'y'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "y"
+     ],
+     [
+      "in_list",
+      [
+       "y"
+      ]
+     ],
+     [
+      "y",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: y\nin_list:\n- y\ny: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:92:'n'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "n"
+     ],
+     [
+      "in_list",
+      [
+       "n"
+      ]
+     ],
+     [
+      "n",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: n\nin_list:\n- n\nn: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:93:'on'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "on"
+     ],
+     [
+      "in_list",
+      [
+       "on"
+      ]
+     ],
+     [
+      "on",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'on'\nin_list:\n- 'on'\n'on': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:94:'off'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "off"
+     ],
+     [
+      "in_list",
+      [
+       "off"
+      ]
+     ],
+     [
+      "off",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'off'\nin_list:\n- 'off'\n'off': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:95:'true'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "true"
+     ],
+     [
+      "in_list",
+      [
+       "true"
+      ]
+     ],
+     [
+      "true",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'true'\nin_list:\n- 'true'\n'true': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:96:'False'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "False"
+     ],
+     [
+      "in_list",
+      [
+       "False"
+      ]
+     ],
+     [
+      "False",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'False'\nin_list:\n- 'False'\n'False': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:97:'0'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "0"
+     ],
+     [
+      "in_list",
+      [
+       "0"
+      ]
+     ],
+     [
+      "0",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '0'\nin_list:\n- '0'\n'0': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:98:'00'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "00"
+     ],
+     [
+      "in_list",
+      [
+       "00"
+      ]
+     ],
+     [
+      "00",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '00'\nin_list:\n- '00'\n'00': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:99:'0777'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "0777"
+     ],
+     [
+      "in_list",
+      [
+       "0777"
+      ]
+     ],
+     [
+      "0777",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '0777'\nin_list:\n- '0777'\n'0777': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:100:'08'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "08"
+     ],
+     [
+      "in_list",
+      [
+       "08"
+      ]
+     ],
+     [
+      "08",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 08\nin_list:\n- 08\n08: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:101:'0x1F'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "0x1F"
+     ],
+     [
+      "in_list",
+      [
+       "0x1F"
+      ]
+     ],
+     [
+      "0x1F",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '0x1F'\nin_list:\n- '0x1F'\n'0x1F': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:102:'0b11'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "0b11"
+     ],
+     [
+      "in_list",
+      [
+       "0b11"
+      ]
+     ],
+     [
+      "0b11",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '0b11'\nin_list:\n- '0b11'\n'0b11': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:103:'1:30'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1:30"
+     ],
+     [
+      "in_list",
+      [
+       "1:30"
+      ]
+     ],
+     [
+      "1:30",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '1:30'\nin_list:\n- '1:30'\n'1:30': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:104:'1:60'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1:60"
+     ],
+     [
+      "in_list",
+      [
+       "1:60"
+      ]
+     ],
+     [
+      "1:60",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 1:60\nin_list:\n- 1:60\n1:60: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:105:'09:30'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "09:30"
+     ],
+     [
+      "in_list",
+      [
+       "09:30"
+      ]
+     ],
+     [
+      "09:30",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 09:30\nin_list:\n- 09:30\n09:30: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:106:'1_000'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1_000"
+     ],
+     [
+      "in_list",
+      [
+       "1_000"
+      ]
+     ],
+     [
+      "1_000",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '1_000'\nin_list:\n- '1_000'\n'1_000': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:107:'1.5'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1.5"
+     ],
+     [
+      "in_list",
+      [
+       "1.5"
+      ]
+     ],
+     [
+      "1.5",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '1.5'\nin_list:\n- '1.5'\n'1.5': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:108:'1.'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1."
+     ],
+     [
+      "in_list",
+      [
+       "1."
+      ]
+     ],
+     [
+      "1.",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '1.'\nin_list:\n- '1.'\n'1.': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:109:'.5'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ".5"
+     ],
+     [
+      "in_list",
+      [
+       ".5"
+      ]
+     ],
+     [
+      ".5",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '.5'\nin_list:\n- '.5'\n'.5': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:110:'-.5'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "-.5"
+     ],
+     [
+      "in_list",
+      [
+       "-.5"
+      ]
+     ],
+     [
+      "-.5",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: -.5\nin_list:\n- -.5\n-.5: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:111:'1e3'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1e3"
+     ],
+     [
+      "in_list",
+      [
+       "1e3"
+      ]
+     ],
+     [
+      "1e3",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 1e3\nin_list:\n- 1e3\n1e3: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:112:'1.5e3'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1.5e3"
+     ],
+     [
+      "in_list",
+      [
+       "1.5e3"
+      ]
+     ],
+     [
+      "1.5e3",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 1.5e3\nin_list:\n- 1.5e3\n1.5e3: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:113:'1.5e+3'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1.5e+3"
+     ],
+     [
+      "in_list",
+      [
+       "1.5e+3"
+      ]
+     ],
+     [
+      "1.5e+3",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '1.5e+3'\nin_list:\n- '1.5e+3'\n'1.5e+3': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:114:'.inf'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ".inf"
+     ],
+     [
+      "in_list",
+      [
+       ".inf"
+      ]
+     ],
+     [
+      ".inf",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '.inf'\nin_list:\n- '.inf'\n'.inf': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:115:'-.inf'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "-.inf"
+     ],
+     [
+      "in_list",
+      [
+       "-.inf"
+      ]
+     ],
+     [
+      "-.inf",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '-.inf'\nin_list:\n- '-.inf'\n'-.inf': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:116:'.nan'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      ".nan"
+     ],
+     [
+      "in_list",
+      [
+       ".nan"
+      ]
+     ],
+     [
+      ".nan",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '.nan'\nin_list:\n- '.nan'\n'.nan': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:117:'2026-01-02'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "2026-01-02"
+     ],
+     [
+      "in_list",
+      [
+       "2026-01-02"
+      ]
+     ],
+     [
+      "2026-01-02",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '2026-01-02'\nin_list:\n- '2026-01-02'\n'2026-01-02': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:118:'2026-1-2'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "2026-1-2"
+     ],
+     [
+      "in_list",
+      [
+       "2026-1-2"
+      ]
+     ],
+     [
+      "2026-1-2",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 2026-1-2\nin_list:\n- 2026-1-2\n2026-1-2: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:119:'2026-01-02 10:20:30'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "2026-01-02 10:20:30"
+     ],
+     [
+      "in_list",
+      [
+       "2026-01-02 10:20:30"
+      ]
+     ],
+     [
+      "2026-01-02 10:20:30",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '2026-01-02 10:20:30'\nin_list:\n- '2026-01-02 10:20:30'\n'2026-01-02 10:20:30': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:120:'12:30:45'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "12:30:45"
+     ],
+     [
+      "in_list",
+      [
+       "12:30:45"
+      ]
+     ],
+     [
+      "12:30:45",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '12:30:45'\nin_list:\n- '12:30:45'\n'12:30:45': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:121:'+1'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "+1"
+     ],
+     [
+      "in_list",
+      [
+       "+1"
+      ]
+     ],
+     [
+      "+1",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '+1'\nin_list:\n- '+1'\n'+1': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:122:'-1'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "-1"
+     ],
+     [
+      "in_list",
+      [
+       "-1"
+      ]
+     ],
+     [
+      "-1",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: '-1'\nin_list:\n- '-1'\n'-1': as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:123:'1 2'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "1 2"
+     ],
+     [
+      "in_list",
+      [
+       "1 2"
+      ]
+     ],
+     [
+      "1 2",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 1 2\nin_list:\n- 1 2\n1 2: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:124:'=x'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "=x"
+     ],
+     [
+      "in_list",
+      [
+       "=x"
+      ]
+     ],
+     [
+      "=x",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: =x\nin_list:\n- =x\n=x: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:125:'x='",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "x="
+     ],
+     [
+      "in_list",
+      [
+       "x="
+      ]
+     ],
+     [
+      "x=",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: x=\nin_list:\n- x=\nx=: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:126:\"it's\"",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "it's"
+     ],
+     [
+      "in_list",
+      [
+       "it's"
+      ]
+     ],
+     [
+      "it's",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: it's\nin_list:\n- it's\nit's: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:127:'say \"hi\"'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "say \"hi\""
+     ],
+     [
+      "in_list",
+      [
+       "say \"hi\""
+      ]
+     ],
+     [
+      "say \"hi\"",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: say \"hi\"\nin_list:\n- say \"hi\"\nsay \"hi\": as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:128:'back\\\\slash'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "back\\slash"
+     ],
+     [
+      "in_list",
+      [
+       "back\\slash"
+      ]
+     ],
+     [
+      "back\\slash",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: back\\slash\nin_list:\n- back\\slash\nback\\slash: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:129:'a\\'b\"c'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "a'b\"c"
+     ],
+     [
+      "in_list",
+      [
+       "a'b\"c"
+      ]
+     ],
+     [
+      "a'b\"c",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: a'b\"c\nin_list:\n- a'b\"c\na'b\"c: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:130:'word word word word word'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "
+     ],
+     [
+      "in_list",
+      [
+       "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "
+      ]
+     ],
+     [
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word word '\nin_list:\n- 'word word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word '\n? 'word word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:131:'word word word word word'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+     ],
+     [
+      "in_list",
+      [
+       "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+      ]
+     ],
+     [
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word word\nin_list:\n- word word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word\n? word word word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:132:'xxxxxxxxxxxxxxxxxxxxxxxx'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+     ],
+     [
+      "in_list",
+      [
+       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ]
+     ],
+     [
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nin_list:\n- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx: as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:133:' leading space and long '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      " leading space and long text text text text text text text text text text text text text text text text text text text text "
+     ],
+     [
+      "in_list",
+      [
+       " leading space and long text text text text text text text text text text text text text text text text text text text text "
+      ]
+     ],
+     [
+      " leading space and long text text text text text text text text text text text text text text text text text text text text ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: ' leading space and long text text text text text text text text text text\n  text text text text text text text text text text '\nin_list:\n- ' leading space and long text text text text text text text text text text text\n  text text text text text text text text text '\n? ' leading space and long text text text text text text text text text text text\n  text text text text text text text text text '\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:134:'first line\\nsecond line i'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "first line\nsecond line is long second line is long second line is long second line is long second line is long second line is long \nthird"
+     ],
+     [
+      "in_list",
+      [
+       "first line\nsecond line is long second line is long second line is long second line is long second line is long second line is long \nthird"
+      ]
+     ],
+     [
+      "first line\nsecond line is long second line is long second line is long second line is long second line is long second line is long \nthird",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"first line\\nsecond line is long second line is long second line is long second\\\n  \\ line is long second line is long second line is long \\nthird\"\nin_list:\n- \"first line\\nsecond line is long second line is long second line is long second\\\n  \\ line is long second line is long second line is long \\nthird\"\n? \"first line\\nsecond line is long second line is long second line is long second\\\n  \\ line is long second line is long second line is long \\nthird\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:135:'control \\x01 and long text '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "control \u0001 and long text text text text text text text text text text text text text text text text text text text text "
+     ],
+     [
+      "in_list",
+      [
+       "control \u0001 and long text text text text text text text text text text text text text text text text text text text text "
+      ]
+     ],
+     [
+      "control \u0001 and long text text text text text text text text text text text text text text text text text text text text ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"control \\x01 and long text text text text text text text text text text text\\\n  \\ text text text text text text text text text \"\nin_list:\n- \"control \\x01 and long text text text text text text text text text text text text\\\n  \\ text text text text text text text text \"\n\"control \\x01 and long text text text text text text text text text text text text text text text text text text text text \": as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:136:'Zażółć gęślą jaźń Zażółć'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń "
+     ],
+     [
+      "in_list",
+      [
+       "Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń "
+      ]
+     ],
+     [
+      "Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć\n  gęślą jaźń Zażółć gęślą jaźń '\nin_list:\n- 'Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć\n  gęślą jaźń Zażółć gęślą jaźń '\n'Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń Zażółć gęślą jaźń ': as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:137:'aaaaaaaaaaaaaaaaaaaaaaaa'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+     ],
+     [
+      "in_list",
+      [
+       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+      ]
+     ],
+     [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\nin_list:\n- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b: as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:138:'aaaaaaaaaaaaaaaaaaaaaaaa'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+     ],
+     [
+      "in_list",
+      [
+       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+      ]
+     ],
+     [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\nin_list:\n- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b: as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:139:'aaaaaaaaaaaaaaaaaaaaaaaa'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+     ],
+     [
+      "in_list",
+      [
+       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+      ]
+     ],
+     [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\nin_list:\n- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b: as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:140:'two  spaces two  spaces '",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces "
+     ],
+     [
+      "in_list",
+      [
+       "two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces "
+      ]
+     ],
+     [
+      "two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces\n  two  spaces two  spaces two  spaces '\nin_list:\n- 'two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces\n  two  spaces two  spaces two  spaces '\n'two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces two  spaces ': as\n  key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:141:'tab\\tseparated tab\\tsepara'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated "
+     ],
+     [
+      "in_list",
+      [
+       "tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated "
+      ]
+     ],
+     [
+      "tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated tab\tseparated ",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated\\\n  \\ tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated \"\nin_list:\n- \"tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\t\\\n  separated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated \"\n? \"tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated tab\\t\\\n  separated tab\\tseparated tab\\tseparated tab\\tseparated tab\\tseparated \"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:142:'kkkkkkkkkkkkkkkkkkkkkkkk'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+     ],
+     [
+      "in_list",
+      [
+       "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+      ]
+     ],
+     [
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\nin_list:\n- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:143:'kkkkkkkkkkkkkkkkkkkkkkkk'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+     ],
+     [
+      "in_list",
+      [
+       "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+      ]
+     ],
+     [
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\nin_list:\n- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:144:'kkkkkkkkkkkkkkkkkkkkkkkk'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+     ],
+     [
+      "in_list",
+      [
+       "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+      ]
+     ],
+     [
+      "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\nin_list:\n- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:145:'multi\\nline key'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "multi\nline key"
+     ],
+     [
+      "in_list",
+      [
+       "multi\nline key"
+      ]
+     ],
+     [
+      "multi\nline key",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: 'multi\n\n  line key'\nin_list:\n- 'multi\n\n  line key'\n? 'multi\n\n  line key'\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "string:146:'trailing newline long tr'",
+   "value": {
+    "$map": [
+     [
+      "value",
+      "trailing newline long trailing newline long trailing newline long trailing newline long trailing newline long \n"
+     ],
+     [
+      "in_list",
+      [
+       "trailing newline long trailing newline long trailing newline long trailing newline long trailing newline long \n"
+      ]
+     ],
+     [
+      "trailing newline long trailing newline long trailing newline long trailing newline long trailing newline long \n",
+      "as key"
+     ]
+    ]
+   },
+   "expect": "value: \"trailing newline long trailing newline long trailing newline long trailing\\\n  \\ newline long trailing newline long \\n\"\nin_list:\n- \"trailing newline long trailing newline long trailing newline long trailing newline\\\n  \\ long trailing newline long \\n\"\n? \"trailing newline long trailing newline long trailing newline long trailing newline\\\n  \\ long trailing newline long \\n\"\n: as key\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_plain_str",
+   "value": "abc",
+   "expect": "abc\n...\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_quoted_str",
+   "value": "yes",
+   "expect": "'yes'\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_empty_str",
+   "value": "",
+   "expect": "''\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_int",
+   "value": {
+    "$int": "5"
+   },
+   "expect": "5\n...\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_none",
+   "value": null,
+   "expect": "null\n...\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_true",
+   "value": true,
+   "expect": "true\n...\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_float",
+   "value": {
+    "$float": "1.5"
+   },
+   "expect": "1.5\n...\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_empty_list",
+   "value": [],
+   "expect": "[]\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_empty_map",
+   "value": {
+    "$map": []
+   },
+   "expect": "{}\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_multiline_str",
+   "value": "multi\nline",
+   "expect": "'multi\n\n  line'\n",
+   "roundtrips": true
+  },
+  {
+   "name": "root_list",
+   "value": [
+    "a",
+    {
+     "$int": "1"
+    },
+    null,
+    [],
+    {
+     "$map": []
+    }
+   ],
+   "expect": "- a\n- 1\n- null\n- []\n- {}\n",
+   "roundtrips": true
+  },
+  {
+   "name": "ints",
+   "value": [
+    {
+     "$int": "0"
+    },
+    {
+     "$int": "-1"
+    },
+    {
+     "$int": "123456789"
+    },
+    {
+     "$int": "9223372036854775807"
+    },
+    {
+     "$int": "-9223372036854775808"
+    }
+   ],
+   "expect": "- 0\n- -1\n- 123456789\n- 9223372036854775807\n- -9223372036854775808\n",
+   "roundtrips": true
+  },
+  {
+   "name": "floats",
+   "value": [
+    {
+     "$float": "0.0"
+    },
+    {
+     "$float": "-0.0"
+    },
+    {
+     "$float": "1.0"
+    },
+    {
+     "$float": "1.5"
+    },
+    {
+     "$float": "-1.5"
+    },
+    {
+     "$float": "0.1"
+    },
+    {
+     "$float": "0.3333333333333333"
+    },
+    {
+     "$float": "1e+16"
+    },
+    {
+     "$float": "1e+17"
+    },
+    {
+     "$float": "1.5e+300"
+    },
+    {
+     "$float": "0.0001"
+    },
+    {
+     "$float": "1e-05"
+    },
+    {
+     "$float": "1.2345e-07"
+    },
+    {
+     "$float": "123456789.123"
+    },
+    {
+     "$float": "inf"
+    },
+    {
+     "$float": "-inf"
+    },
+    {
+     "$float": "nan"
+    },
+    {
+     "$float": "5e-324"
+    },
+    {
+     "$float": "1e+22"
+    },
+    {
+     "$float": "9007199254740992.0"
+    },
+    {
+     "$float": "100.0"
+    },
+    {
+     "$float": "1234567890123456.0"
+    },
+    {
+     "$float": "1.2345678901234568e+16"
+    }
+   ],
+   "expect": "- 0.0\n- -0.0\n- 1.0\n- 1.5\n- -1.5\n- 0.1\n- 0.3333333333333333\n- 1.0e+16\n- 1.0e+17\n- 1.5e+300\n- 0.0001\n- 1.0e-05\n- 1.2345e-07\n- 123456789.123\n- .inf\n- -.inf\n- .nan\n- 5.0e-324\n- 1.0e+22\n- 9007199254740992.0\n- 100.0\n- 1234567890123456.0\n- 1.2345678901234568e+16\n",
+   "roundtrips": true
+  },
+  {
+   "name": "bools_none",
+   "value": [
+    true,
+    false,
+    null
+   ],
+   "expect": "- true\n- false\n- null\n",
+   "roundtrips": true
+  },
+  {
+   "name": "nested",
+   "value": {
+    "$map": [
+     [
+      "a",
+      [
+       [
+        {
+         "$int": "1"
+        },
+        [
+         {
+          "$int": "2"
+         },
+         []
+        ]
+       ],
+       {
+        "$map": [
+         [
+          "b",
+          {
+           "$map": [
+            [
+             "c",
+             {
+              "$map": []
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "d",
+      [
+       {
+        "$map": [
+         [
+          "e",
+          {
+           "$int": "1"
+          }
+         ],
+         [
+          "f",
+          [
+           {
+            "$map": [
+             [
+              "g",
+              null
+             ]
+            ]
+           }
+          ]
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "h",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "expect": "a:\n- - 1\n  - - 2\n    - []\n- b:\n    c: {}\nd:\n- e: 1\n  f:\n  - g: null\nh: {}\n",
+   "roundtrips": true
+  },
+  {
+   "name": "list_of_maps",
+   "value": [
+    {
+     "$map": [
+      [
+       "label",
+       "x"
+      ],
+      [
+       "tags",
+       [
+        "a",
+        "b"
+       ]
+      ],
+      [
+       "m",
+       {
+        "$map": [
+         [
+          "k",
+          "v"
+         ]
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "y"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "- label: x\n  tags:\n  - a\n  - b\n  m:\n    k: v\n- label: y\n- {}\n",
+   "roundtrips": true
+  },
+  {
+   "name": "nonstring_keys",
+   "value": {
+    "$map": [
+     [
+      {
+       "$int": "1"
+      },
+      "a"
+     ],
+     [
+      null,
+      "n"
+     ],
+     [
+      {
+       "$float": "1.5"
+      },
+      "f"
+     ],
+     [
+      false,
+      "b"
+     ],
+     [
+      "2",
+      "s"
+     ]
+    ]
+   },
+   "expect": "1: a\nnull: n\n1.5: f\nfalse: b\n'2': s\n",
+   "roundtrips": true
+  },
+  {
+   "name": "timestamps",
+   "value": [
+    {
+     "$timestamp": "2026-01-02"
+    },
+    {
+     "$timestamp": "2026-01-02 10:20:30"
+    },
+    {
+     "$timestamp": "2026-01-02 10:20:30.500000+02:00"
+    },
+    {
+     "$timestamp": "2026-01-02 00:00:00+00:00"
+    }
+   ],
+   "expect": "- 2026-01-02\n- 2026-01-02 10:20:30\n- 2026-01-02 10:20:30.500000+02:00\n- 2026-01-02 00:00:00+00:00\n",
+   "roundtrips": true
+  },
+  {
+   "name": "map_of_lists",
+   "value": {
+    "$map": [
+     [
+      "x",
+      []
+     ],
+     [
+      "y",
+      [
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "z",
+      [
+       []
+      ]
+     ],
+     [
+      "w",
+      [
+       {
+        "$map": []
+       }
+      ]
+     ]
+    ]
+   },
+   "expect": "x: []\ny:\n- 1\nz:\n- []\nw:\n- {}\n",
+   "roundtrips": true
+  },
+  {
+   "name": "seq_of_seq_of_maps",
+   "value": [
+    [
+     {
+      "$map": [
+       [
+        "a",
+        {
+         "$int": "1"
+        }
+       ],
+       [
+        "b",
+        {
+         "$int": "2"
+        }
+       ]
+      ]
+     },
+     {
+      "$map": [
+       [
+        "c",
+        {
+         "$int": "3"
+        }
+       ]
+      ]
+     }
+    ],
+    [
+     [
+      {
+       "$map": [
+        [
+         "d",
+         {
+          "$int": "4"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   ],
+   "expect": "- - a: 1\n    b: 2\n  - c: 3\n- - - d: 4\n",
+   "roundtrips": true
+  }
+ ]
+}

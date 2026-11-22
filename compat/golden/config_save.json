@@ -1,0 +1,859 @@
+{
+ "cases": [
+  {
+   "name": "minimal_fresh",
+   "files": {},
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 1234\n",
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: h\n  user: u\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "defaults_only_fresh",
+   "files": {},
+   "cfg": {
+    "$map": []
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": null,
+   "config_edited": false
+  },
+  {
+   "name": "noop_keeps_comments",
+   "files": {
+    "cfg/config.yaml": "# precious\nwindow:\n  width: 1234\n",
+    "cfg/session.yaml": "# session note\n# Termigator SSH connections — edited by the app or by hand.\n- host: h\n  user: u\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "# precious\nwindow:\n  width: 1234\n",
+    "cfg/session.yaml": "# session note\n# Termigator SSH connections — edited by the app or by hand.\n- host: h\n  user: u\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "only_config_changes",
+   "files": {
+    "cfg/session.yaml": "# keep me\n- host: h\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "777"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "h"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 777\n",
+    "cfg/session.yaml": "# keep me\n- host: h\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "777"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "value_change_commented",
+   "files": {
+    "cfg/config.yaml": "# top comment\nwindow:\n  width: 1234  # my width\n  list_width: 300\nlaunch:\n  shell: zsh  # my shell\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "400"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "# top comment\nwindow:\n  width: 1234  # my width\n  list_width: 400\nlaunch:\n  shell: zsh  # my shell\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1234"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "400"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": true
+  },
+  {
+   "name": "loose_eq_noop",
+   "files": {
+    "cfg/config.yaml": "window:\n  width: 1000\n  toolbar: yes\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$float": "1000.0"
+         }
+        ],
+        [
+         "toolbar",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 1000.0\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$float": "1000.0"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": true
+  },
+  {
+   "name": "session_mapping_rewritten_as_list",
+   "files": {
+    "cfg/session.yaml": "connections:\n- host: a\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "host",
+          "b"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: a\n- host: b\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": null,
+   "config_edited": false
+  },
+  {
+   "name": "session_mapping_equal_untouched",
+   "files": {
+    "cfg/session.yaml": "connections:\n- host: a\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": "connections:\n- host: a\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": null,
+   "config_edited": false
+  },
+  {
+   "name": "vault_strips_plaintext",
+   "files": {},
+   "cfg": {
+    "$map": [
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "salt",
+         "c2FsdA=="
+        ],
+        [
+         "check",
+         "enc:v1:Y2hr"
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ],
+         [
+          "password",
+          "plain-secret"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "host",
+          "b"
+         ],
+         [
+          "password",
+          "enc:v1:QUJD"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "host",
+          "c"
+         ],
+         [
+          "password",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "credentials",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "db"
+         ],
+         [
+          "password",
+          "pw"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "name",
+          "s"
+         ],
+         [
+          "password",
+          "enc:v1:REVG"
+         ]
+        ]
+       },
+       "odd"
+      ]
+     ]
+    ]
+   },
+   "vault_configured": true,
+   "after": {
+    "cfg/config.yaml": "vault:\n  salt: c2FsdA==\n  check: enc:v1:Y2hr\ncredentials:\n- name: db\n- name: s\n  password: enc:v1:REVG\n- odd\n",
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: a\n- host: b\n  password: enc:v1:QUJD\n- host: c\n  password: ''\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "salt",
+         "c2FsdA=="
+        ],
+        [
+         "check",
+         "enc:v1:Y2hr"
+        ]
+       ]
+      }
+     ],
+     [
+      "credentials",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "name",
+          "s"
+         ],
+         [
+          "password",
+          "enc:v1:REVG"
+         ]
+        ]
+       },
+       "odd"
+      ]
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "no_vault_keeps_plaintext",
+   "files": {},
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ],
+         [
+          "password",
+          "pw"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "credentials",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "db"
+         ],
+         [
+          "password",
+          "pw"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "credentials:\n- name: db\n  password: pw\n",
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: a\n  password: pw\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "credentials",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "db"
+         ],
+         [
+          "password",
+          "pw"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "yaml11_lookalikes",
+   "files": {},
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "yes"
+        ],
+        [
+         "editor",
+         "1:30"
+        ],
+        [
+         "term",
+         "0777"
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "on"
+         ],
+         [
+          "port",
+          "22"
+         ],
+         [
+          "label",
+          "Zażółć ~"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "launch:\n  shell: 'yes'\n  editor: '1:30'\n  term: '0777'\n",
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: 'on'\n  port: '22'\n  label: Zażółć ~\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "yes"
+        ],
+        [
+         "editor",
+         "1:30"
+        ],
+        [
+         "term",
+         "0777"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": false
+  },
+  {
+   "name": "drop_non_mapping_connections",
+   "files": {},
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ]
+        ]
+       },
+       "str",
+       {
+        "$int": "3"
+       }
+      ]
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": "# Termigator SSH connections — edited by the app or by hand.\n- host: a\n",
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": null,
+   "config_edited": false
+  },
+  {
+   "name": "config_not_mapping_overwritten",
+   "files": {
+    "cfg/config.yaml": "- a\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 1\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": true
+  },
+  {
+   "name": "key_removed",
+   "files": {
+    "cfg/config.yaml": "# c\nwindow:\n  width: 5\nextra: 1  # gone\n"
+   },
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "5"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "vault_configured": false,
+   "after": {
+    "cfg/config.yaml": "# c\nwindow:\n  width: 5\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null,
+    "root/config.yaml": null,
+    "root/config.example.yaml": null
+   },
+   "config_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "5"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "config_edited": true
+  }
+ ]
+}

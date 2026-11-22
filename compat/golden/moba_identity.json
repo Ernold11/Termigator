@@ -1,0 +1,436 @@
+{
+ "cases": [
+  {
+   "name": "0:bob",
+   "path": null,
+   "user": "bob",
+   "expect": null
+  },
+  {
+   "name": "0:alice",
+   "path": null,
+   "user": "alice",
+   "expect": null
+  },
+  {
+   "name": "1:bob",
+   "path": "",
+   "user": "bob",
+   "expect": null
+  },
+  {
+   "name": "1:alice",
+   "path": "",
+   "user": "alice",
+   "expect": null
+  },
+  {
+   "name": "2:bob",
+   "path": "   ",
+   "user": "bob",
+   "expect": ""
+  },
+  {
+   "name": "2:alice",
+   "path": "   ",
+   "user": "alice",
+   "expect": ""
+  },
+  {
+   "name": "3:bob",
+   "path": "_MyDocuments_\\MobaXterm\\home\\.ssh\\id_rsa",
+   "user": "bob",
+   "expect": "~/.ssh/id_rsa"
+  },
+  {
+   "name": "3:alice",
+   "path": "_MyDocuments_\\MobaXterm\\home\\.ssh\\id_rsa",
+   "user": "alice",
+   "expect": "~/.ssh/id_rsa"
+  },
+  {
+   "name": "4:bob",
+   "path": "_MyDocuments_/MobaXterm/home//.ssh//id_rsa",
+   "user": "bob",
+   "expect": "~/.ssh/id_rsa"
+  },
+  {
+   "name": "4:alice",
+   "path": "_MyDocuments_/MobaXterm/home//.ssh//id_rsa",
+   "user": "alice",
+   "expect": "~/.ssh/id_rsa"
+  },
+  {
+   "name": "5:bob",
+   "path": "_MyDocuments_/MobaXterm/home/",
+   "user": "bob",
+   "expect": "~/"
+  },
+  {
+   "name": "5:alice",
+   "path": "_MyDocuments_/MobaXterm/home/",
+   "user": "alice",
+   "expect": "~/"
+  },
+  {
+   "name": "6:bob",
+   "path": "_MyDocuments_/MobaXterm/home////a///b",
+   "user": "bob",
+   "expect": "~/a//b"
+  },
+  {
+   "name": "6:alice",
+   "path": "_MyDocuments_/MobaXterm/home////a///b",
+   "user": "alice",
+   "expect": "~/a//b"
+  },
+  {
+   "name": "7:bob",
+   "path": "_MyDocuments_/MobaXterm/other",
+   "user": "bob",
+   "expect": "_MyDocuments_/MobaXterm/other"
+  },
+  {
+   "name": "7:alice",
+   "path": "_MyDocuments_/MobaXterm/other",
+   "user": "alice",
+   "expect": "_MyDocuments_/MobaXterm/other"
+  },
+  {
+   "name": "8:bob",
+   "path": "_ProfileDir_\\Documents\\keys\\k.ppk",
+   "user": "bob",
+   "expect": "~/Documents/keys/k.ppk"
+  },
+  {
+   "name": "8:alice",
+   "path": "_ProfileDir_\\Documents\\keys\\k.ppk",
+   "user": "alice",
+   "expect": "~/Documents/keys/k.ppk"
+  },
+  {
+   "name": "9:bob",
+   "path": "_ProfileDir_/Documents//keys//k",
+   "user": "bob",
+   "expect": "~/Documents/keys/k"
+  },
+  {
+   "name": "9:alice",
+   "path": "_ProfileDir_/Documents//keys//k",
+   "user": "alice",
+   "expect": "~/Documents/keys/k"
+  },
+  {
+   "name": "10:bob",
+   "path": "_ProfileDir_/Documents",
+   "user": "bob",
+   "expect": "~/Documents"
+  },
+  {
+   "name": "10:alice",
+   "path": "_ProfileDir_/Documents",
+   "user": "alice",
+   "expect": "~/Documents"
+  },
+  {
+   "name": "11:bob",
+   "path": "Z:\\home\\bob\\.ssh\\id_ed25519",
+   "user": "bob",
+   "expect": "~/.ssh/id_ed25519"
+  },
+  {
+   "name": "11:alice",
+   "path": "Z:\\home\\bob\\.ssh\\id_ed25519",
+   "user": "alice",
+   "expect": "/home/bob/.ssh/id_ed25519"
+  },
+  {
+   "name": "12:bob",
+   "path": "Z:\\home\\carol\\.ssh\\id_ed25519",
+   "user": "bob",
+   "expect": "/home/carol/.ssh/id_ed25519"
+  },
+  {
+   "name": "12:alice",
+   "path": "Z:\\home\\carol\\.ssh\\id_ed25519",
+   "user": "alice",
+   "expect": "/home/carol/.ssh/id_ed25519"
+  },
+  {
+   "name": "13:bob",
+   "path": "z:/home/bob/.ssh/sub/key",
+   "user": "bob",
+   "expect": "~/.ssh/sub/key"
+  },
+  {
+   "name": "13:alice",
+   "path": "z:/home/bob/.ssh/sub/key",
+   "user": "alice",
+   "expect": "/home/bob/.ssh/sub/key"
+  },
+  {
+   "name": "14:bob",
+   "path": "Z:/home/bob/.ssh/",
+   "user": "bob",
+   "expect": "~/home/bob/.ssh"
+  },
+  {
+   "name": "14:alice",
+   "path": "Z:/home/bob/.ssh/",
+   "user": "alice",
+   "expect": "~/home/bob/.ssh"
+  },
+  {
+   "name": "15:bob",
+   "path": "Z:/home//.ssh/k",
+   "user": "bob",
+   "expect": "~/home/.ssh/k"
+  },
+  {
+   "name": "15:alice",
+   "path": "Z:/home//.ssh/k",
+   "user": "alice",
+   "expect": "~/home/.ssh/k"
+  },
+  {
+   "name": "16:bob",
+   "path": "C:\\Users\\x\\keys\\k.ppk",
+   "user": "bob",
+   "expect": "~/Users/x/keys/k.ppk"
+  },
+  {
+   "name": "16:alice",
+   "path": "C:\\Users\\x\\keys\\k.ppk",
+   "user": "alice",
+   "expect": "~/Users/x/keys/k.ppk"
+  },
+  {
+   "name": "17:bob",
+   "path": "C:/",
+   "user": "bob",
+   "expect": "~/."
+  },
+  {
+   "name": "17:alice",
+   "path": "C:/",
+   "user": "alice",
+   "expect": "~/."
+  },
+  {
+   "name": "18:bob",
+   "path": "C:/a//b/./c/",
+   "user": "bob",
+   "expect": "~/a/b/c"
+  },
+  {
+   "name": "18:alice",
+   "path": "C:/a//b/./c/",
+   "user": "alice",
+   "expect": "~/a/b/c"
+  },
+  {
+   "name": "19:bob",
+   "path": "C://abs/key",
+   "user": "bob",
+   "expect": "~//abs/key"
+  },
+  {
+   "name": "19:alice",
+   "path": "C://abs/key",
+   "user": "alice",
+   "expect": "~//abs/key"
+  },
+  {
+   "name": "20:bob",
+   "path": "C:///abs/key",
+   "user": "bob",
+   "expect": "~///abs/key"
+  },
+  {
+   "name": "20:alice",
+   "path": "C:///abs/key",
+   "user": "alice",
+   "expect": "~///abs/key"
+  },
+  {
+   "name": "21:bob",
+   "path": "C:////abs/key",
+   "user": "bob",
+   "expect": "~//abs/key"
+  },
+  {
+   "name": "21:alice",
+   "path": "C:////abs/key",
+   "user": "alice",
+   "expect": "~//abs/key"
+  },
+  {
+   "name": "22:bob",
+   "path": "C:/./k",
+   "user": "bob",
+   "expect": "~/k"
+  },
+  {
+   "name": "22:alice",
+   "path": "C:/./k",
+   "user": "alice",
+   "expect": "~/k"
+  },
+  {
+   "name": "23:bob",
+   "path": "C:/a/../b",
+   "user": "bob",
+   "expect": "~/a/../b"
+  },
+  {
+   "name": "23:alice",
+   "path": "C:/a/../b",
+   "user": "alice",
+   "expect": "~/a/../b"
+  },
+  {
+   "name": "24:bob",
+   "path": "C:\\Backup\\Documents\\old\\k.ppk",
+   "user": "bob",
+   "expect": "~/Documents/k.ppk"
+  },
+  {
+   "name": "24:alice",
+   "path": "C:\\Backup\\Documents\\old\\k.ppk",
+   "user": "alice",
+   "expect": "~/Documents/k.ppk"
+  },
+  {
+   "name": "25:bob",
+   "path": "D:\\DOCUMENTS BACKUP\\k.ppk",
+   "user": "bob",
+   "expect": "~/Documents/k.ppk"
+  },
+  {
+   "name": "25:alice",
+   "path": "D:\\DOCUMENTS BACKUP\\k.ppk",
+   "user": "alice",
+   "expect": "~/Documents/k.ppk"
+  },
+  {
+   "name": "26:bob",
+   "path": "D:\\backup\\documents\\",
+   "user": "bob",
+   "expect": "~/Documents/documents"
+  },
+  {
+   "name": "26:alice",
+   "path": "D:\\backup\\documents\\",
+   "user": "alice",
+   "expect": "~/Documents/documents"
+  },
+  {
+   "name": "27:bob",
+   "path": "D:\\backup\\documents\\.",
+   "user": "bob",
+   "expect": "~/Documents/documents"
+  },
+  {
+   "name": "27:alice",
+   "path": "D:\\backup\\documents\\.",
+   "user": "alice",
+   "expect": "~/Documents/documents"
+  },
+  {
+   "name": "28:bob",
+   "path": "D:\\backup only\\k",
+   "user": "bob",
+   "expect": "~/backup only/k"
+  },
+  {
+   "name": "28:alice",
+   "path": "D:\\backup only\\k",
+   "user": "alice",
+   "expect": "~/backup only/k"
+  },
+  {
+   "name": "29:bob",
+   "path": "/already/linux/key",
+   "user": "bob",
+   "expect": "/already/linux/key"
+  },
+  {
+   "name": "29:alice",
+   "path": "/already/linux/key",
+   "user": "alice",
+   "expect": "/already/linux/key"
+  },
+  {
+   "name": "30:bob",
+   "path": "~/.ssh/k",
+   "user": "bob",
+   "expect": "~/.ssh/k"
+  },
+  {
+   "name": "30:alice",
+   "path": "~/.ssh/k",
+   "user": "alice",
+   "expect": "~/.ssh/k"
+  },
+  {
+   "name": "31:bob",
+   "path": "relative\\key",
+   "user": "bob",
+   "expect": "relative/key"
+  },
+  {
+   "name": "31:alice",
+   "path": "relative\\key",
+   "user": "alice",
+   "expect": "relative/key"
+  },
+  {
+   "name": "32:bob",
+   "path": "  Z:\\home\\bob\\.ssh\\k  ",
+   "user": "bob",
+   "expect": "~/.ssh/k"
+  },
+  {
+   "name": "32:alice",
+   "path": "  Z:\\home\\bob\\.ssh\\k  ",
+   "user": "alice",
+   "expect": "/home/bob/.ssh/k"
+  },
+  {
+   "name": "33:bob",
+   "path": "ÄB:\\x",
+   "user": "bob",
+   "expect": "ÄB:/x"
+  },
+  {
+   "name": "33:alice",
+   "path": "ÄB:\\x",
+   "user": "alice",
+   "expect": "ÄB:/x"
+  },
+  {
+   "name": "34:bob",
+   "path": "1:/x",
+   "user": "bob",
+   "expect": "1:/x"
+  },
+  {
+   "name": "34:alice",
+   "path": "1:/x",
+   "user": "alice",
+   "expect": "1:/x"
+  },
+  {
+   "name": "35:bob",
+   "path": "Z:\\HOME\\bob\\.ssh\\k",
+   "user": "bob",
+   "expect": "~/HOME/bob/.ssh/k"
+  },
+  {
+   "name": "35:alice",
+   "path": "Z:\\HOME\\bob\\.ssh\\k",
+   "user": "alice",
+   "expect": "~/HOME/bob/.ssh/k"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+base: &base
+  host: base.example.test
+  port: 22
+  user: base
+extra: &extra
+  user: extra
+  shell: zsh
+scalar: &s hello
+list: &l [1, 2]
+use_scalar: *s
+use_list: *l
+merged_one:
+  <<: *base
+  port: 2222
+merged_list:
+  <<: [*extra, *base]
+  label: both
+merged_after:
+  label: own first
+  <<: *base
+  host: own.example.test
+inline_merge:
+  <<: {a: 1, b: 2}
+  b: 3
+*s : aliased key
+under_score: &a_b-c x
+use_under: *a_b-c
+"<<": quoted merge key is a plain string key

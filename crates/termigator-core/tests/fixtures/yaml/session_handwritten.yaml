@@ -1,0 +1,64 @@
+# Synthetic session.yaml edited by hand: the `connections:` mapping form,
+# anchors, merge keys, flow collections and every scalar style.
+defaults: &defaults
+  user: ops
+  port: 22
+  terminal: embedded
+  forward_agent: yes          # YAML 1.1 bool
+  compression: off
+connections:
+  - <<: *defaults
+    label: db-primary
+    host: db-01.example.test
+    group: Production/DB
+    local_forwards: [5432:localhost:5432, "6432:localhost:6432"]
+    tags: &dbtags [prod, db]
+  - <<: *defaults
+    label: db-replica
+    host: db-02.example.test
+    port: 2202                # overrides the merged port
+    tags: *dbtags
+  - label: "Kraków – biuro"
+    host: '192.0.2.44'
+    user: "root"
+    port: 0x16                # 22 in hex
+    password: 'it''s a secret, isn''t it'
+    group: Biuro / Kraków
+    notes: |
+      First line
+        indented second line
+
+      after an empty line
+    banner: >-
+      folded text
+      joined with spaces
+    script: |+
+      keep trailing newlines
+
+    timeout: 1:30             # sexagesimal int (90)
+    umask: 0022               # octal int (18)
+    started: 2026-01-02
+    seen: 2026-01-02 10:20:30.5 +02:00
+    ratio: 1_000.5
+    nothing: ~
+    empty:
+    nan: .NaN
+    inf: -.Inf
+  - {label: flow-entry, host: flow.example.test, port: 22, tags: [a, b], x11: No}
+  - label: multi line plain
+    host: plain.example.test
+    description: this plain scalar
+      continues on the next line
+      and the next
+    quoted: "double quoted
+      folded across lines\twith\\escapes \x41ą\U0001F680"
+    single: 'single quoted
+
+      with a blank line'
+    ? complex key
+    : complex value
+    "quoted key": 1
+    123: int key
+    true: bool key
+    null: null key
+    1.5: float key

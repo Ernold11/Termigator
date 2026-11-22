@@ -1,0 +1,1680 @@
+{
+ "cases": [
+  {
+   "name": "0:tester",
+   "file": "My%20Box",
+   "input": "HostName=box.lan\nPortNumber=2200\nUserName=root\nProtocol=ssh\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "My Box"
+     ],
+     [
+      "host",
+      "box.lan"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "1:tester",
+   "file": "x",
+   "input": "HostName=admin@srv\nProtocol=ssh\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "admin"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "2:tester",
+   "file": "x",
+   "input": "HostName=admin@srv\nUserName=given\nProtocol=ssh\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "admin@srv"
+     ],
+     [
+      "user",
+      "given"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "3:tester",
+   "file": "x",
+   "input": "HostName=@srv\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "@srv"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "4:tester",
+   "file": "x",
+   "input": "HostName=a@\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "a@"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "5:tester",
+   "file": "x",
+   "input": "HostName=a@b@c\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "b@c"
+     ],
+     [
+      "user",
+      "a"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "6:tester",
+   "file": "x",
+   "input": "HostName=COM1\nProtocol=serial\n",
+   "user": "tester",
+   "expect": null
+  },
+  {
+   "name": "7:tester",
+   "file": "x",
+   "input": "HostName=h\nProtocol=SSH\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "8:tester",
+   "file": "x",
+   "input": "HostName=h\nProtocol=telnet\n",
+   "user": "tester",
+   "expect": null
+  },
+  {
+   "name": "9:tester",
+   "file": "x",
+   "input": "Protocol=ssh\n",
+   "user": "tester",
+   "expect": null
+  },
+  {
+   "name": "10:tester",
+   "file": "x",
+   "input": "HostName=   \n",
+   "user": "tester",
+   "expect": null
+  },
+  {
+   "name": "11:tester",
+   "file": "x",
+   "input": "",
+   "user": "tester",
+   "expect": null
+  },
+  {
+   "name": "12:tester",
+   "file": "app",
+   "input": "HostName=app.example\nUserName=ops\nProtocol=ssh\nPortForwardings=L8080=localhost:80,4R9000=localhost:22,L127.0.0.1:5433=db:5432,D1080\nRemoteCommand=tmux attach\nX11Forward=1\nAgentFwd=0\nProxyMethod=6\nProxyHost=bastion.example\nProxyPort=2200\nProxyUsername=jump\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "app"
+     ],
+     [
+      "host",
+      "app.example"
+     ],
+     [
+      "user",
+      "ops"
+     ],
+     [
+      "dynamic_forward",
+      "1080"
+     ],
+     [
+      "local_forwards",
+      [
+       "8080:localhost:80",
+       "127.0.0.1:5433:db:5432"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "9000:localhost:22"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux attach"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "proxy_jump",
+      "jump@bastion.example:2200"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "13:tester",
+   "file": "pct%C5%82%C3%B3d%20%zz%2",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "pctłód %zz%2"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "14:tester",
+   "file": "bad%FF%FEutf",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "bad��utf"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "15:tester",
+   "file": "plus+sign",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "plus+sign"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "16:tester",
+   "file": "empty%20",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "empty "
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "17:tester",
+   "file": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "18:tester",
+   "file": "",
+   "input": "HostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "h"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "19:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=22\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "20:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=0\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "21:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=-5\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-5"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "22:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=abc\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "23:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "24:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber= 2222 \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "25:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=1_0\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "10"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "26:tester",
+   "file": "x",
+   "input": "HostName=h\nPortNumber=70000\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "70000"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "27:tester",
+   "file": "x",
+   "input": "HostName=h\r\nPortNumber=2201\r\nUserName=win\r\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "win"
+     ],
+     [
+      "port",
+      {
+       "$int": "2201"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "28:tester",
+   "file": "x",
+   "input": "HostName=h\rPortNumber=2202\u000bUserName=vtProtocol=ssh",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "vt"
+     ],
+     [
+      "port",
+      {
+       "$int": "2202"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "29:tester",
+   "file": "x",
+   "input": "  HostName  =  h  \n  UserName = u \nHostName=second\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "second"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "30:tester",
+   "file": "x",
+   "input": "HostName=h=1\nUserName=a=b\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h=1"
+     ],
+     [
+      "user",
+      "a=b"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "31:tester",
+   "file": "x",
+   "input": "nonsense\n=x\nHostName=h\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "32:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=C:\\keys\\id_rsa\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "~/keys/id_rsa"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "33:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=C:\\keys\\id.ppk\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "34:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=C:\\keys\\ID.PPK\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "35:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=\"C:\\keys\\id_rsa\"\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "~/keys/id_rsa"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "36:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=\"\"\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "37:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=Z:\\home\\tester\\.ssh\\id_ed25519\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "~/.ssh/id_ed25519"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "37:bob",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=Z:\\home\\tester\\.ssh\\id_ed25519\n",
+   "user": "bob",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "/home/tester/.ssh/id_ed25519"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "38:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=Z:\\home\\bob\\.ssh\\id_ed25519\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "/home/bob/.ssh/id_ed25519"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "38:bob",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=Z:\\home\\bob\\.ssh\\id_ed25519\n",
+   "user": "bob",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "~/.ssh/id_ed25519"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "39:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=/home/tester/.ssh/id_rsa\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "/home/tester/.ssh/id_rsa"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "40:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=_MyDocuments_\\MobaXterm\\home\\.ssh\\k\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "identity_file",
+      "~/.ssh/k"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "41:tester",
+   "file": "x",
+   "input": "HostName=h\nPublicKeyFile=  \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "x"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "42:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "43:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=L1=a:1\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "44:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=l1=a:1,r2=b:2,d3\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "dynamic_forward",
+      "3"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "2:b:2"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "45:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=D1080,D2080\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "dynamic_forward",
+      "1080"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "46:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=D\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "47:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=L=a:1,L2=,L3,R=,R4\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "48:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=4L1=a:1,6R2=b:2,4D3,6\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "dynamic_forward",
+      "3"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "2:b:2"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "49:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=44L1=a:1\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "50:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings= L1=a:1 , R2=b:2 \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "2:b:2"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "51:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=L1=a=b\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a=b"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "52:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=X1=a:1,Z\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "53:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=L[::1]:80=h:80\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "local_forwards",
+      [
+       "[::1]:80:h:80"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "54:tester",
+   "file": "fw",
+   "input": "HostName=h\nPortForwardings=L1=a:1,,,\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "fw"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "55:tester",
+   "file": "rc",
+   "input": "HostName=h\nRemoteCommand=  \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "rc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "56:tester",
+   "file": "rc",
+   "input": "HostName=h\nRemoteCommand= ls -l \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "rc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "remote_command",
+      "ls -l"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "57:tester",
+   "file": "flags",
+   "input": "HostName=h\nX11Forward=1\nAgentFwd=1\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "flags"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "forward_agent",
+      true
+     ]
+    ]
+   }
+  },
+  {
+   "name": "58:tester",
+   "file": "flags",
+   "input": "HostName=h\nX11Forward=0\nAgentFwd=00\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "flags"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "59:tester",
+   "file": "flags",
+   "input": "HostName=h\nX11Forward=yes\nAgentFwd=\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "flags"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "60:tester",
+   "file": "flags",
+   "input": "HostName=h\nX11Forward=2\nAgentFwd= 1 \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "flags"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "forward_agent",
+      true
+     ]
+    ]
+   }
+  },
+  {
+   "name": "61:tester",
+   "file": "flags",
+   "input": "HostName=h\nX11Forward=-1\nAgentFwd=+1\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "flags"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "forward_agent",
+      true
+     ]
+    ]
+   }
+  },
+  {
+   "name": "62:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "63:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\nProxyPort=22\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "64:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\nProxyPort=0\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j:0"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "65:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\nProxyPort=x\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "66:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\nProxyPort=\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "67:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=j\nProxyUsername=u\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "u@j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "68:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=6\nProxyHost=\nProxyUsername=u\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "69:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=5\nProxyHost=j\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "70:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=2\nProxyHost=socks\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "71:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=x\nProxyHost=j\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "72:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod= 6 \nProxyHost= j \n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "73:tester",
+   "file": "px",
+   "input": "HostName=h\nProxyMethod=06\nProxyHost=j\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "px"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "74:tester",
+   "file": "polish",
+   "input": "HostName=serwer.łódź\nUserName=żółw\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "polish"
+     ],
+     [
+      "host",
+      "serwer.łódź"
+     ],
+     [
+      "user",
+      "żółw"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "75:tester",
+   "file": "order",
+   "input": "ProxyHost=j\nProxyMethod=6\nPortNumber=2222\nUserName=u\nHostName=h\nPortForwardings=L1=a:1,R2=b:2,D3\nRemoteCommand=ls\nX11Forward=1\nAgentFwd=1\nPublicKeyFile=C:\\k\\id_rsa\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "label",
+      "order"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "identity_file",
+      "~/k/id_rsa"
+     ],
+     [
+      "dynamic_forward",
+      "3"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:a:1"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "2:b:2"
+      ]
+     ],
+     [
+      "remote_command",
+      "ls"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "forward_agent",
+      true
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ]
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Termigator
+GenericName=SSH launcher
+Comment=SSH bookmarks and favorite commands — embedded terminal (QTermWidget) or external Konsole
+Keywords=ssh;terminal;konsole;hosts;bookmarks;rdp;vnc;
+# Generic entry, no absolute paths. install.sh rewrites Exec/TryExec to the installed launcher
+# (arguments such as --toggle are kept); Icon is looked up in the icon theme (hicolor, installed by install.sh).
+Exec=termigator
+TryExec=termigator
+Icon=termigator
+Terminal=false
+StartupNotify=true
+StartupWMClass=termigator
+Categories=Network;Qt;
+Actions=toggle;
+
+[Desktop Action toggle]
+Name=Show / hide Termigator
+Exec=termigator --toggle

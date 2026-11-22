@@ -1,0 +1,318 @@
+{
+ "cases": [
+  {
+   "name": "nothing",
+   "files": {},
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "config_only",
+   "files": {
+    "cfg/config.yaml": "window:\n  width: 1000\nconnections:\n- host: inline\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1000"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "inline"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 1000\nconnections:\n- host: inline\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "session_list",
+   "files": {
+    "cfg/config.yaml": "window:\n  width: 1000\n",
+    "cfg/session.yaml": "# c\n- host: a\n  user: u\n- just a string\n- host: b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1000"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "host",
+          "b"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "window:\n  width: 1000\n",
+    "cfg/session.yaml": "# c\n- host: a\n  user: u\n- just a string\n- host: b\n",
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "session_mapping",
+   "files": {
+    "cfg/config.yaml": "connections: [{host: old}]\nfavorites: []\n",
+    "cfg/session.yaml": "connections:\n- host: new\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "new"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "connections: [{host: old}]\nfavorites: []\n",
+    "cfg/session.yaml": "connections:\n- host: new\n",
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "session_empty_keeps_inline",
+   "files": {
+    "cfg/config.yaml": "connections:\n- host: inline\n",
+    "cfg/session.yaml": "[]\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "host",
+          "inline"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "connections:\n- host: inline\n",
+    "cfg/session.yaml": "[]\n",
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "connections_not_list",
+   "files": {
+    "cfg/config.yaml": "connections: nope\nx: 1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "x",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "connections: nope\nx: 1\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "config_not_mapping",
+   "files": {
+    "cfg/config.yaml": "- a\n- b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "- a\n- b\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "config_empty_doc",
+   "files": {
+    "cfg/config.yaml": ""
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  },
+  {
+   "name": "example_fallback",
+   "files": {
+    "cfg/config.example.yaml": "launch:\n  shell: zsh\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": null,
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": "launch:\n  shell: zsh\n"
+   }
+  },
+  {
+   "name": "yaml11_values",
+   "files": {
+    "cfg/config.yaml": "window:\n  always_on_top: yes\n  width: 0x400\nlaunch:\n  shell: '~'\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "width",
+         {
+          "$int": "1024"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "~"
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      []
+     ]
+    ]
+   },
+   "after": {
+    "cfg/config.yaml": "window:\n  always_on_top: yes\n  width: 0x400\nlaunch:\n  shell: '~'\n",
+    "cfg/session.yaml": null,
+    "cfg/config.example.yaml": null
+   }
+  }
+ ]
+}

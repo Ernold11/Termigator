@@ -1,0 +1,3814 @@
+{
+ "cases": [
+  {
+   "name": "t:upload_tilde",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "~/",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:~/'"
+  },
+  {
+   "name": "t:download",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/syslog",
+   "remote": "/var/log/syslog",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/var/log/syslog /tmp/syslog"
+  },
+  {
+   "name": "t:upload_dir",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@",
+   "remote": "/r/",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -r @FIX@ u@h:/r/"
+  },
+  {
+   "name": "t:port_identity_jump_shk",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ],
+     [
+      "proxy_jump",
+      "b1,b2"
+     ],
+     [
+      "strict_host_key_checking",
+      "accept-new"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 2222 -i @FIX@/id_ok -o IdentitiesOnly=yes -J b1,b2 -o StrictHostKeyChecking=accept-new @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "t:password",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "sshpass -e scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "t:password_no_sshpass",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "error": "ScpError",
+   "message": "Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "t:ipv6",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/etc/hosts",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@[::1]:/etc/hosts' /tmp/x"
+  },
+  {
+   "name": "t:missing",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "host:'srv':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@srv:/r/f"
+  },
+  {
+   "name": "host:'srv':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@srv:/r/f /tmp/x"
+  },
+  {
+   "name": "host:'10.0.0.5':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.5"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@10.0.0.5:/r/f"
+  },
+  {
+   "name": "host:'10.0.0.5':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "10.0.0.5"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@10.0.0.5:/r/f /tmp/x"
+  },
+  {
+   "name": "host:'::1':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@[::1]:/r/f'"
+  },
+  {
+   "name": "host:'::1':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@[::1]:/r/f' /tmp/x"
+  },
+  {
+   "name": "host:'fe80::1%eth0':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "fe80::1%eth0"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@[fe80::1%eth0]:/r/f'"
+  },
+  {
+   "name": "host:'fe80::1%eth0':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "fe80::1%eth0"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@[fe80::1%eth0]:/r/f' /tmp/x"
+  },
+  {
+   "name": "host:'2001:db8::1':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@[2001:db8::1]:/r/f'"
+  },
+  {
+   "name": "host:'2001:db8::1':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@[2001:db8::1]:/r/f' /tmp/x"
+  },
+  {
+   "name": "host:'a.b-c.example':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a.b-c.example"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@a.b-c.example:/r/f"
+  },
+  {
+   "name": "host:'a.b-c.example':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a.b-c.example"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@a.b-c.example:/r/f /tmp/x"
+  },
+  {
+   "name": "host:'-h':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host '-h': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "host:'-h':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host '-h': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "host:'h x':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'h x': must not contain spaces or control characters"
+  },
+  {
+   "name": "host:'h x':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h x"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'h x': must not contain spaces or control characters"
+  },
+  {
+   "name": "host:'evil@h':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "evil@h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'evil@h': must not contain '@' (put the user name in the User field)"
+  },
+  {
+   "name": "host:'evil@h':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "evil@h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'evil@h': must not contain '@' (put the user name in the User field)"
+  },
+  {
+   "name": "host:'h\\x00':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u0000"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'h\\x00': must not contain spaces or control characters"
+  },
+  {
+   "name": "host:'h\\x00':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h\u0000"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "host 'h\\x00': must not contain spaces or control characters"
+  },
+  {
+   "name": "user:'u'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "user:'user.name-1'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "user.name-1"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok user.name-1@h:/r/f"
+  },
+  {
+   "name": "user:'-oX=y'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "-oX=y"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "user '-oX=y': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "user:'u v'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u v"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "user 'u v': must not contain spaces or control characters"
+  },
+  {
+   "name": "user:'u\\nv'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u\nv"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "user 'u\\nv': must not contain spaces or control characters"
+  },
+  {
+   "name": "user:' '",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      " "
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "port:None",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:''",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:22",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:'22'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "22"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:2222",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 2222 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:' 2222 '",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      " 2222 "
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 2222 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:0",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "port:65536",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Port must be between 1 and 65535."
+  },
+  {
+   "name": "port:'abc'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Invalid port."
+  },
+  {
+   "name": "port:True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 1 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:2222.7",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$float": "2222.7"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 2222 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "port:[1]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      [
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Invalid port."
+  },
+  {
+   "name": "identity:''",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "identity:None",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      null
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "identity:'~/id_ok'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "~/id_ok"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -i @FIX@/id_ok -o IdentitiesOnly=yes @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "identity:'@FIX@/id_ok'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -i @FIX@/id_ok -o IdentitiesOnly=yes @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "identity:'/no/such'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "/no/such"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "SSH key file not found (not a regular file): '/no/such' → '/no/such'. Use an absolute path or ~/.ssh/… and the private key, not .pub."
+  },
+  {
+   "name": "identity:'@FIX@/id_empty'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_empty"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "SSH key file is empty: '@FIX@/id_empty'"
+  },
+  {
+   "name": "identity:'@FIX@/id_ok.pub'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok.pub"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -i @FIX@/id_ok.pub -o IdentitiesOnly=yes @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "identity:'@FIX@'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "identity_file",
+      "@FIX@"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "SSH key file not found (not a regular file): '@FIX@' → '@FIX@'. Use an absolute path or ~/.ssh/… and the private key, not .pub."
+  },
+  {
+   "name": "proxy:''",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:'b1'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "b1"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J b1 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:'b1,b2'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "b1,b2"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J b1,b2 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:['a', 'b']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      [
+       "a",
+       "b"
+      ]
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J a,b @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:'-J x'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "-J x"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "proxy_jump / jumphost '-J x': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "proxy:' -L'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      " -L"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "proxy_jump / jumphost '-L': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "proxy:'a,,b'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "a,,b"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J a,b @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:['a', '']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      [
+       "a",
+       ""
+      ]
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J a @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "proxy:'u@j:2222'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "proxy_jump",
+      "u@j:2222"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J u@j:2222 @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "jumphost:j",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "jumphost",
+      "j"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J j @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "jump_host:j",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "jump_host",
+      "j"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -J j @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:None",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      null
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:''",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'yes'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "yes"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=yes @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'no'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "no"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=no @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'ask'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "ask"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=ask @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'accept-new'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "accept-new"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=accept-new @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'off'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "off"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=off @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:' yes '",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      " yes "
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -o StrictHostKeyChecking=yes @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'bogus'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "bogus"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:'YES'",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      "YES"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "shk:True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "strict_host_key_checking",
+      true
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:'s3cret':['sshpass']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "sshpass -e scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:'s3cret':[]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "error": "ScpError",
+   "message": "Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "pw:'':['sshpass']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:'':[]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:None:['sshpass']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:None:[]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:\"it's\":['sshpass']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "it's"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "sshpass -e scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:\"it's\":[]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "it's"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "error": "ScpError",
+   "message": "Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "pw:0:['sshpass']",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "pw:0:[]",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "remote:'/r/f':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "remote:'/r/f':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f /tmp/out"
+  },
+  {
+   "name": "remote:'~':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "~",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:~'"
+  },
+  {
+   "name": "remote:'~':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "~",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:~' /tmp/out"
+  },
+  {
+   "name": "remote:'~/':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "~/",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:~/'"
+  },
+  {
+   "name": "remote:'~/':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "~/",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:~/' /tmp/out"
+  },
+  {
+   "name": "remote:'~/a b':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "~/a b",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:~/a b'"
+  },
+  {
+   "name": "remote:'~/a b':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "~/a b",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:~/a b' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/[ab].log':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/[ab].log",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/[ab].log'"
+  },
+  {
+   "name": "remote:'/r/[ab].log':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/[ab].log",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/\\[ab\\].log' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/q?.txt':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/q?.txt",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/q?.txt'"
+  },
+  {
+   "name": "remote:'/r/q?.txt':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/q?.txt",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/q\\?.txt' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/a\\\\b':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/a\\b",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/a\\b'"
+  },
+  {
+   "name": "remote:'/r/a\\\\b':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/a\\b",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/a\\\\b' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/{a,b}.log':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/{a,b}.log",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/{a,b}.log'"
+  },
+  {
+   "name": "remote:'/r/{a,b}.log':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/{a,b}.log",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/{a,b}.log' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/*':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/*",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/*'"
+  },
+  {
+   "name": "remote:'/r/*':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/*",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/\\*' /tmp/out"
+  },
+  {
+   "name": "remote:\"/r/it's\":True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/it's",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/it'\"'\"'s'"
+  },
+  {
+   "name": "remote:\"/r/it's\":False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/it's",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/it'\"'\"'s' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/\"q\"':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/\"q\"",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/\"q\"'"
+  },
+  {
+   "name": "remote:'/r/\"q\"':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/\"q\"",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/\"q\"' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/a b':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/a b",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/a b'"
+  },
+  {
+   "name": "remote:'/r/a b':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/a b",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/a b' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/$x':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/$x",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/$x'"
+  },
+  {
+   "name": "remote:'/r/$x':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/$x",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/$x' /tmp/out"
+  },
+  {
+   "name": "remote:'/r/;id':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/;id",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/;id'"
+  },
+  {
+   "name": "remote:'/r/;id':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/;id",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/;id' /tmp/out"
+  },
+  {
+   "name": "remote:'-rf':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "-rf",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path must not start with '-'."
+  },
+  {
+   "name": "remote:'-rf':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "-rf",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path must not start with '-'."
+  },
+  {
+   "name": "remote:' -x':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": " -x",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path must not start with '-'."
+  },
+  {
+   "name": "remote:' -x':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": " -x",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path must not start with '-'."
+  },
+  {
+   "name": "remote:'':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path is missing."
+  },
+  {
+   "name": "remote:'':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path is missing."
+  },
+  {
+   "name": "remote:'  ':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "  ",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path is missing."
+  },
+  {
+   "name": "remote:'  ':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "  ",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Remote path is missing."
+  },
+  {
+   "name": "remote:'  /r/f  ':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "  /r/f  ",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "remote:'  /r/f  ':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "  /r/f  ",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f /tmp/out"
+  },
+  {
+   "name": "remote:'/r/é':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/é",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:/r/é'"
+  },
+  {
+   "name": "remote:'/r/é':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "/r/é",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:/r/é' /tmp/out"
+  },
+  {
+   "name": "remote:'r\\x00':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "r\u0000",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok 'u@h:r\u0000'"
+  },
+  {
+   "name": "remote:'r\\x00':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/out",
+   "remote": "r\u0000",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp 'u@h:r\u0000' /tmp/out"
+  },
+  {
+   "name": "local:'@FIX@/id_ok':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "local:'@FIX@/id_ok':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@/id_ok",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@/id_ok"
+  },
+  {
+   "name": "local:'@FIX@':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -r @FIX@ u@h:/r/f"
+  },
+  {
+   "name": "local:'@FIX@':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "@FIX@",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@"
+  },
+  {
+   "name": "local:'/no/such/file':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/no/such/file",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local file not found: '/no/such/file'"
+  },
+  {
+   "name": "local:'/no/such/file':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/no/such/file",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f /no/such/file"
+  },
+  {
+   "name": "local:'-x':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "-x",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path must not start with '-'."
+  },
+  {
+   "name": "local:'-x':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "-x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path must not start with '-'."
+  },
+  {
+   "name": "local:' -x':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": " -x",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path must not start with '-'."
+  },
+  {
+   "name": "local:' -x':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": " -x",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path must not start with '-'."
+  },
+  {
+   "name": "local:'':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path is missing."
+  },
+  {
+   "name": "local:'':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path is missing."
+  },
+  {
+   "name": "local:'  ':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "  ",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path is missing."
+  },
+  {
+   "name": "local:'  ':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "  ",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local path is missing."
+  },
+  {
+   "name": "local:'~/id_ok':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/id_ok",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "local:'~/id_ok':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/id_ok",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@/id_ok"
+  },
+  {
+   "name": "local:'~':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -r @FIX@ u@h:/r/f"
+  },
+  {
+   "name": "local:'~':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@"
+  },
+  {
+   "name": "local:'~/':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -r @FIX@/ u@h:/r/f"
+  },
+  {
+   "name": "local:'~/':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@/"
+  },
+  {
+   "name": "local:'~/nope':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/nope",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local file not found: '@FIX@/nope'"
+  },
+  {
+   "name": "local:'~/nope':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "~/nope",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@/nope"
+  },
+  {
+   "name": "local:'/tmp/a b':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/a b",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local file not found: '/tmp/a b'"
+  },
+  {
+   "name": "local:'/tmp/a b':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/a b",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f '/tmp/a b'"
+  },
+  {
+   "name": "local:\"/tmp/it's\":True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/it's",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "error": "ScpError",
+   "message": "Local file not found: \"/tmp/it's\""
+  },
+  {
+   "name": "local:\"/tmp/it's\":False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "/tmp/it's",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f '/tmp/it'\"'\"'s'"
+  },
+  {
+   "name": "local:'  @FIX@/id_ok  ':True",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "  @FIX@/id_ok  ",
+   "remote": "/r/f",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp @FIX@/id_ok u@h:/r/f"
+  },
+  {
+   "name": "local:'  @FIX@/id_ok  ':False",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local": "  @FIX@/id_ok  ",
+   "remote": "/r/f",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp u@h:/r/f @FIX@/id_ok"
+  },
+  {
+   "name": "combo:everything",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "fe80::1%eth0"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ],
+     [
+      "proxy_jump",
+      [
+       "j1",
+       "j2"
+      ]
+     ],
+     [
+      "strict_host_key_checking",
+      "no"
+     ],
+     [
+      "password",
+      "p"
+     ]
+    ]
+   },
+   "local": "@FIX@",
+   "remote": "/r/[x]/",
+   "upload": true,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -r -P 2200 -i @FIX@/id_ok -o IdentitiesOnly=yes -J j1,j2 -o StrictHostKeyChecking=no @FIX@ 'u@[fe80::1%eth0]:/r/[x]/'"
+  },
+  {
+   "name": "combo:everything_down",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ],
+     [
+      "strict_host_key_checking",
+      "ask"
+     ],
+     [
+      "password",
+      "p"
+     ]
+    ]
+   },
+   "local": "/tmp/x",
+   "remote": "/r/[x]/",
+   "upload": false,
+   "which": [
+    "sshpass"
+   ],
+   "expect": "scp -P 2200 -i @FIX@/id_ok -o IdentitiesOnly=yes -J j -o StrictHostKeyChecking=ask 'u@[::1]:/r/\\[x\\]/' /tmp/x"
+  }
+ ]
+}

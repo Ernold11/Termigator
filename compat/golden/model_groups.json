@@ -1,0 +1,8157 @@
+{
+ "cases": [
+  {
+   "name": "normalize:''",
+   "input": [
+    ""
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:''",
+   "input": [
+    ""
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'   '",
+   "input": [
+    "   "
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'   '",
+   "input": [
+    "   "
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:None",
+   "input": [
+    null
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:None",
+   "input": [
+    null
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'///'",
+   "input": [
+    "///"
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'///'",
+   "input": [
+    "///"
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'prod'",
+   "input": [
+    "prod"
+   ],
+   "expect": "prod",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'prod'",
+   "input": [
+    "prod"
+   ],
+   "expect": [
+    "prod"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'prod/web'",
+   "input": [
+    "prod/web"
+   ],
+   "expect": "prod/web",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'prod/web'",
+   "input": [
+    "prod/web"
+   ],
+   "expect": [
+    "prod",
+    "prod/web"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'prod\\\\web\\\\eu'",
+   "input": [
+    "prod\\web\\eu"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'prod\\\\web\\\\eu'",
+   "input": [
+    "prod\\web\\eu"
+   ],
+   "expect": [
+    "prod",
+    "prod/web",
+    "prod/web/eu"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'  prod //  web / '",
+   "input": [
+    "  prod //  web / "
+   ],
+   "expect": "prod/web",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'  prod //  web / '",
+   "input": [
+    "  prod //  web / "
+   ],
+   "expect": [
+    "prod",
+    "prod/web"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'/prod/'",
+   "input": [
+    "/prod/"
+   ],
+   "expect": "prod",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'/prod/'",
+   "input": [
+    "/prod/"
+   ],
+   "expect": [
+    "prod"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\\\b/c'",
+   "input": [
+    "a\\b/c"
+   ],
+   "expect": "a/b/c",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\\\b/c'",
+   "input": [
+    "a\\b/c"
+   ],
+   "expect": [
+    "a",
+    "a/b",
+    "a/b/c"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a / b'",
+   "input": [
+    "a / b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a / b'",
+   "input": [
+    "a / b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a/ /b'",
+   "input": [
+    "a/ /b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a/ /b'",
+   "input": [
+    "a/ /b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'\\\\\\\\a\\\\\\\\'",
+   "input": [
+    "\\\\a\\\\"
+   ],
+   "expect": "a",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'\\\\\\\\a\\\\\\\\'",
+   "input": [
+    "\\\\a\\\\"
+   ],
+   "expect": [
+    "a"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'ünï/çödé'",
+   "input": [
+    "ünï/çödé"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'ünï/çödé'",
+   "input": [
+    "ünï/çödé"
+   ],
+   "expect": [
+    "ünï",
+    "ünï/çödé"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:' ünï / çödé '",
+   "input": [
+    " ünï / çödé "
+   ],
+   "expect": "ünï/çödé",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:' ünï / çödé '",
+   "input": [
+    " ünï / çödé "
+   ],
+   "expect": [
+    "ünï",
+    "ünï/çödé"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'日本/東京'",
+   "input": [
+    "日本/東京"
+   ],
+   "expect": "日本/東京",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'日本/東京'",
+   "input": [
+    "日本/東京"
+   ],
+   "expect": [
+    "日本",
+    "日本/東京"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\tb/c'",
+   "input": [
+    "a\tb/c"
+   ],
+   "expect": "a\tb/c",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\tb/c'",
+   "input": [
+    "a\tb/c"
+   ],
+   "expect": [
+    "a\tb",
+    "a\tb/c"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\xa0/b'",
+   "input": [
+    "a /b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\xa0/b'",
+   "input": [
+    "a /b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\u3000/\\u3000b'",
+   "input": [
+    "a　/　b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\u3000/\\u3000b'",
+   "input": [
+    "a　/　b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\x1c/b'",
+   "input": [
+    "a\u001c/b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\x1c/b'",
+   "input": [
+    "a\u001c/b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a\\x1f b'",
+   "input": [
+    "a\u001f b"
+   ],
+   "expect": "a\u001f b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a\\x1f b'",
+   "input": [
+    "a\u001f b"
+   ],
+   "expect": [
+    "a\u001f b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a/b c/d'",
+   "input": [
+    "a/b c/d"
+   ],
+   "expect": "a/b c/d",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a/b c/d'",
+   "input": [
+    "a/b c/d"
+   ],
+   "expect": [
+    "a",
+    "a/b c",
+    "a/b c/d"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'.'",
+   "input": [
+    "."
+   ],
+   "expect": ".",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'.'",
+   "input": [
+    "."
+   ],
+   "expect": [
+    "."
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'../x'",
+   "input": [
+    "../x"
+   ],
+   "expect": "../x",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'../x'",
+   "input": [
+    "../x"
+   ],
+   "expect": [
+    "..",
+    "../x"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a//b///c'",
+   "input": [
+    "a//b///c"
+   ],
+   "expect": "a/b/c",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a//b///c'",
+   "input": [
+    "a//b///c"
+   ],
+   "expect": [
+    "a",
+    "a/b",
+    "a/b/c"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'x/old'",
+   "input": [
+    "x/old"
+   ],
+   "expect": "x/old",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'x/old'",
+   "input": [
+    "x/old"
+   ],
+   "expect": [
+    "x",
+    "x/old"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'older'",
+   "input": [
+    "older"
+   ],
+   "expect": "older",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'older'",
+   "input": [
+    "older"
+   ],
+   "expect": [
+    "older"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'ab'",
+   "input": [
+    "ab"
+   ],
+   "expect": "ab",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'ab'",
+   "input": [
+    "ab"
+   ],
+   "expect": [
+    "ab"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a'",
+   "input": [
+    "a"
+   ],
+   "expect": "a",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a'",
+   "input": [
+    "a"
+   ],
+   "expect": [
+    "a"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'b/c/d'",
+   "input": [
+    "b/c/d"
+   ],
+   "expect": "b/c/d",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'b/c/d'",
+   "input": [
+    "b/c/d"
+   ],
+   "expect": [
+    "b",
+    "b/c",
+    "b/c/d"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'old'",
+   "input": [
+    "old"
+   ],
+   "expect": "old",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'old'",
+   "input": [
+    "old"
+   ],
+   "expect": [
+    "old"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'old/web/eu'",
+   "input": [
+    "old/web/eu"
+   ],
+   "expect": "old/web/eu",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'old/web/eu'",
+   "input": [
+    "old/web/eu"
+   ],
+   "expect": [
+    "old",
+    "old/web",
+    "old/web/eu"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'web/eu'",
+   "input": [
+    "web/eu"
+   ],
+   "expect": "web/eu",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'web/eu'",
+   "input": [
+    "web/eu"
+   ],
+   "expect": [
+    "web",
+    "web/eu"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'prod/web/eu'",
+   "input": [
+    "prod/web/eu"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'prod/web/eu'",
+   "input": [
+    "prod/web/eu"
+   ],
+   "expect": [
+    "prod",
+    "prod/web",
+    "prod/web/eu"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a/b/c'",
+   "input": [
+    "a/b/c"
+   ],
+   "expect": "a/b/c",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a/b/c'",
+   "input": [
+    "a/b/c"
+   ],
+   "expect": [
+    "a",
+    "a/b",
+    "a/b/c"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a/b'",
+   "input": [
+    "a/b"
+   ],
+   "expect": "a/b",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a/b'",
+   "input": [
+    "a/b"
+   ],
+   "expect": [
+    "a",
+    "a/b"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:'a/b/c/d'",
+   "input": [
+    "a/b/c/d"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:'a/b/c/d'",
+   "input": [
+    "a/b/c/d"
+   ],
+   "expect": [
+    "a",
+    "a/b",
+    "a/b/c",
+    "a/b/c/d"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:42",
+   "input": [
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": "42",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:42",
+   "input": [
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": [
+    "42"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:0",
+   "input": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:0",
+   "input": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:False",
+   "input": [
+    false
+   ],
+   "expect": "",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:False",
+   "input": [
+    false
+   ],
+   "expect": [],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:True",
+   "input": [
+    true
+   ],
+   "expect": "True",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:True",
+   "input": [
+    true
+   ],
+   "expect": [
+    "True"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "normalize:1.5",
+   "input": [
+    {
+     "$float": "1.5"
+    }
+   ],
+   "expect": "1.5",
+   "fn": "normalize"
+  },
+  {
+   "name": "ancestors:1.5",
+   "input": [
+    {
+     "$float": "1.5"
+    }
+   ],
+   "expect": [
+    "1.5"
+   ],
+   "fn": "ancestors"
+  },
+  {
+   "name": "rename:'':'old':'new'",
+   "input": [
+    "",
+    "old",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'a':'x/y'",
+   "input": [
+    "",
+    "a",
+    "x/y"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'a/b':'c'",
+   "input": [
+    "",
+    "a/b",
+    "c"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'web':'prod/web'",
+   "input": [
+    "",
+    "web",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'a\\\\b':'a/b/z'",
+   "input": [
+    "",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'':'new'",
+   "input": [
+    "",
+    "",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'old':''",
+   "input": [
+    "",
+    "old",
+    ""
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'  ':'q'",
+   "input": [
+    "",
+    "  ",
+    "q"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'ünï':'uni'",
+   "input": [
+    "",
+    "ünï",
+    "uni"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'':'a':'a'",
+   "input": [
+    "",
+    "a",
+    "a"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'':'a'",
+   "input": [
+    "",
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'a/b'",
+   "input": [
+    "",
+    "a/b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'b'",
+   "input": [
+    "",
+    "b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'old'",
+   "input": [
+    "",
+    "old"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'ünï'",
+   "input": [
+    "",
+    "ünï"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':''",
+   "input": [
+    "",
+    ""
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'  '",
+   "input": [
+    "",
+    "  "
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'a\\\\b'",
+   "input": [
+    "",
+    "a\\b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'a/b/c'",
+   "input": [
+    "",
+    "a/b/c"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'x/a'",
+   "input": [
+    "",
+    "x/a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'':'prod/web'",
+   "input": [
+    "",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'   ':'old':'new'",
+   "input": [
+    "   ",
+    "old",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'a':'x/y'",
+   "input": [
+    "   ",
+    "a",
+    "x/y"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'a/b':'c'",
+   "input": [
+    "   ",
+    "a/b",
+    "c"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'web':'prod/web'",
+   "input": [
+    "   ",
+    "web",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'a\\\\b':'a/b/z'",
+   "input": [
+    "   ",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'':'new'",
+   "input": [
+    "   ",
+    "",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'old':''",
+   "input": [
+    "   ",
+    "old",
+    ""
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'  ':'q'",
+   "input": [
+    "   ",
+    "  ",
+    "q"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'ünï':'uni'",
+   "input": [
+    "   ",
+    "ünï",
+    "uni"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'   ':'a':'a'",
+   "input": [
+    "   ",
+    "a",
+    "a"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'   ':'a'",
+   "input": [
+    "   ",
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'a/b'",
+   "input": [
+    "   ",
+    "a/b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'b'",
+   "input": [
+    "   ",
+    "b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'old'",
+   "input": [
+    "   ",
+    "old"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'ünï'",
+   "input": [
+    "   ",
+    "ünï"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':''",
+   "input": [
+    "   ",
+    ""
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'  '",
+   "input": [
+    "   ",
+    "  "
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'a\\\\b'",
+   "input": [
+    "   ",
+    "a\\b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'a/b/c'",
+   "input": [
+    "   ",
+    "a/b/c"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'x/a'",
+   "input": [
+    "   ",
+    "x/a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'   ':'prod/web'",
+   "input": [
+    "   ",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:None:'old':'new'",
+   "input": [
+    null,
+    "old",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'a':'x/y'",
+   "input": [
+    null,
+    "a",
+    "x/y"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'a/b':'c'",
+   "input": [
+    null,
+    "a/b",
+    "c"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'web':'prod/web'",
+   "input": [
+    null,
+    "web",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'a\\\\b':'a/b/z'",
+   "input": [
+    null,
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'':'new'",
+   "input": [
+    null,
+    "",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'old':''",
+   "input": [
+    null,
+    "old",
+    ""
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'  ':'q'",
+   "input": [
+    null,
+    "  ",
+    "q"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'ünï':'uni'",
+   "input": [
+    null,
+    "ünï",
+    "uni"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:None:'a':'a'",
+   "input": [
+    null,
+    "a",
+    "a"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:None:'a'",
+   "input": [
+    null,
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'a/b'",
+   "input": [
+    null,
+    "a/b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'b'",
+   "input": [
+    null,
+    "b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'old'",
+   "input": [
+    null,
+    "old"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'ünï'",
+   "input": [
+    null,
+    "ünï"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:''",
+   "input": [
+    null,
+    ""
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'  '",
+   "input": [
+    null,
+    "  "
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'a\\\\b'",
+   "input": [
+    null,
+    "a\\b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'a/b/c'",
+   "input": [
+    null,
+    "a/b/c"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'x/a'",
+   "input": [
+    null,
+    "x/a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:None:'prod/web'",
+   "input": [
+    null,
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'///':'old':'new'",
+   "input": [
+    "///",
+    "old",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'a':'x/y'",
+   "input": [
+    "///",
+    "a",
+    "x/y"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'a/b':'c'",
+   "input": [
+    "///",
+    "a/b",
+    "c"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'web':'prod/web'",
+   "input": [
+    "///",
+    "web",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'a\\\\b':'a/b/z'",
+   "input": [
+    "///",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'':'new'",
+   "input": [
+    "///",
+    "",
+    "new"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'old':''",
+   "input": [
+    "///",
+    "old",
+    ""
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'  ':'q'",
+   "input": [
+    "///",
+    "  ",
+    "q"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'ünï':'uni'",
+   "input": [
+    "///",
+    "ünï",
+    "uni"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'///':'a':'a'",
+   "input": [
+    "///",
+    "a",
+    "a"
+   ],
+   "expect": "",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'///':'a'",
+   "input": [
+    "///",
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'a/b'",
+   "input": [
+    "///",
+    "a/b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'b'",
+   "input": [
+    "///",
+    "b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'old'",
+   "input": [
+    "///",
+    "old"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'ünï'",
+   "input": [
+    "///",
+    "ünï"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':''",
+   "input": [
+    "///",
+    ""
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'  '",
+   "input": [
+    "///",
+    "  "
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'a\\\\b'",
+   "input": [
+    "///",
+    "a\\b"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'a/b/c'",
+   "input": [
+    "///",
+    "a/b/c"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'x/a'",
+   "input": [
+    "///",
+    "x/a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'///':'prod/web'",
+   "input": [
+    "///",
+    "prod/web"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'prod':'old':'new'",
+   "input": [
+    "prod",
+    "old",
+    "new"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'a':'x/y'",
+   "input": [
+    "prod",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'a/b':'c'",
+   "input": [
+    "prod",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'web':'prod/web'",
+   "input": [
+    "prod",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'a\\\\b':'a/b/z'",
+   "input": [
+    "prod",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'':'new'",
+   "input": [
+    "prod",
+    "",
+    "new"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'old':''",
+   "input": [
+    "prod",
+    "old",
+    ""
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'  ':'q'",
+   "input": [
+    "prod",
+    "  ",
+    "q"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'ünï':'uni'",
+   "input": [
+    "prod",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod':'a':'a'",
+   "input": [
+    "prod",
+    "a",
+    "a"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'prod':'a'",
+   "input": [
+    "prod",
+    "a"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'a/b'",
+   "input": [
+    "prod",
+    "a/b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'b'",
+   "input": [
+    "prod",
+    "b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'old'",
+   "input": [
+    "prod",
+    "old"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'ünï'",
+   "input": [
+    "prod",
+    "ünï"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':''",
+   "input": [
+    "prod",
+    ""
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'  '",
+   "input": [
+    "prod",
+    "  "
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'a\\\\b'",
+   "input": [
+    "prod",
+    "a\\b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'a/b/c'",
+   "input": [
+    "prod",
+    "a/b/c"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'x/a'",
+   "input": [
+    "prod",
+    "x/a"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod':'prod/web'",
+   "input": [
+    "prod",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'prod/web':'old':'new'",
+   "input": [
+    "prod/web",
+    "old",
+    "new"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'a':'x/y'",
+   "input": [
+    "prod/web",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'a/b':'c'",
+   "input": [
+    "prod/web",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'web':'prod/web'",
+   "input": [
+    "prod/web",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'a\\\\b':'a/b/z'",
+   "input": [
+    "prod/web",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'':'new'",
+   "input": [
+    "prod/web",
+    "",
+    "new"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'old':''",
+   "input": [
+    "prod/web",
+    "old",
+    ""
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'  ':'q'",
+   "input": [
+    "prod/web",
+    "  ",
+    "q"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'ünï':'uni'",
+   "input": [
+    "prod/web",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web':'a':'a'",
+   "input": [
+    "prod/web",
+    "a",
+    "a"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'prod/web':'a'",
+   "input": [
+    "prod/web",
+    "a"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'a/b'",
+   "input": [
+    "prod/web",
+    "a/b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'b'",
+   "input": [
+    "prod/web",
+    "b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'old'",
+   "input": [
+    "prod/web",
+    "old"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'ünï'",
+   "input": [
+    "prod/web",
+    "ünï"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':''",
+   "input": [
+    "prod/web",
+    ""
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'  '",
+   "input": [
+    "prod/web",
+    "  "
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'a\\\\b'",
+   "input": [
+    "prod/web",
+    "a\\b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'a/b/c'",
+   "input": [
+    "prod/web",
+    "a/b/c"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'x/a'",
+   "input": [
+    "prod/web",
+    "x/a"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web':'prod/web'",
+   "input": [
+    "prod/web",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'old':'new'",
+   "input": [
+    "prod\\web\\eu",
+    "old",
+    "new"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'a':'x/y'",
+   "input": [
+    "prod\\web\\eu",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'a/b':'c'",
+   "input": [
+    "prod\\web\\eu",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'web':'prod/web'",
+   "input": [
+    "prod\\web\\eu",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'a\\\\b':'a/b/z'",
+   "input": [
+    "prod\\web\\eu",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'':'new'",
+   "input": [
+    "prod\\web\\eu",
+    "",
+    "new"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'old':''",
+   "input": [
+    "prod\\web\\eu",
+    "old",
+    ""
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'  ':'q'",
+   "input": [
+    "prod\\web\\eu",
+    "  ",
+    "q"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'ünï':'uni'",
+   "input": [
+    "prod\\web\\eu",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod\\\\web\\\\eu':'a':'a'",
+   "input": [
+    "prod\\web\\eu",
+    "a",
+    "a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'a'",
+   "input": [
+    "prod\\web\\eu",
+    "a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'a/b'",
+   "input": [
+    "prod\\web\\eu",
+    "a/b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'b'",
+   "input": [
+    "prod\\web\\eu",
+    "b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'old'",
+   "input": [
+    "prod\\web\\eu",
+    "old"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'ünï'",
+   "input": [
+    "prod\\web\\eu",
+    "ünï"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':''",
+   "input": [
+    "prod\\web\\eu",
+    ""
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'  '",
+   "input": [
+    "prod\\web\\eu",
+    "  "
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'a\\\\b'",
+   "input": [
+    "prod\\web\\eu",
+    "a\\b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'a/b/c'",
+   "input": [
+    "prod\\web\\eu",
+    "a/b/c"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'x/a'",
+   "input": [
+    "prod\\web\\eu",
+    "x/a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod\\\\web\\\\eu':'prod/web'",
+   "input": [
+    "prod\\web\\eu",
+    "prod/web"
+   ],
+   "expect": "prod/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'old':'new'",
+   "input": [
+    "  prod //  web / ",
+    "old",
+    "new"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'a':'x/y'",
+   "input": [
+    "  prod //  web / ",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'a/b':'c'",
+   "input": [
+    "  prod //  web / ",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'web':'prod/web'",
+   "input": [
+    "  prod //  web / ",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'a\\\\b':'a/b/z'",
+   "input": [
+    "  prod //  web / ",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'':'new'",
+   "input": [
+    "  prod //  web / ",
+    "",
+    "new"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'old':''",
+   "input": [
+    "  prod //  web / ",
+    "old",
+    ""
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'  ':'q'",
+   "input": [
+    "  prod //  web / ",
+    "  ",
+    "q"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'ünï':'uni'",
+   "input": [
+    "  prod //  web / ",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'  prod //  web / ':'a':'a'",
+   "input": [
+    "  prod //  web / ",
+    "a",
+    "a"
+   ],
+   "expect": "prod/web",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'a'",
+   "input": [
+    "  prod //  web / ",
+    "a"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'a/b'",
+   "input": [
+    "  prod //  web / ",
+    "a/b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'b'",
+   "input": [
+    "  prod //  web / ",
+    "b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'old'",
+   "input": [
+    "  prod //  web / ",
+    "old"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'ünï'",
+   "input": [
+    "  prod //  web / ",
+    "ünï"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':''",
+   "input": [
+    "  prod //  web / ",
+    ""
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'  '",
+   "input": [
+    "  prod //  web / ",
+    "  "
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'a\\\\b'",
+   "input": [
+    "  prod //  web / ",
+    "a\\b"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'a/b/c'",
+   "input": [
+    "  prod //  web / ",
+    "a/b/c"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'x/a'",
+   "input": [
+    "  prod //  web / ",
+    "x/a"
+   ],
+   "expect": "prod/web",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'  prod //  web / ':'prod/web'",
+   "input": [
+    "  prod //  web / ",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'/prod/':'old':'new'",
+   "input": [
+    "/prod/",
+    "old",
+    "new"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'a':'x/y'",
+   "input": [
+    "/prod/",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'a/b':'c'",
+   "input": [
+    "/prod/",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'web':'prod/web'",
+   "input": [
+    "/prod/",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'a\\\\b':'a/b/z'",
+   "input": [
+    "/prod/",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'':'new'",
+   "input": [
+    "/prod/",
+    "",
+    "new"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'old':''",
+   "input": [
+    "/prod/",
+    "old",
+    ""
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'  ':'q'",
+   "input": [
+    "/prod/",
+    "  ",
+    "q"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'ünï':'uni'",
+   "input": [
+    "/prod/",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'/prod/':'a':'a'",
+   "input": [
+    "/prod/",
+    "a",
+    "a"
+   ],
+   "expect": "prod",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'/prod/':'a'",
+   "input": [
+    "/prod/",
+    "a"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'a/b'",
+   "input": [
+    "/prod/",
+    "a/b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'b'",
+   "input": [
+    "/prod/",
+    "b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'old'",
+   "input": [
+    "/prod/",
+    "old"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'ünï'",
+   "input": [
+    "/prod/",
+    "ünï"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':''",
+   "input": [
+    "/prod/",
+    ""
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'  '",
+   "input": [
+    "/prod/",
+    "  "
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'a\\\\b'",
+   "input": [
+    "/prod/",
+    "a\\b"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'a/b/c'",
+   "input": [
+    "/prod/",
+    "a/b/c"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'x/a'",
+   "input": [
+    "/prod/",
+    "x/a"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'/prod/':'prod/web'",
+   "input": [
+    "/prod/",
+    "prod/web"
+   ],
+   "expect": "prod",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'old':'new'",
+   "input": [
+    "a\\b/c",
+    "old",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'a':'x/y'",
+   "input": [
+    "a\\b/c",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'a/b':'c'",
+   "input": [
+    "a\\b/c",
+    "a/b",
+    "c"
+   ],
+   "expect": "c/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'web':'prod/web'",
+   "input": [
+    "a\\b/c",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'a\\\\b':'a/b/z'",
+   "input": [
+    "a\\b/c",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'':'new'",
+   "input": [
+    "a\\b/c",
+    "",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'old':''",
+   "input": [
+    "a\\b/c",
+    "old",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'  ':'q'",
+   "input": [
+    "a\\b/c",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'ünï':'uni'",
+   "input": [
+    "a\\b/c",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\\\b/c':'a':'a'",
+   "input": [
+    "a\\b/c",
+    "a",
+    "a"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'a'",
+   "input": [
+    "a\\b/c",
+    "a"
+   ],
+   "expect": "b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'a/b'",
+   "input": [
+    "a\\b/c",
+    "a/b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'b'",
+   "input": [
+    "a\\b/c",
+    "b"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'old'",
+   "input": [
+    "a\\b/c",
+    "old"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'ünï'",
+   "input": [
+    "a\\b/c",
+    "ünï"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':''",
+   "input": [
+    "a\\b/c",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'  '",
+   "input": [
+    "a\\b/c",
+    "  "
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'a\\\\b'",
+   "input": [
+    "a\\b/c",
+    "a\\b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'a/b/c'",
+   "input": [
+    "a\\b/c",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'x/a'",
+   "input": [
+    "a\\b/c",
+    "x/a"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\\\b/c':'prod/web'",
+   "input": [
+    "a\\b/c",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a / b':'old':'new'",
+   "input": [
+    "a / b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'a':'x/y'",
+   "input": [
+    "a / b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'a/b':'c'",
+   "input": [
+    "a / b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'web':'prod/web'",
+   "input": [
+    "a / b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a / b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'':'new'",
+   "input": [
+    "a / b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'old':''",
+   "input": [
+    "a / b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'  ':'q'",
+   "input": [
+    "a / b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'ünï':'uni'",
+   "input": [
+    "a / b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a / b':'a':'a'",
+   "input": [
+    "a / b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a / b':'a'",
+   "input": [
+    "a / b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'a/b'",
+   "input": [
+    "a / b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'b'",
+   "input": [
+    "a / b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'old'",
+   "input": [
+    "a / b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'ünï'",
+   "input": [
+    "a / b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':''",
+   "input": [
+    "a / b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'  '",
+   "input": [
+    "a / b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'a\\\\b'",
+   "input": [
+    "a / b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'a/b/c'",
+   "input": [
+    "a / b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'x/a'",
+   "input": [
+    "a / b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a / b':'prod/web'",
+   "input": [
+    "a / b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a/ /b':'old':'new'",
+   "input": [
+    "a/ /b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'a':'x/y'",
+   "input": [
+    "a/ /b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'a/b':'c'",
+   "input": [
+    "a/ /b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'web':'prod/web'",
+   "input": [
+    "a/ /b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a/ /b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'':'new'",
+   "input": [
+    "a/ /b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'old':''",
+   "input": [
+    "a/ /b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'  ':'q'",
+   "input": [
+    "a/ /b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'ünï':'uni'",
+   "input": [
+    "a/ /b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/ /b':'a':'a'",
+   "input": [
+    "a/ /b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a/ /b':'a'",
+   "input": [
+    "a/ /b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'a/b'",
+   "input": [
+    "a/ /b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'b'",
+   "input": [
+    "a/ /b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'old'",
+   "input": [
+    "a/ /b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'ünï'",
+   "input": [
+    "a/ /b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':''",
+   "input": [
+    "a/ /b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'  '",
+   "input": [
+    "a/ /b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'a\\\\b'",
+   "input": [
+    "a/ /b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'a/b/c'",
+   "input": [
+    "a/ /b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'x/a'",
+   "input": [
+    "a/ /b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/ /b':'prod/web'",
+   "input": [
+    "a/ /b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'old':'new'",
+   "input": [
+    "\\\\a\\\\",
+    "old",
+    "new"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'a':'x/y'",
+   "input": [
+    "\\\\a\\\\",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'a/b':'c'",
+   "input": [
+    "\\\\a\\\\",
+    "a/b",
+    "c"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'web':'prod/web'",
+   "input": [
+    "\\\\a\\\\",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'a\\\\b':'a/b/z'",
+   "input": [
+    "\\\\a\\\\",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'':'new'",
+   "input": [
+    "\\\\a\\\\",
+    "",
+    "new"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'old':''",
+   "input": [
+    "\\\\a\\\\",
+    "old",
+    ""
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'  ':'q'",
+   "input": [
+    "\\\\a\\\\",
+    "  ",
+    "q"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'ünï':'uni'",
+   "input": [
+    "\\\\a\\\\",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'\\\\\\\\a\\\\\\\\':'a':'a'",
+   "input": [
+    "\\\\a\\\\",
+    "a",
+    "a"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'a'",
+   "input": [
+    "\\\\a\\\\",
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'a/b'",
+   "input": [
+    "\\\\a\\\\",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'b'",
+   "input": [
+    "\\\\a\\\\",
+    "b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'old'",
+   "input": [
+    "\\\\a\\\\",
+    "old"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'ünï'",
+   "input": [
+    "\\\\a\\\\",
+    "ünï"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':''",
+   "input": [
+    "\\\\a\\\\",
+    ""
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'  '",
+   "input": [
+    "\\\\a\\\\",
+    "  "
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'a\\\\b'",
+   "input": [
+    "\\\\a\\\\",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'a/b/c'",
+   "input": [
+    "\\\\a\\\\",
+    "a/b/c"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'x/a'",
+   "input": [
+    "\\\\a\\\\",
+    "x/a"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'\\\\\\\\a\\\\\\\\':'prod/web'",
+   "input": [
+    "\\\\a\\\\",
+    "prod/web"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'ünï/çödé':'old':'new'",
+   "input": [
+    "ünï/çödé",
+    "old",
+    "new"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'a':'x/y'",
+   "input": [
+    "ünï/çödé",
+    "a",
+    "x/y"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'a/b':'c'",
+   "input": [
+    "ünï/çödé",
+    "a/b",
+    "c"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'web':'prod/web'",
+   "input": [
+    "ünï/çödé",
+    "web",
+    "prod/web"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'a\\\\b':'a/b/z'",
+   "input": [
+    "ünï/çödé",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'':'new'",
+   "input": [
+    "ünï/çödé",
+    "",
+    "new"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'old':''",
+   "input": [
+    "ünï/çödé",
+    "old",
+    ""
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'  ':'q'",
+   "input": [
+    "ünï/çödé",
+    "  ",
+    "q"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'ünï':'uni'",
+   "input": [
+    "ünï/çödé",
+    "ünï",
+    "uni"
+   ],
+   "expect": "uni/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ünï/çödé':'a':'a'",
+   "input": [
+    "ünï/çödé",
+    "a",
+    "a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'a'",
+   "input": [
+    "ünï/çödé",
+    "a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'a/b'",
+   "input": [
+    "ünï/çödé",
+    "a/b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'b'",
+   "input": [
+    "ünï/çödé",
+    "b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'old'",
+   "input": [
+    "ünï/çödé",
+    "old"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'ünï'",
+   "input": [
+    "ünï/çödé",
+    "ünï"
+   ],
+   "expect": "çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':''",
+   "input": [
+    "ünï/çödé",
+    ""
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'  '",
+   "input": [
+    "ünï/çödé",
+    "  "
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'a\\\\b'",
+   "input": [
+    "ünï/çödé",
+    "a\\b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'a/b/c'",
+   "input": [
+    "ünï/çödé",
+    "a/b/c"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'x/a'",
+   "input": [
+    "ünï/çödé",
+    "x/a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ünï/çödé':'prod/web'",
+   "input": [
+    "ünï/çödé",
+    "prod/web"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'old':'new'",
+   "input": [
+    " ünï / çödé ",
+    "old",
+    "new"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'a':'x/y'",
+   "input": [
+    " ünï / çödé ",
+    "a",
+    "x/y"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'a/b':'c'",
+   "input": [
+    " ünï / çödé ",
+    "a/b",
+    "c"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'web':'prod/web'",
+   "input": [
+    " ünï / çödé ",
+    "web",
+    "prod/web"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'a\\\\b':'a/b/z'",
+   "input": [
+    " ünï / çödé ",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'':'new'",
+   "input": [
+    " ünï / çödé ",
+    "",
+    "new"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'old':''",
+   "input": [
+    " ünï / çödé ",
+    "old",
+    ""
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'  ':'q'",
+   "input": [
+    " ünï / çödé ",
+    "  ",
+    "q"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'ünï':'uni'",
+   "input": [
+    " ünï / çödé ",
+    "ünï",
+    "uni"
+   ],
+   "expect": "uni/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:' ünï / çödé ':'a':'a'",
+   "input": [
+    " ünï / çödé ",
+    "a",
+    "a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'a'",
+   "input": [
+    " ünï / çödé ",
+    "a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'a/b'",
+   "input": [
+    " ünï / çödé ",
+    "a/b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'b'",
+   "input": [
+    " ünï / çödé ",
+    "b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'old'",
+   "input": [
+    " ünï / çödé ",
+    "old"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'ünï'",
+   "input": [
+    " ünï / çödé ",
+    "ünï"
+   ],
+   "expect": "çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':''",
+   "input": [
+    " ünï / çödé ",
+    ""
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'  '",
+   "input": [
+    " ünï / çödé ",
+    "  "
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'a\\\\b'",
+   "input": [
+    " ünï / çödé ",
+    "a\\b"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'a/b/c'",
+   "input": [
+    " ünï / çödé ",
+    "a/b/c"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'x/a'",
+   "input": [
+    " ünï / çödé ",
+    "x/a"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:' ünï / çödé ':'prod/web'",
+   "input": [
+    " ünï / çödé ",
+    "prod/web"
+   ],
+   "expect": "ünï/çödé",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'日本/東京':'old':'new'",
+   "input": [
+    "日本/東京",
+    "old",
+    "new"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'a':'x/y'",
+   "input": [
+    "日本/東京",
+    "a",
+    "x/y"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'a/b':'c'",
+   "input": [
+    "日本/東京",
+    "a/b",
+    "c"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'web':'prod/web'",
+   "input": [
+    "日本/東京",
+    "web",
+    "prod/web"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'a\\\\b':'a/b/z'",
+   "input": [
+    "日本/東京",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'':'new'",
+   "input": [
+    "日本/東京",
+    "",
+    "new"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'old':''",
+   "input": [
+    "日本/東京",
+    "old",
+    ""
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'  ':'q'",
+   "input": [
+    "日本/東京",
+    "  ",
+    "q"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'ünï':'uni'",
+   "input": [
+    "日本/東京",
+    "ünï",
+    "uni"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'日本/東京':'a':'a'",
+   "input": [
+    "日本/東京",
+    "a",
+    "a"
+   ],
+   "expect": "日本/東京",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'日本/東京':'a'",
+   "input": [
+    "日本/東京",
+    "a"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'a/b'",
+   "input": [
+    "日本/東京",
+    "a/b"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'b'",
+   "input": [
+    "日本/東京",
+    "b"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'old'",
+   "input": [
+    "日本/東京",
+    "old"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'ünï'",
+   "input": [
+    "日本/東京",
+    "ünï"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':''",
+   "input": [
+    "日本/東京",
+    ""
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'  '",
+   "input": [
+    "日本/東京",
+    "  "
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'a\\\\b'",
+   "input": [
+    "日本/東京",
+    "a\\b"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'a/b/c'",
+   "input": [
+    "日本/東京",
+    "a/b/c"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'x/a'",
+   "input": [
+    "日本/東京",
+    "x/a"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'日本/東京':'prod/web'",
+   "input": [
+    "日本/東京",
+    "prod/web"
+   ],
+   "expect": "日本/東京",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\tb/c':'old':'new'",
+   "input": [
+    "a\tb/c",
+    "old",
+    "new"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'a':'x/y'",
+   "input": [
+    "a\tb/c",
+    "a",
+    "x/y"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'a/b':'c'",
+   "input": [
+    "a\tb/c",
+    "a/b",
+    "c"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'web':'prod/web'",
+   "input": [
+    "a\tb/c",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'a\\\\b':'a/b/z'",
+   "input": [
+    "a\tb/c",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'':'new'",
+   "input": [
+    "a\tb/c",
+    "",
+    "new"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'old':''",
+   "input": [
+    "a\tb/c",
+    "old",
+    ""
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'  ':'q'",
+   "input": [
+    "a\tb/c",
+    "  ",
+    "q"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'ünï':'uni'",
+   "input": [
+    "a\tb/c",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\tb/c':'a':'a'",
+   "input": [
+    "a\tb/c",
+    "a",
+    "a"
+   ],
+   "expect": "a\tb/c",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'a'",
+   "input": [
+    "a\tb/c",
+    "a"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'a/b'",
+   "input": [
+    "a\tb/c",
+    "a/b"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'b'",
+   "input": [
+    "a\tb/c",
+    "b"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'old'",
+   "input": [
+    "a\tb/c",
+    "old"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'ünï'",
+   "input": [
+    "a\tb/c",
+    "ünï"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':''",
+   "input": [
+    "a\tb/c",
+    ""
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'  '",
+   "input": [
+    "a\tb/c",
+    "  "
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'a\\\\b'",
+   "input": [
+    "a\tb/c",
+    "a\\b"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'a/b/c'",
+   "input": [
+    "a\tb/c",
+    "a/b/c"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'x/a'",
+   "input": [
+    "a\tb/c",
+    "x/a"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\tb/c':'prod/web'",
+   "input": [
+    "a\tb/c",
+    "prod/web"
+   ],
+   "expect": "a\tb/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'old':'new'",
+   "input": [
+    "a /b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'a':'x/y'",
+   "input": [
+    "a /b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'a/b':'c'",
+   "input": [
+    "a /b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'web':'prod/web'",
+   "input": [
+    "a /b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a /b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'':'new'",
+   "input": [
+    "a /b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'old':''",
+   "input": [
+    "a /b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'  ':'q'",
+   "input": [
+    "a /b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'ünï':'uni'",
+   "input": [
+    "a /b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\xa0/b':'a':'a'",
+   "input": [
+    "a /b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'a'",
+   "input": [
+    "a /b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'a/b'",
+   "input": [
+    "a /b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'b'",
+   "input": [
+    "a /b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'old'",
+   "input": [
+    "a /b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'ünï'",
+   "input": [
+    "a /b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':''",
+   "input": [
+    "a /b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'  '",
+   "input": [
+    "a /b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'a\\\\b'",
+   "input": [
+    "a /b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'a/b/c'",
+   "input": [
+    "a /b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'x/a'",
+   "input": [
+    "a /b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\xa0/b':'prod/web'",
+   "input": [
+    "a /b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'old':'new'",
+   "input": [
+    "a　/　b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'a':'x/y'",
+   "input": [
+    "a　/　b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'a/b':'c'",
+   "input": [
+    "a　/　b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'web':'prod/web'",
+   "input": [
+    "a　/　b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a　/　b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'':'new'",
+   "input": [
+    "a　/　b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'old':''",
+   "input": [
+    "a　/　b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'  ':'q'",
+   "input": [
+    "a　/　b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'ünï':'uni'",
+   "input": [
+    "a　/　b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\u3000/\\u3000b':'a':'a'",
+   "input": [
+    "a　/　b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'a'",
+   "input": [
+    "a　/　b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'a/b'",
+   "input": [
+    "a　/　b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'b'",
+   "input": [
+    "a　/　b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'old'",
+   "input": [
+    "a　/　b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'ünï'",
+   "input": [
+    "a　/　b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':''",
+   "input": [
+    "a　/　b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'  '",
+   "input": [
+    "a　/　b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'a\\\\b'",
+   "input": [
+    "a　/　b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'a/b/c'",
+   "input": [
+    "a　/　b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'x/a'",
+   "input": [
+    "a　/　b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\u3000/\\u3000b':'prod/web'",
+   "input": [
+    "a　/　b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'old':'new'",
+   "input": [
+    "a\u001c/b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'a':'x/y'",
+   "input": [
+    "a\u001c/b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'a/b':'c'",
+   "input": [
+    "a\u001c/b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'web':'prod/web'",
+   "input": [
+    "a\u001c/b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a\u001c/b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'':'new'",
+   "input": [
+    "a\u001c/b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'old':''",
+   "input": [
+    "a\u001c/b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'  ':'q'",
+   "input": [
+    "a\u001c/b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'ünï':'uni'",
+   "input": [
+    "a\u001c/b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1c/b':'a':'a'",
+   "input": [
+    "a\u001c/b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'a'",
+   "input": [
+    "a\u001c/b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'a/b'",
+   "input": [
+    "a\u001c/b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'b'",
+   "input": [
+    "a\u001c/b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'old'",
+   "input": [
+    "a\u001c/b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'ünï'",
+   "input": [
+    "a\u001c/b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':''",
+   "input": [
+    "a\u001c/b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'  '",
+   "input": [
+    "a\u001c/b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'a\\\\b'",
+   "input": [
+    "a\u001c/b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'a/b/c'",
+   "input": [
+    "a\u001c/b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'x/a'",
+   "input": [
+    "a\u001c/b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1c/b':'prod/web'",
+   "input": [
+    "a\u001c/b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a\\x1f b':'old':'new'",
+   "input": [
+    "a\u001f b",
+    "old",
+    "new"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'a':'x/y'",
+   "input": [
+    "a\u001f b",
+    "a",
+    "x/y"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'a/b':'c'",
+   "input": [
+    "a\u001f b",
+    "a/b",
+    "c"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'web':'prod/web'",
+   "input": [
+    "a\u001f b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a\u001f b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'':'new'",
+   "input": [
+    "a\u001f b",
+    "",
+    "new"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'old':''",
+   "input": [
+    "a\u001f b",
+    "old",
+    ""
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'  ':'q'",
+   "input": [
+    "a\u001f b",
+    "  ",
+    "q"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'ünï':'uni'",
+   "input": [
+    "a\u001f b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a\\x1f b':'a':'a'",
+   "input": [
+    "a\u001f b",
+    "a",
+    "a"
+   ],
+   "expect": "a\u001f b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'a'",
+   "input": [
+    "a\u001f b",
+    "a"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'a/b'",
+   "input": [
+    "a\u001f b",
+    "a/b"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'b'",
+   "input": [
+    "a\u001f b",
+    "b"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'old'",
+   "input": [
+    "a\u001f b",
+    "old"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'ünï'",
+   "input": [
+    "a\u001f b",
+    "ünï"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':''",
+   "input": [
+    "a\u001f b",
+    ""
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'  '",
+   "input": [
+    "a\u001f b",
+    "  "
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'a\\\\b'",
+   "input": [
+    "a\u001f b",
+    "a\\b"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'a/b/c'",
+   "input": [
+    "a\u001f b",
+    "a/b/c"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'x/a'",
+   "input": [
+    "a\u001f b",
+    "x/a"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a\\x1f b':'prod/web'",
+   "input": [
+    "a\u001f b",
+    "prod/web"
+   ],
+   "expect": "a\u001f b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a/b c/d':'old':'new'",
+   "input": [
+    "a/b c/d",
+    "old",
+    "new"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'a':'x/y'",
+   "input": [
+    "a/b c/d",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'a/b':'c'",
+   "input": [
+    "a/b c/d",
+    "a/b",
+    "c"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'web':'prod/web'",
+   "input": [
+    "a/b c/d",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'a\\\\b':'a/b/z'",
+   "input": [
+    "a/b c/d",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'':'new'",
+   "input": [
+    "a/b c/d",
+    "",
+    "new"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'old':''",
+   "input": [
+    "a/b c/d",
+    "old",
+    ""
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'  ':'q'",
+   "input": [
+    "a/b c/d",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'ünï':'uni'",
+   "input": [
+    "a/b c/d",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b c/d':'a':'a'",
+   "input": [
+    "a/b c/d",
+    "a",
+    "a"
+   ],
+   "expect": "a/b c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'a'",
+   "input": [
+    "a/b c/d",
+    "a"
+   ],
+   "expect": "b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'a/b'",
+   "input": [
+    "a/b c/d",
+    "a/b"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'b'",
+   "input": [
+    "a/b c/d",
+    "b"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'old'",
+   "input": [
+    "a/b c/d",
+    "old"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'ünï'",
+   "input": [
+    "a/b c/d",
+    "ünï"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':''",
+   "input": [
+    "a/b c/d",
+    ""
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'  '",
+   "input": [
+    "a/b c/d",
+    "  "
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'a\\\\b'",
+   "input": [
+    "a/b c/d",
+    "a\\b"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'a/b/c'",
+   "input": [
+    "a/b c/d",
+    "a/b/c"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'x/a'",
+   "input": [
+    "a/b c/d",
+    "x/a"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b c/d':'prod/web'",
+   "input": [
+    "a/b c/d",
+    "prod/web"
+   ],
+   "expect": "a/b c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'.':'old':'new'",
+   "input": [
+    ".",
+    "old",
+    "new"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'a':'x/y'",
+   "input": [
+    ".",
+    "a",
+    "x/y"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'a/b':'c'",
+   "input": [
+    ".",
+    "a/b",
+    "c"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'web':'prod/web'",
+   "input": [
+    ".",
+    "web",
+    "prod/web"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'a\\\\b':'a/b/z'",
+   "input": [
+    ".",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'':'new'",
+   "input": [
+    ".",
+    "",
+    "new"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'old':''",
+   "input": [
+    ".",
+    "old",
+    ""
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'  ':'q'",
+   "input": [
+    ".",
+    "  ",
+    "q"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'ünï':'uni'",
+   "input": [
+    ".",
+    "ünï",
+    "uni"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'.':'a':'a'",
+   "input": [
+    ".",
+    "a",
+    "a"
+   ],
+   "expect": ".",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'.':'a'",
+   "input": [
+    ".",
+    "a"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'a/b'",
+   "input": [
+    ".",
+    "a/b"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'b'",
+   "input": [
+    ".",
+    "b"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'old'",
+   "input": [
+    ".",
+    "old"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'ünï'",
+   "input": [
+    ".",
+    "ünï"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':''",
+   "input": [
+    ".",
+    ""
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'  '",
+   "input": [
+    ".",
+    "  "
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'a\\\\b'",
+   "input": [
+    ".",
+    "a\\b"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'a/b/c'",
+   "input": [
+    ".",
+    "a/b/c"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'x/a'",
+   "input": [
+    ".",
+    "x/a"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'.':'prod/web'",
+   "input": [
+    ".",
+    "prod/web"
+   ],
+   "expect": ".",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'../x':'old':'new'",
+   "input": [
+    "../x",
+    "old",
+    "new"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'a':'x/y'",
+   "input": [
+    "../x",
+    "a",
+    "x/y"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'a/b':'c'",
+   "input": [
+    "../x",
+    "a/b",
+    "c"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'web':'prod/web'",
+   "input": [
+    "../x",
+    "web",
+    "prod/web"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'a\\\\b':'a/b/z'",
+   "input": [
+    "../x",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'':'new'",
+   "input": [
+    "../x",
+    "",
+    "new"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'old':''",
+   "input": [
+    "../x",
+    "old",
+    ""
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'  ':'q'",
+   "input": [
+    "../x",
+    "  ",
+    "q"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'ünï':'uni'",
+   "input": [
+    "../x",
+    "ünï",
+    "uni"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'../x':'a':'a'",
+   "input": [
+    "../x",
+    "a",
+    "a"
+   ],
+   "expect": "../x",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'../x':'a'",
+   "input": [
+    "../x",
+    "a"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'a/b'",
+   "input": [
+    "../x",
+    "a/b"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'b'",
+   "input": [
+    "../x",
+    "b"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'old'",
+   "input": [
+    "../x",
+    "old"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'ünï'",
+   "input": [
+    "../x",
+    "ünï"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':''",
+   "input": [
+    "../x",
+    ""
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'  '",
+   "input": [
+    "../x",
+    "  "
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'a\\\\b'",
+   "input": [
+    "../x",
+    "a\\b"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'a/b/c'",
+   "input": [
+    "../x",
+    "a/b/c"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'x/a'",
+   "input": [
+    "../x",
+    "x/a"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'../x':'prod/web'",
+   "input": [
+    "../x",
+    "prod/web"
+   ],
+   "expect": "../x",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a//b///c':'old':'new'",
+   "input": [
+    "a//b///c",
+    "old",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'a':'x/y'",
+   "input": [
+    "a//b///c",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'a/b':'c'",
+   "input": [
+    "a//b///c",
+    "a/b",
+    "c"
+   ],
+   "expect": "c/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'web':'prod/web'",
+   "input": [
+    "a//b///c",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'a\\\\b':'a/b/z'",
+   "input": [
+    "a//b///c",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'':'new'",
+   "input": [
+    "a//b///c",
+    "",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'old':''",
+   "input": [
+    "a//b///c",
+    "old",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'  ':'q'",
+   "input": [
+    "a//b///c",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'ünï':'uni'",
+   "input": [
+    "a//b///c",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a//b///c':'a':'a'",
+   "input": [
+    "a//b///c",
+    "a",
+    "a"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a//b///c':'a'",
+   "input": [
+    "a//b///c",
+    "a"
+   ],
+   "expect": "b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'a/b'",
+   "input": [
+    "a//b///c",
+    "a/b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'b'",
+   "input": [
+    "a//b///c",
+    "b"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'old'",
+   "input": [
+    "a//b///c",
+    "old"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'ünï'",
+   "input": [
+    "a//b///c",
+    "ünï"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':''",
+   "input": [
+    "a//b///c",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'  '",
+   "input": [
+    "a//b///c",
+    "  "
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'a\\\\b'",
+   "input": [
+    "a//b///c",
+    "a\\b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'a/b/c'",
+   "input": [
+    "a//b///c",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'x/a'",
+   "input": [
+    "a//b///c",
+    "x/a"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a//b///c':'prod/web'",
+   "input": [
+    "a//b///c",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'x/old':'old':'new'",
+   "input": [
+    "x/old",
+    "old",
+    "new"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'a':'x/y'",
+   "input": [
+    "x/old",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'a/b':'c'",
+   "input": [
+    "x/old",
+    "a/b",
+    "c"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'web':'prod/web'",
+   "input": [
+    "x/old",
+    "web",
+    "prod/web"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'a\\\\b':'a/b/z'",
+   "input": [
+    "x/old",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'':'new'",
+   "input": [
+    "x/old",
+    "",
+    "new"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'old':''",
+   "input": [
+    "x/old",
+    "old",
+    ""
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'  ':'q'",
+   "input": [
+    "x/old",
+    "  ",
+    "q"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'ünï':'uni'",
+   "input": [
+    "x/old",
+    "ünï",
+    "uni"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'x/old':'a':'a'",
+   "input": [
+    "x/old",
+    "a",
+    "a"
+   ],
+   "expect": "x/old",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'x/old':'a'",
+   "input": [
+    "x/old",
+    "a"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'a/b'",
+   "input": [
+    "x/old",
+    "a/b"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'b'",
+   "input": [
+    "x/old",
+    "b"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'old'",
+   "input": [
+    "x/old",
+    "old"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'ünï'",
+   "input": [
+    "x/old",
+    "ünï"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':''",
+   "input": [
+    "x/old",
+    ""
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'  '",
+   "input": [
+    "x/old",
+    "  "
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'a\\\\b'",
+   "input": [
+    "x/old",
+    "a\\b"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'a/b/c'",
+   "input": [
+    "x/old",
+    "a/b/c"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'x/a'",
+   "input": [
+    "x/old",
+    "x/a"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'x/old':'prod/web'",
+   "input": [
+    "x/old",
+    "prod/web"
+   ],
+   "expect": "x/old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'older':'old':'new'",
+   "input": [
+    "older",
+    "old",
+    "new"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'a':'x/y'",
+   "input": [
+    "older",
+    "a",
+    "x/y"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'a/b':'c'",
+   "input": [
+    "older",
+    "a/b",
+    "c"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'web':'prod/web'",
+   "input": [
+    "older",
+    "web",
+    "prod/web"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'a\\\\b':'a/b/z'",
+   "input": [
+    "older",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'':'new'",
+   "input": [
+    "older",
+    "",
+    "new"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'old':''",
+   "input": [
+    "older",
+    "old",
+    ""
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'  ':'q'",
+   "input": [
+    "older",
+    "  ",
+    "q"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'ünï':'uni'",
+   "input": [
+    "older",
+    "ünï",
+    "uni"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'older':'a':'a'",
+   "input": [
+    "older",
+    "a",
+    "a"
+   ],
+   "expect": "older",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'older':'a'",
+   "input": [
+    "older",
+    "a"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'a/b'",
+   "input": [
+    "older",
+    "a/b"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'b'",
+   "input": [
+    "older",
+    "b"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'old'",
+   "input": [
+    "older",
+    "old"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'ünï'",
+   "input": [
+    "older",
+    "ünï"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':''",
+   "input": [
+    "older",
+    ""
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'  '",
+   "input": [
+    "older",
+    "  "
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'a\\\\b'",
+   "input": [
+    "older",
+    "a\\b"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'a/b/c'",
+   "input": [
+    "older",
+    "a/b/c"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'x/a'",
+   "input": [
+    "older",
+    "x/a"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'older':'prod/web'",
+   "input": [
+    "older",
+    "prod/web"
+   ],
+   "expect": "older",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'ab':'old':'new'",
+   "input": [
+    "ab",
+    "old",
+    "new"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'a':'x/y'",
+   "input": [
+    "ab",
+    "a",
+    "x/y"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'a/b':'c'",
+   "input": [
+    "ab",
+    "a/b",
+    "c"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'web':'prod/web'",
+   "input": [
+    "ab",
+    "web",
+    "prod/web"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'a\\\\b':'a/b/z'",
+   "input": [
+    "ab",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'':'new'",
+   "input": [
+    "ab",
+    "",
+    "new"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'old':''",
+   "input": [
+    "ab",
+    "old",
+    ""
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'  ':'q'",
+   "input": [
+    "ab",
+    "  ",
+    "q"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'ünï':'uni'",
+   "input": [
+    "ab",
+    "ünï",
+    "uni"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'ab':'a':'a'",
+   "input": [
+    "ab",
+    "a",
+    "a"
+   ],
+   "expect": "ab",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'ab':'a'",
+   "input": [
+    "ab",
+    "a"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'a/b'",
+   "input": [
+    "ab",
+    "a/b"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'b'",
+   "input": [
+    "ab",
+    "b"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'old'",
+   "input": [
+    "ab",
+    "old"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'ünï'",
+   "input": [
+    "ab",
+    "ünï"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':''",
+   "input": [
+    "ab",
+    ""
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'  '",
+   "input": [
+    "ab",
+    "  "
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'a\\\\b'",
+   "input": [
+    "ab",
+    "a\\b"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'a/b/c'",
+   "input": [
+    "ab",
+    "a/b/c"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'x/a'",
+   "input": [
+    "ab",
+    "x/a"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'ab':'prod/web'",
+   "input": [
+    "ab",
+    "prod/web"
+   ],
+   "expect": "ab",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a':'old':'new'",
+   "input": [
+    "a",
+    "old",
+    "new"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'a':'x/y'",
+   "input": [
+    "a",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'a/b':'c'",
+   "input": [
+    "a",
+    "a/b",
+    "c"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'web':'prod/web'",
+   "input": [
+    "a",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'a\\\\b':'a/b/z'",
+   "input": [
+    "a",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'':'new'",
+   "input": [
+    "a",
+    "",
+    "new"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'old':''",
+   "input": [
+    "a",
+    "old",
+    ""
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'  ':'q'",
+   "input": [
+    "a",
+    "  ",
+    "q"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'ünï':'uni'",
+   "input": [
+    "a",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a':'a':'a'",
+   "input": [
+    "a",
+    "a",
+    "a"
+   ],
+   "expect": "a",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a':'a'",
+   "input": [
+    "a",
+    "a"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'a/b'",
+   "input": [
+    "a",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'b'",
+   "input": [
+    "a",
+    "b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'old'",
+   "input": [
+    "a",
+    "old"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'ünï'",
+   "input": [
+    "a",
+    "ünï"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':''",
+   "input": [
+    "a",
+    ""
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'  '",
+   "input": [
+    "a",
+    "  "
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'a\\\\b'",
+   "input": [
+    "a",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'a/b/c'",
+   "input": [
+    "a",
+    "a/b/c"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'x/a'",
+   "input": [
+    "a",
+    "x/a"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a':'prod/web'",
+   "input": [
+    "a",
+    "prod/web"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'b/c/d':'old':'new'",
+   "input": [
+    "b/c/d",
+    "old",
+    "new"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'a':'x/y'",
+   "input": [
+    "b/c/d",
+    "a",
+    "x/y"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'a/b':'c'",
+   "input": [
+    "b/c/d",
+    "a/b",
+    "c"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'web':'prod/web'",
+   "input": [
+    "b/c/d",
+    "web",
+    "prod/web"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'a\\\\b':'a/b/z'",
+   "input": [
+    "b/c/d",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'':'new'",
+   "input": [
+    "b/c/d",
+    "",
+    "new"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'old':''",
+   "input": [
+    "b/c/d",
+    "old",
+    ""
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'  ':'q'",
+   "input": [
+    "b/c/d",
+    "  ",
+    "q"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'ünï':'uni'",
+   "input": [
+    "b/c/d",
+    "ünï",
+    "uni"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'b/c/d':'a':'a'",
+   "input": [
+    "b/c/d",
+    "a",
+    "a"
+   ],
+   "expect": "b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'b/c/d':'a'",
+   "input": [
+    "b/c/d",
+    "a"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'a/b'",
+   "input": [
+    "b/c/d",
+    "a/b"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'b'",
+   "input": [
+    "b/c/d",
+    "b"
+   ],
+   "expect": "c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'old'",
+   "input": [
+    "b/c/d",
+    "old"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'ünï'",
+   "input": [
+    "b/c/d",
+    "ünï"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':''",
+   "input": [
+    "b/c/d",
+    ""
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'  '",
+   "input": [
+    "b/c/d",
+    "  "
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'a\\\\b'",
+   "input": [
+    "b/c/d",
+    "a\\b"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'a/b/c'",
+   "input": [
+    "b/c/d",
+    "a/b/c"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'x/a'",
+   "input": [
+    "b/c/d",
+    "x/a"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'b/c/d':'prod/web'",
+   "input": [
+    "b/c/d",
+    "prod/web"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'old':'old':'new'",
+   "input": [
+    "old",
+    "old",
+    "new"
+   ],
+   "expect": "new",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'a':'x/y'",
+   "input": [
+    "old",
+    "a",
+    "x/y"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'a/b':'c'",
+   "input": [
+    "old",
+    "a/b",
+    "c"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'web':'prod/web'",
+   "input": [
+    "old",
+    "web",
+    "prod/web"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'a\\\\b':'a/b/z'",
+   "input": [
+    "old",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'':'new'",
+   "input": [
+    "old",
+    "",
+    "new"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'old':''",
+   "input": [
+    "old",
+    "old",
+    ""
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'  ':'q'",
+   "input": [
+    "old",
+    "  ",
+    "q"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'ünï':'uni'",
+   "input": [
+    "old",
+    "ünï",
+    "uni"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old':'a':'a'",
+   "input": [
+    "old",
+    "a",
+    "a"
+   ],
+   "expect": "old",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'old':'a'",
+   "input": [
+    "old",
+    "a"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'a/b'",
+   "input": [
+    "old",
+    "a/b"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'b'",
+   "input": [
+    "old",
+    "b"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'old'",
+   "input": [
+    "old",
+    "old"
+   ],
+   "expect": "",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'ünï'",
+   "input": [
+    "old",
+    "ünï"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':''",
+   "input": [
+    "old",
+    ""
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'  '",
+   "input": [
+    "old",
+    "  "
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'a\\\\b'",
+   "input": [
+    "old",
+    "a\\b"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'a/b/c'",
+   "input": [
+    "old",
+    "a/b/c"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'x/a'",
+   "input": [
+    "old",
+    "x/a"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old':'prod/web'",
+   "input": [
+    "old",
+    "prod/web"
+   ],
+   "expect": "old",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'old/web/eu':'old':'new'",
+   "input": [
+    "old/web/eu",
+    "old",
+    "new"
+   ],
+   "expect": "new/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'a':'x/y'",
+   "input": [
+    "old/web/eu",
+    "a",
+    "x/y"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'a/b':'c'",
+   "input": [
+    "old/web/eu",
+    "a/b",
+    "c"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'web':'prod/web'",
+   "input": [
+    "old/web/eu",
+    "web",
+    "prod/web"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'a\\\\b':'a/b/z'",
+   "input": [
+    "old/web/eu",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'':'new'",
+   "input": [
+    "old/web/eu",
+    "",
+    "new"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'old':''",
+   "input": [
+    "old/web/eu",
+    "old",
+    ""
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'  ':'q'",
+   "input": [
+    "old/web/eu",
+    "  ",
+    "q"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'ünï':'uni'",
+   "input": [
+    "old/web/eu",
+    "ünï",
+    "uni"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'old/web/eu':'a':'a'",
+   "input": [
+    "old/web/eu",
+    "a",
+    "a"
+   ],
+   "expect": "old/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'a'",
+   "input": [
+    "old/web/eu",
+    "a"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'a/b'",
+   "input": [
+    "old/web/eu",
+    "a/b"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'b'",
+   "input": [
+    "old/web/eu",
+    "b"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'old'",
+   "input": [
+    "old/web/eu",
+    "old"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'ünï'",
+   "input": [
+    "old/web/eu",
+    "ünï"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':''",
+   "input": [
+    "old/web/eu",
+    ""
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'  '",
+   "input": [
+    "old/web/eu",
+    "  "
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'a\\\\b'",
+   "input": [
+    "old/web/eu",
+    "a\\b"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'a/b/c'",
+   "input": [
+    "old/web/eu",
+    "a/b/c"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'x/a'",
+   "input": [
+    "old/web/eu",
+    "x/a"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'old/web/eu':'prod/web'",
+   "input": [
+    "old/web/eu",
+    "prod/web"
+   ],
+   "expect": "old/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'web/eu':'old':'new'",
+   "input": [
+    "web/eu",
+    "old",
+    "new"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'a':'x/y'",
+   "input": [
+    "web/eu",
+    "a",
+    "x/y"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'a/b':'c'",
+   "input": [
+    "web/eu",
+    "a/b",
+    "c"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'web':'prod/web'",
+   "input": [
+    "web/eu",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'a\\\\b':'a/b/z'",
+   "input": [
+    "web/eu",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'':'new'",
+   "input": [
+    "web/eu",
+    "",
+    "new"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'old':''",
+   "input": [
+    "web/eu",
+    "old",
+    ""
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'  ':'q'",
+   "input": [
+    "web/eu",
+    "  ",
+    "q"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'ünï':'uni'",
+   "input": [
+    "web/eu",
+    "ünï",
+    "uni"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'web/eu':'a':'a'",
+   "input": [
+    "web/eu",
+    "a",
+    "a"
+   ],
+   "expect": "web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'web/eu':'a'",
+   "input": [
+    "web/eu",
+    "a"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'a/b'",
+   "input": [
+    "web/eu",
+    "a/b"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'b'",
+   "input": [
+    "web/eu",
+    "b"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'old'",
+   "input": [
+    "web/eu",
+    "old"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'ünï'",
+   "input": [
+    "web/eu",
+    "ünï"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':''",
+   "input": [
+    "web/eu",
+    ""
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'  '",
+   "input": [
+    "web/eu",
+    "  "
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'a\\\\b'",
+   "input": [
+    "web/eu",
+    "a\\b"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'a/b/c'",
+   "input": [
+    "web/eu",
+    "a/b/c"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'x/a'",
+   "input": [
+    "web/eu",
+    "x/a"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'web/eu':'prod/web'",
+   "input": [
+    "web/eu",
+    "prod/web"
+   ],
+   "expect": "web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'prod/web/eu':'old':'new'",
+   "input": [
+    "prod/web/eu",
+    "old",
+    "new"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'a':'x/y'",
+   "input": [
+    "prod/web/eu",
+    "a",
+    "x/y"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'a/b':'c'",
+   "input": [
+    "prod/web/eu",
+    "a/b",
+    "c"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'web':'prod/web'",
+   "input": [
+    "prod/web/eu",
+    "web",
+    "prod/web"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'a\\\\b':'a/b/z'",
+   "input": [
+    "prod/web/eu",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'':'new'",
+   "input": [
+    "prod/web/eu",
+    "",
+    "new"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'old':''",
+   "input": [
+    "prod/web/eu",
+    "old",
+    ""
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'  ':'q'",
+   "input": [
+    "prod/web/eu",
+    "  ",
+    "q"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'ünï':'uni'",
+   "input": [
+    "prod/web/eu",
+    "ünï",
+    "uni"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'prod/web/eu':'a':'a'",
+   "input": [
+    "prod/web/eu",
+    "a",
+    "a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'a'",
+   "input": [
+    "prod/web/eu",
+    "a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'a/b'",
+   "input": [
+    "prod/web/eu",
+    "a/b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'b'",
+   "input": [
+    "prod/web/eu",
+    "b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'old'",
+   "input": [
+    "prod/web/eu",
+    "old"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'ünï'",
+   "input": [
+    "prod/web/eu",
+    "ünï"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':''",
+   "input": [
+    "prod/web/eu",
+    ""
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'  '",
+   "input": [
+    "prod/web/eu",
+    "  "
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'a\\\\b'",
+   "input": [
+    "prod/web/eu",
+    "a\\b"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'a/b/c'",
+   "input": [
+    "prod/web/eu",
+    "a/b/c"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'x/a'",
+   "input": [
+    "prod/web/eu",
+    "x/a"
+   ],
+   "expect": "prod/web/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'prod/web/eu':'prod/web'",
+   "input": [
+    "prod/web/eu",
+    "prod/web"
+   ],
+   "expect": "prod/eu",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a/b/c':'old':'new'",
+   "input": [
+    "a/b/c",
+    "old",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'a':'x/y'",
+   "input": [
+    "a/b/c",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'a/b':'c'",
+   "input": [
+    "a/b/c",
+    "a/b",
+    "c"
+   ],
+   "expect": "c/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'web':'prod/web'",
+   "input": [
+    "a/b/c",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'a\\\\b':'a/b/z'",
+   "input": [
+    "a/b/c",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'':'new'",
+   "input": [
+    "a/b/c",
+    "",
+    "new"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'old':''",
+   "input": [
+    "a/b/c",
+    "old",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'  ':'q'",
+   "input": [
+    "a/b/c",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'ünï':'uni'",
+   "input": [
+    "a/b/c",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c':'a':'a'",
+   "input": [
+    "a/b/c",
+    "a",
+    "a"
+   ],
+   "expect": "a/b/c",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a/b/c':'a'",
+   "input": [
+    "a/b/c",
+    "a"
+   ],
+   "expect": "b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'a/b'",
+   "input": [
+    "a/b/c",
+    "a/b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'b'",
+   "input": [
+    "a/b/c",
+    "b"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'old'",
+   "input": [
+    "a/b/c",
+    "old"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'ünï'",
+   "input": [
+    "a/b/c",
+    "ünï"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':''",
+   "input": [
+    "a/b/c",
+    ""
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'  '",
+   "input": [
+    "a/b/c",
+    "  "
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'a\\\\b'",
+   "input": [
+    "a/b/c",
+    "a\\b"
+   ],
+   "expect": "a/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'a/b/c'",
+   "input": [
+    "a/b/c",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'x/a'",
+   "input": [
+    "a/b/c",
+    "x/a"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c':'prod/web'",
+   "input": [
+    "a/b/c",
+    "prod/web"
+   ],
+   "expect": "a/b/c",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a/b':'old':'new'",
+   "input": [
+    "a/b",
+    "old",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'a':'x/y'",
+   "input": [
+    "a/b",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'a/b':'c'",
+   "input": [
+    "a/b",
+    "a/b",
+    "c"
+   ],
+   "expect": "c",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'web':'prod/web'",
+   "input": [
+    "a/b",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'a\\\\b':'a/b/z'",
+   "input": [
+    "a/b",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'':'new'",
+   "input": [
+    "a/b",
+    "",
+    "new"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'old':''",
+   "input": [
+    "a/b",
+    "old",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'  ':'q'",
+   "input": [
+    "a/b",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'ünï':'uni'",
+   "input": [
+    "a/b",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b':'a':'a'",
+   "input": [
+    "a/b",
+    "a",
+    "a"
+   ],
+   "expect": "a/b",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a/b':'a'",
+   "input": [
+    "a/b",
+    "a"
+   ],
+   "expect": "b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'a/b'",
+   "input": [
+    "a/b",
+    "a/b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'b'",
+   "input": [
+    "a/b",
+    "b"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'old'",
+   "input": [
+    "a/b",
+    "old"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'ünï'",
+   "input": [
+    "a/b",
+    "ünï"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':''",
+   "input": [
+    "a/b",
+    ""
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'  '",
+   "input": [
+    "a/b",
+    "  "
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'a\\\\b'",
+   "input": [
+    "a/b",
+    "a\\b"
+   ],
+   "expect": "a",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'a/b/c'",
+   "input": [
+    "a/b",
+    "a/b/c"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'x/a'",
+   "input": [
+    "a/b",
+    "x/a"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b':'prod/web'",
+   "input": [
+    "a/b",
+    "prod/web"
+   ],
+   "expect": "a/b",
+   "fn": "dissolve"
+  },
+  {
+   "name": "rename:'a/b/c/d':'old':'new'",
+   "input": [
+    "a/b/c/d",
+    "old",
+    "new"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'a':'x/y'",
+   "input": [
+    "a/b/c/d",
+    "a",
+    "x/y"
+   ],
+   "expect": "x/y/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'a/b':'c'",
+   "input": [
+    "a/b/c/d",
+    "a/b",
+    "c"
+   ],
+   "expect": "c/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'web':'prod/web'",
+   "input": [
+    "a/b/c/d",
+    "web",
+    "prod/web"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'a\\\\b':'a/b/z'",
+   "input": [
+    "a/b/c/d",
+    "a\\b",
+    "a/b/z"
+   ],
+   "expect": "a/b/z/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'':'new'",
+   "input": [
+    "a/b/c/d",
+    "",
+    "new"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'old':''",
+   "input": [
+    "a/b/c/d",
+    "old",
+    ""
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'  ':'q'",
+   "input": [
+    "a/b/c/d",
+    "  ",
+    "q"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'ünï':'uni'",
+   "input": [
+    "a/b/c/d",
+    "ünï",
+    "uni"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "rename:'a/b/c/d':'a':'a'",
+   "input": [
+    "a/b/c/d",
+    "a",
+    "a"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "rename"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'a'",
+   "input": [
+    "a/b/c/d",
+    "a"
+   ],
+   "expect": "b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'a/b'",
+   "input": [
+    "a/b/c/d",
+    "a/b"
+   ],
+   "expect": "a/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'b'",
+   "input": [
+    "a/b/c/d",
+    "b"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'old'",
+   "input": [
+    "a/b/c/d",
+    "old"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'ünï'",
+   "input": [
+    "a/b/c/d",
+    "ünï"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':''",
+   "input": [
+    "a/b/c/d",
+    ""
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'  '",
+   "input": [
+    "a/b/c/d",
+    "  "
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'a\\\\b'",
+   "input": [
+    "a/b/c/d",
+    "a\\b"
+   ],
+   "expect": "a/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'a/b/c'",
+   "input": [
+    "a/b/c/d",
+    "a/b/c"
+   ],
+   "expect": "a/b/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'x/a'",
+   "input": [
+    "a/b/c/d",
+    "x/a"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  },
+  {
+   "name": "dissolve:'a/b/c/d':'prod/web'",
+   "input": [
+    "a/b/c/d",
+    "prod/web"
+   ],
+   "expect": "a/b/c/d",
+   "fn": "dissolve"
+  }
+ ]
+}

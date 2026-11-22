@@ -1,0 +1,16364 @@
+{
+ "cases": [
+  {
+   "name": "t:rules:upload",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "d",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "clash",
+     "differs",
+     1
+    ],
+    [
+     "upload",
+     "d/new.txt",
+     "missing on the server",
+     5
+    ],
+    [
+     "upload",
+     "edited",
+     "newer here",
+     9
+    ],
+    [
+     "conflict",
+     "kind",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "t:rules:download",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "rd",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "clash",
+     "differs",
+     2
+    ],
+    [
+     "download",
+     "edited",
+     "differs",
+     7
+    ],
+    [
+     "conflict",
+     "kind",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "only-remote",
+     "missing here",
+     4
+    ]
+   ]
+  },
+  {
+   "name": "t:rules:both",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "rd",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "clash",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "d/new.txt",
+     "missing on the server",
+     5
+    ],
+    [
+     "upload",
+     "edited",
+     "newer here",
+     9
+    ],
+    [
+     "conflict",
+     "kind",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "only-remote",
+     "missing here",
+     4
+    ]
+   ]
+  },
+  {
+   "name": "empty:upload",
+   "local": [],
+   "remote": [],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "only_local:upload",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "kind",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "clash",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "d/new.txt",
+     "missing on the server",
+     5
+    ],
+    [
+     "upload",
+     "edited",
+     "missing on the server",
+     9
+    ],
+    [
+     "upload",
+     "same",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "only_remote:upload",
+   "local": [],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "empty:download",
+   "local": [],
+   "remote": [],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "only_local:download",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "only_remote:download",
+   "local": [],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "rd",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "clash",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "edited",
+     "missing here",
+     7
+    ],
+    [
+     "download",
+     "kind",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "only-remote",
+     "missing here",
+     4
+    ],
+    [
+     "download",
+     "same",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "empty:both",
+   "local": [],
+   "remote": [],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "only_local:both",
+   "local": [
+    [
+     "d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "d/new.txt",
+     "f",
+     5,
+     1700000000
+    ],
+    [
+     "same",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "edited",
+     "f",
+     9,
+     1700000100
+    ],
+    [
+     "clash",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "kind",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "kind",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "clash",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "d/new.txt",
+     "missing on the server",
+     5
+    ],
+    [
+     "upload",
+     "edited",
+     "missing on the server",
+     9
+    ],
+    [
+     "upload",
+     "same",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "only_remote:both",
+   "local": [],
+   "remote": [
+    [
+     "same",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "edited",
+     "f",
+     7,
+     1700000000
+    ],
+    [
+     "only-remote",
+     "f",
+     4,
+     1700000000
+    ],
+    [
+     "clash",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "kind",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "rd",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "rd",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "clash",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "edited",
+     "missing here",
+     7
+    ],
+    [
+     "download",
+     "kind",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "only-remote",
+     "missing here",
+     4
+    ],
+    [
+     "download",
+     "same",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "newer here",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999997
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "newer here",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "newer here",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999997
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:-3:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "newer here",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-2:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "slack:-2:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999998
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "slack:-2:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "slack:-2:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-2:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999998
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:-2:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "f",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "slack:-1:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "slack:-1:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999999
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "slack:-1:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1699999999
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "slack:-1:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:-1:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999999
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:-1:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1699999999
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "f",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "slack:0:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "slack:0:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "slack:0:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "slack:0:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:0:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:0:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "f",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "slack:1:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "slack:1:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "slack:1:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "slack:1:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:1:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:1:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "f",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "slack:2:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "slack:2:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "slack:2:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000002
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "slack:2:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:2:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "differs",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:2:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000002
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "f",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:5:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:5:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "newer on the server",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:5:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     5,
+     1700000003
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "download",
+     "f",
+     "newer on the server",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:6:upload",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "f",
+     "differs",
+     5
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:6:download",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "f",
+     "newer on the server",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "slack:3:6:both",
+   "local": [
+    [
+     "f",
+     "f",
+     5,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "f",
+     "f",
+     6,
+     1700000003
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "download",
+     "f",
+     "newer on the server",
+     6
+    ]
+   ]
+  },
+  {
+   "name": "kinds:df:upload",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "f",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:df:download",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "f",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:df:both",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "f",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:fd:upload",
+   "local": [
+    [
+     "x",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:fd:download",
+   "local": [
+    [
+     "x",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:fd:both",
+   "local": [
+    [
+     "x",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     "x",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "kinds:dd:upload",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "kinds:dd:download",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "kinds:dd:both",
+   "local": [
+    [
+     "x",
+     "d",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "x",
+     "d",
+     2,
+     1700000050
+    ]
+   ],
+   "direction": "both",
+   "expect": []
+  },
+  {
+   "name": "sort_order",
+   "local": [
+    [
+     "b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "B",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "é",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a b",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "B",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "a b",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "a/b",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "é",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:0",
+   "local": [
+    [
+     "c d",
+     "f",
+     1,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:1",
+   "local": [
+    [
+     "c d",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000003
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "newer here",
+     3
+    ],
+    [
+     "download",
+     "a/y",
+     "newer on the server",
+     10
+    ],
+    [
+     "upload",
+     "b",
+     "newer here",
+     1
+    ],
+    [
+     "conflict",
+     "b/z",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:2",
+   "local": [
+    [
+     "dir",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "z",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:3",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "dir",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "n\nl",
+     "differs",
+     1
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:4",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999900
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "rand:5",
+   "local": [
+    [
+     ".h",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     ".h",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "a",
+     "differs",
+     1
+    ],
+    [
+     "upload",
+     "a/x",
+     "differs",
+     2
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "newer here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:6",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:7",
+   "local": [
+    [
+     "a/x",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a/y",
+     "newer here",
+     1
+    ],
+    [
+     "conflict",
+     "b/z",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "newer here",
+     3
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "é/ü",
+     "newer on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:8",
+   "local": [
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000003
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b/z",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "newer on the server",
+     1
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b",
+     "newer on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "newer here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:9",
+   "local": [
+    [
+     "b",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999997
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "c d",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "differs",
+     3
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:10",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a/x",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "differs",
+     1
+    ],
+    [
+     "upload",
+     "dir",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:11",
+   "local": [
+    [
+     "a/y",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b/z",
+     "newer on the server",
+     3
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "newer here",
+     2
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "z",
+     "same time, different size",
+     0
+    ],
+    [
+     "download",
+     "é/ü",
+     "newer on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:12",
+   "local": [
+    [
+     "dir",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000100
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:13",
+   "local": [
+    [
+     "a/y",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:14",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "dir",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "n\nl",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:15",
+   "local": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a/x",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "c d",
+     "differs",
+     3
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:16",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000100
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "b",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "b/z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "a",
+     "newer on the server",
+     10
+    ],
+    [
+     "upload",
+     "a/x",
+     "newer here",
+     1
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     3
+    ],
+    [
+     "upload",
+     "dir",
+     "newer here",
+     2
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:17",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b/z",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     2
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:18",
+   "local": [
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:19",
+   "local": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "a/x",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:20",
+   "local": [
+    [
+     "a/x",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "c d",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:21",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:22",
+   "local": [
+    [
+     "c d",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "d",
+     0,
+     1699999999
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:23",
+   "local": [
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     3
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:24",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "c d",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "dir/f",
+     "differs",
+     1
+    ],
+    [
+     "download",
+     "z",
+     "newer on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:25",
+   "local": [
+    [
+     ".h",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": []
+  },
+  {
+   "name": "rand:26",
+   "local": [
+    [
+     "dir",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "b",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a/y",
+     "differs",
+     2
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:27",
+   "local": [
+    [
+     "c d",
+     "f",
+     1,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     3
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:28",
+   "local": [
+    [
+     ".h",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "c d",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "newer here",
+     10
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     1
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "é/ü",
+     "newer on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:29",
+   "local": [
+    [
+     "a/y",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a",
+     "differs",
+     3
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     1
+    ],
+    [
+     "download",
+     "z",
+     "newer on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:30",
+   "local": [
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     ".h",
+     "differs",
+     3
+    ],
+    [
+     "download",
+     "b/z",
+     "newer on the server",
+     1
+    ],
+    [
+     "download",
+     "dir/f",
+     "differs",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:31",
+   "local": [],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "rand:32",
+   "local": [],
+   "remote": [
+    [
+     "a",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "rand:33",
+   "local": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999998
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:34",
+   "local": [
+    [
+     "a",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "b/z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a",
+     "differs",
+     2
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b",
+     "differs",
+     2
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "dir",
+     "newer on the server",
+     2
+    ],
+    [
+     "download",
+     "dir/f",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     2
+    ],
+    [
+     "download",
+     "z",
+     "differs",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:35",
+   "local": [
+    [
+     "z",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:36",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "c d",
+     "missing here",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     1
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     1
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     10
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:37",
+   "local": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "b/z",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:38",
+   "local": [],
+   "remote": [
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:39",
+   "local": [
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:40",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "a",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b/z",
+     "differs",
+     3
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     2
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:41",
+   "local": [
+    [
+     "dir",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     1
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     10
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:42",
+   "local": [],
+   "remote": [],
+   "direction": "upload",
+   "expect": []
+  },
+  {
+   "name": "rand:43",
+   "local": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "b/z",
+     "differs",
+     2
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "z",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:44",
+   "local": [
+    [
+     ".h",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "b/z",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     1
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "differs",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:45",
+   "local": [
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "b",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     1
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     3
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     2
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:46",
+   "local": [
+    [
+     "z",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "a/x",
+     "differs",
+     10
+    ],
+    [
+     "download",
+     "a/y",
+     "newer on the server",
+     2
+    ],
+    [
+     "download",
+     "b",
+     "newer on the server",
+     3
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:47",
+   "local": [
+    [
+     "a/y",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000100
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     1
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     3
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "dir/f",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:48",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     1,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "conflict",
+     "a/x",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:49",
+   "local": [
+    [
+     "dir",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "differs",
+     10
+    ],
+    [
+     "download",
+     "dir/f",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:50",
+   "local": [
+    [
+     "b/z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999999
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:51",
+   "local": [
+    [
+     "dir",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "b/z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     2
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:52",
+   "local": [
+    [
+     "b/z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "differs",
+     3
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "newer here",
+     10
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "differs",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:53",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     2
+    ],
+    [
+     "download",
+     "z",
+     "differs",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:54",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:55",
+   "local": [
+    [
+     "b",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a/x",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "differs",
+     3
+    ],
+    [
+     "upload",
+     "z",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "é/ü",
+     "newer here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:56",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:57",
+   "local": [
+    [
+     "b/z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "upload",
+     ".h",
+     "newer here",
+     2
+    ],
+    [
+     "conflict",
+     "a",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "n\nl",
+     "newer here",
+     10
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:58",
+   "local": [
+    [
+     ".h",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:59",
+   "local": [
+    [
+     "a",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:60",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a/x",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:61",
+   "local": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b/z",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:62",
+   "local": [
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     3,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     3
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:63",
+   "local": [
+    [
+     "a/y",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "b",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     10
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "b/z",
+     "newer on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     10
+    ],
+    [
+     "download",
+     "dir/f",
+     "missing here",
+     1
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:64",
+   "local": [
+    [
+     "z",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:65",
+   "local": [
+    [
+     "a/x",
+     "f",
+     1,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "b/z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:66",
+   "local": [
+    [
+     "a",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:67",
+   "local": [
+    [
+     "b/z",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "c d",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:68",
+   "local": [
+    [
+     "a",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000003
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     1
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:69",
+   "local": [
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "a/x",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "n\nl",
+     "differs",
+     2
+    ],
+    [
+     "upload",
+     "z",
+     "differs",
+     2
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:70",
+   "local": [
+    [
+     "b",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "b/z",
+     "differs",
+     3
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     3
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:71",
+   "local": [
+    [
+     "a/x",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "newer here",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "newer here",
+     10
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:72",
+   "local": [
+    [
+     "b/z",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "é/ü",
+     "differs",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:73",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "newer on the server",
+     3
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     3
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     10
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir",
+     "newer here",
+     10
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     2
+    ],
+    [
+     "download",
+     "n\nl",
+     "newer on the server",
+     10
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     2
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:74",
+   "local": [
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "a/y",
+     "differs",
+     2
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:75",
+   "local": [
+    [
+     "b/z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "n\nl",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "dir/f",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:76",
+   "local": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "c d",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:77",
+   "local": [
+    [
+     "a",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     3
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:78",
+   "local": [
+    [
+     "b",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     3
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "b/z",
+     "differs",
+     2
+    ],
+    [
+     "download",
+     "dir/f",
+     "differs",
+     10
+    ],
+    [
+     "download",
+     "n\nl",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:79",
+   "local": [
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:80",
+   "local": [
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b/z",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:81",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     2
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "dir/f",
+     "newer on the server",
+     3
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:82",
+   "local": [
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "b",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "c d",
+     "differs",
+     3
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     3
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:83",
+   "local": [
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "é/ü",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:84",
+   "local": [
+    [
+     "z",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     ".h",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "a",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "a/x",
+     "newer here",
+     10
+    ],
+    [
+     "upload",
+     "b",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "c d",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "dir",
+     "newer here",
+     10
+    ],
+    [
+     "upload",
+     "dir/f",
+     "differs",
+     2
+    ],
+    [
+     "upload",
+     "z",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:85",
+   "local": [
+    [
+     "z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "download",
+     "a",
+     "newer on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     3
+    ],
+    [
+     "download",
+     "b",
+     "newer on the server",
+     3
+    ],
+    [
+     "conflict",
+     "b/z",
+     "same time, different size",
+     0
+    ],
+    [
+     "download",
+     "dir/f",
+     "newer on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "z",
+     "newer here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:86",
+   "local": [
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999998
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     ".h",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:87",
+   "local": [
+    [
+     ".h",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "a/y",
+     "differs",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     2
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "newer here",
+     10
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:88",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:89",
+   "local": [
+    [
+     "a/y",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "é/ü",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:90",
+   "local": [
+    [
+     "dir",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "remote": [],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a/x",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "z",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:91",
+   "local": [
+    [
+     "b/z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     ".h",
+     "newer on the server",
+     3
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:92",
+   "local": [
+    [
+     "a/y",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b/z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:93",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999997
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "b/z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a/x",
+     "missing here",
+     2
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     3
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "n\nl",
+     "newer here",
+     10
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:94",
+   "local": [
+    [
+     ".h",
+     "f",
+     2,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999998
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     ".h",
+     "newer here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:95",
+   "local": [
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "c d",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "n\nl",
+     "differs",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:96",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "b/z",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     3,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "download",
+     "a",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     3
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     1
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:97",
+   "local": [
+    [
+     "a",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:98",
+   "local": [
+    [
+     "c d",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "a",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a/y",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "b",
+     "differs",
+     2
+    ],
+    [
+     "download",
+     "n\nl",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:99",
+   "local": [
+    [
+     "b/z",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "download",
+     "a/x",
+     "differs",
+     3
+    ],
+    [
+     "download",
+     "c d",
+     "newer on the server",
+     1
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:100",
+   "local": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     ".h",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "a",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "b",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:101",
+   "local": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "a",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999999
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999900
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:102",
+   "local": [
+    [
+     "b/z",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "dir/f",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     3
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "dir/f",
+     "newer on the server",
+     3
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     2
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:103",
+   "local": [
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "a/y",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "b/z",
+     "missing here",
+     10
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "é/ü",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:104",
+   "local": [
+    [
+     "b/z",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "c d",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000001
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:105",
+   "local": [
+    [
+     ".h",
+     "f",
+     10,
+     1700000100
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "é/ü",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     3
+    ],
+    [
+     "upload",
+     "a/y",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:106",
+   "local": [
+    [
+     "a",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1700000000
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "z",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     ".h",
+     "differs",
+     10
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "n\nl",
+     "missing here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:107",
+   "local": [
+    [
+     "dir/f",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999997
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999999
+    ],
+    [
+     "dir",
+     "f",
+     10,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1700000002
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-local",
+     "a/x",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-local",
+     "é/ü",
+     "missing here",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "newer here",
+     2
+    ],
+    [
+     "upload",
+     "a",
+     "missing on the server",
+     2
+    ],
+    [
+     "download",
+     "b",
+     "newer on the server",
+     2
+    ],
+    [
+     "conflict",
+     "b/z",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "c d",
+     "same time, different size",
+     0
+    ],
+    [
+     "conflict",
+     "dir",
+     "same time, different size",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "newer here",
+     2
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "z",
+     "same time, different size",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:108",
+   "local": [
+    [
+     "é/ü",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     "z",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1699999999
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "b/z",
+     "differs",
+     1
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "n\nl",
+     "differs",
+     2
+    ],
+    [
+     "upload",
+     "z",
+     "newer here",
+     1
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:109",
+   "local": [
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000002
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "b",
+     "f",
+     3,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "z",
+     "missing on the server",
+     0
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "differs",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rand:110",
+   "local": [
+    [
+     "c d",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "a/x",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000000
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     3,
+     1700000001
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999900
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir/f",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "n\nl",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "b/z",
+     "newer here",
+     3
+    ],
+    [
+     "upload",
+     "c d",
+     "missing on the server",
+     2
+    ],
+    [
+     "download",
+     "dir",
+     "newer on the server",
+     3
+    ],
+    [
+     "upload",
+     "z",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:111",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000100
+    ]
+   ],
+   "remote": [
+    [
+     "a",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "n\nl",
+     "f",
+     3,
+     1699999999
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     ".h",
+     "missing on the server",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:112",
+   "local": [
+    [
+     "a/y",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1699999999
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999900
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     1,
+     1699999900
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "mkdir-remote",
+     "a",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "a/y",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "b/z",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "dir",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "newer here",
+     1
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "dir/f",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "n\nl",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:113",
+   "local": [
+    [
+     "a/y",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999998
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "b",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "a",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "dir/f",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "b/z",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     ".h",
+     "f",
+     3,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000000
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "z",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "a/y",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "b",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "dir/f",
+     "newer here",
+     10
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "z",
+     "newer here",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:114",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/y",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "a",
+     "f",
+     10,
+     1699999997
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1699999997
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000001
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "mkdir-local",
+     "dir/f",
+     "missing here",
+     0
+    ],
+    [
+     "mkdir-local",
+     "n\nl",
+     "missing here",
+     0
+    ],
+    [
+     "download",
+     "b",
+     "differs",
+     1
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     3
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     10
+    ],
+    [
+     "download",
+     "z",
+     "missing here",
+     2
+    ],
+    [
+     "conflict",
+     "é/ü",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:115",
+   "local": [
+    [
+     "é/ü",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1699999997
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [
+    [
+     "a/x",
+     "f",
+     3,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "b",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     2,
+     1700000000
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "dir",
+     "f",
+     2,
+     1700000002
+    ],
+    [
+     "z",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1700000002
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "upload",
+     "dir/f",
+     "differs",
+     10
+    ],
+    [
+     "upload",
+     "é/ü",
+     "missing on the server",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "rand:116",
+   "local": [
+    [
+     "z",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1699999900
+    ],
+    [
+     "b/z",
+     "f",
+     10,
+     1700000003
+    ]
+   ],
+   "remote": [
+    [
+     ".h",
+     "f",
+     10,
+     1700000001
+    ],
+    [
+     "a/x",
+     "d",
+     0,
+     1700000100
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000100
+    ],
+    [
+     "dir",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1700000100
+    ],
+    [
+     "é/ü",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "f",
+     3,
+     1700000000
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000000
+    ],
+    [
+     "a",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "a/y",
+     "f",
+     10,
+     1699999998
+    ],
+    [
+     "b/z",
+     "f",
+     1,
+     1699999998
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1700000000
+    ]
+   ],
+   "direction": "upload",
+   "expect": [
+    [
+     "conflict",
+     "a/x",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "b/z",
+     "newer here",
+     10
+    ],
+    [
+     "conflict",
+     "z",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "upload",
+     "é/ü",
+     "newer here",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "rand:117",
+   "local": [
+    [
+     "b/z",
+     "f",
+     3,
+     1699999998
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1700000003
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000003
+    ],
+    [
+     "a/y",
+     "f",
+     1,
+     1699999997
+    ],
+    [
+     "a",
+     "d",
+     0,
+     1700000001
+    ],
+    [
+     "c d",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "f",
+     2,
+     1699999900
+    ],
+    [
+     "dir/f",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     "b",
+     "f",
+     1,
+     1700000000
+    ],
+    [
+     "dir",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     ".h",
+     "d",
+     0,
+     1699999900
+    ],
+    [
+     "z",
+     "f",
+     2,
+     1699999998
+    ]
+   ],
+   "remote": [
+    [
+     "a/y",
+     "f",
+     2,
+     1700000100
+    ],
+    [
+     ".h",
+     "f",
+     1,
+     1700000003
+    ],
+    [
+     "dir/f",
+     "f",
+     10,
+     1700000002
+    ],
+    [
+     "c d",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "n\nl",
+     "d",
+     0,
+     1700000002
+    ]
+   ],
+   "direction": "download",
+   "expect": [
+    [
+     "conflict",
+     ".h",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "download",
+     "a/y",
+     "newer on the server",
+     2
+    ],
+    [
+     "conflict",
+     "c d",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "dir/f",
+     "a folder on one side, a file on the other",
+     0
+    ],
+    [
+     "conflict",
+     "n\nl",
+     "a folder on one side, a file on the other",
+     0
+    ]
+   ]
+  },
+  {
+   "name": "rand:118",
+   "local": [
+    [
+     "b",
+     "f",
+     3,
+     1699999900
+    ],
+    [
+     "a/x",
+     "f",
+     1,
+     1700000002
+    ]
+   ],
+   "remote": [
+    [
+     "dir",
+     "f",
+     2,
+     1700000003
+    ],
+    [
+     "c d",
+     "f",
+     1,
+     1700000000
+    ]
+   ],
+   "direction": "both",
+   "expect": [
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     1
+    ],
+    [
+     "upload",
+     "b",
+     "missing on the server",
+     3
+    ],
+    [
+     "download",
+     "c d",
+     "missing here",
+     1
+    ],
+    [
+     "download",
+     "dir",
+     "missing here",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "rand:119",
+   "local": [
+    [
+     "dir",
+     "f",
+     10,
+     1699999999
+    ],
+    [
+     "a/x",
+     "f",
+     10,
+     1699999900
+    ],
+    [
+     "b",
+     "d",
+     0,
+     1699999999
+    ],
+    [
+     ".h",
+     "f",
+     2,
+     1699999998
+    ],
+    [
+     "é/ü",
+     "d",
+     0,
+     1700000001
+    ]
+   ],
+   "remote": [],
+   "direction": "upload",
+   "expect": [
+    [
+     "mkdir-remote",
+     "b",
+     "missing on the server",
+     0
+    ],
+    [
+     "mkdir-remote",
+     "é/ü",
+     "missing on the server",
+     0
+    ],
+    [
+     "upload",
+     ".h",
+     "missing on the server",
+     2
+    ],
+    [
+     "upload",
+     "a/x",
+     "missing on the server",
+     10
+    ],
+    [
+     "upload",
+     "dir",
+     "missing on the server",
+     10
+    ]
+   ]
+  }
+ ]
+}

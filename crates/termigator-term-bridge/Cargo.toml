@@ -1,0 +1,33 @@
+[package]
+name = "termigator-term-bridge"
+description = "Qt bridge: terminal view and session on the Ghostty engine (Rust), MultiExec, KDE"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+repository.workspace = true
+links = "termigator_term_bridge"
+
+[dependencies]
+cxx = "1.0.176"
+# Terminal emulation. Apache-2.0; wraps libghostty-vt 1.0.1. Pinned exactly: the C ABI is
+# young and the safe wrapper tracks a specific release. Kitty graphics are not used.
+ghostty-vt = { version = "=0.9.0", default-features = false }
+# Snapshot / event transport to the Qt view (JSON; a packed buffer would replace it if painting
+# ever shows up in profiles).
+serde_json = "1"
+# Regex search over the history text.
+regex = "1"
+# Konsole colour schemes and the default profile (the terminal must look like Konsole).
+termigator-core = { path = "../termigator-core" }
+
+[build-dependencies]
+cxx-build = "1.0.176"
+qt-build-utils = "0.10.0"
+
+[dev-dependencies]
+cxx-qt-lib = { version = "0.10.0", features = ["qt_gui", "qt_qml"] }
+
+[lints]
+workspace = true

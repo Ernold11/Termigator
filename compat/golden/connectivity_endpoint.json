@@ -1,0 +1,9709 @@
+{
+ "cases": [
+  {
+   "name": "0:{}",
+   "input": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Host is missing."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "1:{'host': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Host is missing."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "2:{'host': '   '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "   "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Host is missing."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "3:{'host': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Host is missing."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "4:{'host': 5}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "5"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "5:{'host': 'h'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "6:{'host': '  h  '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "  h  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "7:{'host': '[2001:db8::1]'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "[2001:db8::1]"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "8:{'host': '[h]'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "[h]"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "9:{'host': ']h['}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "]h["
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "10:{'host': 'h', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "11:{'host': 'h', 'protocol': 'vnc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5900"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "12:{'host': 'h', 'protocol': 'telnet'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "13:{'host': 'h', 'protocol': 'serial'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "serial"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "14:{'host': 'h', 'protocol': 'RDP'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "RDP"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "15:{'host': 'h', 'protocol': 'freerdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "protocol",
+       "freerdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "16:{'host': 'h', 'port': 2222}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "17:{'host': 'h', 'port': 2222, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "18:{'host': 'h', 'port': '2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "19:{'host': 'h', 'port': '2222', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "2222"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "20:{'host': 'h', 'port': ' 2200 '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       " 2200 "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "21:{'host': 'h', 'port': ' 2200 ', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       " 2200 "
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "22:{'host': 'h', 'port': 'abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "23:{'host': 'h', 'port': 'abc', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "abc"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "24:{'host': 'h', 'port': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "25:{'host': 'h', 'port': '', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       ""
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "26:{'host': 'h', 'port': '  '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "27:{'host': 'h', 'port': '  ', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "  "
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "28:{'host': 'h', 'port': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "29:{'host': 'h', 'port': None, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       null
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "30:{'host': 'h', 'port': 0}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "31:{'host': 'h', 'port': 0, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "32:{'host': 'h', 'port': '0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "33:{'host': 'h', 'port': '0', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "0"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "34:{'host': 'h', 'port': -1}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "-1"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "35:{'host': 'h', 'port': -1, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "-1"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "36:{'host': 'h', 'port': 65535}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "65535"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "37:{'host': 'h', 'port': 65535, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "65535"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "38:{'host': 'h', 'port': 65536}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "65536"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "39:{'host': 'h', 'port': 65536, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "65536"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "40:{'host': 'h', 'port': 70000}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "70000"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "41:{'host': 'h', 'port': 70000, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "70000"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "42:{'host': 'h', 'port': True}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "43:{'host': 'h', 'port': True, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       true
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "44:{'host': 'h', 'port': False}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "45:{'host': 'h', 'port': False, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       false
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "46:{'host': 'h', 'port': 1.5}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$float": "1.5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "47:{'host': 'h', 'port': 1.5, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$float": "1.5"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "48:{'host': 'h', 'port': '1_0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "1_0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "10"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "49:{'host': 'h', 'port': '1_0', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "1_0"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "10"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "50:{'host': 'h', 'port': '+22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "+22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "51:{'host': 'h', 'port': '+22', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       "+22"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "52:{'host': 'h', 'port': []}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       []
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "53:{'host': 'h', 'port': [], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       []
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "54:{'host': 'h', 'port': [22]}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       [
+        {
+         "$int": "22"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "55:{'host': 'h', 'port': [22], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       [
+        {
+         "$int": "22"
+        }
+       ]
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "56:{'host': 'h', 'port': {}}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$map": []
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "57:{'host': 'h', 'port': {}, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$map": []
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Invalid port."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "58:{'host': 'h', 'port': 22.9}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.9"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "59:{'host': 'h', 'port': 22.9, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.9"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "60:{'host': '10.0.0.9', 'port': 2222, 'proxy_jump': 'admin@bastion.example:22,second'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "10.0.0.9"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "proxy_jump",
+       "admin@bastion.example:22,second"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "10.0.0.9:2222 sits behind the bastion bastion.example:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "61:{'host': 'h', 'proxy_jump': 'admin@bastion:2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "admin@bastion:2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:2222 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "62:{'host': 'h', 'jumphost': 'admin@bastion:2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "admin@bastion:2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:2222 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "63:{'host': 'h', 'jump_host': 'admin@bastion:2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "admin@bastion:2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:2222 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "64:{'host': 'h', 'proxy_jump': '[2001:db8::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "[2001:db8::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:2200 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "65:{'host': 'h', 'jumphost': '[2001:db8::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "[2001:db8::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:2200 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "66:{'host': 'h', 'jump_host': '[2001:db8::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "[2001:db8::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:2200 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "67:{'host': 'h', 'proxy_jump': 'bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "68:{'host': 'h', 'jumphost': 'bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "69:{'host': 'h', 'jump_host': 'bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "70:{'host': 'h', 'proxy_jump': 'u@bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "u@bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "71:{'host': 'h', 'jumphost': 'u@bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "u@bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "72:{'host': 'h', 'jump_host': 'u@bastion'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "u@bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "73:{'host': 'h', 'proxy_jump': 'a,b'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "a,b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "a"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion a:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "74:{'host': 'h', 'jumphost': 'a,b'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "a,b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "a"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion a:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "75:{'host': 'h', 'jump_host': 'a,b'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "a,b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "a"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion a:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "76:{'host': 'h', 'proxy_jump': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "77:{'host': 'h', 'jumphost': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "78:{'host': 'h', 'jump_host': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "79:{'host': 'h', 'proxy_jump': '  '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "80:{'host': 'h', 'jumphost': '  '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "81:{'host': 'h', 'jump_host': '  '}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "82:{'host': 'h', 'proxy_jump': 'user@'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "user@"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "83:{'host': 'h', 'jumphost': 'user@'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "user@"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "84:{'host': 'h', 'jump_host': 'user@'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "user@"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "85:{'host': 'h', 'proxy_jump': ',,x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       ",,x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "86:{'host': 'h', 'jumphost': ',,x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       ",,x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "87:{'host': 'h', 'jump_host': ',,x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       ",,x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "88:{'host': 'h', 'proxy_jump': ['user@first', 'second']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       [
+        "user@first",
+        "second"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "first"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion first:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "89:{'host': 'h', 'jumphost': ['user@first', 'second']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       [
+        "user@first",
+        "second"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "first"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion first:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "90:{'host': 'h', 'jump_host': ['user@first', 'second']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       [
+        "user@first",
+        "second"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "first"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion first:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "91:{'host': 'h', 'proxy_jump': []}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       []
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "92:{'host': 'h', 'jumphost': []}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       []
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "93:{'host': 'h', 'jump_host': []}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       []
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "94:{'host': 'h', 'proxy_jump': ['', ' x ']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       [
+        "",
+        " x "
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "95:{'host': 'h', 'jumphost': ['', ' x ']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       [
+        "",
+        " x "
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "96:{'host': 'h', 'jump_host': ['', ' x ']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       [
+        "",
+        " x "
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "97:{'host': 'h', 'proxy_jump': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "98:{'host': 'h', 'jumphost': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "99:{'host': 'h', 'jump_host': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "100:{'host': 'h', 'proxy_jump': 0}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "101:{'host': 'h', 'jumphost': 0}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "102:{'host': 'h', 'jump_host': 0}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "103:{'host': 'h', 'proxy_jump': False}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "104:{'host': 'h', 'jumphost': False}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "105:{'host': 'h', 'jump_host': False}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "106:{'host': 'h', 'proxy_jump': 'bastion:abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion:abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "107:{'host': 'h', 'jumphost': 'bastion:abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "bastion:abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "108:{'host': 'h', 'jump_host': 'bastion:abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "bastion:abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "109:{'host': 'h', 'proxy_jump': 'bastion:0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion:0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "110:{'host': 'h', 'jumphost': 'bastion:0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "bastion:0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "111:{'host': 'h', 'jump_host': 'bastion:0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "bastion:0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "112:{'host': 'h', 'proxy_jump': 'bastion: 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion: 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "113:{'host': 'h', 'jumphost': 'bastion: 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "bastion: 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "114:{'host': 'h', 'jump_host': 'bastion: 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "bastion: 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "bastion"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion bastion:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "115:{'host': 'h', 'proxy_jump': '2001:db8::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "2001:db8::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "116:{'host': 'h', 'jumphost': '2001:db8::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "2001:db8::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "117:{'host': 'h', 'jump_host': '2001:db8::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "2001:db8::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion 2001:db8::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "118:{'host': 'h', 'proxy_jump': '[::1]'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "[::1]"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "119:{'host': 'h', 'jumphost': '[::1]'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "[::1]"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "120:{'host': 'h', 'jump_host': '[::1]'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "[::1]"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "121:{'host': 'h', 'proxy_jump': '[::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "[::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "122:{'host': 'h', 'jumphost': '[::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jumphost",
+       "[::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "123:{'host': 'h', 'jump_host': '[::1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "jump_host",
+       "[::1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion ::1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "124:{'host': 'h', 'proxy_jump': '', 'jumphost': 'j1', 'jump_host': 'j2'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       "j1"
+      ],
+      [
+       "jump_host",
+       "j2"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "j1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion j1:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "125:{'host': 'h', 'proxy_jump': 'p', 'jumphost': 'j1'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "p"
+      ],
+      [
+       "jumphost",
+       "j1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "p"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion p:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "126:{'host': 'h', 'proxy_jump': 'bastion', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "127:{'host': 'h', 'proxy_jump': 'bastion', 'protocol': 'vnc', 'port': 5901}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ],
+      [
+       "port",
+       {
+        "$int": "5901"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "128:{'host': 'h', 'proxy_jump': 'bastion', 'protocol': 'telnet'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "23"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "129:{'host': 'h', 'proxy_jump': 'bastion', 'port': 99999999}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ],
+      [
+       "port",
+       {
+        "$int": "99999999"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      "Port must be between 1 and 65535."
+     ]
+    ]
+   }
+  },
+  {
+   "name": "130:{'host': 'h', 'extra_ssh_args': '-p 2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "131:{'host': 'h', 'extra_ssh_args': '-p 2222', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "132:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "133:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "134:{'host': 'h', 'extra_ssh_args': ['-p2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "135:{'host': 'h', 'extra_ssh_args': ['-p2222'], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p2222"
+       ]
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "136:{'host': 'h', 'port': 2200, 'extra_ssh_args': ['-p2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "137:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': ['-p2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "138:{'host': 'h', 'extra_ssh_args': ['-p', '2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        "2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "139:{'host': 'h', 'extra_ssh_args': ['-p', '2222'], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        "2222"
+       ]
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "140:{'host': 'h', 'port': 2200, 'extra_ssh_args': ['-p', '2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        "2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "141:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': ['-p', '2222']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        "2222"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "142:{'host': 'h', 'extra_ssh_args': '-p2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "143:{'host': 'h', 'extra_ssh_args': '-p2222', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p2222"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "144:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "145:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p2222'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p2222"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "146:{'host': 'h', 'extra_ssh_args': '-J jump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J jump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "2022"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion jump:2022 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "147:{'host': 'h', 'extra_ssh_args': '-J jump:2022', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J jump:2022"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "148:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-J jump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-J jump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "2022"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion jump:2022 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "149:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-J jump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-J jump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "150:{'host': 'h', 'extra_ssh_args': '-Jjump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-Jjump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "2022"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion jump:2022 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "151:{'host': 'h', 'extra_ssh_args': '-Jjump:2022', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-Jjump:2022"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "152:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-Jjump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-Jjump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "2022"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion jump:2022 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "153:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-Jjump:2022'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-Jjump:2022"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "154:{'host': 'h', 'extra_ssh_args': ['-J', 'u@jump,j2']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-J",
+        "u@jump,j2"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion jump:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "155:{'host': 'h', 'extra_ssh_args': ['-J', 'u@jump,j2'], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-J",
+        "u@jump,j2"
+       ]
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "156:{'host': 'h', 'port': 2200, 'extra_ssh_args': ['-J', 'u@jump,j2']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-J",
+        "u@jump,j2"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "jump"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion jump:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "157:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': ['-J', 'u@jump,j2']}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-J",
+        "u@jump,j2"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "158:{'host': 'h', 'extra_ssh_args': '-p'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "159:{'host': 'h', 'extra_ssh_args': '-p', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "160:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "161:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "162:{'host': 'h', 'extra_ssh_args': '-p abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "163:{'host': 'h', 'extra_ssh_args': '-p abc', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p abc"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "164:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "165:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p abc'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p abc"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "166:{'host': 'h', 'extra_ssh_args': '-p 0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "167:{'host': 'h', 'extra_ssh_args': '-p 0', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 0"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "168:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "169:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "170:{'host': 'h', 'extra_ssh_args': '-p0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "171:{'host': 'h', 'extra_ssh_args': '-p0', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p0"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "172:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "173:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p0'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p0"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "174:{'host': 'h', 'extra_ssh_args': '-p 22x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 22x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "175:{'host': 'h', 'extra_ssh_args': '-p 22x', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 22x"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "176:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 22x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 22x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "177:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 22x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 22x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "178:{'host': 'h', 'extra_ssh_args': '-J'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "179:{'host': 'h', 'extra_ssh_args': '-J', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "180:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-J'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-J"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "181:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-J'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-J"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "182:{'host': 'h', 'extra_ssh_args': \"-J ''\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J ''"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "183:{'host': 'h', 'extra_ssh_args': \"-J ''\", 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J ''"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "184:{'host': 'h', 'port': 2200, 'extra_ssh_args': \"-J ''\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-J ''"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "185:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': \"-J ''\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-J ''"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "186:{'host': 'h', 'extra_ssh_args': '-p 1 -p 2'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 1 -p 2"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "187:{'host': 'h', 'extra_ssh_args': '-p 1 -p 2', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 1 -p 2"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "188:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 1 -p 2'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 1 -p 2"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "189:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 1 -p 2'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 1 -p 2"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "190:{'host': 'h', 'extra_ssh_args': '-p 70000'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 70000"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "70000"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "191:{'host': 'h', 'extra_ssh_args': '-p 70000', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 70000"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "192:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 70000'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 70000"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "193:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 70000'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 70000"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:70000 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "194:{'host': 'h', 'extra_ssh_args': \"-o 'unterminated\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'unterminated"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "195:{'host': 'h', 'extra_ssh_args': \"-o 'unterminated\", 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'unterminated"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "196:{'host': 'h', 'port': 2200, 'extra_ssh_args': \"-o 'unterminated\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'unterminated"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "197:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': \"-o 'unterminated\"}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'unterminated"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "198:{'host': 'h', 'extra_ssh_args': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "199:{'host': 'h', 'extra_ssh_args': '', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "200:{'host': 'h', 'port': 2200, 'extra_ssh_args': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "201:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': ''}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "202:{'host': 'h', 'extra_ssh_args': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "203:{'host': 'h', 'extra_ssh_args': None, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       null
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "204:{'host': 'h', 'port': 2200, 'extra_ssh_args': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "205:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': None}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "206:{'host': 'h', 'extra_ssh_args': 5}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "207:{'host': 'h', 'extra_ssh_args': 5, 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "208:{'host': 'h', 'port': 2200, 'extra_ssh_args': 5}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "209:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': 5}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "210:{'host': 'h', 'extra_ssh_args': ['-p', 7]}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        {
+         "$int": "7"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "7"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "211:{'host': 'h', 'extra_ssh_args': ['-p', 7], 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        {
+         "$int": "7"
+        }
+       ]
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "212:{'host': 'h', 'port': 2200, 'extra_ssh_args': ['-p', 7]}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        {
+         "$int": "7"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "213:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': ['-p', 7]}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        {
+         "$int": "7"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:7 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "214:{'host': 'h', 'extra_ssh_args': '-v -p 2200 -J b:22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-v -p 2200 -J b:22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "b"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion b:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "215:{'host': 'h', 'extra_ssh_args': '-v -p 2200 -J b:22', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-v -p 2200 -J b:22"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "216:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-v -p 2200 -J b:22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-v -p 2200 -J b:22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "b"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion b:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "217:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-v -p 2200 -J b:22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-v -p 2200 -J b:22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "218:{'host': 'h', 'extra_ssh_args': '-p 2222 -J [::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222 -J [::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion ::1:2200 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "219:{'host': 'h', 'extra_ssh_args': '-p 2222 -J [::1]:2200', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222 -J [::1]:2200"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "220:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p 2222 -J [::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222 -J [::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion ::1:2200 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "221:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p 2222 -J [::1]:2200'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222 -J [::1]:2200"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2222 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "222:{'host': 'h', 'extra_ssh_args': '-i key -pfoo'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-i key -pfoo"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "223:{'host': 'h', 'extra_ssh_args': '-i key -pfoo', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-i key -pfoo"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "224:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-i key -pfoo'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-i key -pfoo"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "2200"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "225:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-i key -pfoo'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-i key -pfoo"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "226:{'host': 'h', 'extra_ssh_args': '-J -p 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J -p 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "-p"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion -p:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "227:{'host': 'h', 'extra_ssh_args': '-J -p 22', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-J -p 22"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "228:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-J -p 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-J -p 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "-p"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion -p:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "229:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-J -p 22'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-J -p 22"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "230:{'host': 'h', 'extra_ssh_args': '-p -J x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p -J x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "231:{'host': 'h', 'extra_ssh_args': '-p -J x', 'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       "-p -J x"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "3389"
+      }
+     ],
+     [
+      "via_note",
+      ""
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "232:{'host': 'h', 'port': 2200, 'extra_ssh_args': '-p -J x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p -J x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:2200 sits behind the bastion x:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "233:{'host': 'h', 'proxy_jump': 'own', 'extra_ssh_args': '-p -J x'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "own"
+      ],
+      [
+       "extra_ssh_args",
+       "-p -J x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "own"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "via_note",
+      "h:22 sits behind the bastion own:22 and cannot be reached from here — probing the bastion instead."
+     ],
+     [
+      "error",
+      null
+     ]
+    ]
+   }
+  }
+ ]
+}

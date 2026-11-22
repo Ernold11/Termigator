@@ -1,0 +1,731 @@
+{
+ "cases": [
+  {
+   "name": "0:'host'",
+   "input": [
+    "host"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "host"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "1:'user@host'",
+   "input": [
+    "user@host"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "host"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "2:'user@host:2222'",
+   "input": [
+    "user@host:2222"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "host"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "3:'a,b'",
+   "input": [
+    "a,b"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "a"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "4:['user@first', 'second']",
+   "input": [
+    [
+     "user@first",
+     "second"
+    ]
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "first"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "5:'user@[2001:db8::1]:22'",
+   "input": [
+    "user@[2001:db8::1]:22"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "6:'2001:db8::1'",
+   "input": [
+    "2001:db8::1"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "7:''",
+   "input": [
+    ""
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "8:'  '",
+   "input": [
+    "  "
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "9:None",
+   "input": [
+    null
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "10:0",
+   "input": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "11:False",
+   "input": [
+    false
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "12:'[::1]'",
+   "input": [
+    "[::1]"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "13:'[::1]:'",
+   "input": [
+    "[::1]:"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "14:'[::1]:x'",
+   "input": [
+    "[::1]:x"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "15:'[::1'",
+   "input": [
+    "[::1"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "16:'[]:22'",
+   "input": [
+    "[]:22"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "17:'h:'",
+   "input": [
+    "h:"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "18:'h:0'",
+   "input": [
+    "h:0"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "19:'h: 22'",
+   "input": [
+    "h: 22"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "20:'h:+22'",
+   "input": [
+    "h:+22"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "21:'h:1_0'",
+   "input": [
+    "h:1_0"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "10"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "22:'h:-5'",
+   "input": [
+    "h:-5"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-5"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "23:'h:x'",
+   "input": [
+    "h:x"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "24:'h:1:2'",
+   "input": [
+    "h:1:2"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h:1:2"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "25:'a@b@c:9'",
+   "input": [
+    "a@b@c:9"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "c"
+     ],
+     [
+      "port",
+      {
+       "$int": "9"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "26:'@h'",
+   "input": [
+    "@h"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "27:'u@'",
+   "input": [
+    "u@"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "28:',,'",
+   "input": [
+    ",,"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "29:' , x'",
+   "input": [
+    " , x"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "x"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "30:['', '  ', 'z:5']",
+   "input": [
+    [
+     "",
+     "  ",
+     "z:5"
+    ]
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "z"
+     ],
+     [
+      "port",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "31:[]",
+   "input": [
+    []
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      ""
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "32:('t1', 't2')",
+   "input": [
+    [
+     "t1",
+     "t2"
+    ]
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "t1"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "33:[5, 'x']",
+   "input": [
+    [
+     {
+      "$int": "5"
+     },
+     "x"
+    ]
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "5"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "34:7",
+   "input": [
+    {
+     "$int": "7"
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "7"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "35:'host ,other'",
+   "input": [
+    "host ,other"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "host"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "36:'h:22,j:23'",
+   "input": [
+    "h:22,j:23"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "37:'[::1]:22,[::2]:23'",
+   "input": [
+    "[::1]:22,[::2]:23"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "::1"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   }
+  }
+ ]
+}

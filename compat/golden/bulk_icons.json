@@ -1,0 +1,58 @@
+{
+ "cases": [
+  {
+   "name": "icon_choices",
+   "input": [],
+   "expect": [
+    [
+     "Server",
+     "network-server"
+    ],
+    [
+     "Database",
+     "server-database"
+    ],
+    [
+     "Network device",
+     "network-wired"
+    ],
+    [
+     "Firewall",
+     "security-high"
+    ],
+    [
+     "Desktop",
+     "computer"
+    ],
+    [
+     "Laptop",
+     "computer-laptop"
+    ],
+    [
+     "Cloud",
+     "folder-cloud"
+    ],
+    [
+     "Container",
+     "package-x-generic"
+    ],
+    [
+     "Terminal",
+     "utilities-terminal"
+    ],
+    [
+     "Web",
+     "applications-internet"
+    ],
+    [
+     "Star",
+     "starred"
+    ],
+    [
+     "Warning",
+     "dialog-warning"
+    ]
+   ]
+  }
+ ]
+}

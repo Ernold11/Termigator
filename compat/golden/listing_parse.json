@@ -1,0 +1,3161 @@
+{
+ "cases": [
+  {
+   "name": "t:full_listing",
+   "input": "/root\ntotal 16\ndrwxr-xr-x  2 0 0  4096 Jul 16 09:00 logs\n-rw-r--r--  1 0 0 12345 Jul 17 10:33 report.txt\n-rw-------  1 0 0     0 Jan  3  2025 .secret\nlrwxrwxrwx  1 0 0     7 Jul 10 08:00 link -> /target\n-rw-r--r--  1 0 0    99 Jul 17 11:11 name with spaces.log\nbrw-rw----  1 0 6 8, 1 Jul  1 00:00 sda1\n",
+   "expect": {
+    "cwd": "/root",
+    "entries": [
+     {
+      "name": "logs",
+      "is_dir": true,
+      "is_link": false,
+      "size": 4096,
+      "mode": "drwxr-xr-x",
+      "mtime": "Jul 16 09:00",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "report.txt",
+      "is_dir": false,
+      "is_link": false,
+      "size": 12345,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": ".secret",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-------",
+      "mtime": "Jan  3  2025",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "link",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": "/target",
+      "owner": "0:0"
+     },
+     {
+      "name": "name with spaces.log",
+      "is_dir": false,
+      "is_link": false,
+      "size": 99,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 11:11",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "sda1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "brw-rw----",
+      "mtime": "Jul  1 00:00",
+      "link_target": "",
+      "owner": "0:6"
+     }
+    ]
+   }
+  },
+  {
+   "name": "t:find_tricky_names",
+   "input": "noise from .bashrc\n@@TERMIGATOR-LS@@\n/home/u\nF\ndrwxr-xr-x\u00004096\u00002026-07-16 09:00\u0000root:root\u0000my dir\u0000\u0000-rw-r--r--\u00005\u00002026-07-17 10:33\u0000alice:staff\u0000my file.txt\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000root:root\u0000new\nline\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000root:root\u0000a -> b\u0000\u0000lrwxrwxrwx\u00005\u00002026-07-17 10:33\u0000root:root\u0000link\u0000plain target\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "my dir",
+      "is_dir": true,
+      "is_link": false,
+      "size": 4096,
+      "mode": "drwxr-xr-x",
+      "mtime": "2026-07-16 09:00",
+      "link_target": "",
+      "owner": "root:root"
+     },
+     {
+      "name": "my file.txt",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "alice:staff"
+     },
+     {
+      "name": "new\nline",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "root:root"
+     },
+     {
+      "name": "a -> b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "root:root"
+     },
+     {
+      "name": "link",
+      "is_dir": false,
+      "is_link": true,
+      "size": 5,
+      "mode": "lrwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "plain target",
+      "owner": "root:root"
+     }
+    ]
+   }
+  },
+  {
+   "name": "t:ls_fallback_after_marker",
+   "input": "Welcome!\n@@TERMIGATOR-LS@@\n/root\nL\ntotal 16\ndrwxr-xr-x  2 0 0  4096 Jul 16 09:00 logs\n-rw-r--r--  1 0 0 12345 Jul 17 10:33 report.txt\n-rw-------  1 0 0     0 Jan  3  2025 .secret\nlrwxrwxrwx  1 0 0     7 Jul 10 08:00 link -> /target\n-rw-r--r--  1 0 0    99 Jul 17 11:11 name with spaces.log\nbrw-rw----  1 0 6 8, 1 Jul  1 00:00 sda1\n",
+   "expect": {
+    "cwd": "/root",
+    "entries": [
+     {
+      "name": "logs",
+      "is_dir": true,
+      "is_link": false,
+      "size": 4096,
+      "mode": "drwxr-xr-x",
+      "mtime": "Jul 16 09:00",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "report.txt",
+      "is_dir": false,
+      "is_link": false,
+      "size": 12345,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": ".secret",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-------",
+      "mtime": "Jan  3  2025",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "link",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": "/target",
+      "owner": "0:0"
+     },
+     {
+      "name": "name with spaces.log",
+      "is_dir": false,
+      "is_link": false,
+      "size": 99,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 11:11",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "sda1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "brw-rw----",
+      "mtime": "Jul  1 00:00",
+      "link_target": "",
+      "owner": "0:6"
+     }
+    ]
+   }
+  },
+  {
+   "name": "t:cwd_trailing_space",
+   "input": "@@TERMIGATOR-LS@@\n/tmp/dir \nF\n",
+   "expect": {
+    "cwd": "/tmp/dir ",
+    "entries": []
+   }
+  },
+  {
+   "name": "t:empty_dir",
+   "input": "/tmp/empty\ntotal 0\n",
+   "expect": {
+    "cwd": "/tmp/empty",
+    "entries": []
+   }
+  },
+  {
+   "name": "t:garbage",
+   "input": "bash: cd: /nope: No such file or directory",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'bash: cd: /nope: No such file or directory'"
+  },
+  {
+   "name": "t:empty",
+   "input": "",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "t:ls_numeric_owner",
+   "input": "/r\n-rw-r--r-- 1 1000 100 5 Jul 17 10:33 f.txt\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "f.txt",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "1000:100"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:latin1",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2f686f6d652f750a460a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e92e74787400002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700706c61696e0000"
+   },
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": {
+       "$bytes": "636166e9"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": {
+       "$bytes": "636166e92e747874"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "plain",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:utf8",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000zażółć.txt\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000日本語\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "zażółć.txt",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "日本語",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:mixed_invalid",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2f686f6d652f750a460a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700fffefd00002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a670061806200002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700c300002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700e28200002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700f09f980000"
+   },
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": {
+       "$bytes": "fffefd"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": {
+       "$bytes": "618062"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": {
+       "$bytes": "c3"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": {
+       "$bytes": "e282"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": {
+       "$bytes": "f09f98"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:newline",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000new\nline\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000\n\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\r\nb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000\r\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "new\nline",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "\n",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\r\nb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "\r",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:arrow_in_name",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a -> b\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000 -> \u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x -> y -> z\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "a -> b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": " -> ",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "x -> y -> z",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:link_arrow",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2f686f6d652f750a460a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c0074202d3e2075006c727778727778727778003100323032362d30372d31372031303a333300753a67006c3200636166e9006c727778727778727778003100323032362d30372d31372031303a333300753a67006c33202d3e2078007400"
+   },
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "l",
+      "is_dir": false,
+      "is_link": true,
+      "size": 1,
+      "mode": "lrwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "t -> u",
+      "owner": "u:g"
+     },
+     {
+      "name": "l2",
+      "is_dir": false,
+      "is_link": true,
+      "size": 1,
+      "mode": "lrwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": {
+       "$bytes": "636166e9"
+      },
+      "owner": "u:g"
+     },
+     {
+      "name": "l3 -> x",
+      "is_dir": false,
+      "is_link": true,
+      "size": 1,
+      "mode": "lrwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "t",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:link_empty_target",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "l",
+      "is_dir": false,
+      "is_link": true,
+      "size": 1,
+      "mode": "lrwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:nonlink_target_ignored",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\u0000zzz\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "n",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:spaces_leading_trailing",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000 lead\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000trail \u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000  two  \u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": " lead",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "trail ",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "  two  ",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:unicode_separators_in_name",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a b\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000ab\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a b\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a b\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "a b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "ab",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:control_chars_name",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u000bb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\fb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u001cb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u001fb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\tb\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0007b\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "a\u000bb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\fb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\u001cb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\u001fb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\tb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "a\u0007b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:kinds",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\ndrwxr-xr-x\u00001\u00002026-07-17 10:33\u0000u:g\u0000d\u0000\u0000crw-rw-rw-\u00001\u00002026-07-17 10:33\u0000u:g\u0000c\u0000\u0000brw-rw----\u00001\u00002026-07-17 10:33\u0000u:g\u0000b\u0000\u0000prw-------\u00001\u00002026-07-17 10:33\u0000u:g\u0000p\u0000\u0000srwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000s\u0000\u0000-rwsr-xr-t\u00001\u00002026-07-17 10:33\u0000u:g\u0000f\u0000\u0000?\u00001\u00002026-07-17 10:33\u0000u:g\u0000?\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "d",
+      "is_dir": true,
+      "is_link": false,
+      "size": 1,
+      "mode": "drwxr-xr-x",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "c",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "crw-rw-rw-",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "brw-rw----",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "p",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "prw-------",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "srwxrwxrwx",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "f",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rwsr-xr-t",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "?",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "?",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:sizes",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2f686f6d652f750a460a2d72772d722d2d722d2d003000323032362d30372d31372031303a333300753a6700733000002d72772d722d2d722d2d0031323300323032362d30372d31372031303a333300753a6700733100002d72772d722d2d722d2d0020372000323032362d30372d31372031303a333300753a6700733200002d72772d722d2d722d2d002b3500323032362d30372d31372031303a333300753a6700733300002d72772d722d2d722d2d002d3500323032362d30372d31372031303a333300753a6700733400002d72772d722d2d722d2d00315f3000323032362d30372d31372031303a333300753a6700733500002d72772d722d2d722d2d00315f5f3000323032362d30372d31372031303a333300753a6700733600002d72772d722d2d722d2d005f3100323032362d30372d31372031303a333300753a6700733700002d72772d722d2d722d2d00315f00323032362d30372d31372031303a333300753a6700733800002d72772d722d2d722d2d0061626300323032362d30372d31372031303a333300753a6700733900002d72772d722d2d722d2d0000323032362d30372d31372031303a333300753a670073313000002d72772d722d2d722d2d0031322e3500323032362d30372d31372031303a333300753a670073313100002d72772d722d2d722d2d003078313000323032362d30372d31372031303a333300753a670073313200002d72772d722d2d722d2d0030303700323032362d30372d31372031303a333300753a670073313300002d72772d722d2d722d2d00393939393939393939393900323032362d30372d31372031303a333300753a670073313400002d72772d722d2d722d2d00ff00323032362d30372d31372031303a333300753a670073313500002d72772d722d2d722d2d0031203200323032362d30372d31372031303a333300753a67007331360000"
+   },
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "s0",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 123,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s2",
+      "is_dir": false,
+      "is_link": false,
+      "size": 7,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s3",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s4",
+      "is_dir": false,
+      "is_link": false,
+      "size": -5,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s5",
+      "is_dir": false,
+      "is_link": false,
+      "size": 10,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s6",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s7",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s8",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s9",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s10",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s11",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s12",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s13",
+      "is_dir": false,
+      "is_link": false,
+      "size": 7,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s14",
+      "is_dir": false,
+      "is_link": false,
+      "size": 99999999999,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s15",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "s16",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:empty_fields_skipped",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000\u0000\u0000\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000ok\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "ok",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:truncated_record",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000-rw-r--r--\u00001\u00002026\u0000u:g\u0000half",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:two_extra_fields",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000x\u0000y",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:no_records",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "f:no_trailing_nl",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "f:cwd_only",
+   "input": "@@TERMIGATOR-LS@@\n/home/u",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "f:cwd_only_nl",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\n",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "f:cwd_nonutf8",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2f686f6d652f636166e90a460a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000"
+   },
+   "expect": {
+    "cwd": {
+     "$bytes": "2f686f6d652f636166e9"
+    },
+    "entries": [
+     {
+      "name": "x",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:cwd_spaces",
+   "input": "@@TERMIGATOR-LS@@\n/home/a b  \nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000",
+   "expect": {
+    "cwd": "/home/a b  ",
+    "entries": [
+     {
+      "name": "x",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "f:cwd_unicode_ws",
+   "input": "@@TERMIGATOR-LS@@\n/home/u \nF\n",
+   "expect": {
+    "cwd": "/home/u ",
+    "entries": []
+   }
+  },
+  {
+   "name": "f:owner_ids",
+   "input": "@@TERMIGATOR-LS@@\n/home/u\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u00001000:100\u0000x\u0000\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000\u0000y\u0000\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": [
+     {
+      "name": "x",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "1000:100"
+     },
+     {
+      "name": "y",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": ""
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:noise_multiline",
+   "input": "Welcome\nto host\n\n@@TERMIGATOR-LS@@\n/x\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:noise_with_marker_text",
+   "input": "echo @@TERMIGATOR-LS@@ in bashrc\n@@TERMIGATOR-LS@@\n/x\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:marker_twice",
+   "input": "@@TERMIGATOR-LS@@\n/a\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000first\u0000\u0000@@TERMIGATOR-LS@@\n/b\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000second\u0000\u0000",
+   "expect": {
+    "cwd": "/a",
+    "entries": [
+     {
+      "name": "first",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     },
+     {
+      "name": "second",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "@@TERMIGATOR-LS@@\n/b\nF\n-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:noise_marker_no_newline",
+   "input": "noise @@TERMIGATOR-LS@@ tail\n/x\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise @@TERMIGATOR-LS@@ tail'"
+  },
+  {
+   "name": "m:marker_at_end",
+   "input": "/x\n@@TERMIGATOR-LS@@",
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "m:marker_only",
+   "input": "@@TERMIGATOR-LS@@\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): ''"
+  },
+  {
+   "name": "m:marker_crlf",
+   "input": "@@TERMIGATOR-LS@@\r\n/x\r\nF\r\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '@@TERMIGATOR-LS@@\\r'"
+  },
+  {
+   "name": "m:noise_crlf",
+   "input": "hi\r\n@@TERMIGATOR-LS@@\n/x\nF\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000a\u0000\u0000",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33",
+      "link_target": "",
+      "owner": "u:g"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:unknown_tag",
+   "input": "@@TERMIGATOR-LS@@\n/x\nZ\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:no_tag",
+   "input": "@@TERMIGATOR-LS@@\n/x\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "m:empty_tag",
+   "input": "@@TERMIGATOR-LS@@\n/x\n\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "m:relative_cwd",
+   "input": "@@TERMIGATOR-LS@@\nrel\nF\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'rel'"
+  },
+  {
+   "name": "m:empty_cwd",
+   "input": "@@TERMIGATOR-LS@@\n\nF\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): ''"
+  },
+  {
+   "name": "m:cwd_long_garbage",
+   "input": "@@TERMIGATOR-LS@@\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nF\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'"
+  },
+  {
+   "name": "m:cwd_garbage_quotes",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a697427732022686572652220636166e9205c20090120ff0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'it\\'s \"here\" caf\\udce9 \\\\ \\t\\x01 \\udcff'"
+  },
+  {
+   "name": "m:cwd_garbage_single_quote",
+   "input": "@@TERMIGATOR-LS@@\nit's\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): \"it's\""
+  },
+  {
+   "name": "m:cwd_garbage_both_quotes",
+   "input": "@@TERMIGATOR-LS@@\nit's \"x\"\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'it\\'s \"x\"'"
+  },
+  {
+   "name": "m:cwd_garbage_unicode",
+   "input": "@@TERMIGATOR-LS@@\nzażółć 日本 x\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'zażółć 日本\\u2003x'"
+  },
+  {
+   "name": "m:cwd_garbage_79_80_81",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161e97a7a7a0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\udce9'"
+  },
+  {
+   "name": "m:legacy_garbage_nonutf8",
+   "input": {
+    "$bytes": "626173683a20636166e93a206e6f7420666f756e64"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'bash: caf\\udce9: not found'"
+  },
+  {
+   "name": "m:legacy_long",
+   "input": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'"
+  },
+  {
+   "name": "m:ls_after_marker_blank_first",
+   "input": "@@TERMIGATOR-LS@@\n/r\nL\n\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:latin1",
+   "input": {
+    "$bytes": "2f720a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e92e7478740a"
+   },
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": {
+       "$bytes": "636166e9"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": {
+       "$bytes": "636166e92e747874"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:spaces",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a  b\n-rw-r--r-- 1 0 0 5 Jul 17 10:33  lead\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 trail \n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a  b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": " lead",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "trail ",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:link",
+   "input": {
+    "$bytes": "2f720a6c7277787277787277782031203020302037204a756c2031302030383a3030206c696e6b202d3e202f7461726765740a6c7277787277787277782031203020302037204a756c2031302030383a30302061202d3e2062202d3e20630a6c7277787277787277782031203020302037204a756c2031302030383a3030206e6f6c696e6b0a6c7277787277787277782031203020302037204a756c2031302030383a30302078202d3e20636166e90a"
+   },
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "link",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": "/target",
+      "owner": "0:0"
+     },
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": "b -> c",
+      "owner": "0:0"
+     },
+     {
+      "name": "nolink",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "x",
+      "is_dir": false,
+      "is_link": true,
+      "size": 7,
+      "mode": "lrwxrwxrwx",
+      "mtime": "Jul 10 08:00",
+      "link_target": {
+       "$bytes": "636166e9"
+      },
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:file_with_arrow",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a -> b\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a -> b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:acl_markers",
+   "input": "/r\n-rw-r--r--+ 1 0 0 5 Jul 17 10:33 a\n-rw-r--r--. 1 0 0 5 Jul 17 10:33 b\n-rw-r--r--@ 1 0 0 5 Jul 17 10:33 c\n-rw-r--r--x 1 0 0 5 Jul 17 10:33 d\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--+",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--.",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "c",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--@",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:kinds",
+   "input": "/r\ndrwxr-xr-x 2 0 0 4096 Jul 17 10:33 d\ncrw-rw-rw- 1 0 5 1, 3 Jul 17 10:33 null\nbrw-rw---- 1 0 6 8,  1 Jul 17 10:33 sda1\nprw------- 1 0 0 0 Jul 17 10:33 fifo\nsrwxrwxrwx 1 0 0 0 Jul 17 10:33 sock\n-rwsr-xr-t 1 0 0 0 Jul 17 10:33 st\nzrwxr-xr-x 1 0 0 0 Jul 17 10:33 bad\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "d",
+      "is_dir": true,
+      "is_link": false,
+      "size": 4096,
+      "mode": "drwxr-xr-x",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "null",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "crw-rw-rw-",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:5"
+     },
+     {
+      "name": "sda1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "brw-rw----",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:6"
+     },
+     {
+      "name": "fifo",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "prw-------",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "sock",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "srwxrwxrwx",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "st",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "-rwsr-xr-t",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:dates",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jan  3  2025 year\n-rw-r--r-- 1 0 0 5 Dec 31 23:59 time\n-rw-r--r-- 1 0 0 5 Jul 17 10:33:12 seconds\n-rw-r--r-- 1 0 0 5 2026-07-17 10:33 iso x\n-rw-r--r-- 1 0 0 5 Jul 17 a\n-rw-r--r-- 1 0 0 5 Jul 17\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "year",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jan  3  2025",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "time",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Dec 31 23:59",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "seconds",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33:12",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "x",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "2026-07-17 10:33 iso",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:owners",
+   "input": "/r\n-rw-r--r-- 1 root wheel 5 Jul 17 10:33 a\n-rw-r--r-- 1 1000 100 5 Jul 17 10:33 b\n-rw-r--r-- 1 a b c 5 Jul 17 10:33 d\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "root:wheel"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "1000:100"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:tabs_and_runs",
+   "input": "/r\n-rw-r--r--\t1\t0\t0\t5\tJul\t17\t10:33\ttabname\n-rw-r--r--   1   0   0   5   Jul   17   10:33 x   y\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "tabname",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul\t17\t10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "x   y",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul   17   10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:total_and_blank",
+   "input": "/r\n\ntotal 8\n   \n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n\n\ntotal x\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:total_prefix_name",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 total 4\ntotal 4\ntotally fine\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "total 4",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:garbage_lines",
+   "input": "/r\nhello world\n-rw-r--r-- bad\nd--------- 1 0 0 5 Jul 17 10:33 a\n-rw-r--r-- 1 0 0 x Jul 17 10:33 a\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 ok\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": true,
+      "is_link": false,
+      "size": 5,
+      "mode": "d---------",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "ok",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:crlf",
+   "input": "/r\r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 b\r\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:cr_only",
+   "input": "/r\r-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\r",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:splitlines_seps",
+   "input": "/r\u000b-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\f-rw-r--r-- 1 0 0 5 Jul 17 10:33 b\u001c-rw-r--r-- 1 0 0 5 Jul 17 10:33 c\u001d-rw-r--r-- 1 0 0 5 Jul 17 10:33 d\u001e-rw-r--r-- 1 0 0 5 Jul 17 10:33 e-rw-r--r-- 1 0 0 5 Jul 17 10:33 f -rw-r--r-- 1 0 0 5 Jul 17 10:33 g -rw-r--r-- 1 0 0 5 Jul 17 10:33 h",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "c",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "d",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "e",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "f",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "g",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "h",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:name_with_0x1f",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\u001fb\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a\u001fb",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:name_with_u2028",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a b\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:name_with_nbsp",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a b\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:name_invalid_before_split",
+   "input": {
+    "$bytes": "2f720a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a33332061e2e280a8620a"
+   },
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": {
+       "$bytes": "61e2"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:name_partial_lead_then_85",
+   "input": {
+    "$bytes": "2f720a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a33332061e1c285620a"
+   },
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": {
+       "$bytes": "61e1"
+      },
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:leading_blank_lines",
+   "input": "\n\n  \n/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:leading_unicode_blank",
+   "input": " \n　\n/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:cwd_stripped",
+   "input": "  /r  \n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:cwd_stripped_unicode",
+   "input": " /r　\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:cwd_stripped_1f",
+   "input": "\u001f/r\u001f\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:cwd_not_abs_indented",
+   "input": "  rel\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'rel'"
+  },
+  {
+   "name": "l:only_blank",
+   "input": "\n  \n\t\n",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "l:only_ws_unicode",
+   "input": " 　",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "l:only_total",
+   "input": "/r\ntotal 0\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": []
+   }
+  },
+  {
+   "name": "l:no_newline_end",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 a",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 5,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:size_big",
+   "input": "/r\n-rw-r--r-- 1 0 0 99999999999 Jul 17 10:33 a\n-rw-r--r-- 1 0 0 007 Jul 17 10:33 b\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 99999999999,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 7,
+      "mode": "-rw-r--r--",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:device_sizes",
+   "input": "/r\ncrw-rw-rw- 1 0 5 1,3 Jul 17 10:33 a\ncrw-rw-rw- 1 0 5 1,   3 Jul 17 10:33 b\ncrw-rw-rw- 1 0 5 1 , 3 Jul 17 10:33 c\n",
+   "expect": {
+    "cwd": "/r",
+    "entries": [
+     {
+      "name": "a",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "crw-rw-rw-",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:5"
+     },
+     {
+      "name": "b",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "crw-rw-rw-",
+      "mtime": "Jul 17 10:33",
+      "link_target": "",
+      "owner": "0:5"
+     },
+     {
+      "name": "17 10:33 c",
+      "is_dir": false,
+      "is_link": false,
+      "size": 1,
+      "mode": "crw-rw-rw-",
+      "mtime": ", 3 Jul",
+      "link_target": "",
+      "owner": "0:5"
+     }
+    ]
+   }
+  },
+  {
+   "name": "l:marker_in_ls_noise",
+   "input": "/r\n-rw-r--r-- 1 0 0 5 Jul 17 10:33 @@TERMIGATOR-LS@@\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): ''"
+  },
+  {
+   "name": "rand:0",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e90000"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00caf\\udce9\\x00\\x00'"
+  },
+  {
+   "name": "rand:1",
+   "input": {
+    "$bytes": "0d0a2f686f6d652f750a6e6f6973650afffe0ae280a80b6c727778727778727778003100323032362d30372d31372031303a333300753a67006c0074006c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400e280a8"
+   },
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:2",
+   "input": "\r\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00'"
+  },
+  {
+   "name": "rand:3",
+   "input": "  \nF\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000L\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000\u000b",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'F'"
+  },
+  {
+   "name": "rand:4",
+   "input": "total 8\nbrw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:5",
+   "input": {
+    "$bytes": "6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a2f686f6d652f750a6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e9000020200a6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740ae280a86e6f6973650a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:6",
+   "input": "\u0000\u0000\u0000\u0000\u0000\u0000lrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00'"
+  },
+  {
+   "name": "rand:7",
+   "input": "lrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n\u0000\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d'"
+  },
+  {
+   "name": "rand:8",
+   "input": "noise\n/x\ndrwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\njunk line\n  \n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000\r\n/home/u\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:9",
+   "input": "/home/u\n-rw-r--r--\u0000",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:10",
+   "input": {
+    "$bytes": "0b40405445524d494741544f522d4c5340400ae280a8460a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a006a756e6b206c696e650a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\u2028F'"
+  },
+  {
+   "name": "rand:11",
+   "input": {
+    "$bytes": "6e6f6973650afffe0a0d0a746f74616c20380a746f74616c20380a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:12",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a746f74616c20380a2f780a2f686f6d652f750a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:13",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a00460a0d0a6e6f6973650a0d0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:14",
+   "input": "\nnoise\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:15",
+   "input": "-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000  \n\u0000noise\n-rw-r--r--\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:16",
+   "input": "\r\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000noise\n  \n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00noise'"
+  },
+  {
+   "name": "rand:17",
+   "input": "/x\n\u0000brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n\u0000\u0000\u0000\u0000\u0000\u0000\u000bnoise\nbrw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\nF\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "sda1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "brw-rw----",
+      "mtime": "Jul 1 00:00",
+      "link_target": "",
+      "owner": "0:6"
+     }
+    ]
+   }
+  },
+  {
+   "name": "rand:18",
+   "input": "drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n\u000b-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000@@TERMIGATOR-LS@@\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): ''"
+  },
+  {
+   "name": "rand:19",
+   "input": {
+    "$bytes": "2f780a4c0ac285746f74616c20380a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002f686f6d652f750a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a"
+   },
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "sda1",
+      "is_dir": false,
+      "is_link": false,
+      "size": 0,
+      "mode": "brw-rw----",
+      "mtime": "Jul 1 00:00",
+      "link_target": "",
+      "owner": "0:6"
+     }
+    ]
+   }
+  },
+  {
+   "name": "rand:20",
+   "input": " ",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "rand:21",
+   "input": "-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n  \n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:22",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800002f780ae280a8e280a82d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00004c0a0afffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00/x'"
+  },
+  {
+   "name": "rand:23",
+   "input": "\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00'"
+  },
+  {
+   "name": "rand:24",
+   "input": "\u0000\u0000\u0000\u0000\u0000\u0000\nF\n/x\n/x\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00'"
+  },
+  {
+   "name": "rand:25",
+   "input": "F\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'F'"
+  },
+  {
+   "name": "rand:26",
+   "input": "junk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:27",
+   "input": "\r\n\r\n  \n\u0000\u0000\u0000\u0000\u0000\u0000\nL\n\u0000\u0000\u0000\u0000\u0000\u0000lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00'"
+  },
+  {
+   "name": "rand:28",
+   "input": "total 8\nnoise\njunk line\n\n@@TERMIGATOR-LS@@\n/home/u\n\n",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:29",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a2d72772d722d2d722d2d00"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:30",
+   "input": "noise\n/home/u\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:31",
+   "input": {
+    "$bytes": "6a756e6b206c696e650a0a2d72772d722d2d722d2d000d0ae280a820200afffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:32",
+   "input": {
+    "$bytes": "6a756e6b206c696e650a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:33",
+   "input": {
+    "$bytes": "6c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400fffe0a6e6f6973650a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a670078000020200afffe0ac285746f74616c20380a6a756e6b206c696e650a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:34",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800006c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e9000064727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:35",
+   "input": "\r\n\u0000\u0000\u0000\u0000\u0000\u0000-rw-r--r--\u0000\r\n  ",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00-rw-r--r--\\x00'"
+  },
+  {
+   "name": "rand:36",
+   "input": "\u0000\u0000\u0000\u0000\u0000\u0000@@TERMIGATOR-LS@@\ntotal 8\njunk line\n-rw-r--r--\u0000junk line\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:37",
+   "input": {
+    "$bytes": "fffe0a40405445524d494741544f522d4c5340400a40405445524d494741544f522d4c5340400a0a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a2f780a6a756e6b206c696e650a6e6f6973650a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '@@TERMIGATOR-LS@@'"
+  },
+  {
+   "name": "rand:38",
+   "input": "  \n\u0000-rw-r--r--\u0000total 8\n/home/u\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00-rw-r--r--\\x00total 8'"
+  },
+  {
+   "name": "rand:39",
+   "input": {
+    "$bytes": "fffe0a6a756e6b206c696e650a0000000000002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000460ae280a8"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:40",
+   "input": " L\n\u000btotal 8\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'L'"
+  },
+  {
+   "name": "rand:41",
+   "input": "-rw-r--r--\u0000  \n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n\u0000\u0000\u0000\u0000\u0000\u0000drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n ",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x00'"
+  },
+  {
+   "name": "rand:42",
+   "input": {
+    "$bytes": "0a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a6e6f6973650a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00006a756e6b206c696e650a40405445524d494741544f522d4c5340400a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a0a0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:43",
+   "input": {
+    "$bytes": "6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d0000fffe0a2f780a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:44",
+   "input": {
+    "$bytes": "e280a8e280a86c727778727778727778003100323032362d30372d31372031303a333300753a67006c0074006a756e6b206c696e650afffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00junk line'"
+  },
+  {
+   "name": "rand:45",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800004c0afffe0a460a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00L'"
+  },
+  {
+   "name": "rand:46",
+   "input": {
+    "$bytes": "6a756e6b206c696e650a40405445524d494741544f522d4c5340400a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000460a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a2f686f6d652f750a2f686f6d652f750ae280a8460a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00F'"
+  },
+  {
+   "name": "rand:47",
+   "input": " ",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "rand:48",
+   "input": {
+    "$bytes": "0d0a0b2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e90000c2856a756e6b206c696e650a64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00caf\\udce9\\x00\\x00'"
+  },
+  {
+   "name": "rand:49",
+   "input": {
+    "$bytes": "0a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a460a00"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1'"
+  },
+  {
+   "name": "rand:50",
+   "input": {
+    "$bytes": "c28520200a40405445524d494741544f522d4c5340400a460ae280a8fffe0a2d72772d722d2d722d2d002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d0000"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'F'"
+  },
+  {
+   "name": "rand:51",
+   "input": "\n",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "rand:52",
+   "input": "  \njunk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:53",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800002f686f6d652f750a460a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002f686f6d652f750a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00/home/'"
+  },
+  {
+   "name": "rand:54",
+   "input": "lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n  \nL\n/x\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:55",
+   "input": {
+    "$bytes": "4c0a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800000a002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a4c0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'L'"
+  },
+  {
+   "name": "rand:56",
+   "input": {
+    "$bytes": "fffe0a00c2852d72772d722d2d722d2d00fffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:57",
+   "input": "total 8\ntotal 8\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:58",
+   "input": "brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n \u0000\u0000\u0000\u0000\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1'"
+  },
+  {
+   "name": "rand:59",
+   "input": "-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000\u0000brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:60",
+   "input": "/x\n  \n@@TERMIGATOR-LS@@\ntotal 8\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000/x\n\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:61",
+   "input": {
+    "$bytes": "64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a0a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002f686f6d652f750a2d72772d722d2d722d2d006e6f6973650a2f780a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d'"
+  },
+  {
+   "name": "rand:62",
+   "input": {
+    "$bytes": "fffe0a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c0074006c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a6e6f6973650a2f686f6d652f750a2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a0b"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:63",
+   "input": "@@TERMIGATOR-LS@@\n-rw-r--r--\u0000total 8\nnoise\nbrw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\ndrwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x00total 8'"
+  },
+  {
+   "name": "rand:64",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00000000000000000b"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00caf\\udce9\\x00\\x00-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:65",
+   "input": {
+    "$bytes": "fffe0a006a756e6b206c696e650ae280a82d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000460a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:66",
+   "input": {
+    "$bytes": "000000000000fffe0a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700780000"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:67",
+   "input": "",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "rand:68",
+   "input": "lrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00'"
+  },
+  {
+   "name": "rand:69",
+   "input": "noise\n\u0000\u0000\u0000\u0000\u0000\u0000lrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000\u0000\u0000\u0000\u0000\u0000\u0000-rw-r--r--\u0000\u000btotal 8\nL\n ",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:70",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900004c0a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:71",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a6a756e6b206c696e650a6272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:72",
+   "input": "junk line\nnoise\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000/x\nL\nlrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n-rw-r--r--\u0000\u000b",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:73",
+   "input": "F\n brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n/x\n\r\n@@TERMIGATOR-LS@@\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): ''"
+  },
+  {
+   "name": "rand:74",
+   "input": "\u000b/x\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:75",
+   "input": "\u0000brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1'"
+  },
+  {
+   "name": "rand:76",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c00740020200a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:77",
+   "input": {
+    "$bytes": "0a00fffe0a2d72772d722d2d722d2d00"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:78",
+   "input": {
+    "$bytes": "fffe0ae280a86272772d72772d2d2d2d20312030203620382c2031204a756c20312030303a303020736461310a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:79",
+   "input": {
+    "$bytes": "fffe0a0040405445524d494741544f522d4c5340400a746f74616c20380a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e90000e280a8"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:80",
+   "input": {
+    "$bytes": "2f780a2f780a2d72772d722d2d722d2d002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a"
+   },
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:81",
+   "input": "@@TERMIGATOR-LS@@\n\u0000\u0000\u0000\u0000\u0000\u0000junk line\ntotal 8\nlrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000/x\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00junk line'"
+  },
+  {
+   "name": "rand:82",
+   "input": "drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n@@TERMIGATOR-LS@@\n-rw-r--r--\u0000  \nbrw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x00  '"
+  },
+  {
+   "name": "rand:83",
+   "input": {
+    "$bytes": "20200a0000000000002d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90ac28564727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:84",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d2031203020302035204a756c2031372031303a333320636166e90a6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r-- 1 0 0 5 Jul 17 10:33 caf\\udce9'"
+  },
+  {
+   "name": "rand:85",
+   "input": "junk line\n\n  \n\u000bbrw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n\u0000\u0000\u0000\u0000\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:86",
+   "input": "-rw-r--r--\u0000@@TERMIGATOR-LS@@\nL\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'L'"
+  },
+  {
+   "name": "rand:87",
+   "input": "\u0000\u0000\u0000\u0000\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00'"
+  },
+  {
+   "name": "rand:88",
+   "input": "junk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:89",
+   "input": "total 8\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:90",
+   "input": {
+    "$bytes": "460a64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a2f686f6d652f750afffe0ae280a82f780a6a756e6b206c696e650a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'F'"
+  },
+  {
+   "name": "rand:91",
+   "input": {
+    "$bytes": "64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e900006a756e6b206c696e650a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d'"
+  },
+  {
+   "name": "rand:92",
+   "input": "noise\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:93",
+   "input": {
+    "$bytes": "2f780a64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a2f780a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d000064727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d00002d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e90000"
+   },
+   "expect": {
+    "cwd": "/x",
+    "entries": [
+     {
+      "name": "d d",
+      "is_dir": true,
+      "is_link": false,
+      "size": 4096,
+      "mode": "drwxr-xr-x",
+      "mtime": "Jul 16 09:00",
+      "link_target": "",
+      "owner": "0:0"
+     }
+    ]
+   }
+  },
+  {
+   "name": "rand:94",
+   "input": {
+    "$bytes": "6e6f6973650a0d0afffe0ae280a800460a64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'noise'"
+  },
+  {
+   "name": "rand:95",
+   "input": "/x\ntotal 8\n  \n\u000bnoise\n\u000bL\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:96",
+   "input": "\u0000\u0000\u0000\u0000\u0000\u0000junk line\n\u0000total 8\njunk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00\\x00\\x00\\x00\\x00\\x00junk line'"
+  },
+  {
+   "name": "rand:97",
+   "input": {
+    "$bytes": "fffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:98",
+   "input": {
+    "$bytes": "2f780afffe0a"
+   },
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:99",
+   "input": "/home/u\n",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:100",
+   "input": "total 8\n-rw-r--r--\u0000F\ndrwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'total 8'"
+  },
+  {
+   "name": "rand:101",
+   "input": "-rw-r--r--\u0000total 8\n\njunk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x00total 8'"
+  },
+  {
+   "name": "rand:102",
+   "input": "junk line\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'junk line'"
+  },
+  {
+   "name": "rand:103",
+   "input": {
+    "$bytes": "fffe0a2f780a2d72772d722d2d722d2d002f780a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:104",
+   "input": "lrwxrwxrwx\u00001\u00002026-07-17 10:33\u0000u:g\u0000l\u0000t\u0000brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000junk line\nlrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000total 8\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00'"
+  },
+  {
+   "name": "rand:105",
+   "input": "\u000blrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:106",
+   "input": "\n/home/u\n/home/u\n\n\u000b\n",
+   "expect": {
+    "cwd": "/home/u",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:107",
+   "input": "\u0000noise\nnoise\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00noise'"
+  },
+  {
+   "name": "rand:108",
+   "input": "  \n",
+   "error": "ListingError",
+   "message": "Empty response from the remote host."
+  },
+  {
+   "name": "rand:109",
+   "input": {
+    "$bytes": "6c7277787277787277782031203020302037204a756c2031302030383a3030206c202d3e20740a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400fffe0a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67006e0a6d000000000000000020200a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t'"
+  },
+  {
+   "name": "rand:110",
+   "input": "-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00n'"
+  },
+  {
+   "name": "rand:111",
+   "input": {
+    "$bytes": "20200a6c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400000000000000e280a82d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e9000064727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640ae280a8"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"
+  },
+  {
+   "name": "rand:112",
+   "input": {
+    "$bytes": "2f780a0b0bfffe0a"
+   },
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:113",
+   "input": "/x\n/x\n\u0000\u0000\u0000\u0000\u0000\u0000-rw-r--r--\u0000brw-rw---- 1 0 6 8, 1 Jul 1 00:00 sda1\n",
+   "expect": {
+    "cwd": "/x",
+    "entries": []
+   }
+  },
+  {
+   "name": "rand:114",
+   "input": "drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000lrwxrwxrwx 1 0 0 7 Jul 10 08:00 l -> t\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000 total 8\nL\n-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000n\nm\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d'"
+  },
+  {
+   "name": "rand:115",
+   "input": {
+    "$bytes": "00c2852f780a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a6700636166e9000064727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a64727778722d78722d782032203020302034303936204a756c2031362030393a3030206420640a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '\\x00'"
+  },
+  {
+   "name": "rand:116",
+   "input": "-rw-r--r--\u00001\u00002026-07-17 10:33\u0000u:g\u0000x\u0000\u0000noise\n/x\n/x\n",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00noise'"
+  },
+  {
+   "name": "rand:117",
+   "input": {
+    "$bytes": "40405445524d494741544f522d4c5340400a2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800000bfffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00\\x0b\\udcff\\udcfe'"
+  },
+  {
+   "name": "rand:118",
+   "input": {
+    "$bytes": "2d72772d722d2d722d2d003100323032362d30372d31372031303a333300753a67007800006c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400746f74616c20380a460ae280a86c727778727778727778003100323032362d30372d31372031303a333300753a67006c007400fffe0a"
+   },
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): '-rw-r--r--\\x001\\x002026-07-17 10:33\\x00u:g\\x00x\\x00\\x00lrwxrwxrwx\\x001\\x002026-07-17 10:33\\x00u:g\\x00l\\x00t\\x00total'"
+  },
+  {
+   "name": "rand:119",
+   "input": "drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d\n\u0000\u0000\u0000\u0000\u0000\u0000",
+   "error": "ListingError",
+   "message": "Unexpected response (no absolute path): 'drwxr-xr-x 2 0 0 4096 Jul 16 09:00 d d'"
+  }
+ ]
+}

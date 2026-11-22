@@ -1,0 +1,658 @@
+{
+ "cases": [
+  {
+   "kind": "kdf",
+   "name": "kdf_small",
+   "master": "correct horse",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "16"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "e71e99706b0470f8e725896dddccd80e407227aec8b96eb95f713ccf44214315"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_unicode",
+   "master": "zażółć gęślą jaźń",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "64"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "2"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "24fa8a0dacb086083842c1f250687c46f4d760439eb39ea51052b03b13aa2797"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_p2",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "16"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "2"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "62e8505d5a70323b5a05a24eee64747d49d30cc82633016421019248c8a23bd7"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_default_n",
+   "master": "correct horse",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "32768"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "95116a86aaaeabb1993ffce03a52de519165fba9ce2290ba72dcc2a4ed3796c3"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_defaults_from_missing",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "4228850ae4d5c0ae97776b95c967b8c8bab7070c0c7cd0f263127cd89ede5f36"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_n_as_text",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ],
+     [
+      "n",
+      "16"
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "b75f1944602328eab2847a1cca4fb8a58b300d6f62af1cf9dc7bb77c64e6d9f5"
+   }
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_err_md5",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "AAAA"
+     ],
+     [
+      "kdf",
+      "md5"
+     ]
+    ]
+   },
+   "error": "Unsupported vault KDF: 'md5'"
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_err_salt",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "x"
+     ]
+    ]
+   },
+   "error": "Corrupt vault parameters in config.yaml: Invalid base64-encoded string: number of data characters (1) cannot be 1 more than a multiple of 4"
+  },
+  {
+   "kind": "kdf",
+   "name": "kdf_err_n_text",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "AAAA"
+     ],
+     [
+      "n",
+      "lots"
+     ]
+    ]
+   },
+   "error": "Corrupt vault parameters in config.yaml: invalid literal for int() with base 10: 'lots'"
+  },
+  {
+   "kind": "token",
+   "name": "token_ascii",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "nonce": {
+    "$bytes": "0b121920272e353c434a5158"
+   },
+   "plaintext": "s3cret",
+   "token": "enc:v1:CxIZICcuNTxDSlFYgQSgsT1FsqLDDR029h4l80oiMvU3NQ=="
+  },
+  {
+   "kind": "token",
+   "name": "token_unicode",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "nonce": {
+    "$bytes": "10171e252c333a41484f565d"
+   },
+   "plaintext": "s3cret ąę 🔑",
+   "token": "enc:v1:EBceJSwzOkFIT1ZdMQBsmuNmQl0MGQljy6ibPUsLn1+q6TSSdEpIzTW6XJY="
+  },
+  {
+   "kind": "token",
+   "name": "token_empty",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "nonce": {
+    "$bytes": "050c131a21282f363d444b52"
+   },
+   "plaintext": "",
+   "token": "enc:v1:BQwTGiEoLzY9REtSLk8JKKKQRIQWWZOUE5yA5g=="
+  },
+  {
+   "kind": "token",
+   "name": "token_long",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "nonce": {
+    "$bytes": "31383f464d545b626970777e"
+   },
+   "plaintext": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "token": "enc:v1:MTg/Rk1UW2JpcHd+zYRcHEzHS0nbikGDjQTwfbigDQKXc/AcA7f7PAEOLB+Uy/SxlehI93JIWJZVNx3GKmsuP6Y5bcZ6ghtD0s8JVu6sTzovOPRlfnITxwsAe5/PSrtC6vdfVFKYGKHjtkTYpoZehKZnEV4qXLc3zFseS0kTFJyZ/OEPTGFjKk2w3AC5D8ll0VGX5lFe0tsRHANH3AoGHiWfyifPZy3JS5faRufgJ5F174IxzY6vShOvuSD3nvW7wHqD3ia8pzxe5MxZen6wq/6e8yQ8g2lsKmzfFUVaLYvVdH4ZEJjvhF0Xqr63naqV0PvTd7Q025yLx8At3QJOXvDNkIa5NnXPDl6fOBCHI7waFs9U12+TyZuNygM+zM7sZrLfhh1hTSbATJS2KOV95rEf/8supshFrSZmwa//t978r59H1PmLcQ=="
+  },
+  {
+   "kind": "token",
+   "name": "token_newline",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "nonce": {
+    "$bytes": "0a11181f262d343b42495057"
+   },
+   "plaintext": "a\nb\tc",
+   "token": "enc:v1:ChEYHyYtNDtCSVBXuLX/9UnYH5A/gTxS8vWpoKC+rqh2"
+  },
+  {
+   "kind": "vault",
+   "name": "vault_small",
+   "master": "correct horse",
+   "salt": {
+    "$bytes": "030a11181f262d343b424950575e656c"
+   },
+   "nonce": {
+    "$bytes": "656c737a81888f969da4abb2"
+   },
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "16"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ],
+     [
+      "check",
+      "enc:v1:ZWxzeoGIj5adpKuy5qXVMdgyzk+Nkfmy8nowdEqiKogbqb4lfzdLaoiZunXP+eg="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "e71e99706b0470f8e725896dddccd80e407227aec8b96eb95f713ccf44214315"
+   }
+  },
+  {
+   "kind": "vault",
+   "name": "vault_unicode",
+   "master": "zażółć",
+   "salt": {
+    "$bytes": "030a11181f262d343b424950575e656c"
+   },
+   "nonce": {
+    "$bytes": "656c737a81888f969da4abb2"
+   },
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "32"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "4"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "2"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ],
+     [
+      "check",
+      "enc:v1:ZWxzeoGIj5adpKuy3ATthlM57wyWUfbG6tveIgoi2bk7nLNx1mIVnnEu/U3VPs4="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "1485f6d749df47182ccad89f7e30c5a3b614c80e164cb5d23ed0e9b94bf8d8d9"
+   }
+  },
+  {
+   "kind": "vault",
+   "name": "vault_default_n",
+   "master": "correct horse",
+   "salt": {
+    "$bytes": "282f363d444b525960676e757c838a91"
+   },
+   "nonce": {
+    "$bytes": "0910171e252c333a41484f56"
+   },
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "32768"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "KC82PURLUllgZ251fIOKkQ=="
+     ],
+     [
+      "check",
+      "enc:v1:CRAXHiUsMzpBSE9WuN99bVk0x7STXPlqnWcTaufRl5YE6BTspLwxh9kDzfNJ2oc="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "fd693d2460bde23c0df04e4e9e00d4e89a4a515283c4d2b1f23bfa574e300a2a"
+   }
+  },
+  {
+   "kind": "unlock",
+   "name": "unlock_right",
+   "master": "right",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "16"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ],
+     [
+      "check",
+      "enc:v1:ZWxzeoGIj5adpKuyFZ5Jfa6SjnYHp8h19pjkvqMKmqa+FXeLEC1/tpnzF3aJzpw="
+     ]
+    ]
+   },
+   "key": {
+    "$bytes": "839a395cf6074edbbbaba7a24b9870ce601b96b9557d85cfebd83fa5e9fb5a6f"
+   }
+  },
+  {
+   "kind": "unlock",
+   "name": "unlock_wrong",
+   "master": "wrong",
+   "params": {
+    "$map": [
+     [
+      "kdf",
+      "scrypt"
+     ],
+     [
+      "n",
+      {
+       "$int": "16"
+      }
+     ],
+     [
+      "r",
+      {
+       "$int": "8"
+      }
+     ],
+     [
+      "p",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "salt",
+      "AwoRGB8mLTQ7QklQV15lbA=="
+     ],
+     [
+      "check",
+      "enc:v1:ZWxzeoGIj5adpKuyFZ5Jfa6SjnYHp8h19pjkvqMKmqa+FXeLEC1/tpnzF3aJzpw="
+     ]
+    ]
+   },
+   "error": "WrongMasterPassword",
+   "message": "Wrong master password."
+  },
+  {
+   "kind": "unlock",
+   "name": "unlock_empty_params",
+   "master": "m",
+   "params": {
+    "$map": []
+   },
+   "error": "VaultError",
+   "message": "No master password is set."
+  },
+  {
+   "kind": "unlock",
+   "name": "unlock_no_check",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "AAAA"
+     ]
+    ]
+   },
+   "error": "VaultError",
+   "message": "No master password is set."
+  },
+  {
+   "kind": "unlock",
+   "name": "unlock_md5",
+   "master": "m",
+   "params": {
+    "$map": [
+     [
+      "salt",
+      "x"
+     ],
+     [
+      "check",
+      "y"
+     ],
+     [
+      "kdf",
+      "md5"
+     ]
+    ]
+   },
+   "error": "VaultError",
+   "message": "Corrupt vault parameters in config.yaml: Invalid base64-encoded string: number of data characters (1) cannot be 1 more than a multiple of 4"
+  },
+  {
+   "kind": "bad",
+   "name": "bad_prefix",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "plain",
+   "error": "Not an encrypted value."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_empty",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:",
+   "error": "Corrupt encrypted value."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_chars",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:!!!",
+   "error": "Corrupt encrypted value."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_short",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:AAAA",
+   "error": "Corrupt encrypted value."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_forged",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:AQgPFh0kKzI5QEdOVVxjanF4f4aNlJuiqbC3vsXM09rh6O/2/QQLEg==",
+   "error": "Encrypted value does not match the master password (or was altered)."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_flipped",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:AgkQFA4lLDM6QUhP4AIsGov93J8K49lfUFdm4R+j",
+   "error": "Encrypted value does not match the master password (or was altered)."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_other_key",
+   "key": {
+    "$bytes": "8d7ae55a872ff5d28d210858809358421390056ccbbcf04211fa4d600afcc4f9"
+   },
+   "token": "enc:v1:AgkQFx4lLDM6QUhP4AIsGov93J8K49lfUFdm4R+j",
+   "error": "Encrypted value does not match the master password (or was altered)."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_newline",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:AgkQFx4lLDM6QUhP4AIsGov93J8K49lfUFdm4R+j\n",
+   "error": "Corrupt encrypted value."
+  },
+  {
+   "kind": "bad",
+   "name": "bad_truncated",
+   "key": {
+    "$bytes": "3cec0bad565270e6f0f204b30d65dce6e6b961755fdff6b5bb9d113c6fc43321"
+   },
+   "token": "enc:v1:AgkQFx4lLDM6QUhP4AIsGov93J8K49lfUFdm",
+   "error": "Encrypted value does not match the master password (or was altered)."
+  }
+ ]
+}

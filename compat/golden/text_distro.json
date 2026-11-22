@@ -1,0 +1,569 @@
+{
+ "cases": [
+  {
+   "name": "distro:0:''",
+   "input": "",
+   "expect": null
+  },
+  {
+   "name": "distro:1:'nothing here'",
+   "input": "nothing here",
+   "expect": null
+  },
+  {
+   "name": "distro:2:'Welcome to Ubuntu 22.04.3 LTS'",
+   "input": "Welcome to Ubuntu 22.04.3 LTS",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:3:'Linux Mint 21'",
+   "input": "Linux Mint 21",
+   "expect": "mint"
+  },
+  {
+   "name": "distro:4:'Raspberry Pi OS'",
+   "input": "Raspberry Pi OS",
+   "expect": "raspbian"
+  },
+  {
+   "name": "distro:5:'Raspbian GNU/Linux 11'",
+   "input": "Raspbian GNU/Linux 11",
+   "expect": "raspbian"
+  },
+  {
+   "name": "distro:6:'Pop!_OS 22.04'",
+   "input": "Pop!_OS 22.04",
+   "expect": "pop"
+  },
+  {
+   "name": "distro:7:'Pop OS'",
+   "input": "Pop OS",
+   "expect": "pop"
+  },
+  {
+   "name": "distro:8:'Amazon Linux 2023'",
+   "input": "Amazon Linux 2023",
+   "expect": "amazon"
+  },
+  {
+   "name": "distro:9:'Oracle Linux Server 8'",
+   "input": "Oracle Linux Server 8",
+   "expect": "oracle"
+  },
+  {
+   "name": "distro:10:'Debian GNU/Linux 12'",
+   "input": "Debian GNU/Linux 12",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:11:'Rocky Linux 9'",
+   "input": "Rocky Linux 9",
+   "expect": "rocky"
+  },
+  {
+   "name": "distro:12:'AlmaLinux 9'",
+   "input": "AlmaLinux 9",
+   "expect": "almalinux"
+  },
+  {
+   "name": "distro:13:'Alma  Linux'",
+   "input": "Alma  Linux",
+   "expect": "almalinux"
+  },
+  {
+   "name": "distro:14:'Red Hat Enterprise Linux 9'",
+   "input": "Red Hat Enterprise Linux 9",
+   "expect": "rhel"
+  },
+  {
+   "name": "distro:15:'RHEL 9'",
+   "input": "RHEL 9",
+   "expect": "rhel"
+  },
+  {
+   "name": "distro:16:'CentOS Stream 9'",
+   "input": "CentOS Stream 9",
+   "expect": "centos"
+  },
+  {
+   "name": "distro:17:'Fedora 40'",
+   "input": "Fedora 40",
+   "expect": "fedora"
+  },
+  {
+   "name": "distro:18:'Manjaro'",
+   "input": "Manjaro",
+   "expect": "manjaro"
+  },
+  {
+   "name": "distro:19:'Arch Linux'",
+   "input": "Arch Linux",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:20:'ArchLinux'",
+   "input": "ArchLinux",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:21:'Kali GNU/Linux'",
+   "input": "Kali GNU/Linux",
+   "expect": "kali"
+  },
+  {
+   "name": "distro:22:'openSUSE Leap 15'",
+   "input": "openSUSE Leap 15",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:23:'SUSE Linux Enterprise'",
+   "input": "SUSE Linux Enterprise",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:24:'Gentoo'",
+   "input": "Gentoo",
+   "expect": "gentoo"
+  },
+  {
+   "name": "distro:25:'Void Linux'",
+   "input": "Void Linux",
+   "expect": "void"
+  },
+  {
+   "name": "distro:26:'Alpine Linux v3.19'",
+   "input": "Alpine Linux v3.19",
+   "expect": "alpine"
+  },
+  {
+   "name": "distro:27:'ubuntu'",
+   "input": "ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:28:'UBUNTU'",
+   "input": "UBUNTU",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:29:'xubuntu'",
+   "input": "xubuntu",
+   "expect": null
+  },
+  {
+   "name": "distro:30:'ubuntu-based'",
+   "input": "ubuntu-based",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:31:'ubuntu2'",
+   "input": "ubuntu2",
+   "expect": null
+  },
+  {
+   "name": "distro:32:'kalimba'",
+   "input": "kalimba",
+   "expect": null
+  },
+  {
+   "name": "distro:33:'alpine-ish'",
+   "input": "alpine-ish",
+   "expect": "alpine"
+  },
+  {
+   "name": "distro:34:'Ubuntu on Debian'",
+   "input": "Ubuntu on Debian",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:35:'Debian derived from Ubuntu'",
+   "input": "Debian derived from Ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:36:'Linux Mint based on Ubuntu'",
+   "input": "Linux Mint based on Ubuntu",
+   "expect": "mint"
+  },
+  {
+   "name": "distro:37:'Welcome to Fedora\\nDebian lurks'",
+   "input": "Welcome to Fedora\nDebian lurks",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:38:'Arch\\nLinux'",
+   "input": "Arch\nLinux",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:39:'arch linux and manjaro'",
+   "input": "arch linux and manjaro",
+   "expect": "manjaro"
+  },
+  {
+   "name": "distro:40:'centos and rhel'",
+   "input": "centos and rhel",
+   "expect": "rhel"
+  },
+  {
+   "name": "distro:41:'NAME=\"Ubuntu\"\\nID=ubuntu\\nID_LIK'",
+   "input": "NAME=\"Ubuntu\"\nID=ubuntu\nID_LIKE=debian",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:42:'NAME=\"Debian\"\\nID=debian'",
+   "input": "NAME=\"Debian\"\nID=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:43:'ID=linuxmint\\nID_LIKE=ubuntu de'",
+   "input": "ID=linuxmint\nID_LIKE=ubuntu debian",
+   "expect": "mint"
+  },
+  {
+   "name": "distro:44:'ID=pop'",
+   "input": "ID=pop",
+   "expect": "pop"
+  },
+  {
+   "name": "distro:45:'ID=\"rocky\"'",
+   "input": "ID=\"rocky\"",
+   "expect": "rocky"
+  },
+  {
+   "name": "distro:46:\"ID='almalinux'\"",
+   "input": "ID='almalinux'",
+   "expect": "almalinux"
+  },
+  {
+   "name": "distro:47:'ID=rhel'",
+   "input": "ID=rhel",
+   "expect": "rhel"
+  },
+  {
+   "name": "distro:48:'ID=centos'",
+   "input": "ID=centos",
+   "expect": "centos"
+  },
+  {
+   "name": "distro:49:'ID=fedora'",
+   "input": "ID=fedora",
+   "expect": "fedora"
+  },
+  {
+   "name": "distro:50:'ID=manjaro'",
+   "input": "ID=manjaro",
+   "expect": "manjaro"
+  },
+  {
+   "name": "distro:51:'ID=arch'",
+   "input": "ID=arch",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:52:'ID=kali'",
+   "input": "ID=kali",
+   "expect": "kali"
+  },
+  {
+   "name": "distro:53:'ID=opensuse'",
+   "input": "ID=opensuse",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:54:'ID=opensuse-leap'",
+   "input": "ID=opensuse-leap",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:55:'ID=opensuse-tumbleweed'",
+   "input": "ID=opensuse-tumbleweed",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:56:'ID=sles'",
+   "input": "ID=sles",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:57:'ID=gentoo'",
+   "input": "ID=gentoo",
+   "expect": "gentoo"
+  },
+  {
+   "name": "distro:58:'ID=void'",
+   "input": "ID=void",
+   "expect": "void"
+  },
+  {
+   "name": "distro:59:'ID=alpine'",
+   "input": "ID=alpine",
+   "expect": "alpine"
+  },
+  {
+   "name": "distro:60:'ID=amzn'",
+   "input": "ID=amzn",
+   "expect": "amazon"
+  },
+  {
+   "name": "distro:61:'ID=ol'",
+   "input": "ID=ol",
+   "expect": "oracle"
+  },
+  {
+   "name": "distro:62:'ID=raspbian'",
+   "input": "ID=raspbian",
+   "expect": "raspbian"
+  },
+  {
+   "name": "distro:63:'ID=ubuntu'",
+   "input": "ID=ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:64:'ID=UBUNTU'",
+   "input": "ID=UBUNTU",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:65:'id=debian'",
+   "input": "id=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:66:'  ID=debian'",
+   "input": "  ID=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:67:'\\tID=debian'",
+   "input": "\tID=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:68:'x ID=debian'",
+   "input": "x ID=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:69:'VERSION_ID=12'",
+   "input": "VERSION_ID=12",
+   "expect": null
+  },
+  {
+   "name": "distro:70:'ID=unknown\\nID=fedora'",
+   "input": "ID=unknown\nID=fedora",
+   "expect": "fedora"
+  },
+  {
+   "name": "distro:71:'ID=unknown\\nWelcome to Ubuntu'",
+   "input": "ID=unknown\nWelcome to Ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:72:'Welcome to Ubuntu\\nID=debian'",
+   "input": "Welcome to Ubuntu\nID=debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:73:'ID=unknown'",
+   "input": "ID=unknown",
+   "expect": null
+  },
+  {
+   "name": "distro:74:'ID='",
+   "input": "ID=",
+   "expect": null
+  },
+  {
+   "name": "distro:75:'ID=\"'",
+   "input": "ID=\"",
+   "expect": null
+  },
+  {
+   "name": "distro:76:'ID=debian-like'",
+   "input": "ID=debian-like",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:77:'ID=debian.x'",
+   "input": "ID=debian.x",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:78:'ID=ol\\n'",
+   "input": "ID=ol\n",
+   "expect": "oracle"
+  },
+  {
+   "name": "distro:79:'ID=ubuntu\\r\\nID=debian'",
+   "input": "ID=ubuntu\r\nID=debian",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:80:'\\nID=arch'",
+   "input": "\nID=arch",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:81:'\\x1c ID=arch'",
+   "input": "\u001c ID=arch",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:82:'\\x1fID=arch'",
+   "input": "\u001fID=arch",
+   "expect": "arch"
+  },
+  {
+   "name": "distro:83:'ID=ubuntu_x'",
+   "input": "ID=ubuntu_x",
+   "expect": null
+  },
+  {
+   "name": "distro:84:\"ID='ubuntu\"",
+   "input": "ID='ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:85:'ID=Ubuntu2'",
+   "input": "ID=Ubuntu2",
+   "expect": null
+  },
+  {
+   "name": "distro:86:'ID=İ'",
+   "input": "ID=İ",
+   "expect": null
+  },
+  {
+   "name": "distro:87:'ID=KALI'",
+   "input": "ID=KALI",
+   "expect": "kali"
+  },
+  {
+   "name": "distro:88:'Kelvin KKli'",
+   "input": "Kelvin KKli",
+   "expect": null
+  },
+  {
+   "name": "distro:89:'ſ ubuntu'",
+   "input": "ſ ubuntu",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:90:'ñubuntu'",
+   "input": "ñubuntu",
+   "expect": null
+  },
+  {
+   "name": "distro:91:'żubuntu'",
+   "input": "żubuntu",
+   "expect": null
+  },
+  {
+   "name": "distro:92:'ubuntuż'",
+   "input": "ubuntuż",
+   "expect": null
+  },
+  {
+   "name": "distro:93:'ubuntu_'",
+   "input": "ubuntu_",
+   "expect": null
+  },
+  {
+   "name": "distro:94:'-ubuntu-'",
+   "input": "-ubuntu-",
+   "expect": "ubuntu"
+  },
+  {
+   "name": "distro:95:'zażółć gęślą jaźń Debian'",
+   "input": "zażółć gęślą jaźń Debian",
+   "expect": "debian"
+  },
+  {
+   "name": "distro:96:'Pop!_OS'",
+   "input": "Pop!_OS",
+   "expect": "pop"
+  },
+  {
+   "name": "distro:97:'pop!_os'",
+   "input": "pop!_os",
+   "expect": "pop"
+  },
+  {
+   "name": "distro:98:'pop  os'",
+   "input": "pop  os",
+   "expect": null
+  },
+  {
+   "name": "distro:99:'popos'",
+   "input": "popos",
+   "expect": null
+  },
+  {
+   "name": "distro:100:'Linux  Mint'",
+   "input": "Linux  Mint",
+   "expect": null
+  },
+  {
+   "name": "distro:101:'linuxmint'",
+   "input": "linuxmint",
+   "expect": null
+  },
+  {
+   "name": "distro:102:'Red Hat'",
+   "input": "Red Hat",
+   "expect": null
+  },
+  {
+   "name": "distro:103:'Red Hat Enterprise'",
+   "input": "Red Hat Enterprise",
+   "expect": "rhel"
+  },
+  {
+   "name": "distro:104:'suse linux'",
+   "input": "suse linux",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:105:'SUSE'",
+   "input": "SUSE",
+   "expect": null
+  },
+  {
+   "name": "distro:106:'opensuse-leap'",
+   "input": "opensuse-leap",
+   "expect": "opensuse"
+  },
+  {
+   "name": "distro:107:'Void  Linux'",
+   "input": "Void  Linux",
+   "expect": null
+  },
+  {
+   "name": "distro:108:'Oracle  Linux'",
+   "input": "Oracle  Linux",
+   "expect": null
+  },
+  {
+   "name": "distro:109:'Amazon  Linux'",
+   "input": "Amazon  Linux",
+   "expect": null
+  },
+  {
+   "name": "distro:110:'Rocky  Linux'",
+   "input": "Rocky  Linux",
+   "expect": null
+  },
+  {
+   "name": "distro:111:'Raspberry Pi'",
+   "input": "Raspberry Pi",
+   "expect": null
+  },
+  {
+   "name": "distro:112:'raspberry pi os lite'",
+   "input": "raspberry pi os lite",
+   "expect": "raspbian"
+  }
+ ]
+}

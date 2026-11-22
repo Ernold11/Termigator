@@ -1,0 +1,19 @@
+# Weekly update pull requests for the crates.io dependencies and the GitHub Actions of the CI.
+# cxx-qt and ghostty-vt are pinned exactly on purpose (Cargo.toml) and are updated by hand.
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "cxx-qt*"
+      - dependency-name: "ghostty-vt"
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

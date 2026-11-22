@@ -1,0 +1,6232 @@
+{
+ "cases": [
+  {
+   "name": "profile:default:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:rc_only_no_profile",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:no_default_key",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nOther=1\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:no_section",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Other]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:empty_default",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:blank_default",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=   \n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:spaced_default",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile =   Mine.profile  \n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:colon_delims",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile: Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme: Nord\nFont: Hack,9\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "9"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_missing",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Other.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "A",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_is_dir",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile/": null,
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:no_appearance",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[General]\nName=x\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:scheme_only",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Solarized\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Solarized",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:scheme_empty",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=\nFont=Hack,10\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:scheme_spaces",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme =  My Scheme  \n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "My Scheme",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_only",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Fira Code,14,-1,5,50\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Fira Code",
+    "font_size": {
+     "$int": "14"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_family_only",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_empty",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_comma_first",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=,12\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_float",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,10.7,-1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_neg",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,-3\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "-3"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_bad_size",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,big,-1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_nan",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,nan\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_sci",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,1e1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_spaces",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont= Hack Nerd , 13 ,-1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack Nerd",
+    "font_size": {
+     "$int": "13"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_empty_size",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,,-1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_zero",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,0\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "0"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:font_unicode",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Źółć Mono,12\nColorScheme=Żółw\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Żółw",
+    "font_family": "Źółć Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:comments",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "# c\n; c\n[Desktop Entry]\n# DefaultProfile=No\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "; x\n[Appearance]\n  # indented comment\nColorScheme=Nord\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:crlf",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\r\nDefaultProfile=Mine.profile\r\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\r\nColorScheme=Nord\r\nFont=Hack,10\r\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:cr_only",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\rDefaultProfile=Mine.profile\r",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\rColorScheme=Nord\r"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:no_trailing_newline",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:duplicate_keys",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "B",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:duplicate_sections",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n[General]\nx=1\n[Appearance]\nFont=Hack,9\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "A",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "9"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:case_sensitive_key",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\ncolorscheme=A\nColorscheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:case_sensitive_section",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[appearance]\nColorScheme=A\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:default_section",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[DEFAULT]\nColorScheme=FromDefault\nFont=Hack,8\n[Appearance]\nFont=Fira,9\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "FromDefault",
+    "font_family": "Fira",
+    "font_size": {
+     "$int": "9"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:default_section_after",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Fira,9\n[DEFAULT]\nColorScheme=Late\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Late",
+    "font_family": "Fira",
+    "font_size": {
+     "$int": "9"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:default_in_konsolerc",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[DEFAULT]\nDefaultProfile=Mine.profile\n[Desktop Entry]\nx=1\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:default_section_no_target",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[DEFAULT]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:continuation",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord\n   more\nFont=Hack,10\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord\nmore",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:continuation_font",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nFont=Hack,\n  12\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:indented_option",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\n  ColorScheme=Nord\n  Font=Hack,10\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:indented_section",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "  [Appearance]\nColorScheme=Nord\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:blank_lines_in_value",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord\n\n\nFont=Hack,10\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": "Hack",
+    "font_size": {
+     "$int": "10"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:garbage_line",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord\nthis is not an option\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:garbage_line_konsolerc",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\njunk\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:text_before_section",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "ColorScheme=Nord\n[Appearance]\nFont=Hack,9\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:text_before_section_rc",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "DefaultProfile=Mine.profile\n[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:empty_option_name",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\n=x\nColorScheme=Nord\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:empty_section_name",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[]\n[Appearance]\nColorScheme=Nord\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:section_trailing_text",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance] # c\nColorScheme=Nord\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:section_nested_brackets",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord\n[Sub][Group]\nx=1\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:value_with_equals",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=a=b:c\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "a=b:c",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:value_with_inline_hash",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Nord # not a comment\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Nord # not a comment",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:key_with_colon_first",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme:x=y\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "x=y",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:bom",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "﻿[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:bom_profile",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "﻿[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:invalid_utf8_profile",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": {
+     "$bytes": "5b417070656172616e63655d0a436f6c6f72536368656d653dfffe0a"
+    }
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:invalid_utf8_rc",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": {
+     "$bytes": "5b4465736b746f7020456e7472795d0a44656661756c7450726f66696c653dff0a"
+    },
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:empty_files",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "",
+    "home/.local/share/konsole/Mine.profile": ""
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:empty_profile",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": ""
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:konsolerc_is_dir",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc/": null
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:profile_subpath",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=sub/Mine.profile\n",
+    "home/.local/share/konsole/sub/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:profile_dotdot",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=../Outside.profile\n",
+    "home/.local/share/Outside.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:profile_absolute",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=@ROOT@/abs.profile\n",
+    "abs.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:default:profile_name_unicode",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mój profil.profile\n",
+    "home/.local/share/konsole/Mój profil.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:default:dirs_exist_empty",
+   "fn": "appearance",
+   "files": {
+    "usr/share/konsole/": null,
+    "usr/local/share/konsole/": null,
+    "home/.local/share/konsole/": null
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config:env_files",
+   "fn": "appearance",
+   "files": {
+    "cfg/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Wrong\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:xdg_config:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": "@ROOT@/cfg"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config_empty:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:xdg_config_empty:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config_empty:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config_empty:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "A",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_config_empty:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home:env_files",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "data/konsole/Mine.profile": "[Appearance]\nColorScheme=FromDataHome\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "FromDataHome",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/data/konsole",
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:xdg_data_home:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "A",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": "@ROOT@/data"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home_empty:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:xdg_data_home_empty:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home_empty:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home_empty:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "A",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:xdg_data_home_empty:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/local/share:@ROOT@/usr/share",
+    "XDG_DATA_HOME": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_spaces:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": " @ROOT@/usr/share : :@ROOT@/usr/local/share "
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:data_dirs_spaces:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": " @ROOT@/usr/share : :@ROOT@/usr/local/share "
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_spaces:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": " @ROOT@/usr/share : :@ROOT@/usr/local/share "
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_spaces:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": " @ROOT@/usr/share : :@ROOT@/usr/local/share "
+   },
+   "expect": {
+    "color_scheme": "B",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole",
+    "@ROOT@/usr/local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_spaces:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": " @ROOT@/usr/share : :@ROOT@/usr/local/share "
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_dupes:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/share:@ROOT@/usr/share/:@ROOT@/usr//share:@ROOT@/usr/./share"
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:data_dirs_dupes:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/share:@ROOT@/usr/share/:@ROOT@/usr//share:@ROOT@/usr/./share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_dupes:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/share:@ROOT@/usr/share/:@ROOT@/usr//share:@ROOT@/usr/./share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_dupes:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/share:@ROOT@/usr/share/:@ROOT@/usr//share:@ROOT@/usr/./share"
+   },
+   "expect": {
+    "color_scheme": "B",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": [
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_dupes:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": "@ROOT@/usr/share:@ROOT@/usr/share/:@ROOT@/usr//share:@ROOT@/usr/./share"
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole",
+    "@ROOT@/usr/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_empty:nothing",
+   "fn": "appearance",
+   "files": {},
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": ""
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:data_dirs_empty:ok",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "profile:data_dirs_empty:profile_in_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": ""
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:data_dirs_empty:profile_second_system",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "usr/local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=A\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=B\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": ""
+   },
+   "expect": {
+    "color_scheme": "Breeze",
+    "font_family": null,
+    "font_size": null
+   },
+   "dirs": []
+  },
+  {
+   "name": "profile:data_dirs_empty:profile_in_local_share_wins",
+   "fn": "appearance",
+   "files": {
+    "home/.config/konsolerc": "[Desktop Entry]\nDefaultProfile=Mine.profile\n",
+    "home/.local/share/konsole/Mine.profile": "[Appearance]\nColorScheme=DarkPastels\nFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0\n\n[General]\nName=Mine\n",
+    "usr/share/konsole/Mine.profile": "[Appearance]\nColorScheme=Other\n"
+   },
+   "env": {
+    "HOME": "@ROOT@/home",
+    "XDG_DATA_DIRS": ""
+   },
+   "expect": {
+    "color_scheme": "DarkPastels",
+    "font_family": "JetBrains Mono",
+    "font_size": {
+     "$int": "12"
+    }
+   },
+   "dirs": [
+    "@ROOT@/home/.local/share/konsole"
+   ]
+  },
+  {
+   "name": "font:0:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [],
+   "expect": "JetBrainsMono Nerd Font Mono"
+  },
+  {
+   "name": "font:0:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [],
+   "expect": "JetBrainsMono Nerd Font Mono"
+  },
+  {
+   "name": "font:0:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [],
+   "expect": "JetBrainsMono Nerd Font Mono"
+  },
+  {
+   "name": "font:0:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:0:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:0:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:0:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:0:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:0:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [],
+   "expect": "Nope"
+  },
+  {
+   "name": "font:0:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:0:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [],
+   "expect": "Źółć"
+  },
+  {
+   "name": "font:1:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:1:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:2:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:2:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Hack",
+    "DejaVu Sans Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:3:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:3:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:3:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "DejaVu Sans Mono",
+    "Monospace"
+   ],
+   "expect": "DejaVu Sans Mono"
+  },
+  {
+   "name": "font:4:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:4:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:5:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:5:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Monospace"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:6:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:6:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:6:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:6:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:6:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:6:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:6:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:6:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:6:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Nope"
+  },
+  {
+   "name": "font:6:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:6:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Something Else"
+   ],
+   "expect": "Źółć"
+  },
+  {
+   "name": "font:7:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:7:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:7:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Fira Code",
+    "Hack",
+    "JetBrains Mono"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:8:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:8:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Noto Sans Mono",
+    "Liberation Mono",
+    "Ubuntu Mono"
+   ],
+   "expect": "Noto Sans Mono"
+  },
+  {
+   "name": "font:9:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:9:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:9:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:9:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:9:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "My Font"
+  },
+  {
+   "name": "font:9:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Hack"
+  },
+  {
+   "name": "font:9:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:9:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Monospace"
+  },
+  {
+   "name": "font:9:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Nope"
+  },
+  {
+   "name": "font:9:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "JetBrains Mono"
+  },
+  {
+   "name": "font:9:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "My Font"
+   ],
+   "expect": "Źółć"
+  },
+  {
+   "name": "font:10:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Consolas"
+  },
+  {
+   "name": "font:10:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:10:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Ubuntu Mono",
+    "Consolas"
+   ],
+   "expect": "Ubuntu Mono"
+  },
+  {
+   "name": "font:11:None",
+   "fn": "pick_font",
+   "family": null,
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:''",
+   "fn": "pick_font",
+   "family": "",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'  '",
+   "fn": "pick_font",
+   "family": "  ",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'My Font'",
+   "fn": "pick_font",
+   "family": "My Font",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:' My Font '",
+   "fn": "pick_font",
+   "family": " My Font ",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'Hack'",
+   "fn": "pick_font",
+   "family": "Hack",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'Consolas'",
+   "fn": "pick_font",
+   "family": "Consolas",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'Monospace'",
+   "fn": "pick_font",
+   "family": "Monospace",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'Nope'",
+   "fn": "pick_font",
+   "family": "Nope",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'JetBrains Mono'",
+   "fn": "pick_font",
+   "family": "JetBrains Mono",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "font:11:'Źółć'",
+   "fn": "pick_font",
+   "family": "Źółć",
+   "installed": [
+    "Cascadia Code",
+    "Source Code Pro"
+   ],
+   "expect": "Cascadia Code"
+  },
+  {
+   "name": "scheme:0:None:True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": null,
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:None:False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": null,
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": null
+  },
+  {
+   "name": "scheme:0:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": null
+  },
+  {
+   "name": "scheme:1:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:1:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:2:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:2:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Breeze.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Breeze.colorscheme"
+  },
+  {
+   "name": "scheme:3:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:3:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:3:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:3:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "DarkPastels",
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "DarkPastels"
+  },
+  {
+   "name": "scheme:4:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:4:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:4:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:4:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Nord",
+    "Linux",
+    "Zeta"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Nord"
+  },
+  {
+   "name": "scheme:5:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:5:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Zeta",
+    "Alpha"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Zeta"
+  },
+  {
+   "name": "scheme:6:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Breeze"
+  },
+  {
+   "name": "scheme:6:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:6:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite",
+    "Breeze"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "BlackOnWhite"
+  },
+  {
+   "name": "scheme:7:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:7:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnWhite.colorscheme",
+    "SolarizedLight"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "BlackOnWhite.colorscheme"
+  },
+  {
+   "name": "scheme:8:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:8:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Linux"
+  },
+  {
+   "name": "scheme:8:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "GreenOnBlack",
+    "Linux"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "GreenOnBlack"
+  },
+  {
+   "name": "scheme:9:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:9:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:9:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:9:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Alpha.colorscheme",
+    "Mine"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Alpha.colorscheme"
+  },
+  {
+   "name": "scheme:10:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:10:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "WhiteOnBlack"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "WhiteOnBlack"
+  },
+  {
+   "name": "scheme:11:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:11:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Linux.colorscheme",
+    "Tango"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Linux.colorscheme"
+  },
+  {
+   "name": "scheme:12:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Mine.colorscheme"
+  },
+  {
+   "name": "scheme:12:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Mine.colorscheme"
+  },
+  {
+   "name": "scheme:12:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:12:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Mine",
+    "Mine.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Mine"
+  },
+  {
+   "name": "scheme:13:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:13:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Solarized"
+  },
+  {
+   "name": "scheme:13:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "SolarizedLight",
+    "Solarized"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "SolarizedLight"
+  },
+  {
+   "name": "scheme:14:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:14:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Ubuntu"
+  },
+  {
+   "name": "scheme:14:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "BlackOnLightYellow",
+    "Ubuntu"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "BlackOnLightYellow"
+  },
+  {
+   "name": "scheme:15:None:True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": null,
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:None:False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": null,
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Mine':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Mine':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Mine",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Mine.colorscheme':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Mine.colorscheme':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Mine.colorscheme",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Nope':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Nope':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Nope",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Breeze':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Breeze':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Breeze",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Linux':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'Linux':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "Linux",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'BlackOnWhite':True",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": true,
+   "expect": "Ubuntu.colorscheme"
+  },
+  {
+   "name": "scheme:15:'BlackOnWhite':False",
+   "fn": "choose_scheme",
+   "available": [
+    "Ubuntu.colorscheme"
+   ],
+   "preferred": "BlackOnWhite",
+   "dark": false,
+   "expect": "Ubuntu.colorscheme"
+  }
+ ]
+}

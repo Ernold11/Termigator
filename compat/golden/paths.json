@@ -1,0 +1,518 @@
+{
+ "cases": [
+  {
+   "name": "repo_plain",
+   "kind": "config",
+   "root": "repo",
+   "env": {
+    "HOME": "$HOME"
+   },
+   "expect": {
+    "is_repo": true,
+    "repo_root": "$ROOT",
+    "config_dir": "$ROOT/config",
+    "config_path": "$ROOT/config/config.yaml",
+    "session_path": "$ROOT/config/session.yaml",
+    "config_example_path": "$ROOT/config/config.example.yaml",
+    "session_example_path": "$ROOT/config/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "repo_xdg_ignored",
+   "kind": "config",
+   "root": "repo",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": "/x/cfg"
+   },
+   "expect": {
+    "is_repo": true,
+    "repo_root": "$ROOT",
+    "config_dir": "$ROOT/config",
+    "config_path": "$ROOT/config/config.yaml",
+    "session_path": "$ROOT/config/session.yaml",
+    "config_example_path": "$ROOT/config/config.example.yaml",
+    "session_example_path": "$ROOT/config/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "repo_override",
+   "kind": "config",
+   "root": "repo",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "/srv/live/config"
+   },
+   "expect": {
+    "is_repo": true,
+    "repo_root": "$ROOT",
+    "config_dir": "/srv/live/config",
+    "config_path": "/srv/live/config/config.yaml",
+    "session_path": "/srv/live/config/session.yaml",
+    "config_example_path": "/srv/live/config/config.example.yaml",
+    "session_example_path": "/srv/live/config/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "no_requirements",
+   "kind": "config",
+   "root": "no_requirements",
+   "env": {
+    "HOME": "$HOME"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/.config/termigator",
+    "config_path": "/home/golden/.config/termigator/config.yaml",
+    "session_path": "/home/golden/.config/termigator/session.yaml",
+    "config_example_path": "/home/golden/.config/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/.config/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "no_src",
+   "kind": "config",
+   "root": "no_src",
+   "env": {
+    "HOME": "$HOME"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/.config/termigator",
+    "config_path": "/home/golden/.config/termigator/config.yaml",
+    "session_path": "/home/golden/.config/termigator/session.yaml",
+    "config_example_path": "/home/golden/.config/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/.config/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_home",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/.config/termigator",
+    "config_path": "/home/golden/.config/termigator/config.yaml",
+    "session_path": "/home/golden/.config/termigator/session.yaml",
+    "config_example_path": "/home/golden/.config/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/.config/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_xdg",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": "/x/cfg"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/x/cfg/termigator",
+    "config_path": "/x/cfg/termigator/config.yaml",
+    "session_path": "/x/cfg/termigator/session.yaml",
+    "config_example_path": "/x/cfg/termigator/config.example.yaml",
+    "session_example_path": "/x/cfg/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_xdg_empty",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": ""
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/.config/termigator",
+    "config_path": "/home/golden/.config/termigator/config.yaml",
+    "session_path": "/home/golden/.config/termigator/session.yaml",
+    "config_example_path": "/home/golden/.config/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/.config/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_xdg_tilde",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": "~/conf"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/conf/termigator",
+    "config_path": "/home/golden/conf/termigator/config.yaml",
+    "session_path": "/home/golden/conf/termigator/session.yaml",
+    "config_example_path": "/home/golden/conf/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/conf/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_xdg_trailing_slash",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": "/x//cfg/./"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/x/cfg/termigator",
+    "config_path": "/x/cfg/termigator/config.yaml",
+    "session_path": "/x/cfg/termigator/session.yaml",
+    "config_example_path": "/x/cfg/termigator/config.example.yaml",
+    "session_example_path": "/x/cfg/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "/srv/live/config"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/srv/live/config",
+    "config_path": "/srv/live/config/config.yaml",
+    "session_path": "/srv/live/config/session.yaml",
+    "config_example_path": "/srv/live/config/config.example.yaml",
+    "session_example_path": "/srv/live/config/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_stripped",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "  /srv/a b/cfg \n"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/srv/a b/cfg",
+    "config_path": "/srv/a b/cfg/config.yaml",
+    "session_path": "/srv/a b/cfg/session.yaml",
+    "config_example_path": "/srv/a b/cfg/config.example.yaml",
+    "session_example_path": "/srv/a b/cfg/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_blank",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "   "
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/.config/termigator",
+    "config_path": "/home/golden/.config/termigator/config.yaml",
+    "session_path": "/home/golden/.config/termigator/session.yaml",
+    "config_example_path": "/home/golden/.config/termigator/config.example.yaml",
+    "session_example_path": "/home/golden/.config/termigator/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_tilde",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "~/live"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/live",
+    "config_path": "/home/golden/live/config.yaml",
+    "session_path": "/home/golden/live/session.yaml",
+    "config_example_path": "/home/golden/live/config.example.yaml",
+    "session_example_path": "/home/golden/live/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_tilde_only",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "~"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden",
+    "config_path": "/home/golden/config.yaml",
+    "session_path": "/home/golden/session.yaml",
+    "config_example_path": "/home/golden/config.example.yaml",
+    "session_example_path": "/home/golden/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_beats_xdg",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "XDG_CONFIG_HOME": "/x/cfg",
+    "TERMIGATOR_CONFIG_DIR": "/o"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "/o",
+    "config_path": "/o/config.yaml",
+    "session_path": "/o/session.yaml",
+    "config_example_path": "/o/config.example.yaml",
+    "session_example_path": "/o/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "plain_override_relative",
+   "kind": "config",
+   "root": "plain",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "rel/cfg"
+   },
+   "expect": {
+    "is_repo": false,
+    "repo_root": "$ROOT",
+    "config_dir": "rel/cfg",
+    "config_path": "rel/cfg/config.yaml",
+    "session_path": "rel/cfg/session.yaml",
+    "config_example_path": "rel/cfg/config.example.yaml",
+    "session_example_path": "rel/cfg/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "repo_override_tilde",
+   "kind": "config",
+   "root": "repo",
+   "env": {
+    "HOME": "$HOME",
+    "TERMIGATOR_CONFIG_DIR": "~/c"
+   },
+   "expect": {
+    "is_repo": true,
+    "repo_root": "$ROOT",
+    "config_dir": "/home/golden/c",
+    "config_path": "/home/golden/c/config.yaml",
+    "session_path": "/home/golden/c/session.yaml",
+    "config_example_path": "/home/golden/c/config.example.yaml",
+    "session_example_path": "/home/golden/c/session.example.yaml",
+    "legacy_config_path": "$ROOT/config.yaml",
+    "legacy_example_path": "$ROOT/config.example.yaml"
+   }
+  },
+  {
+   "name": "xdg_fresh",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "none",
+   "sub": [],
+   "expect": "$TMP/xdg/termigator",
+   "base_mode": "700"
+  },
+  {
+   "name": "xdg_sub",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "none",
+   "sub": [
+    "qss"
+   ],
+   "expect": "$TMP/xdg/termigator/qss",
+   "base_mode": "700"
+  },
+  {
+   "name": "xdg_nested_sub",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "none",
+   "sub": [
+    "a",
+    "b"
+   ],
+   "expect": "$TMP/xdg/termigator/a/b",
+   "base_mode": "700"
+  },
+  {
+   "name": "xdg_loose_tightened",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "loose",
+   "sub": [
+    "qss"
+   ],
+   "expect": "$TMP/xdg/termigator/qss",
+   "base_mode": "700"
+  },
+  {
+   "name": "xdg_symlink_refused",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "symlink",
+   "sub": [],
+   "expect": null,
+   "base_mode": null
+  },
+  {
+   "name": "xdg_file_refused",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": true,
+   "pre": "file",
+   "sub": [],
+   "expect": null,
+   "base_mode": null
+  },
+  {
+   "name": "xdg_missing_falls_back",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": "$TMP/xdg"
+   },
+   "xdg_exists": false,
+   "pre": "none",
+   "sub": [
+    "s"
+   ],
+   "expect": "$TMP/tmp/termigator-$UID/s",
+   "base_mode": "700"
+  },
+  {
+   "name": "xdg_empty_falls_back",
+   "kind": "runtime",
+   "env": {
+    "XDG_RUNTIME_DIR": ""
+   },
+   "xdg_exists": false,
+   "pre": "none",
+   "sub": [],
+   "expect": "$TMP/tmp/termigator-$UID",
+   "base_mode": "700"
+  },
+  {
+   "name": "tmp_fresh",
+   "kind": "runtime",
+   "env": {},
+   "xdg_exists": false,
+   "pre": "none",
+   "sub": [],
+   "expect": "$TMP/tmp/termigator-$UID",
+   "base_mode": "700"
+  },
+  {
+   "name": "tmp_sub",
+   "kind": "runtime",
+   "env": {},
+   "xdg_exists": false,
+   "pre": "none",
+   "sub": [
+    "ctl"
+   ],
+   "expect": "$TMP/tmp/termigator-$UID/ctl",
+   "base_mode": "700"
+  },
+  {
+   "name": "tmp_loose_tightened",
+   "kind": "runtime",
+   "env": {},
+   "xdg_exists": false,
+   "pre": "loose",
+   "sub": [],
+   "expect": "$TMP/tmp/termigator-$UID",
+   "base_mode": "700"
+  },
+  {
+   "name": "tmp_symlink_refused",
+   "kind": "runtime",
+   "env": {},
+   "xdg_exists": false,
+   "pre": "symlink",
+   "sub": [],
+   "expect": null,
+   "base_mode": null
+  },
+  {
+   "name": "tmp_file_refused",
+   "kind": "runtime",
+   "env": {},
+   "xdg_exists": false,
+   "pre": "file",
+   "sub": [],
+   "expect": null,
+   "base_mode": null
+  }
+ ]
+}

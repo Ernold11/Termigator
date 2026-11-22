@@ -1,0 +1,11650 @@
+{
+ "cases": [
+  {
+   "name": "vnc_a:0:host='h':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "gvncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "xtigervncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':1:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "gvncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':1:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "xtigervncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':2:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':2:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':3:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':3:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':3:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "gvncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':3:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "xtigervncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':4:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':4:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':4:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "gvncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':4:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "xtigervncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':5:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "'/opt/v iewer' h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':5:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "'/opt/v iewer' h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':5:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "'/opt/v iewer' h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':5:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "'/opt/v iewer' h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':6:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "padded h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':6:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "padded h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':6:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "padded h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':6:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "padded h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':7:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':7:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':7:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "gvncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:0:host='h':7:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "ok": "xtigervncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':1:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':1:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':2:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':2:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':3:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':3:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':3:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':3:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':4:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':4:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':4:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':4:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':5:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':5:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':5:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':5:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':6:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':6:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':6:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':6:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':7:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':7:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':7:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:1:host='-evil':7:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "-evil"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '-evil': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':0:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':0:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':1:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':1:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':2:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':2:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':3:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':3:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':3:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':3:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "  "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':4:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':4:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':4:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':4:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      null
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':5:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':5:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':5:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':5:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "/opt/v iewer"
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':6:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':6:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':6:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':6:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      " padded "
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':7:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':7:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':7:2",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_a:2:host='/x':7:3",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "/x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "xtigervncviewer",
+    "gvncviewer"
+   ],
+   "expect": {
+    "err": "host '/x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:0:host='+x':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "+x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "host '+x': must not start with '/', '-' or '+' (pass options via Extra VNC arguments)"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:1:host=' h ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:2:host='':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:3:host='   ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "   "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:4:host='h:1':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h:1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h:1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:5:host='ex ample':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "ex ample"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 'ex ample::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:6:host='2001:db8::1':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 2001:db8::1::5900"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:7:host='zażółć':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "zażółć"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 'zażółć::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:8:host='\\tx\\n':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "\tx\n"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli x::5900"
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:9:host=None:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:10:host=5:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 5::5900"
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:11:host=0:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:12:host=True:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli True::5900"
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:13:host=[]:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:14:host=\"it's\":2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "it's"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 'it'\"'\"'s::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:15:host='a\"b':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "a\"b"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 'a\"b::5900'"
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:16:nohost:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": []
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Host is missing."
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:17:port=None:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:18:port=5901:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5901"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:19:port='5902':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5902"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5902"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:20:port=' 5903 ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 5903 "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5903"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:21:port='':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:22:port='  ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:23:port='abc':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "abc"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:24:port=0:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::1"
+   }
+  },
+  {
+   "name": "vnc_b:25:port=1:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::1"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:26:port=65535:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65535"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::65535"
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:27:port=65536:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "65536"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:28:port=-1:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-1"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::1"
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::1"
+   }
+  },
+  {
+   "name": "vnc_b:29:port=True:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::1"
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:30:port=False:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Port must be between 1 and 65535."
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:31:port=5900.0:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "5900.0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::59"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::59"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::59"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::59"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::59"
+   }
+  },
+  {
+   "name": "vnc_b:32:port=59.9:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::59"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::10"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::10"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::10"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::10"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::10"
+   }
+  },
+  {
+   "name": "vnc_b:33:port='1_0':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::10"
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:34:port='0x10':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "0x10"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:35:port=[]:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:36:port={}:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:37:port=nan:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::7"
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::7"
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::7"
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::7"
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::7"
+   }
+  },
+  {
+   "name": "vnc_b:38:port='+7':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "+7"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::7"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:39:port=' ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:40:extra=None:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:41:extra='':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:42:extra='-FullScreen -QualityLevel=9':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "-FullScreen -QualityLevel=9"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli -FullScreen -QualityLevel=9 h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:43:extra=['-a', 'b c', 5, None]:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "-a",
+       "b c",
+       {
+        "$int": "5"
+       },
+       null
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli -a 'b c' 5 None h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:44:extra=\"'unclosed\":2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "'unclosed"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:45:extra='x\\\\':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x\\"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:46:extra=[]:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:47:extra='x \\'a b\\' \"c d\"':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "x 'a b' \"c d\""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli x 'a b' 'c d' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:48:extra=0:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:49:extra=False:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:50:extra='  ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "  "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:51:extra=['x y']:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      [
+       "x y"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli 'x y' h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:52:extra='--p=1 host':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "extra_vnc_args",
+      "--p=1 host"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli --p=1 host h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:53:pw='':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:54:pw=None:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:55:pw='x':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:56:pw=0:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:57:pw=False:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:58:pw=' ':2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "vncviewer h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:59:pw=[]:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      []
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "ok": "mycli h::5900"
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:60:pw=['a']:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      [
+       "a"
+      ]
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:61:pw_and_bad_extra:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ],
+     [
+      "extra_vnc_args",
+      "'"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Could not parse extra_vnc_args."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:0:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:0:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:1:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:1:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:2:0",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": {
+    "err": "Invalid port."
+   }
+  },
+  {
+   "name": "vnc_b:62:pw_and_bad_port:2:1",
+   "fn": "build",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "z"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "vnc_client",
+      "mycli"
+     ]
+    ]
+   },
+   "which": [
+    "vncviewer"
+   ],
+   "expect": {
+    "err": "Invalid port."
+   }
+  }
+ ]
+}

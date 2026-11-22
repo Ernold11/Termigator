@@ -1,0 +1,16 @@
+%TAG !e! tag:yaml.org,2002:
+---
+str_int: !!str 123
+int_str: !!int "42"
+float_int: !!float 1
+float_exp: !!float 1e3
+bool_str: !!bool "yes"
+null_str: !!null ""
+nonspecific_plain: ! 12
+nonspecific_quoted: ! "12"
+seq: !!seq [a]
+map: !!map {a: 1}
+verbatim: !<tag:yaml.org,2002:str> 5
+handle: !e!int "7"
+timestamp: !!timestamp "2026-01-02"
+str_yes: !!str yes

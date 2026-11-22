@@ -1,0 +1,3 @@
+# The root .gitignore ignores *.spec, lib/ and build/;
+# the vendored upstream tree must be tracked exactly as published.
+!/vendor/**

@@ -1,0 +1,4363 @@
+{
+ "cases": [
+  {
+   "name": "file:config_commented.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "expect": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:session_canonical.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/session_canonical.yaml",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "web-01"
+      ],
+      [
+       "host",
+       "web-01.example.test"
+      ],
+      [
+       "user",
+       "deploy"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "terminal",
+       "embedded"
+      ],
+      [
+       "group",
+       "Production/Web"
+      ],
+      [
+       "protocol",
+       "ssh"
+      ],
+      [
+       "password",
+       "enc:v1:QUFBQUFBQUFBQUFBQUFBQS1ub3QtYS1yZWFsLXNlYWxlZC1wYXNzd29yZC1qdXN0LWEtZml4dHVyZQ=="
+      ],
+      [
+       "identity_file",
+       "~/.ssh/id_ed25519_fixture"
+      ],
+      [
+       "extra_ssh_args",
+       "-o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o ServerAliveCountMax=4 -C"
+      ],
+      [
+       "local_forwards",
+       [
+        "8080:localhost:80",
+        "15432:db.internal.test:5432"
+       ]
+      ],
+      [
+       "remote_forwards",
+       []
+      ],
+      [
+       "dynamic_forward",
+       "1080"
+      ],
+      [
+       "forward_agent",
+       true
+      ],
+      [
+       "compression",
+       false
+      ],
+      [
+       "tags",
+       [
+        "prod",
+        "web",
+        "nginx"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Serwer główny – Łódź (zażółć gęślą jaźń)"
+      ],
+      [
+       "host",
+       "192.0.2.10"
+      ],
+      [
+       "user",
+       "admin"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Biuro/Łódź/Piętro 2"
+      ],
+      [
+       "password",
+       "hunter2-fixture"
+      ],
+      [
+       "jump_host",
+       "bastion@198.51.100.7:2200"
+      ],
+      [
+       "startup_commands",
+       [
+        "cd /srv/app",
+        "export LANG=pl_PL.UTF-8",
+        "tmux attach || tmux"
+       ]
+      ],
+      [
+       "notes",
+       "Line one\nLine two: with colon\n\n  indented line\ntrailing spaces   "
+      ],
+      [
+       "remote_locale",
+       "pl_PL.UTF-8"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "yes"
+      ],
+      [
+       "host",
+       "0777"
+      ],
+      [
+       "user",
+       "1:30"
+      ],
+      [
+       "port",
+       "2026-01-02"
+      ],
+      [
+       "group",
+       "on"
+      ],
+      [
+       "protocol",
+       "3.14"
+      ],
+      [
+       "password",
+       "1e3"
+      ],
+      [
+       "identity_file",
+       "1_000"
+      ],
+      [
+       "extra_ssh_args",
+       "0x1F"
+      ],
+      [
+       "terminal",
+       "~"
+      ],
+      [
+       "tags",
+       [
+        "null",
+        "No",
+        "OFF",
+        "true",
+        ".inf",
+        "-.5",
+        "+1",
+        "0b101",
+        "<<",
+        "=",
+        "y",
+        "n",
+        "190:20:30"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "quotes 'single' and \"double\""
+      ],
+      [
+       "host",
+       "host-with-#hash.example.test"
+      ],
+      [
+       "user",
+       "  leading and trailing  "
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "group",
+       "a: b"
+      ],
+      [
+       "password",
+       "#not a comment"
+      ],
+      [
+       "identity_file",
+       ""
+      ],
+      [
+       "extra_ssh_args",
+       "-L 9000:localhost:9000 # forward"
+      ],
+      [
+       "remote_command",
+       "echo 'it''s' && printf \"%s\\n\" \"$HOME\""
+      ],
+      [
+       "notes",
+       "tab\there, backslash \\ and bell \u0007 and nel  end"
+      ],
+      [
+       "tags",
+       []
+      ],
+      [
+       "request_tty",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "A very long label that goes well past the eighty column limit of PyYAML emitter width"
+      ],
+      [
+       "host",
+       "2001:db8::1"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "65535"
+       }
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "domain",
+       "EXAMPLE"
+      ],
+      [
+       "resolution",
+       "1920x1080"
+      ],
+      [
+       "shared_folders",
+       [
+        "/home/user/Shared Folder With Spaces",
+        "/tmp"
+       ]
+      ],
+      [
+       "fullscreen",
+       true
+      ],
+      [
+       "multimon",
+       false
+      ],
+      [
+       "notes",
+       "averyveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylongwordwithoutspaces"
+      ],
+      [
+       "description",
+       "Ten opis jest bardzo długi i zawiera polskie znaki ąćęłńóśźż oraz emoji 🚀 żeby sprawdzić zawijanie wierszy przez emiter"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "serial-console"
+      ],
+      [
+       "protocol",
+       "serial"
+      ],
+      [
+       "device",
+       "/dev/ttyUSB0"
+      ],
+      [
+       "baud",
+       {
+        "$int": "115200"
+       }
+      ],
+      [
+       "parity",
+       "none"
+      ],
+      [
+       "stop_bits",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "flow",
+       "none"
+      ],
+      [
+       "port",
+       {
+        "$int": "-1"
+       }
+      ],
+      [
+       "ratio",
+       {
+        "$float": "0.5"
+       }
+      ],
+      [
+       "big",
+       {
+        "$int": "12345678901234567"
+       }
+      ],
+      [
+       "tiny",
+       {
+        "$float": "1e-07"
+       }
+      ],
+      [
+       "huge",
+       {
+        "$float": "1e+17"
+       }
+      ],
+      [
+       "neg_zero",
+       {
+        "$float": "-0.0"
+       }
+      ],
+      [
+       "groups",
+       {
+        "$map": [
+         [
+          "nested",
+          {
+           "$map": [
+            [
+             "deeper",
+             [
+              {
+               "$int": "1"
+              },
+              [
+               {
+                "$int": "2"
+               },
+               {
+                "$int": "3"
+               }
+              ],
+              {
+               "$map": [
+                [
+                 "k",
+                 "v"
+                ]
+               ]
+              }
+             ]
+            ],
+            [
+             "empty_map",
+             {
+              "$map": []
+             }
+            ],
+            [
+             "empty_list",
+             []
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "telnet-router"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ],
+      [
+       "host",
+       "router.example.test"
+      ],
+      [
+       "port",
+       {
+        "$int": "23"
+       }
+      ],
+      [
+       "group",
+       "Network/Routers/Core"
+      ],
+      [
+       "user",
+       null
+      ],
+      [
+       "password",
+       null
+      ],
+      [
+       "vnc_password",
+       "- dash start"
+      ],
+      [
+       "x",
+       "? question"
+      ],
+      [
+       "y",
+       ": colon start"
+      ],
+      [
+       "z",
+       "@at"
+      ],
+      [
+       "w",
+       "`backtick"
+      ],
+      [
+       "v",
+       "%percent"
+      ],
+      [
+       "u",
+       "!bang"
+      ],
+      [
+       "t",
+       "&amp"
+      ],
+      [
+       "s",
+       "*star"
+      ],
+      [
+       "r",
+       "|pipe"
+      ],
+      [
+       "q",
+       ">gt"
+      ],
+      [
+       "p",
+       "[bracket"
+      ],
+      [
+       "o",
+       "{brace"
+      ],
+      [
+       "m",
+       "comma, inside"
+      ],
+      [
+       "l",
+       "trailing colon:"
+      ],
+      [
+       "k",
+       "--- document"
+      ],
+      [
+       "j",
+       "... end"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "file:session_handwritten.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/session_handwritten.yaml",
+   "expect": {
+    "$map": [
+     [
+      "defaults",
+      {
+       "$map": [
+        [
+         "user",
+         "ops"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "terminal",
+         "embedded"
+        ],
+        [
+         "forward_agent",
+         true
+        ],
+        [
+         "compression",
+         false
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "user",
+          "ops"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "terminal",
+          "embedded"
+         ],
+         [
+          "forward_agent",
+          true
+         ],
+         [
+          "compression",
+          false
+         ],
+         [
+          "label",
+          "db-primary"
+         ],
+         [
+          "host",
+          "db-01.example.test"
+         ],
+         [
+          "group",
+          "Production/DB"
+         ],
+         [
+          "local_forwards",
+          [
+           "5432:localhost:5432",
+           "6432:localhost:6432"
+          ]
+         ],
+         [
+          "tags",
+          [
+           "prod",
+           "db"
+          ]
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "user",
+          "ops"
+         ],
+         [
+          "port",
+          {
+           "$int": "2202"
+          }
+         ],
+         [
+          "terminal",
+          "embedded"
+         ],
+         [
+          "forward_agent",
+          true
+         ],
+         [
+          "compression",
+          false
+         ],
+         [
+          "label",
+          "db-replica"
+         ],
+         [
+          "host",
+          "db-02.example.test"
+         ],
+         [
+          "tags",
+          [
+           "prod",
+           "db"
+          ]
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Kraków – biuro"
+         ],
+         [
+          "host",
+          "192.0.2.44"
+         ],
+         [
+          "user",
+          "root"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "password",
+          "it's a secret, isn't it"
+         ],
+         [
+          "group",
+          "Biuro / Kraków"
+         ],
+         [
+          "notes",
+          "First line\n  indented second line\n\nafter an empty line\n"
+         ],
+         [
+          "banner",
+          "folded text joined with spaces"
+         ],
+         [
+          "script",
+          "keep trailing newlines\n\n"
+         ],
+         [
+          "timeout",
+          {
+           "$int": "90"
+          }
+         ],
+         [
+          "umask",
+          {
+           "$int": "18"
+          }
+         ],
+         [
+          "started",
+          {
+           "$timestamp": "2026-01-02"
+          }
+         ],
+         [
+          "seen",
+          {
+           "$timestamp": "2026-01-02 10:20:30.500000+02:00"
+          }
+         ],
+         [
+          "ratio",
+          {
+           "$float": "1000.5"
+          }
+         ],
+         [
+          "nothing",
+          null
+         ],
+         [
+          "empty",
+          null
+         ],
+         [
+          "nan",
+          {
+           "$float": "nan"
+          }
+         ],
+         [
+          "inf",
+          {
+           "$float": "-inf"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "flow-entry"
+         ],
+         [
+          "host",
+          "flow.example.test"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ],
+         [
+          "tags",
+          [
+           "a",
+           "b"
+          ]
+         ],
+         [
+          "x11",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "multi line plain"
+         ],
+         [
+          "host",
+          "plain.example.test"
+         ],
+         [
+          "description",
+          "this plain scalar continues on the next line and the next"
+         ],
+         [
+          "quoted",
+          "double quoted folded across lines\twith\\escapes Aą🚀"
+         ],
+         [
+          "single",
+          "single quoted\nwith a blank line"
+         ],
+         [
+          "complex key",
+          "complex value"
+         ],
+         [
+          "quoted key",
+          {
+           "$int": "1"
+          }
+         ],
+         [
+          {
+           "$int": "123"
+          },
+          "int key"
+         ],
+         [
+          true,
+          "bool key"
+         ],
+         [
+          null,
+          "null key"
+         ],
+         [
+          {
+           "$float": "1.5"
+          },
+          "float key"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_anchors.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_anchors.yaml",
+   "expect": {
+    "$map": [
+     [
+      "base",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ]
+       ]
+      }
+     ],
+     [
+      "extra",
+      {
+       "$map": [
+        [
+         "user",
+         "extra"
+        ],
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ],
+     [
+      "scalar",
+      "hello"
+     ],
+     [
+      "list",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       }
+      ]
+     ],
+     [
+      "use_scalar",
+      "hello"
+     ],
+     [
+      "use_list",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       }
+      ]
+     ],
+     [
+      "merged_one",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "2222"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ]
+       ]
+      }
+     ],
+     [
+      "merged_list",
+      {
+       "$map": [
+        [
+         "host",
+         "base.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "extra"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "label",
+         "both"
+        ]
+       ]
+      }
+     ],
+     [
+      "merged_after",
+      {
+       "$map": [
+        [
+         "host",
+         "own.example.test"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "user",
+         "base"
+        ],
+        [
+         "label",
+         "own first"
+        ]
+       ]
+      }
+     ],
+     [
+      "inline_merge",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "b",
+         {
+          "$int": "3"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "hello",
+      "aliased key"
+     ],
+     [
+      "under_score",
+      "x"
+     ],
+     [
+      "use_under",
+      "x"
+     ],
+     [
+      "<<",
+      "quoted merge key is a plain string key"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_documents.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_documents.yaml",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_flow.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_flow.yaml",
+   "expect": {
+    "$map": [
+     [
+      "seq",
+      [
+       "a",
+       "b",
+       "c"
+      ]
+     ],
+     [
+      "trailing",
+      [
+       "a",
+       "b"
+      ]
+     ],
+     [
+      "nested",
+      [
+       [
+        {
+         "$int": "1"
+        },
+        {
+         "$int": "2"
+        }
+       ],
+       {
+        "$map": [
+         [
+          "k",
+          "v"
+         ]
+        ]
+       },
+       []
+      ]
+     ],
+     [
+      "map",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "b",
+         "two"
+        ],
+        [
+         "c",
+         [
+          "x",
+          "y"
+         ]
+        ]
+       ]
+      }
+     ],
+     [
+      "empty_value",
+      {
+       "$map": [
+        [
+         "a",
+         null
+        ],
+        [
+         "b",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "single_pair",
+      [
+       {
+        "$map": [
+         [
+          "a",
+          {
+           "$int": "1"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "b",
+          {
+           "$int": "2"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "json_like",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "y",
+         [
+          true,
+          false,
+          null
+         ]
+        ]
+       ]
+      }
+     ],
+     [
+      "multi_line",
+      [
+       "one",
+       "two",
+       "three continued"
+      ]
+     ],
+     [
+      "question",
+      {
+       "$map": [
+        [
+         "k",
+         "v"
+        ]
+       ]
+      }
+     ],
+     [
+      "colon_plain",
+      {
+       "$map": [
+        [
+         "url",
+         "http://example.test:80"
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_keys.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_keys.yaml",
+   "expect": {
+    "$map": [
+     [
+      "dup",
+      "second"
+     ],
+     [
+      "other",
+      "x"
+     ],
+     [
+      {
+       "$int": "1"
+      },
+      "float one replaces again"
+     ],
+     [
+      "=",
+      "equals key"
+     ],
+     [
+      "block key\n",
+      "block key value"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_scalars.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_scalars.yaml",
+   "expect": {
+    "$map": [
+     [
+      "escapes",
+      "tab\t nl\n cr\r bs\\ quote\" slash/ nul\u0000 bell\u0007 esc\u001b nel nbsp  ls  ps  xA ué U😀 sp end"
+     ],
+     [
+      "continued",
+      "first second"
+     ],
+     [
+      "literal_keep",
+      "kept\n\n\n"
+     ],
+     [
+      "literal_strip",
+      "stripped"
+     ],
+     [
+      "literal_indent",
+      "  two extra spaces\nbase\n"
+     ],
+     [
+      "folded",
+      "folded lines\nparagraph\n  more indented\nback\n"
+     ],
+     [
+      "folded_strip",
+      "a b"
+     ],
+     [
+      "plain_hash",
+      "a#b"
+     ],
+     [
+      "plain_colon",
+      "a:b"
+     ],
+     [
+      "plain_url",
+      "http://example.test:8080/path?q=1#frag"
+     ],
+     [
+      "plain_comment",
+      "value"
+     ],
+     [
+      "plain_dash",
+      "-dash"
+     ],
+     [
+      "plain_question",
+      "?q"
+     ],
+     [
+      "plain_multi",
+      "first second\nthird"
+     ],
+     [
+      "single_multi",
+      "one two\nthree"
+     ],
+     [
+      "empty_single",
+      ""
+     ],
+     [
+      "empty_double",
+      ""
+     ],
+     [
+      "spaces_double",
+      "  "
+     ]
+    ]
+   }
+  },
+  {
+   "name": "file:syntax_tags.yaml",
+   "file": "crates/termigator-core/tests/fixtures/yaml/syntax_tags.yaml",
+   "expect": {
+    "$map": [
+     [
+      "str_int",
+      "123"
+     ],
+     [
+      "int_str",
+      {
+       "$int": "42"
+      }
+     ],
+     [
+      "float_int",
+      {
+       "$float": "1.0"
+      }
+     ],
+     [
+      "float_exp",
+      {
+       "$float": "1000.0"
+      }
+     ],
+     [
+      "bool_str",
+      true
+     ],
+     [
+      "null_str",
+      null
+     ],
+     [
+      "nonspecific_plain",
+      {
+       "$int": "12"
+      }
+     ],
+     [
+      "nonspecific_quoted",
+      {
+       "$int": "12"
+      }
+     ],
+     [
+      "seq",
+      [
+       "a"
+      ]
+     ],
+     [
+      "map",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "verbatim",
+      "5"
+     ],
+     [
+      "handle",
+      {
+       "$int": "7"
+      }
+     ],
+     [
+      "timestamp",
+      {
+       "$timestamp": "2026-01-02"
+      }
+     ],
+     [
+      "str_yes",
+      "yes"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "type:plain:yes",
+   "input": "yes\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:yes",
+   "input": "'yes'\n",
+   "expect": "yes"
+  },
+  {
+   "name": "type:double:yes",
+   "input": "\"yes\"\n",
+   "expect": "yes"
+  },
+  {
+   "name": "type:plain:Yes",
+   "input": "Yes\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:Yes",
+   "input": "'Yes'\n",
+   "expect": "Yes"
+  },
+  {
+   "name": "type:double:Yes",
+   "input": "\"Yes\"\n",
+   "expect": "Yes"
+  },
+  {
+   "name": "type:plain:YES",
+   "input": "YES\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:YES",
+   "input": "'YES'\n",
+   "expect": "YES"
+  },
+  {
+   "name": "type:double:YES",
+   "input": "\"YES\"\n",
+   "expect": "YES"
+  },
+  {
+   "name": "type:plain:yEs",
+   "input": "yEs\n",
+   "expect": "yEs"
+  },
+  {
+   "name": "type:single:yEs",
+   "input": "'yEs'\n",
+   "expect": "yEs"
+  },
+  {
+   "name": "type:double:yEs",
+   "input": "\"yEs\"\n",
+   "expect": "yEs"
+  },
+  {
+   "name": "type:plain:no",
+   "input": "no\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:no",
+   "input": "'no'\n",
+   "expect": "no"
+  },
+  {
+   "name": "type:double:no",
+   "input": "\"no\"\n",
+   "expect": "no"
+  },
+  {
+   "name": "type:plain:No",
+   "input": "No\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:No",
+   "input": "'No'\n",
+   "expect": "No"
+  },
+  {
+   "name": "type:double:No",
+   "input": "\"No\"\n",
+   "expect": "No"
+  },
+  {
+   "name": "type:plain:NO",
+   "input": "NO\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:NO",
+   "input": "'NO'\n",
+   "expect": "NO"
+  },
+  {
+   "name": "type:double:NO",
+   "input": "\"NO\"\n",
+   "expect": "NO"
+  },
+  {
+   "name": "type:plain:true",
+   "input": "true\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:true",
+   "input": "'true'\n",
+   "expect": "true"
+  },
+  {
+   "name": "type:double:true",
+   "input": "\"true\"\n",
+   "expect": "true"
+  },
+  {
+   "name": "type:plain:True",
+   "input": "True\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:True",
+   "input": "'True'\n",
+   "expect": "True"
+  },
+  {
+   "name": "type:double:True",
+   "input": "\"True\"\n",
+   "expect": "True"
+  },
+  {
+   "name": "type:plain:TRUE",
+   "input": "TRUE\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:TRUE",
+   "input": "'TRUE'\n",
+   "expect": "TRUE"
+  },
+  {
+   "name": "type:double:TRUE",
+   "input": "\"TRUE\"\n",
+   "expect": "TRUE"
+  },
+  {
+   "name": "type:plain:tRue",
+   "input": "tRue\n",
+   "expect": "tRue"
+  },
+  {
+   "name": "type:single:tRue",
+   "input": "'tRue'\n",
+   "expect": "tRue"
+  },
+  {
+   "name": "type:double:tRue",
+   "input": "\"tRue\"\n",
+   "expect": "tRue"
+  },
+  {
+   "name": "type:plain:false",
+   "input": "false\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:false",
+   "input": "'false'\n",
+   "expect": "false"
+  },
+  {
+   "name": "type:double:false",
+   "input": "\"false\"\n",
+   "expect": "false"
+  },
+  {
+   "name": "type:plain:False",
+   "input": "False\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:False",
+   "input": "'False'\n",
+   "expect": "False"
+  },
+  {
+   "name": "type:double:False",
+   "input": "\"False\"\n",
+   "expect": "False"
+  },
+  {
+   "name": "type:plain:FALSE",
+   "input": "FALSE\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:FALSE",
+   "input": "'FALSE'\n",
+   "expect": "FALSE"
+  },
+  {
+   "name": "type:double:FALSE",
+   "input": "\"FALSE\"\n",
+   "expect": "FALSE"
+  },
+  {
+   "name": "type:plain:on",
+   "input": "on\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:on",
+   "input": "'on'\n",
+   "expect": "on"
+  },
+  {
+   "name": "type:double:on",
+   "input": "\"on\"\n",
+   "expect": "on"
+  },
+  {
+   "name": "type:plain:On",
+   "input": "On\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:On",
+   "input": "'On'\n",
+   "expect": "On"
+  },
+  {
+   "name": "type:double:On",
+   "input": "\"On\"\n",
+   "expect": "On"
+  },
+  {
+   "name": "type:plain:ON",
+   "input": "ON\n",
+   "expect": true
+  },
+  {
+   "name": "type:single:ON",
+   "input": "'ON'\n",
+   "expect": "ON"
+  },
+  {
+   "name": "type:double:ON",
+   "input": "\"ON\"\n",
+   "expect": "ON"
+  },
+  {
+   "name": "type:plain:oN",
+   "input": "oN\n",
+   "expect": "oN"
+  },
+  {
+   "name": "type:single:oN",
+   "input": "'oN'\n",
+   "expect": "oN"
+  },
+  {
+   "name": "type:double:oN",
+   "input": "\"oN\"\n",
+   "expect": "oN"
+  },
+  {
+   "name": "type:plain:off",
+   "input": "off\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:off",
+   "input": "'off'\n",
+   "expect": "off"
+  },
+  {
+   "name": "type:double:off",
+   "input": "\"off\"\n",
+   "expect": "off"
+  },
+  {
+   "name": "type:plain:Off",
+   "input": "Off\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:Off",
+   "input": "'Off'\n",
+   "expect": "Off"
+  },
+  {
+   "name": "type:double:Off",
+   "input": "\"Off\"\n",
+   "expect": "Off"
+  },
+  {
+   "name": "type:plain:OFF",
+   "input": "OFF\n",
+   "expect": false
+  },
+  {
+   "name": "type:single:OFF",
+   "input": "'OFF'\n",
+   "expect": "OFF"
+  },
+  {
+   "name": "type:double:OFF",
+   "input": "\"OFF\"\n",
+   "expect": "OFF"
+  },
+  {
+   "name": "type:plain:y",
+   "input": "y\n",
+   "expect": "y"
+  },
+  {
+   "name": "type:single:y",
+   "input": "'y'\n",
+   "expect": "y"
+  },
+  {
+   "name": "type:double:y",
+   "input": "\"y\"\n",
+   "expect": "y"
+  },
+  {
+   "name": "type:plain:Y",
+   "input": "Y\n",
+   "expect": "Y"
+  },
+  {
+   "name": "type:single:Y",
+   "input": "'Y'\n",
+   "expect": "Y"
+  },
+  {
+   "name": "type:double:Y",
+   "input": "\"Y\"\n",
+   "expect": "Y"
+  },
+  {
+   "name": "type:plain:n",
+   "input": "n\n",
+   "expect": "n"
+  },
+  {
+   "name": "type:single:n",
+   "input": "'n'\n",
+   "expect": "n"
+  },
+  {
+   "name": "type:double:n",
+   "input": "\"n\"\n",
+   "expect": "n"
+  },
+  {
+   "name": "type:plain:N",
+   "input": "N\n",
+   "expect": "N"
+  },
+  {
+   "name": "type:single:N",
+   "input": "'N'\n",
+   "expect": "N"
+  },
+  {
+   "name": "type:double:N",
+   "input": "\"N\"\n",
+   "expect": "N"
+  },
+  {
+   "name": "type:plain:~",
+   "input": "~\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:~",
+   "input": "'~'\n",
+   "expect": "~"
+  },
+  {
+   "name": "type:double:~",
+   "input": "\"~\"\n",
+   "expect": "~"
+  },
+  {
+   "name": "type:plain:null",
+   "input": "null\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:null",
+   "input": "'null'\n",
+   "expect": "null"
+  },
+  {
+   "name": "type:double:null",
+   "input": "\"null\"\n",
+   "expect": "null"
+  },
+  {
+   "name": "type:plain:Null",
+   "input": "Null\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:Null",
+   "input": "'Null'\n",
+   "expect": "Null"
+  },
+  {
+   "name": "type:double:Null",
+   "input": "\"Null\"\n",
+   "expect": "Null"
+  },
+  {
+   "name": "type:plain:NULL",
+   "input": "NULL\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:NULL",
+   "input": "'NULL'\n",
+   "expect": "NULL"
+  },
+  {
+   "name": "type:double:NULL",
+   "input": "\"NULL\"\n",
+   "expect": "NULL"
+  },
+  {
+   "name": "type:plain:nUll",
+   "input": "nUll\n",
+   "expect": "nUll"
+  },
+  {
+   "name": "type:single:nUll",
+   "input": "'nUll'\n",
+   "expect": "nUll"
+  },
+  {
+   "name": "type:double:nUll",
+   "input": "\"nUll\"\n",
+   "expect": "nUll"
+  },
+  {
+   "name": "type:plain:",
+   "input": "\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:",
+   "input": "''\n",
+   "expect": ""
+  },
+  {
+   "name": "type:double:",
+   "input": "\"\"\n",
+   "expect": ""
+  },
+  {
+   "name": "type:plain:0",
+   "input": "0\n",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "type:single:0",
+   "input": "'0'\n",
+   "expect": "0"
+  },
+  {
+   "name": "type:double:0",
+   "input": "\"0\"\n",
+   "expect": "0"
+  },
+  {
+   "name": "type:plain:-0",
+   "input": "-0\n",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "type:single:-0",
+   "input": "'-0'\n",
+   "expect": "-0"
+  },
+  {
+   "name": "type:double:-0",
+   "input": "\"-0\"\n",
+   "expect": "-0"
+  },
+  {
+   "name": "type:plain:+0",
+   "input": "+0\n",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "type:single:+0",
+   "input": "'+0'\n",
+   "expect": "+0"
+  },
+  {
+   "name": "type:double:+0",
+   "input": "\"+0\"\n",
+   "expect": "+0"
+  },
+  {
+   "name": "type:plain:00",
+   "input": "00\n",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "type:single:00",
+   "input": "'00'\n",
+   "expect": "00"
+  },
+  {
+   "name": "type:double:00",
+   "input": "\"00\"\n",
+   "expect": "00"
+  },
+  {
+   "name": "type:plain:0777",
+   "input": "0777\n",
+   "expect": {
+    "$int": "511"
+   }
+  },
+  {
+   "name": "type:single:0777",
+   "input": "'0777'\n",
+   "expect": "0777"
+  },
+  {
+   "name": "type:double:0777",
+   "input": "\"0777\"\n",
+   "expect": "0777"
+  },
+  {
+   "name": "type:plain:-0777",
+   "input": "-0777\n",
+   "expect": {
+    "$int": "-511"
+   }
+  },
+  {
+   "name": "type:single:-0777",
+   "input": "'-0777'\n",
+   "expect": "-0777"
+  },
+  {
+   "name": "type:double:-0777",
+   "input": "\"-0777\"\n",
+   "expect": "-0777"
+  },
+  {
+   "name": "type:plain:0_7",
+   "input": "0_7\n",
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "type:single:0_7",
+   "input": "'0_7'\n",
+   "expect": "0_7"
+  },
+  {
+   "name": "type:double:0_7",
+   "input": "\"0_7\"\n",
+   "expect": "0_7"
+  },
+  {
+   "name": "type:plain:08",
+   "input": "08\n",
+   "expect": "08"
+  },
+  {
+   "name": "type:single:08",
+   "input": "'08'\n",
+   "expect": "08"
+  },
+  {
+   "name": "type:double:08",
+   "input": "\"08\"\n",
+   "expect": "08"
+  },
+  {
+   "name": "type:plain:0x1F",
+   "input": "0x1F\n",
+   "expect": {
+    "$int": "31"
+   }
+  },
+  {
+   "name": "type:single:0x1F",
+   "input": "'0x1F'\n",
+   "expect": "0x1F"
+  },
+  {
+   "name": "type:double:0x1F",
+   "input": "\"0x1F\"\n",
+   "expect": "0x1F"
+  },
+  {
+   "name": "type:plain:-0x1f",
+   "input": "-0x1f\n",
+   "expect": {
+    "$int": "-31"
+   }
+  },
+  {
+   "name": "type:single:-0x1f",
+   "input": "'-0x1f'\n",
+   "expect": "-0x1f"
+  },
+  {
+   "name": "type:double:-0x1f",
+   "input": "\"-0x1f\"\n",
+   "expect": "-0x1f"
+  },
+  {
+   "name": "type:plain:0x_1F",
+   "input": "0x_1F\n",
+   "expect": {
+    "$int": "31"
+   }
+  },
+  {
+   "name": "type:single:0x_1F",
+   "input": "'0x_1F'\n",
+   "expect": "0x_1F"
+  },
+  {
+   "name": "type:double:0x_1F",
+   "input": "\"0x_1F\"\n",
+   "expect": "0x_1F"
+  },
+  {
+   "name": "type:plain:0X1F",
+   "input": "0X1F\n",
+   "expect": "0X1F"
+  },
+  {
+   "name": "type:single:0X1F",
+   "input": "'0X1F'\n",
+   "expect": "0X1F"
+  },
+  {
+   "name": "type:double:0X1F",
+   "input": "\"0X1F\"\n",
+   "expect": "0X1F"
+  },
+  {
+   "name": "type:plain:0b101",
+   "input": "0b101\n",
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "type:single:0b101",
+   "input": "'0b101'\n",
+   "expect": "0b101"
+  },
+  {
+   "name": "type:double:0b101",
+   "input": "\"0b101\"\n",
+   "expect": "0b101"
+  },
+  {
+   "name": "type:plain:-0b1_0",
+   "input": "-0b1_0\n",
+   "expect": {
+    "$int": "-2"
+   }
+  },
+  {
+   "name": "type:single:-0b1_0",
+   "input": "'-0b1_0'\n",
+   "expect": "-0b1_0"
+  },
+  {
+   "name": "type:double:-0b1_0",
+   "input": "\"-0b1_0\"\n",
+   "expect": "-0b1_0"
+  },
+  {
+   "name": "type:plain:0o17",
+   "input": "0o17\n",
+   "expect": "0o17"
+  },
+  {
+   "name": "type:single:0o17",
+   "input": "'0o17'\n",
+   "expect": "0o17"
+  },
+  {
+   "name": "type:double:0o17",
+   "input": "\"0o17\"\n",
+   "expect": "0o17"
+  },
+  {
+   "name": "type:plain:1_000",
+   "input": "1_000\n",
+   "expect": {
+    "$int": "1000"
+   }
+  },
+  {
+   "name": "type:single:1_000",
+   "input": "'1_000'\n",
+   "expect": "1_000"
+  },
+  {
+   "name": "type:double:1_000",
+   "input": "\"1_000\"\n",
+   "expect": "1_000"
+  },
+  {
+   "name": "type:plain:+12",
+   "input": "+12\n",
+   "expect": {
+    "$int": "12"
+   }
+  },
+  {
+   "name": "type:single:+12",
+   "input": "'+12'\n",
+   "expect": "+12"
+  },
+  {
+   "name": "type:double:+12",
+   "input": "\"+12\"\n",
+   "expect": "+12"
+  },
+  {
+   "name": "type:plain:-12",
+   "input": "-12\n",
+   "expect": {
+    "$int": "-12"
+   }
+  },
+  {
+   "name": "type:single:-12",
+   "input": "'-12'\n",
+   "expect": "-12"
+  },
+  {
+   "name": "type:double:-12",
+   "input": "\"-12\"\n",
+   "expect": "-12"
+  },
+  {
+   "name": "type:plain:1:30",
+   "input": "1:30\n",
+   "expect": {
+    "$int": "90"
+   }
+  },
+  {
+   "name": "type:single:1:30",
+   "input": "'1:30'\n",
+   "expect": "1:30"
+  },
+  {
+   "name": "type:double:1:30",
+   "input": "\"1:30\"\n",
+   "expect": "1:30"
+  },
+  {
+   "name": "type:plain:-1:30",
+   "input": "-1:30\n",
+   "expect": {
+    "$int": "-90"
+   }
+  },
+  {
+   "name": "type:single:-1:30",
+   "input": "'-1:30'\n",
+   "expect": "-1:30"
+  },
+  {
+   "name": "type:double:-1:30",
+   "input": "\"-1:30\"\n",
+   "expect": "-1:30"
+  },
+  {
+   "name": "type:plain:190:20:30",
+   "input": "190:20:30\n",
+   "expect": {
+    "$int": "685230"
+   }
+  },
+  {
+   "name": "type:single:190:20:30",
+   "input": "'190:20:30'\n",
+   "expect": "190:20:30"
+  },
+  {
+   "name": "type:double:190:20:30",
+   "input": "\"190:20:30\"\n",
+   "expect": "190:20:30"
+  },
+  {
+   "name": "type:plain:1:60",
+   "input": "1:60\n",
+   "expect": "1:60"
+  },
+  {
+   "name": "type:single:1:60",
+   "input": "'1:60'\n",
+   "expect": "1:60"
+  },
+  {
+   "name": "type:double:1:60",
+   "input": "\"1:60\"\n",
+   "expect": "1:60"
+  },
+  {
+   "name": "type:plain:09:30",
+   "input": "09:30\n",
+   "expect": "09:30"
+  },
+  {
+   "name": "type:single:09:30",
+   "input": "'09:30'\n",
+   "expect": "09:30"
+  },
+  {
+   "name": "type:double:09:30",
+   "input": "\"09:30\"\n",
+   "expect": "09:30"
+  },
+  {
+   "name": "type:plain:9223372036854775807",
+   "input": "9223372036854775807\n",
+   "expect": {
+    "$int": "9223372036854775807"
+   }
+  },
+  {
+   "name": "type:single:9223372036854775807",
+   "input": "'9223372036854775807'\n",
+   "expect": "9223372036854775807"
+  },
+  {
+   "name": "type:double:9223372036854775807",
+   "input": "\"9223372036854775807\"\n",
+   "expect": "9223372036854775807"
+  },
+  {
+   "name": "type:plain:-9223372036854775808",
+   "input": "-9223372036854775808\n",
+   "expect": {
+    "$int": "-9223372036854775808"
+   }
+  },
+  {
+   "name": "type:single:-9223372036854775808",
+   "input": "'-9223372036854775808'\n",
+   "expect": "-9223372036854775808"
+  },
+  {
+   "name": "type:double:-9223372036854775808",
+   "input": "\"-9223372036854775808\"\n",
+   "expect": "-9223372036854775808"
+  },
+  {
+   "name": "type:plain:1.5",
+   "input": "1.5\n",
+   "expect": {
+    "$float": "1.5"
+   }
+  },
+  {
+   "name": "type:single:1.5",
+   "input": "'1.5'\n",
+   "expect": "1.5"
+  },
+  {
+   "name": "type:double:1.5",
+   "input": "\"1.5\"\n",
+   "expect": "1.5"
+  },
+  {
+   "name": "type:plain:-1.5",
+   "input": "-1.5\n",
+   "expect": {
+    "$float": "-1.5"
+   }
+  },
+  {
+   "name": "type:single:-1.5",
+   "input": "'-1.5'\n",
+   "expect": "-1.5"
+  },
+  {
+   "name": "type:double:-1.5",
+   "input": "\"-1.5\"\n",
+   "expect": "-1.5"
+  },
+  {
+   "name": "type:plain:+1.5",
+   "input": "+1.5\n",
+   "expect": {
+    "$float": "1.5"
+   }
+  },
+  {
+   "name": "type:single:+1.5",
+   "input": "'+1.5'\n",
+   "expect": "+1.5"
+  },
+  {
+   "name": "type:double:+1.5",
+   "input": "\"+1.5\"\n",
+   "expect": "+1.5"
+  },
+  {
+   "name": "type:plain:1.",
+   "input": "1.\n",
+   "expect": {
+    "$float": "1.0"
+   }
+  },
+  {
+   "name": "type:single:1.",
+   "input": "'1.'\n",
+   "expect": "1."
+  },
+  {
+   "name": "type:double:1.",
+   "input": "\"1.\"\n",
+   "expect": "1."
+  },
+  {
+   "name": "type:plain:-1.",
+   "input": "-1.\n",
+   "expect": {
+    "$float": "-1.0"
+   }
+  },
+  {
+   "name": "type:single:-1.",
+   "input": "'-1.'\n",
+   "expect": "-1."
+  },
+  {
+   "name": "type:double:-1.",
+   "input": "\"-1.\"\n",
+   "expect": "-1."
+  },
+  {
+   "name": "type:plain:1_0.5",
+   "input": "1_0.5\n",
+   "expect": {
+    "$float": "10.5"
+   }
+  },
+  {
+   "name": "type:single:1_0.5",
+   "input": "'1_0.5'\n",
+   "expect": "1_0.5"
+  },
+  {
+   "name": "type:double:1_0.5",
+   "input": "\"1_0.5\"\n",
+   "expect": "1_0.5"
+  },
+  {
+   "name": "type:plain:1.5e+3",
+   "input": "1.5e+3\n",
+   "expect": {
+    "$float": "1500.0"
+   }
+  },
+  {
+   "name": "type:single:1.5e+3",
+   "input": "'1.5e+3'\n",
+   "expect": "1.5e+3"
+  },
+  {
+   "name": "type:double:1.5e+3",
+   "input": "\"1.5e+3\"\n",
+   "expect": "1.5e+3"
+  },
+  {
+   "name": "type:plain:1.5E-3",
+   "input": "1.5E-3\n",
+   "expect": {
+    "$float": "0.0015"
+   }
+  },
+  {
+   "name": "type:single:1.5E-3",
+   "input": "'1.5E-3'\n",
+   "expect": "1.5E-3"
+  },
+  {
+   "name": "type:double:1.5E-3",
+   "input": "\"1.5E-3\"\n",
+   "expect": "1.5E-3"
+  },
+  {
+   "name": "type:plain:1.5e3",
+   "input": "1.5e3\n",
+   "expect": "1.5e3"
+  },
+  {
+   "name": "type:single:1.5e3",
+   "input": "'1.5e3'\n",
+   "expect": "1.5e3"
+  },
+  {
+   "name": "type:double:1.5e3",
+   "input": "\"1.5e3\"\n",
+   "expect": "1.5e3"
+  },
+  {
+   "name": "type:plain:1e3",
+   "input": "1e3\n",
+   "expect": "1e3"
+  },
+  {
+   "name": "type:single:1e3",
+   "input": "'1e3'\n",
+   "expect": "1e3"
+  },
+  {
+   "name": "type:double:1e3",
+   "input": "\"1e3\"\n",
+   "expect": "1e3"
+  },
+  {
+   "name": "type:plain:1.0e10",
+   "input": "1.0e10\n",
+   "expect": "1.0e10"
+  },
+  {
+   "name": "type:single:1.0e10",
+   "input": "'1.0e10'\n",
+   "expect": "1.0e10"
+  },
+  {
+   "name": "type:double:1.0e10",
+   "input": "\"1.0e10\"\n",
+   "expect": "1.0e10"
+  },
+  {
+   "name": "type:plain:.5",
+   "input": ".5\n",
+   "expect": {
+    "$float": "0.5"
+   }
+  },
+  {
+   "name": "type:single:.5",
+   "input": "'.5'\n",
+   "expect": ".5"
+  },
+  {
+   "name": "type:double:.5",
+   "input": "\".5\"\n",
+   "expect": ".5"
+  },
+  {
+   "name": "type:plain:-.5",
+   "input": "-.5\n",
+   "expect": "-.5"
+  },
+  {
+   "name": "type:single:-.5",
+   "input": "'-.5'\n",
+   "expect": "-.5"
+  },
+  {
+   "name": "type:double:-.5",
+   "input": "\"-.5\"\n",
+   "expect": "-.5"
+  },
+  {
+   "name": "type:plain:+.5",
+   "input": "+.5\n",
+   "expect": "+.5"
+  },
+  {
+   "name": "type:single:+.5",
+   "input": "'+.5'\n",
+   "expect": "+.5"
+  },
+  {
+   "name": "type:double:+.5",
+   "input": "\"+.5\"\n",
+   "expect": "+.5"
+  },
+  {
+   "name": "type:plain:._5",
+   "input": "._5\n",
+   "expect": "._5"
+  },
+  {
+   "name": "type:single:._5",
+   "input": "'._5'\n",
+   "expect": "._5"
+  },
+  {
+   "name": "type:double:._5",
+   "input": "\"._5\"\n",
+   "expect": "._5"
+  },
+  {
+   "name": "type:plain:.inf",
+   "input": ".inf\n",
+   "expect": {
+    "$float": "inf"
+   }
+  },
+  {
+   "name": "type:single:.inf",
+   "input": "'.inf'\n",
+   "expect": ".inf"
+  },
+  {
+   "name": "type:double:.inf",
+   "input": "\".inf\"\n",
+   "expect": ".inf"
+  },
+  {
+   "name": "type:plain:.Inf",
+   "input": ".Inf\n",
+   "expect": {
+    "$float": "inf"
+   }
+  },
+  {
+   "name": "type:single:.Inf",
+   "input": "'.Inf'\n",
+   "expect": ".Inf"
+  },
+  {
+   "name": "type:double:.Inf",
+   "input": "\".Inf\"\n",
+   "expect": ".Inf"
+  },
+  {
+   "name": "type:plain:.INF",
+   "input": ".INF\n",
+   "expect": {
+    "$float": "inf"
+   }
+  },
+  {
+   "name": "type:single:.INF",
+   "input": "'.INF'\n",
+   "expect": ".INF"
+  },
+  {
+   "name": "type:double:.INF",
+   "input": "\".INF\"\n",
+   "expect": ".INF"
+  },
+  {
+   "name": "type:plain:-.inf",
+   "input": "-.inf\n",
+   "expect": {
+    "$float": "-inf"
+   }
+  },
+  {
+   "name": "type:single:-.inf",
+   "input": "'-.inf'\n",
+   "expect": "-.inf"
+  },
+  {
+   "name": "type:double:-.inf",
+   "input": "\"-.inf\"\n",
+   "expect": "-.inf"
+  },
+  {
+   "name": "type:plain:+.inf",
+   "input": "+.inf\n",
+   "expect": {
+    "$float": "inf"
+   }
+  },
+  {
+   "name": "type:single:+.inf",
+   "input": "'+.inf'\n",
+   "expect": "+.inf"
+  },
+  {
+   "name": "type:double:+.inf",
+   "input": "\"+.inf\"\n",
+   "expect": "+.inf"
+  },
+  {
+   "name": "type:plain:.iNf",
+   "input": ".iNf\n",
+   "expect": ".iNf"
+  },
+  {
+   "name": "type:single:.iNf",
+   "input": "'.iNf'\n",
+   "expect": ".iNf"
+  },
+  {
+   "name": "type:double:.iNf",
+   "input": "\".iNf\"\n",
+   "expect": ".iNf"
+  },
+  {
+   "name": "type:plain:.nan",
+   "input": ".nan\n",
+   "expect": {
+    "$float": "nan"
+   }
+  },
+  {
+   "name": "type:single:.nan",
+   "input": "'.nan'\n",
+   "expect": ".nan"
+  },
+  {
+   "name": "type:double:.nan",
+   "input": "\".nan\"\n",
+   "expect": ".nan"
+  },
+  {
+   "name": "type:plain:.NaN",
+   "input": ".NaN\n",
+   "expect": {
+    "$float": "nan"
+   }
+  },
+  {
+   "name": "type:single:.NaN",
+   "input": "'.NaN'\n",
+   "expect": ".NaN"
+  },
+  {
+   "name": "type:double:.NaN",
+   "input": "\".NaN\"\n",
+   "expect": ".NaN"
+  },
+  {
+   "name": "type:plain:.NAN",
+   "input": ".NAN\n",
+   "expect": {
+    "$float": "nan"
+   }
+  },
+  {
+   "name": "type:single:.NAN",
+   "input": "'.NAN'\n",
+   "expect": ".NAN"
+  },
+  {
+   "name": "type:double:.NAN",
+   "input": "\".NAN\"\n",
+   "expect": ".NAN"
+  },
+  {
+   "name": "type:plain:-.nan",
+   "input": "-.nan\n",
+   "expect": "-.nan"
+  },
+  {
+   "name": "type:single:-.nan",
+   "input": "'-.nan'\n",
+   "expect": "-.nan"
+  },
+  {
+   "name": "type:double:-.nan",
+   "input": "\"-.nan\"\n",
+   "expect": "-.nan"
+  },
+  {
+   "name": "type:plain:1:30.5",
+   "input": "1:30.5\n",
+   "expect": {
+    "$float": "90.5"
+   }
+  },
+  {
+   "name": "type:single:1:30.5",
+   "input": "'1:30.5'\n",
+   "expect": "1:30.5"
+  },
+  {
+   "name": "type:double:1:30.5",
+   "input": "\"1:30.5\"\n",
+   "expect": "1:30.5"
+  },
+  {
+   "name": "type:plain:-1:30.5",
+   "input": "-1:30.5\n",
+   "expect": {
+    "$float": "-90.5"
+   }
+  },
+  {
+   "name": "type:single:-1:30.5",
+   "input": "'-1:30.5'\n",
+   "expect": "-1:30.5"
+  },
+  {
+   "name": "type:double:-1:30.5",
+   "input": "\"-1:30.5\"\n",
+   "expect": "-1:30.5"
+  },
+  {
+   "name": "type:plain:1:30.",
+   "input": "1:30.\n",
+   "expect": {
+    "$float": "90.0"
+   }
+  },
+  {
+   "name": "type:single:1:30.",
+   "input": "'1:30.'\n",
+   "expect": "1:30."
+  },
+  {
+   "name": "type:double:1:30.",
+   "input": "\"1:30.\"\n",
+   "expect": "1:30."
+  },
+  {
+   "name": "type:plain:0.1",
+   "input": "0.1\n",
+   "expect": {
+    "$float": "0.1"
+   }
+  },
+  {
+   "name": "type:single:0.1",
+   "input": "'0.1'\n",
+   "expect": "0.1"
+  },
+  {
+   "name": "type:double:0.1",
+   "input": "\"0.1\"\n",
+   "expect": "0.1"
+  },
+  {
+   "name": "type:plain:1e-5",
+   "input": "1e-5\n",
+   "expect": "1e-5"
+  },
+  {
+   "name": "type:single:1e-5",
+   "input": "'1e-5'\n",
+   "expect": "1e-5"
+  },
+  {
+   "name": "type:double:1e-5",
+   "input": "\"1e-5\"\n",
+   "expect": "1e-5"
+  },
+  {
+   "name": "type:plain:2026-01-02",
+   "input": "2026-01-02\n",
+   "expect": {
+    "$timestamp": "2026-01-02"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02",
+   "input": "'2026-01-02'\n",
+   "expect": "2026-01-02"
+  },
+  {
+   "name": "type:double:2026-01-02",
+   "input": "\"2026-01-02\"\n",
+   "expect": "2026-01-02"
+  },
+  {
+   "name": "type:plain:2026-1-2",
+   "input": "2026-1-2\n",
+   "expect": "2026-1-2"
+  },
+  {
+   "name": "type:single:2026-1-2",
+   "input": "'2026-1-2'\n",
+   "expect": "2026-1-2"
+  },
+  {
+   "name": "type:double:2026-1-2",
+   "input": "\"2026-1-2\"\n",
+   "expect": "2026-1-2"
+  },
+  {
+   "name": "type:plain:2026-01-02T10:20:30Z",
+   "input": "2026-01-02T10:20:30Z\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30+00:00"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02T10:20:30Z",
+   "input": "'2026-01-02T10:20:30Z'\n",
+   "expect": "2026-01-02T10:20:30Z"
+  },
+  {
+   "name": "type:double:2026-01-02T10:20:30Z",
+   "input": "\"2026-01-02T10:20:30Z\"\n",
+   "expect": "2026-01-02T10:20:30Z"
+  },
+  {
+   "name": "type:plain:2026-01-02t10:20:30.123456789+01:00",
+   "input": "2026-01-02t10:20:30.123456789+01:00\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30.123456+01:00"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02t10:20:30.123456789+01:00",
+   "input": "'2026-01-02t10:20:30.123456789+01:00'\n",
+   "expect": "2026-01-02t10:20:30.123456789+01:00"
+  },
+  {
+   "name": "type:double:2026-01-02t10:20:30.123456789+01:00",
+   "input": "\"2026-01-02t10:20:30.123456789+01:00\"\n",
+   "expect": "2026-01-02t10:20:30.123456789+01:00"
+  },
+  {
+   "name": "type:plain:2026-01-02 10:20:30",
+   "input": "2026-01-02 10:20:30\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02 10:20:30",
+   "input": "'2026-01-02 10:20:30'\n",
+   "expect": "2026-01-02 10:20:30"
+  },
+  {
+   "name": "type:double:2026-01-02 10:20:30",
+   "input": "\"2026-01-02 10:20:30\"\n",
+   "expect": "2026-01-02 10:20:30"
+  },
+  {
+   "name": "type:plain:2026-01-02   10:20:30 -5",
+   "input": "2026-01-02   10:20:30 -5\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30-05:00"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02   10:20:30 -5",
+   "input": "'2026-01-02   10:20:30 -5'\n",
+   "expect": "2026-01-02   10:20:30 -5"
+  },
+  {
+   "name": "type:double:2026-01-02   10:20:30 -5",
+   "input": "\"2026-01-02   10:20:30 -5\"\n",
+   "expect": "2026-01-02   10:20:30 -5"
+  },
+  {
+   "name": "type:plain:2026-1-2 3:04:05.5",
+   "input": "2026-1-2 3:04:05.5\n",
+   "expect": {
+    "$timestamp": "2026-01-02 03:04:05.500000"
+   }
+  },
+  {
+   "name": "type:single:2026-1-2 3:04:05.5",
+   "input": "'2026-1-2 3:04:05.5'\n",
+   "expect": "2026-1-2 3:04:05.5"
+  },
+  {
+   "name": "type:double:2026-1-2 3:04:05.5",
+   "input": "\"2026-1-2 3:04:05.5\"\n",
+   "expect": "2026-1-2 3:04:05.5"
+  },
+  {
+   "name": "type:plain:2026-01-02T10:20:30+0100",
+   "input": "2026-01-02T10:20:30+0100\n",
+   "expect": "2026-01-02T10:20:30+0100"
+  },
+  {
+   "name": "type:single:2026-01-02T10:20:30+0100",
+   "input": "'2026-01-02T10:20:30+0100'\n",
+   "expect": "2026-01-02T10:20:30+0100"
+  },
+  {
+   "name": "type:double:2026-01-02T10:20:30+0100",
+   "input": "\"2026-01-02T10:20:30+0100\"\n",
+   "expect": "2026-01-02T10:20:30+0100"
+  },
+  {
+   "name": "type:plain:2026-01-02T10:20:30.000100-00:30",
+   "input": "2026-01-02T10:20:30.000100-00:30\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30.000100-00:30"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02T10:20:30.000100-00:30",
+   "input": "'2026-01-02T10:20:30.000100-00:30'\n",
+   "expect": "2026-01-02T10:20:30.000100-00:30"
+  },
+  {
+   "name": "type:double:2026-01-02T10:20:30.000100-00:30",
+   "input": "\"2026-01-02T10:20:30.000100-00:30\"\n",
+   "expect": "2026-01-02T10:20:30.000100-00:30"
+  },
+  {
+   "name": "type:plain:2024-02-29",
+   "input": "2024-02-29\n",
+   "expect": {
+    "$timestamp": "2024-02-29"
+   }
+  },
+  {
+   "name": "type:single:2024-02-29",
+   "input": "'2024-02-29'\n",
+   "expect": "2024-02-29"
+  },
+  {
+   "name": "type:double:2024-02-29",
+   "input": "\"2024-02-29\"\n",
+   "expect": "2024-02-29"
+  },
+  {
+   "name": "type:plain:2026-01-02 10:20:30 Z",
+   "input": "2026-01-02 10:20:30 Z\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30+00:00"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02 10:20:30 Z",
+   "input": "'2026-01-02 10:20:30 Z'\n",
+   "expect": "2026-01-02 10:20:30 Z"
+  },
+  {
+   "name": "type:double:2026-01-02 10:20:30 Z",
+   "input": "\"2026-01-02 10:20:30 Z\"\n",
+   "expect": "2026-01-02 10:20:30 Z"
+  },
+  {
+   "name": "type:plain:2026-01-02T10:20:30.",
+   "input": "2026-01-02T10:20:30.\n",
+   "expect": {
+    "$timestamp": "2026-01-02 10:20:30"
+   }
+  },
+  {
+   "name": "type:single:2026-01-02T10:20:30.",
+   "input": "'2026-01-02T10:20:30.'\n",
+   "expect": "2026-01-02T10:20:30."
+  },
+  {
+   "name": "type:double:2026-01-02T10:20:30.",
+   "input": "\"2026-01-02T10:20:30.\"\n",
+   "expect": "2026-01-02T10:20:30."
+  },
+  {
+   "name": "type:plain:-",
+   "input": "-\n",
+   "expect": [
+    null
+   ]
+  },
+  {
+   "name": "type:single:-",
+   "input": "'-'\n",
+   "expect": "-"
+  },
+  {
+   "name": "type:double:-",
+   "input": "\"-\"\n",
+   "expect": "-"
+  },
+  {
+   "name": "type:plain:a",
+   "input": "a\n",
+   "expect": "a"
+  },
+  {
+   "name": "type:single:a",
+   "input": "'a'\n",
+   "expect": "a"
+  },
+  {
+   "name": "type:double:a",
+   "input": "\"a\"\n",
+   "expect": "a"
+  },
+  {
+   "name": "type:plain:y es",
+   "input": "y es\n",
+   "expect": "y es"
+  },
+  {
+   "name": "type:single:y es",
+   "input": "'y es'\n",
+   "expect": "y es"
+  },
+  {
+   "name": "type:double:y es",
+   "input": "\"y es\"\n",
+   "expect": "y es"
+  },
+  {
+   "name": "type:plain:<<x",
+   "input": "<<x\n",
+   "expect": "<<x"
+  },
+  {
+   "name": "type:single:<<x",
+   "input": "'<<x'\n",
+   "expect": "<<x"
+  },
+  {
+   "name": "type:double:<<x",
+   "input": "\"<<x\"\n",
+   "expect": "<<x"
+  },
+  {
+   "name": "type:plain:=x",
+   "input": "=x\n",
+   "expect": "=x"
+  },
+  {
+   "name": "type:single:=x",
+   "input": "'=x'\n",
+   "expect": "=x"
+  },
+  {
+   "name": "type:double:=x",
+   "input": "\"=x\"\n",
+   "expect": "=x"
+  },
+  {
+   "name": "type:plain:!",
+   "input": "!\n",
+   "expect": null
+  },
+  {
+   "name": "type:single:!",
+   "input": "'!'\n",
+   "expect": "!"
+  },
+  {
+   "name": "type:double:!",
+   "input": "\"!\"\n",
+   "expect": "!"
+  },
+  {
+   "name": "type:plain:1 2",
+   "input": "1 2\n",
+   "expect": "1 2"
+  },
+  {
+   "name": "type:single:1 2",
+   "input": "'1 2'\n",
+   "expect": "1 2"
+  },
+  {
+   "name": "type:double:1 2",
+   "input": "\"1 2\"\n",
+   "expect": "1 2"
+  },
+  {
+   "name": "type:plain:0x",
+   "input": "0x\n",
+   "expect": "0x"
+  },
+  {
+   "name": "type:single:0x",
+   "input": "'0x'\n",
+   "expect": "0x"
+  },
+  {
+   "name": "type:double:0x",
+   "input": "\"0x\"\n",
+   "expect": "0x"
+  },
+  {
+   "name": "type:plain:0b",
+   "input": "0b\n",
+   "expect": "0b"
+  },
+  {
+   "name": "type:single:0b",
+   "input": "'0b'\n",
+   "expect": "0b"
+  },
+  {
+   "name": "type:double:0b",
+   "input": "\"0b\"\n",
+   "expect": "0b"
+  },
+  {
+   "name": "type:plain:+",
+   "input": "+\n",
+   "expect": "+"
+  },
+  {
+   "name": "type:single:+",
+   "input": "'+'\n",
+   "expect": "+"
+  },
+  {
+   "name": "type:double:+",
+   "input": "\"+\"\n",
+   "expect": "+"
+  },
+  {
+   "name": "type:plain:.",
+   "input": ".\n",
+   "expect": "."
+  },
+  {
+   "name": "type:single:.",
+   "input": "'.'\n",
+   "expect": "."
+  },
+  {
+   "name": "type:double:.",
+   "input": "\".\"\n",
+   "expect": "."
+  },
+  {
+   "name": "type:plain:..",
+   "input": "..\n",
+   "expect": ".."
+  },
+  {
+   "name": "type:single:..",
+   "input": "'..'\n",
+   "expect": ".."
+  },
+  {
+   "name": "type:double:..",
+   "input": "\"..\"\n",
+   "expect": ".."
+  },
+  {
+   "name": "empty_stream",
+   "input": "",
+   "expect": null
+  },
+  {
+   "name": "comment_only",
+   "input": "# c\n",
+   "expect": null
+  },
+  {
+   "name": "doc_start_only",
+   "input": "---\n",
+   "expect": null
+  },
+  {
+   "name": "root_seq",
+   "input": "- a\n- b\n",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "root_scalar",
+   "input": "hello\n",
+   "expect": "hello"
+  },
+  {
+   "name": "doc_start_scalar",
+   "input": "--- text\n",
+   "expect": "text"
+  },
+  {
+   "name": "block_scalar_root",
+   "input": "--- |\n  text\n",
+   "expect": "text\n"
+  },
+  {
+   "name": "bom",
+   "input": "﻿a: 1\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "crlf",
+   "input": "a: 1\r\nb: |\r\n  x\r\n  y\r\nc: \"p\r\n  q\"\r\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "b",
+      "x\ny\n"
+     ],
+     [
+      "c",
+      "p q"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "lone_cr",
+   "input": "a: 1\rb: 2\r",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "b",
+      {
+       "$int": "2"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "nel_plain",
+   "input": "a: x  y\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "x y"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ls_plain",
+   "input": "a: x   y\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "x y"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "nel_double",
+   "input": "a: \"xy\"\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "x y"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "err_tab_after_colon",
+   "input": "a:\tb\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "flow_key_colon",
+   "input": "{a:b}\n",
+   "expect": {
+    "$map": [
+     [
+      "a:b",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "flow_seq_colon",
+   "input": "[a:b]\n",
+   "expect": [
+    "a:b"
+   ]
+  },
+  {
+   "name": "question_plain",
+   "input": "a: ?x\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "?x"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "dash_plain",
+   "input": "a: -x\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "-x"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "nested_seq",
+   "input": "- - a\n  - b\n- - c\n",
+   "expect": [
+    [
+     "a",
+     "b"
+    ],
+    [
+     "c"
+    ]
+   ]
+  },
+  {
+   "name": "seq_in_map_no_indent",
+   "input": "a:\n- 1\n- 2\nb: 3\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       }
+      ]
+     ],
+     [
+      "b",
+      {
+       "$int": "3"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "explicit_null_value",
+   "input": "a:\nb: ~\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      null
+     ],
+     [
+      "b",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "folded_more_indented",
+   "input": ">\n a\n  b\n c\n",
+   "expect": "a\n b\nc\n"
+  },
+  {
+   "name": "anchor_on_seq_entry",
+   "input": "- &x 1\n- *x\n",
+   "expect": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "1"
+    }
+   ]
+  },
+  {
+   "name": "explicit_empty_key",
+   "input": "?\n: a\n",
+   "expect": {
+    "$map": [
+     [
+      null,
+      "a"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "document_end_then_comment",
+   "input": "a: 1\n...\n# c\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "directive_yaml12",
+   "input": "%YAML 1.2\n---\na: 1\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "int_bool_float_keys",
+   "input": "1: a\ntrue: b\n1.0: c\n0: d\nfalse: e\n",
+   "expect": {
+    "$map": [
+     [
+      {
+       "$int": "1"
+      },
+      "c"
+     ],
+     [
+      {
+       "$int": "0"
+      },
+      "e"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "duplicate_key_order",
+   "input": "a: 1\nb: 2\na: 3\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$int": "3"
+      }
+     ],
+     [
+      "b",
+      {
+       "$int": "2"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "merge_order",
+   "input": "b: &b {x: 1, y: 2}\nd:\n  z: 0\n  <<: *b\n  x: 9\n",
+   "expect": {
+    "$map": [
+     [
+      "b",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "y",
+         {
+          "$int": "2"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "d",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "9"
+         }
+        ],
+        [
+         "y",
+         {
+          "$int": "2"
+         }
+        ],
+        [
+         "z",
+         {
+          "$int": "0"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "merge_into_flow",
+   "input": "- &a {p: 1}\n- {<<: *a, q: 2}\n",
+   "expect": [
+    {
+     "$map": [
+      [
+       "p",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "p",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "q",
+       {
+        "$int": "2"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "merge_nested_merge",
+   "input": "a: &a {x: 1}\nb: &b {<<: *a, y: 2}\nc: {<<: *b, z: 3}\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "b",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "y",
+         {
+          "$int": "2"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "c",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "y",
+         {
+          "$int": "2"
+         }
+        ],
+        [
+         "z",
+         {
+          "$int": "3"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "merge_shared_twice",
+   "input": "a: &a {x: 1}\nb: {<<: *a}\nc: {<<: *a}\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "b",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "c",
+      {
+       "$map": [
+        [
+         "x",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "alias_key_mapping_value",
+   "input": "k: &k key\n*k : value\n",
+   "expect": {
+    "$map": [
+     [
+      "k",
+      "key"
+     ],
+     [
+      "key",
+      "value"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "quoted_merge_key",
+   "input": "'<<': {a: 1}\n",
+   "expect": {
+    "$map": [
+     [
+      "<<",
+      {
+       "$map": [
+        [
+         "a",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "equals_key",
+   "input": "=: 1\n",
+   "expect": {
+    "$map": [
+     [
+      "=",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "equals_quoted_value",
+   "input": "a: '='\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "="
+     ]
+    ]
+   }
+  },
+  {
+   "name": "unicode_escapes",
+   "input": "a: \"\\x41\\u0105\\U0001F680\\N\\_\\L\\P\"\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "Aą🚀   "
+     ]
+    ]
+   }
+  },
+  {
+   "name": "plain_multiline_flow",
+   "input": "[a\n b, c]\n",
+   "expect": [
+    "a b",
+    "c"
+   ]
+  },
+  {
+   "name": "single_quote_escape",
+   "input": "a: 'it''s'\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "it's"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "comment_after_value",
+   "input": "a: b # c\nd: 'e' # f\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      "d",
+      "e"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "hash_without_space",
+   "input": "a: b#c\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "b#c"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "keys_with_spaces",
+   "input": "a key: 1\n'quoted key': 2\n\"dq key\": 3\n",
+   "expect": {
+    "$map": [
+     [
+      "a key",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "quoted key",
+      {
+       "$int": "2"
+      }
+     ],
+     [
+      "dq key",
+      {
+       "$int": "3"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "very_nested",
+   "input": "a:\n  b:\n    c:\n      d:\n        - e:\n            f: [1, {g: h}]\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      {
+       "$map": [
+        [
+         "b",
+         {
+          "$map": [
+           [
+            "c",
+            {
+             "$map": [
+              [
+               "d",
+               [
+                {
+                 "$map": [
+                  [
+                   "e",
+                   {
+                    "$map": [
+                     [
+                      "f",
+                      [
+                       {
+                        "$int": "1"
+                       },
+                       {
+                        "$map": [
+                         [
+                          "g",
+                          "h"
+                         ]
+                        ]
+                       }
+                      ]
+                     ]
+                    ]
+                   }
+                  ]
+                 ]
+                }
+               ]
+              ]
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "block_seq_of_maps_with_null",
+   "input": "- a:\n  b: 1\n-\n- c\n",
+   "expect": [
+    {
+     "$map": [
+      [
+       "a",
+       null
+      ],
+      [
+       "b",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    null,
+    "c"
+   ]
+  },
+  {
+   "name": "indentation_indicator",
+   "input": "a: |1\n  two leading\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      " two leading\n"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "keep_empty_lines",
+   "input": "a: |+\n\n\nb: 1\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "\n\n"
+     ],
+     [
+      "b",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "strip_only_newlines",
+   "input": "a: |-\n\n\nb: 1\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      ""
+     ],
+     [
+      "b",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "folded_trailing_spaces",
+   "input": "a: >\n  x  \n  y\n",
+   "expect": {
+    "$map": [
+     [
+      "a",
+      "x   y\n"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "err_multi_doc",
+   "input": "a: 1\n---\nb: 2\n",
+   "error": "ComposerError"
+  },
+  {
+   "name": "err_nel_break",
+   "input": "a: xy\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_ls_break",
+   "input": "a: x y\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_tab_in_plain",
+   "input": "a: b\tc\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_tab_trailing",
+   "input": "a: b\t\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_empty_key",
+   "input": ": a\n",
+   "error": "ParserError"
+  },
+  {
+   "name": "err_long_key",
+   "input": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk: v\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_second_empty_doc",
+   "input": "a: 1\n---\n",
+   "error": "ComposerError"
+  },
+  {
+   "name": "err_unclosed_quote",
+   "input": "a: \"abc\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_unclosed_flow",
+   "input": "a: [1, 2\n",
+   "error": "ParserError"
+  },
+  {
+   "name": "err_bad_indent",
+   "input": "a:\n  b: 1\n c: 2\n",
+   "error": "ParserError"
+  },
+  {
+   "name": "err_mapping_values",
+   "input": "a: b: c\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_tab_indent",
+   "input": "a:\n\tb: 1\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_undefined_alias",
+   "input": "a: *nope\n",
+   "error": "ComposerError"
+  },
+  {
+   "name": "err_duplicate_anchor",
+   "input": "a: &x 1\nb: &x 2\n",
+   "error": "ComposerError"
+  },
+  {
+   "name": "err_unhashable_seq_key",
+   "input": "? [a, b]\n: c\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_unhashable_map_key",
+   "input": "? {a: 1}\n: c\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_value_tag",
+   "input": "a: =\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_merge_value",
+   "input": "a: <<\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_bad_merge",
+   "input": "<<: 5\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_bad_merge_list",
+   "input": "<<: [5]\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_unknown_tag",
+   "input": "a: !custom x\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_python_tag",
+   "input": "a: !!python/object:os.system x\n",
+   "error": "ConstructorError"
+  },
+  {
+   "name": "err_invalid_date",
+   "input": "a: 2026-02-30\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_invalid_time",
+   "input": "a: 2026-01-02 25:00:00\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_invalid_tz",
+   "input": "a: 2026-01-02 10:00:00 +24\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_anchor_name",
+   "input": "a: &a.b x\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_bad_binary_int",
+   "input": "a: 0b_\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_bad_hex_int",
+   "input": "a: 0x_\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_control_char",
+   "input": "a: \u0001\n",
+   "error": "ReaderError"
+  },
+  {
+   "name": "err_bad_escape",
+   "input": "a: \"\\q\"\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_percent_start",
+   "input": "a: %x\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_at_start",
+   "input": "a: @x\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_backtick_start",
+   "input": "a: `x\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_yaml20",
+   "input": "%YAML 2.0\n---\na: 1\n",
+   "error": "ParserError"
+  },
+  {
+   "name": "err_multiline_simple_key",
+   "input": "\"a\nb\": 1\n",
+   "error": "ScannerError"
+  },
+  {
+   "name": "err_tagged_int_garbage",
+   "input": "a: !!int abc\n",
+   "error": "ValueError"
+  },
+  {
+   "name": "err_tagged_bool_garbage",
+   "input": "a: !!bool maybe\n",
+   "error": "KeyError"
+  }
+ ]
+}

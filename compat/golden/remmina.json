@@ -1,0 +1,9836 @@
+{
+ "cases": [
+  {
+   "name": "main",
+   "files": {
+    "rdp.remmina": "[remmina]\nname=Example VM\nprotocol=RDP\nserver=10.0.0.85\nusername=testadmin\npassword=c2VjcmV0LWNpcGhlcg==\ndomain=CORP\nsound=local\nsharefolder=/srv/share\ndisableclipboard=1\nmultimon=0\ngateway_server=gw.example.com\ngateway_username=gwuser\ngroup=Lab/Windows\nssh_tunnel_enabled=0\n",
+    "ssh.remmina": "[remmina]\nname=web\nprotocol=SSH\nserver=192.0.2.3:2222\nusername=demo\npassword=Zm9v\nssh_privatekey=@TMP@/id_ed25519\nssh_compression=1\nssh_forward_x11=1\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n",
+    "vnc.remmina": "[remmina]\nname=Lab VNC\nprotocol=VNC\nserver=10.0.0.239:1\npassword=YmFy\n",
+    "vnc2.remmina": "[remmina]\nname=Raw VNC\nprotocol=VNC\nserver=10.0.0.240:5999\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n",
+    "sftp.remmina": "[remmina]\nname=files\nprotocol=SFTP\nserver=nas.lan\nusername=me\nssh_privatekey=/nope/missing_key\n",
+    "spice.remmina": "[remmina]\nname=vm\nprotocol=SPICE\nserver=h\n",
+    "broken.remmina": "no section here\n"
+   },
+   "touch": [
+    "id_ed25519"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Example VM"
+         ],
+         [
+          "host",
+          "10.0.0.85"
+         ],
+         [
+          "group",
+          "Lab/Windows"
+         ],
+         [
+          "user",
+          "testadmin"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "domain",
+          "CORP"
+         ],
+         [
+          "gateway",
+          "gw.example.com"
+         ],
+         [
+          "gateway_user",
+          "gwuser"
+         ],
+         [
+          "shared_folders",
+          [
+           "/srv/share"
+          ]
+         ],
+         [
+          "sound",
+          true
+         ],
+         [
+          "clipboard",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "files"
+         ],
+         [
+          "host",
+          "nas.lan"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "me"
+         ],
+         [
+          "files_only",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "web"
+         ],
+         [
+          "host",
+          "192.0.2.3"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "demo"
+         ],
+         [
+          "port",
+          {
+           "$int": "2222"
+          }
+         ],
+         [
+          "identity_file",
+          "@TMP@/id_ed25519"
+         ],
+         [
+          "compression",
+          true
+         ],
+         [
+          "x11_forwarding",
+          true
+         ],
+         [
+          "proxy_jump",
+          "jump@bastion.example.com"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Lab VNC"
+         ],
+         [
+          "host",
+          "10.0.0.239"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5901"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Raw VNC"
+         ],
+         [
+          "host",
+          "10.0.0.240"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5999"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SPICE",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      [
+       "“Raw VNC”: goes through an SSH tunnel via bastion.example.com — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/broken.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "main_with_gateway",
+   "files": {
+    "rdp.remmina": "[remmina]\nname=Example VM\nprotocol=RDP\nserver=10.0.0.85\nusername=testadmin\npassword=c2VjcmV0LWNpcGhlcg==\ndomain=CORP\nsound=local\nsharefolder=/srv/share\ndisableclipboard=1\nmultimon=0\ngateway_server=gw.example.com\ngateway_username=gwuser\ngroup=Lab/Windows\nssh_tunnel_enabled=0\n",
+    "ssh.remmina": "[remmina]\nname=web\nprotocol=SSH\nserver=192.0.2.3:2222\nusername=demo\npassword=Zm9v\nssh_privatekey=@TMP@/id_ed25519\nssh_compression=1\nssh_forward_x11=1\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n",
+    "vnc.remmina": "[remmina]\nname=Lab VNC\nprotocol=VNC\nserver=10.0.0.239:1\npassword=YmFy\n",
+    "vnc2.remmina": "[remmina]\nname=Raw VNC\nprotocol=VNC\nserver=10.0.0.240:5999\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n",
+    "sftp.remmina": "[remmina]\nname=files\nprotocol=SFTP\nserver=nas.lan\nusername=me\nssh_privatekey=/nope/missing_key\n",
+    "spice.remmina": "[remmina]\nname=vm\nprotocol=SPICE\nserver=h\n",
+    "broken.remmina": "no section here\n"
+   },
+   "touch": [
+    "id_ed25519"
+   ],
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Example VM"
+         ],
+         [
+          "host",
+          "10.0.0.85"
+         ],
+         [
+          "group",
+          "Lab/Windows"
+         ],
+         [
+          "user",
+          "testadmin"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "domain",
+          "CORP"
+         ],
+         [
+          "gateway",
+          "gw.example.com"
+         ],
+         [
+          "gateway_user",
+          "gwuser"
+         ],
+         [
+          "shared_folders",
+          [
+           "/srv/share"
+          ]
+         ],
+         [
+          "sound",
+          true
+         ],
+         [
+          "clipboard",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "files"
+         ],
+         [
+          "host",
+          "nas.lan"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "me"
+         ],
+         [
+          "files_only",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "web"
+         ],
+         [
+          "host",
+          "192.0.2.3"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "demo"
+         ],
+         [
+          "port",
+          {
+           "$int": "2222"
+          }
+         ],
+         [
+          "identity_file",
+          "@TMP@/id_ed25519"
+         ],
+         [
+          "compression",
+          true
+         ],
+         [
+          "x11_forwarding",
+          true
+         ],
+         [
+          "proxy_jump",
+          "jump@bastion.example.com"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Lab VNC"
+         ],
+         [
+          "host",
+          "10.0.0.239"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5901"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Raw VNC"
+         ],
+         [
+          "host",
+          "10.0.0.240"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5999"
+          }
+         ],
+         [
+          "ssh_gateway",
+          "bastion"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SPICE",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/broken.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:22\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5922"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h:0\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:0\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:0\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5900"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h:abc\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:abc\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:abc\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h: 22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h: 22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h: 22\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=a:b:c\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "a:b:c"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=a:b:c\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "a:b:c"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=a:b:c\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "a:b:c"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[::1]\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[::1]\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[::1]\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_7",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[::1]:2200\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "port",
+          {
+           "$int": "2200"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_7",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[::1]:2200\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "port",
+          {
+           "$int": "2200"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_7",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[::1]:2200\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "2200"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_8",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[::1]:x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_8",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[::1]:x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_8",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[::1]:x\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_9",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[::1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_9",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[::1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_9",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[::1\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_10",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[::1]x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_10",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[::1]x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_10",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[::1]x\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "::1"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_11",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver= host \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "host"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_11",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver= host \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "host"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_11",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver= host \nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "host"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_12",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h:\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_12",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_12",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_13",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_13",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_13",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=:22\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_14",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=[]:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_14",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=[]:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_14",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=[]:22\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_ssh_15",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h:+22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_rdp_15",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:+22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "server_vnc_15",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:+22\nusername=u\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:0\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5900"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5901"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_99",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:99\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5999"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_100",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:100\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "100"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_5900",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:5900\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5900"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_05",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:05\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "5905"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "vnc_display_65536",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h:65536\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "port",
+          {
+           "$int": "65536"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "label_from_host",
+   "files": {
+    "a.remmina": "[remmina]\nprotocol=SSH\nserver=srv:2022\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "srv"
+         ],
+         [
+          "host",
+          "srv"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "port",
+          {
+           "$int": "2022"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "label_blank_name",
+   "files": {
+    "a.remmina": "[remmina]\nname=   \nprotocol=SSH\nserver=srv\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "srv"
+         ],
+         [
+          "host",
+          "srv"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "no_server",
+   "files": {
+    "a.remmina": "[remmina]\nname=Lost\nprotocol=SSH\n",
+    "b.remmina": "[remmina]\nprotocol=RDP\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“Lost”: no server — skipped.",
+       "“”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "no_server_blank",
+   "files": {
+    "a.remmina": "[remmina]\nname=Lost\nprotocol=SSH\nserver=  \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“Lost”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=A\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "A"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=A/B\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "A/B"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=/A//B/\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "A/B"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup= A / B \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "A/B"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=///\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=A/ /B\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "A/B"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "group_7",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\ngroup=ą/ć\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "ą/ć"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "user_trim",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nusername=  me  \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "me"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "user_empty",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nusername= \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'ssh'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=ssh\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'Ssh'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=Ssh\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_' SSH '",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol= SSH \nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'sftp'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=sftp\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "files_only",
+          true
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'RDP'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'rdp'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=rdp\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'VNC'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'vnc'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=vnc\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'SPICE'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SPICE\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SPICE",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'spice'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=spice\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SPICE",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'X2Go'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=X2Go\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "X2GO",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'WWW'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=WWW\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "WWW",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'EXEC'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=EXEC\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "EXEC",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'NX'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=NX\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "NX",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_''",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "unknown",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'  '",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=  \nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "unknown",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'ß'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=ß\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SS",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_'ssh2'",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=ssh2\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SSH2",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "protocol_missing",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "unknown",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "skipped_counts",
+   "files": {
+    "a.remmina": "[remmina]\nname=1\nprotocol=SPICE\nserver=h\n",
+    "b.remmina": "[remmina]\nname=2\nprotocol=X2GO\nserver=h\n",
+    "c.remmina": "[remmina]\nname=3\nprotocol=SPICE\nserver=h\n",
+    "d.remmina": "[remmina]\nname=4\nprotocol=spice\nserver=h\n",
+    "e.remmina": "[remmina]\nname=5\nprotocol=\nserver=h\n",
+    "f.remmina": "[remmina]\nname=6\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "6"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "SPICE",
+         {
+          "$int": "3"
+         }
+        ],
+        [
+         "X2GO",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "unknown",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=1\nssh_forward_x11=1\nssh_stricthostkeycheck=1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "compression",
+          true
+         ],
+         [
+          "x11_forwarding",
+          true
+         ],
+         [
+          "strict_host_key_checking",
+          "yes"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=0\nssh_forward_x11=0\nssh_stricthostkeycheck=0\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=2\nssh_forward_x11=2\nssh_stricthostkeycheck=2\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression= 1 \nssh_forward_x11= 1 \nssh_stricthostkeycheck= 1 \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "compression",
+          true
+         ],
+         [
+          "x11_forwarding",
+          true
+         ],
+         [
+          "strict_host_key_checking",
+          "yes"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=\nssh_forward_x11=\nssh_stricthostkeycheck=\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=true\nssh_forward_x11=true\nssh_stricthostkeycheck=true\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_flags_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_compression=01\nssh_forward_x11=01\nssh_stricthostkeycheck=01\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_exists",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=@TMP@/k/id\n"
+   },
+   "touch": [
+    "k/id"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "identity_file",
+          "@TMP@/k/id"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_home",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=~/.ssh/id\n"
+   },
+   "touch": [
+    "home/.ssh/id"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "identity_file",
+          "@TMP@/home/.ssh/id"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_home_only",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=~\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_dir",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=@TMP@/k\n"
+   },
+   "touch": [
+    "k/id"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_relative_missing",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=id\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ssh_key_blank",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_privatekey=  \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "sftp_full",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SFTP\nserver=h:2200\nusername=u\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "2200"
+          }
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "proxy_jump",
+          "jump@bastion.example.com"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b:2200\nssh_tunnel_username=j\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "proxy_jump",
+          "j@b:2200"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b:2200\nssh_tunnel_username=j\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via b:2200 — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_0",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b:2200\nssh_tunnel_username=j\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via b:2200 — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "proxy_jump",
+          "b"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via b — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_1",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=b\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "ssh_gateway",
+          "b-only"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server= \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server= \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_2",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server= \n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled=1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_3",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled=0\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=0\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_4",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=0\nssh_tunnel_server=b\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_server=b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_5",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_server=b\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_ssh_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=SSH\nserver=h\nssh_tunnel_enabled= 1 \nssh_tunnel_server= b \nssh_tunnel_username= j \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "proxy_jump",
+          "j@b"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled= 1 \nssh_tunnel_server= b \nssh_tunnel_username= j \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via b — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "tunnel_rdp_gw_6",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled= 1 \nssh_tunnel_server= b \nssh_tunnel_username= j \n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b-only"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via b — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "rdp_all",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h:3390\nusername=u\ndomain= D \ngateway_server=g\ngateway_username=gu\ngateway_domain=gd\nsharefolder= /s \nsound=local\nmultimon=1\ndisableclipboard=1\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "port",
+          {
+           "$int": "3390"
+          }
+         ],
+         [
+          "domain",
+          "D"
+         ],
+         [
+          "gateway",
+          "g"
+         ],
+         [
+          "gateway_user",
+          "gu"
+         ],
+         [
+          "gateway_domain",
+          "gd"
+         ],
+         [
+          "shared_folders",
+          [
+           "/s"
+          ]
+         ],
+         [
+          "sound",
+          true
+         ],
+         [
+          "multimon",
+          true
+         ],
+         [
+          "clipboard",
+          false
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "rdp_sound_other",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nsound=remote\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "rdp_sound_spaced",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nsound= local \n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "sound",
+          true
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "rdp_blank_fields",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\ndomain= \nsharefolder= \ngateway_server=\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "rdp_clipboard_zero",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\ndisableclipboard=0\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "gateway_skips_bad",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n"
+   },
+   "existing": [
+    "not a dict",
+    null,
+    {
+     "$int": "5"
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "rdp-bastion"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "wrong-user"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "other"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "ok-upper"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via bastion.example.com — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "gateway_no_label",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=RDP\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“n”: goes through an SSH tunnel via bastion.example.com — add that host as an SSH entry and pick it as the SSH gateway."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "gateway_empty_protocol",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "x"
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "ssh_gateway",
+          "x"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "gateway_any_user",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       "x"
+      ],
+      [
+       "host",
+       " bastion.example.com "
+      ],
+      [
+       "user",
+       "whoever"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "ssh_gateway",
+          "x"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "gateway_numeric_label",
+   "files": {
+    "a.remmina": "[remmina]\nname=n\nprotocol=VNC\nserver=h\nssh_tunnel_enabled=1\nssh_tunnel_server=bastion.example.com\nssh_tunnel_username=jump\n"
+   },
+   "existing": [
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ],
+      [
+       "host",
+       "bastion.example.com"
+      ],
+      [
+       "user",
+       "jump"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "n"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "ssh_gateway",
+          "7"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_colon",
+   "files": {
+    "a.remmina": "[remmina]\nname: Colon\nprotocol : SSH\nserver :  h:22\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Colon"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_comments",
+   "files": {
+    "a.remmina": "# top\n; semi\n[remmina]\n# c\nname=A\n;protocol=RDP\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_inline_comment_kept",
+   "files": {
+    "a.remmina": "[remmina]\nname=A # not a comment\nprotocol=SSH\nserver=h ; x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A # not a comment"
+         ],
+         [
+          "host",
+          "h ; x"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_continuation",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n  B\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\nB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_continuation_blank",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n\n  B\n\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\n\nB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_continuation_tab",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n\tB\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\nB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_indented_first",
+   "files": {
+    "a.remmina": "[remmina]\n  name=A\n  protocol=SSH\n  server=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_indented_header",
+   "files": {
+    "a.remmina": "  [remmina]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_indented_header_after_value",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n  [other]\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\n[other]"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_trailing_comment_line_kept_blank",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n# c\n  B\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\nB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_upper_keys",
+   "files": {
+    "a.remmina": "[remmina]\nNAME=Up\nProtocol=SSH\nSERVER=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Up"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_dup_keys",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nname=B\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_dup_sections",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n[remmina]\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_dup_sections_via_other",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n[x]\nname=Z\n[remmina]\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_other_section_after",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=h\n[other]\nname=Z\nserver=zzz\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_other_section_before",
+   "files": {
+    "a.remmina": "[other]\nname=Z\n[remmina]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_only_other",
+   "files": {
+    "a.remmina": "[other]\nname=Z\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_default_inherit",
+   "files": {
+    "a.remmina": "[DEFAULT]\nusername=dflt\nprotocol=SSH\n[remmina]\nname=A\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "user",
+          "dflt"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_default_after",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nserver=h\n[DEFAULT]\nprotocol=RDP\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_default_override",
+   "files": {
+    "a.remmina": "[DEFAULT]\nname=D\n[remmina]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_default_only",
+   "files": {
+    "a.remmina": "[DEFAULT]\nname=D\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_default_lower",
+   "files": {
+    "a.remmina": "[default]\nname=D\n[remmina]\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "h"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_upper",
+   "files": {
+    "a.remmina": "[Remmina]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_spaced",
+   "files": {
+    "a.remmina": "[ remmina ]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_trailing_junk",
+   "files": {
+    "a.remmina": "[remmina]junk\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_double_bracket",
+   "files": {
+    "a.remmina": "[remmina]]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_empty",
+   "files": {
+    "a.remmina": "[]\nname=A\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_section_unclosed",
+   "files": {
+    "a.remmina": "[remmina\nname=A\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_no_delimiter",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_empty_option",
+   "files": {
+    "a.remmina": "[remmina]\n=x\nname=A\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_space_option",
+   "files": {
+    "a.remmina": "[remmina]\n   =x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_option_with_spaces",
+   "files": {
+    "a.remmina": "[remmina]\nmy key = v\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_before_section",
+   "files": {
+    "a.remmina": "name=A\n[remmina]\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_bom",
+   "files": {
+    "a.remmina": "﻿[remmina]\nname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_crlf",
+   "files": {
+    "a.remmina": "[remmina]\r\nname=A\r\nprotocol=SSH\r\nserver=h\r\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_cr_only",
+   "files": {
+    "a.remmina": "[remmina]\rname=A\rprotocol=SSH\rserver=h\r"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_no_final_newline",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=h"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_equals_in_value",
+   "files": {
+    "a.remmina": "[remmina]\nname=a=b:c\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a=b:c"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_empty_value",
+   "files": {
+    "a.remmina": "[remmina]\nname=\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "h"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_empty_file",
+   "files": {
+    "a.remmina": ""
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_only_header",
+   "files": {
+    "a.remmina": "[remmina]\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      [
+       "“”: no server — skipped."
+      ]
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_only_comments",
+   "files": {
+    "a.remmina": "# a\n; b\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_form_feed_lines",
+   "files": {
+    "a.remmina": "[remmina]\fname=A\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "h"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_vt_in_value",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\u000bB\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\u000bB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_unicode_space_strip",
+   "files": {
+    "a.remmina": "[remmina]\nname= A \nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_sep_chars_strip",
+   "files": {
+    "a.remmina": "[remmina]\nname=\u001cA\u001f\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_unicode_ws_indent",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\n　B\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A\nB"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_percent_not_interpolated",
+   "files": {
+    "a.remmina": "[remmina]\nname=100%\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "100%"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_dollar_not_interpolated",
+   "files": {
+    "a.remmina": "[remmina]\nname=%(server)s ${x}\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "%(server)s ${x}"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_polish",
+   "files": {
+    "a.remmina": "[remmina]\nname=Zażółć gęślą\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Zażółć gęślą"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_invalid_utf8",
+   "files": {
+    "a.remmina": {
+     "$bytes": "5b72656d6d696e615d0a6e616d653d626164fffe0a70726f746f636f6c3d5353480a7365727665723d680a"
+    }
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "bad��"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_latin1",
+   "files": {
+    "a.remmina": {
+     "$bytes": "5b72656d6d696e615d0a6e616d653d636166e90a70726f746f636f6c3d5353480a7365727665723d680a"
+    }
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "caf�"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "ini_utf16_unreadable",
+   "files": {
+    "a.remmina": {
+     "$bytes": "fffe5b00720065006d006d0069006e0061005d000a00"
+    }
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/a.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "order_by_name",
+   "files": {
+    "b.remmina": "[remmina]\nname=B\nprotocol=SSH\nserver=b\n",
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=a\n",
+    "B.remmina": "[remmina]\nname=UpperB\nprotocol=SSH\nserver=ub\n",
+    "10.remmina": "[remmina]\nname=Ten\nprotocol=SSH\nserver=t\n",
+    "9.remmina": "[remmina]\nname=Nine\nprotocol=SSH\nserver=n\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Ten"
+         ],
+         [
+          "host",
+          "t"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Nine"
+         ],
+         [
+          "host",
+          "n"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "UpperB"
+         ],
+         [
+          "host",
+          "ub"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "only_remmina_ext",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=a\n",
+    "a.remmina.bak": "[remmina]\nname=Bak\nprotocol=SSH\nserver=x\n",
+    "a.REMMINA": "[remmina]\nname=Up\nprotocol=SSH\nserver=x\n",
+    "a.txt": "[remmina]\nname=Txt\nprotocol=SSH\nserver=x\n",
+    "remmina": "[remmina]\nname=Bare\nprotocol=SSH\nserver=x\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "hidden_remmina",
+   "files": {
+    ".remmina": "[remmina]\nname=Dot\nprotocol=SSH\nserver=d\n",
+    ".hidden.remmina": "[remmina]\nname=Hidden\nprotocol=SSH\nserver=h\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Hidden"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Dot"
+         ],
+         [
+          "host",
+          "d"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "dir_named_remmina",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=a\n"
+   },
+   "dirs": [
+    "d.remmina"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/d.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "empty_dir",
+   "files": {},
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "explicit_files",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=a\n",
+    "z.txt": "[remmina]\nname=Z\nprotocol=RDP\nserver=z\n"
+   },
+   "paths": [
+    "p/z.txt",
+    "p/a.remmina",
+    "p/missing.remmina"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Z"
+         ],
+         [
+          "host",
+          "z"
+         ],
+         [
+          "group",
+          "Remmina"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/missing.remmina"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "two_dirs",
+   "files": {
+    "a.remmina": "[remmina]\nname=A\nprotocol=SSH\nserver=a\n"
+   },
+   "paths": [
+    "p",
+    "p"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "name": "missing_path",
+   "files": {},
+   "paths": [
+    "nope"
+   ],
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/nope"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "unreadable_and_good",
+   "files": {
+    "bad.remmina": "junk",
+    "good.remmina": "[remmina]\nname=G\nprotocol=SSH\nserver=g\n"
+   },
+   "expect": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "G"
+         ],
+         [
+          "host",
+          "g"
+         ],
+         [
+          "group",
+          "Remmina"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ],
+     [
+      "notes",
+      []
+     ],
+     [
+      "unreadable",
+      [
+       "@TMP@/p/bad.remmina"
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

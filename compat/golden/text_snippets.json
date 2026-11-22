@@ -1,0 +1,5165 @@
+{
+ "cases": [
+  {
+   "name": "questions:basic",
+   "op": "questions",
+   "command": "ssh-keyscan -p {port} {host} # {label} as {user}; journalctl -u {?Service} -n {?Lines} -u {?Service}",
+   "expect": [
+    "Service",
+    "Lines"
+   ]
+  },
+  {
+   "name": "expand:basic",
+   "op": "expand",
+   "command": "ssh-keyscan -p {port} {host} # {label} as {user}; journalctl -u {?Service} -n {?Lines} -u {?Service}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {
+    "Service": "nginx",
+    "Lines": "50"
+   },
+   "expect": "ssh-keyscan -p 22 10.0.0.5 # db as root; journalctl -u nginx -n 50 -u nginx"
+  },
+  {
+   "name": "questions:0",
+   "op": "questions",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "expect": []
+  },
+  {
+   "name": "expand:0:0",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "awk '{print $1}'  {other}"
+  },
+  {
+   "name": "expand:0:1",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "awk '{print $1}' 10.0.0.5 {other}"
+  },
+  {
+   "name": "expand:0:2",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "awk '{print $1}' h {other}"
+  },
+  {
+   "name": "expand:0:3",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "awk '{print $1}' żółć {other}"
+  },
+  {
+   "name": "expand:0:4",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "awk '{print $1}'  {other}"
+  },
+  {
+   "name": "expand:0:5",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "awk '{print $1}'  {other}"
+  },
+  {
+   "name": "expand:0:6",
+   "op": "expand",
+   "command": "awk '{{print $1}}' {host} {other}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "awk '{print $1}'  {other}"
+  },
+  {
+   "name": "questions:1",
+   "op": "questions",
+   "command": "echo [{user}] [{?Q}]",
+   "expect": [
+    "Q"
+   ]
+  },
+  {
+   "name": "expand:1:0",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "echo [] [ans]"
+  },
+  {
+   "name": "expand:1:1",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "echo [root] []"
+  },
+  {
+   "name": "expand:1:2",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "echo [] [ans]"
+  },
+  {
+   "name": "expand:1:3",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "echo [u] []"
+  },
+  {
+   "name": "expand:1:4",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "echo [] [ans]"
+  },
+  {
+   "name": "expand:1:5",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "echo [] []"
+  },
+  {
+   "name": "expand:1:6",
+   "op": "expand",
+   "command": "echo [{user}] [{?Q}]",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "echo [] [ans]"
+  },
+  {
+   "name": "questions:2",
+   "op": "questions",
+   "command": "",
+   "expect": []
+  },
+  {
+   "name": "expand:2:0",
+   "op": "expand",
+   "command": "",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:2:1",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:2:2",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:2:3",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:2:4",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:2:5",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:2:6",
+   "op": "expand",
+   "command": "",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:3",
+   "op": "questions",
+   "command": "{",
+   "expect": []
+  },
+  {
+   "name": "expand:3:0",
+   "op": "expand",
+   "command": "{",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:1",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:2",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:3",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:4",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:5",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:3:6",
+   "op": "expand",
+   "command": "{",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "questions:4",
+   "op": "questions",
+   "command": "}",
+   "expect": []
+  },
+  {
+   "name": "expand:4:0",
+   "op": "expand",
+   "command": "}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:1",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:2",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:3",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:4",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:5",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:4:6",
+   "op": "expand",
+   "command": "}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "questions:5",
+   "op": "questions",
+   "command": "{{",
+   "expect": []
+  },
+  {
+   "name": "expand:5:0",
+   "op": "expand",
+   "command": "{{",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:1",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:2",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:3",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:4",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:5",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{"
+  },
+  {
+   "name": "expand:5:6",
+   "op": "expand",
+   "command": "{{",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{"
+  },
+  {
+   "name": "questions:6",
+   "op": "questions",
+   "command": "}}",
+   "expect": []
+  },
+  {
+   "name": "expand:6:0",
+   "op": "expand",
+   "command": "}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:1",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:2",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:3",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:4",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:5",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:6:6",
+   "op": "expand",
+   "command": "}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "questions:7",
+   "op": "questions",
+   "command": "{{{",
+   "expect": []
+  },
+  {
+   "name": "expand:7:0",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:1",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:2",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:3",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:4",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:5",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{{"
+  },
+  {
+   "name": "expand:7:6",
+   "op": "expand",
+   "command": "{{{",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{"
+  },
+  {
+   "name": "questions:8",
+   "op": "questions",
+   "command": "}}}",
+   "expect": []
+  },
+  {
+   "name": "expand:8:0",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:1",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:2",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:3",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:4",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:5",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}}"
+  },
+  {
+   "name": "expand:8:6",
+   "op": "expand",
+   "command": "}}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}}"
+  },
+  {
+   "name": "questions:9",
+   "op": "questions",
+   "command": "{{{host}}}",
+   "expect": []
+  },
+  {
+   "name": "expand:9:0",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{}"
+  },
+  {
+   "name": "expand:9:1",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{10.0.0.5}"
+  },
+  {
+   "name": "expand:9:2",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{h}"
+  },
+  {
+   "name": "expand:9:3",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{żółć}"
+  },
+  {
+   "name": "expand:9:4",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{}"
+  },
+  {
+   "name": "expand:9:5",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{}"
+  },
+  {
+   "name": "expand:9:6",
+   "op": "expand",
+   "command": "{{{host}}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{}"
+  },
+  {
+   "name": "questions:10",
+   "op": "questions",
+   "command": "{{host}}",
+   "expect": []
+  },
+  {
+   "name": "expand:10:0",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:1",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:2",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:3",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:4",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:5",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{host}"
+  },
+  {
+   "name": "expand:10:6",
+   "op": "expand",
+   "command": "{{host}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host}"
+  },
+  {
+   "name": "questions:11",
+   "op": "questions",
+   "command": "{host",
+   "expect": []
+  },
+  {
+   "name": "expand:11:0",
+   "op": "expand",
+   "command": "{host",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:1",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:2",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:3",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:4",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:5",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{host"
+  },
+  {
+   "name": "expand:11:6",
+   "op": "expand",
+   "command": "{host",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{host"
+  },
+  {
+   "name": "questions:12",
+   "op": "questions",
+   "command": "host}",
+   "expect": []
+  },
+  {
+   "name": "expand:12:0",
+   "op": "expand",
+   "command": "host}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:1",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:2",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:3",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:4",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:5",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "host}"
+  },
+  {
+   "name": "expand:12:6",
+   "op": "expand",
+   "command": "host}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "host}"
+  },
+  {
+   "name": "questions:13",
+   "op": "questions",
+   "command": "{?}",
+   "expect": []
+  },
+  {
+   "name": "expand:13:0",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:1",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:2",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:3",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:4",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:5",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{?}"
+  },
+  {
+   "name": "expand:13:6",
+   "op": "expand",
+   "command": "{?}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?}"
+  },
+  {
+   "name": "questions:14",
+   "op": "questions",
+   "command": "{?x}",
+   "expect": [
+    "x"
+   ]
+  },
+  {
+   "name": "expand:14:0",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "X"
+  },
+  {
+   "name": "expand:14:1",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:14:2",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "X"
+  },
+  {
+   "name": "expand:14:3",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:14:4",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "X"
+  },
+  {
+   "name": "expand:14:5",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:14:6",
+   "op": "expand",
+   "command": "{?x}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "X"
+  },
+  {
+   "name": "questions:15",
+   "op": "questions",
+   "command": "{?a b}",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "expand:15:0",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:15:1",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:15:2",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:15:3",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:15:4",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:15:5",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:15:6",
+   "op": "expand",
+   "command": "{?a b}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:16",
+   "op": "questions",
+   "command": "{?a{b}",
+   "expect": []
+  },
+  {
+   "name": "expand:16:0",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:1",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:2",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:3",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:4",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:5",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "expand:16:6",
+   "op": "expand",
+   "command": "{?a{b}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?a{b}"
+  },
+  {
+   "name": "questions:17",
+   "op": "questions",
+   "command": "{?a}}",
+   "expect": [
+    "a"
+   ]
+  },
+  {
+   "name": "expand:17:0",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "lower}"
+  },
+  {
+   "name": "expand:17:1",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:17:2",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "lower}"
+  },
+  {
+   "name": "expand:17:3",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:17:4",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "lower}"
+  },
+  {
+   "name": "expand:17:5",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:17:6",
+   "op": "expand",
+   "command": "{?a}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "lower}"
+  },
+  {
+   "name": "questions:18",
+   "op": "questions",
+   "command": "{??a}",
+   "expect": [
+    "?a"
+   ]
+  },
+  {
+   "name": "expand:18:0",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:18:1",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:18:2",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:18:3",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:18:4",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:18:5",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:18:6",
+   "op": "expand",
+   "command": "{??a}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:19",
+   "op": "questions",
+   "command": "{? a }",
+   "expect": [
+    " a "
+   ]
+  },
+  {
+   "name": "expand:19:0",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:19:1",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:19:2",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:19:3",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:19:4",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:19:5",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:19:6",
+   "op": "expand",
+   "command": "{? a }",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:20",
+   "op": "questions",
+   "command": "{?ż ó}",
+   "expect": [
+    "ż ó"
+   ]
+  },
+  {
+   "name": "expand:20:0",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:20:1",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:20:2",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:20:3",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:20:4",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:20:5",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:20:6",
+   "op": "expand",
+   "command": "{?ż ó}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:21",
+   "op": "questions",
+   "command": "{host}{host}",
+   "expect": []
+  },
+  {
+   "name": "expand:21:0",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:21:1",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "10.0.0.510.0.0.5"
+  },
+  {
+   "name": "expand:21:2",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "hh"
+  },
+  {
+   "name": "expand:21:3",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "żółćżółć"
+  },
+  {
+   "name": "expand:21:4",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:21:5",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:21:6",
+   "op": "expand",
+   "command": "{host}{host}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:22",
+   "op": "questions",
+   "command": "{HOST}",
+   "expect": []
+  },
+  {
+   "name": "expand:22:0",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:1",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:2",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:3",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:4",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:5",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{HOST}"
+  },
+  {
+   "name": "expand:22:6",
+   "op": "expand",
+   "command": "{HOST}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{HOST}"
+  },
+  {
+   "name": "questions:23",
+   "op": "questions",
+   "command": "{ host }",
+   "expect": []
+  },
+  {
+   "name": "expand:23:0",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:1",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:2",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:3",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:4",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:5",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{ host }"
+  },
+  {
+   "name": "expand:23:6",
+   "op": "expand",
+   "command": "{ host }",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{ host }"
+  },
+  {
+   "name": "questions:24",
+   "op": "questions",
+   "command": "{port}",
+   "expect": []
+  },
+  {
+   "name": "expand:24:0",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "22"
+  },
+  {
+   "name": "expand:24:1",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "22"
+  },
+  {
+   "name": "expand:24:2",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "2222"
+  },
+  {
+   "name": "expand:24:3",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "22"
+  },
+  {
+   "name": "expand:24:4",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "22"
+  },
+  {
+   "name": "expand:24:5",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "22"
+  },
+  {
+   "name": "expand:24:6",
+   "op": "expand",
+   "command": "{port}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "22"
+  },
+  {
+   "name": "questions:25",
+   "op": "questions",
+   "command": "{label}\n{user}",
+   "expect": []
+  },
+  {
+   "name": "expand:25:0",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "\n"
+  },
+  {
+   "name": "expand:25:1",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "db\nroot"
+  },
+  {
+   "name": "expand:25:2",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "\n"
+  },
+  {
+   "name": "expand:25:3",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "L\nu"
+  },
+  {
+   "name": "expand:25:4",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "\n"
+  },
+  {
+   "name": "expand:25:5",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "\n"
+  },
+  {
+   "name": "expand:25:6",
+   "op": "expand",
+   "command": "{label}\n{user}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "\n"
+  },
+  {
+   "name": "questions:26",
+   "op": "questions",
+   "command": "{?A}{?B}{?A}",
+   "expect": [
+    "A",
+    "B"
+   ]
+  },
+  {
+   "name": "expand:26:0",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaaa"
+  },
+  {
+   "name": "expand:26:1",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:26:2",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaaa"
+  },
+  {
+   "name": "expand:26:3",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:26:4",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaaa"
+  },
+  {
+   "name": "expand:26:5",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:26:6",
+   "op": "expand",
+   "command": "{?A}{?B}{?A}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaaa"
+  },
+  {
+   "name": "questions:27",
+   "op": "questions",
+   "command": "{?A}x{?a}",
+   "expect": [
+    "A",
+    "a"
+   ]
+  },
+  {
+   "name": "expand:27:0",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaxlower"
+  },
+  {
+   "name": "expand:27:1",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "x"
+  },
+  {
+   "name": "expand:27:2",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaxlower"
+  },
+  {
+   "name": "expand:27:3",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "x"
+  },
+  {
+   "name": "expand:27:4",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaxlower"
+  },
+  {
+   "name": "expand:27:5",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "x"
+  },
+  {
+   "name": "expand:27:6",
+   "op": "expand",
+   "command": "{?A}x{?a}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "aaxlower"
+  },
+  {
+   "name": "questions:28",
+   "op": "questions",
+   "command": "{?{x}}",
+   "expect": []
+  },
+  {
+   "name": "expand:28:0",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:1",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:2",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:3",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:4",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:5",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{?{x}"
+  },
+  {
+   "name": "expand:28:6",
+   "op": "expand",
+   "command": "{?{x}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?{x}"
+  },
+  {
+   "name": "questions:29",
+   "op": "questions",
+   "command": "a{{b}}c{{d",
+   "expect": []
+  },
+  {
+   "name": "expand:29:0",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:1",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:2",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:3",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:4",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:5",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "expand:29:6",
+   "op": "expand",
+   "command": "a{{b}}c{{d",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "a{b}c{d"
+  },
+  {
+   "name": "questions:30",
+   "op": "questions",
+   "command": "}}{{",
+   "expect": []
+  },
+  {
+   "name": "expand:30:0",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:1",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:2",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:3",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:4",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:5",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}{"
+  },
+  {
+   "name": "expand:30:6",
+   "op": "expand",
+   "command": "}}{{",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}{"
+  },
+  {
+   "name": "questions:31",
+   "op": "questions",
+   "command": "{{{{}}}}",
+   "expect": []
+  },
+  {
+   "name": "expand:31:0",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:1",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:2",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:3",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:4",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:5",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{{}}"
+  },
+  {
+   "name": "expand:31:6",
+   "op": "expand",
+   "command": "{{{{}}}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{{}}"
+  },
+  {
+   "name": "questions:32",
+   "op": "questions",
+   "command": "{?q}}",
+   "expect": [
+    "q"
+   ]
+  },
+  {
+   "name": "expand:32:0",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:1",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:2",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:3",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:4",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:5",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "}"
+  },
+  {
+   "name": "expand:32:6",
+   "op": "expand",
+   "command": "{?q}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "}"
+  },
+  {
+   "name": "questions:33",
+   "op": "questions",
+   "command": "{{?q}}",
+   "expect": []
+  },
+  {
+   "name": "expand:33:0",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:1",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:2",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:3",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:4",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:5",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "{?q}"
+  },
+  {
+   "name": "expand:33:6",
+   "op": "expand",
+   "command": "{{?q}}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "{?q}"
+  },
+  {
+   "name": "questions:34",
+   "op": "questions",
+   "command": "{?zażółć gęślą}",
+   "expect": [
+    "zażółć gęślą"
+   ]
+  },
+  {
+   "name": "expand:34:0",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:34:1",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:34:2",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:34:3",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:34:4",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "expand:34:5",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:34:6",
+   "op": "expand",
+   "command": "{?zażółć gęślą}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ""
+  },
+  {
+   "name": "questions:35",
+   "op": "questions",
+   "command": "{host}:{port}",
+   "expect": []
+  },
+  {
+   "name": "expand:35:0",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ":22"
+  },
+  {
+   "name": "expand:35:1",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "10.0.0.5:22"
+  },
+  {
+   "name": "expand:35:2",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "h:2222"
+  },
+  {
+   "name": "expand:35:3",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "żółć:22"
+  },
+  {
+   "name": "expand:35:4",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ":22"
+  },
+  {
+   "name": "expand:35:5",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ":22"
+  },
+  {
+   "name": "expand:35:6",
+   "op": "expand",
+   "command": "{host}:{port}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": ":22"
+  },
+  {
+   "name": "questions:36",
+   "op": "questions",
+   "command": "$HOME {{}} ${x}",
+   "expect": []
+  },
+  {
+   "name": "expand:36:0",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:1",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:2",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:3",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:4",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:5",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "expand:36:6",
+   "op": "expand",
+   "command": "$HOME {{}} ${x}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "$HOME {} ${x}"
+  },
+  {
+   "name": "questions:37",
+   "op": "questions",
+   "command": "{?Q1}{?Q2}",
+   "expect": [
+    "Q1",
+    "Q2"
+   ]
+  },
+  {
+   "name": "expand:37:0",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {},
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "1"
+  },
+  {
+   "name": "expand:37:1",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "host": "10.0.0.5",
+    "user": "root",
+    "label": "db"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:37:2",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "host": "h",
+    "port": 2222
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "1"
+  },
+  {
+   "name": "expand:37:3",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "host": "żółć",
+    "user": "u",
+    "label": "L",
+    "port": "22"
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:37:4",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "port": 0
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "1"
+  },
+  {
+   "name": "expand:37:5",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "port": ""
+   },
+   "answers": {},
+   "expect": ""
+  },
+  {
+   "name": "expand:37:6",
+   "op": "expand",
+   "command": "{?Q1}{?Q2}",
+   "conn": {
+    "host": 0,
+    "user": null,
+    "label": ""
+   },
+   "answers": {
+    "Q": "ans",
+    "A": "aa",
+    "a": "lower",
+    "Q1": "1",
+    "x": "X"
+   },
+   "expect": "1"
+  },
+  {
+   "name": "expand:conn_none",
+   "op": "expand",
+   "command": "{host}{port}",
+   "conn": null,
+   "answers": null,
+   "expect": "22"
+  },
+  {
+   "name": "to_send:0",
+   "op": "to_send",
+   "command": "uptime",
+   "enter": true,
+   "expect": "uptime\n"
+  },
+  {
+   "name": "to_send:1",
+   "op": "to_send",
+   "command": "cd /srv\nls\n",
+   "enter": true,
+   "expect": "cd /srv\nls\n"
+  },
+  {
+   "name": "to_send:2",
+   "op": "to_send",
+   "command": "sudo systemctl restart ",
+   "enter": false,
+   "expect": "sudo systemctl restart "
+  },
+  {
+   "name": "to_send:3",
+   "op": "to_send",
+   "command": "",
+   "enter": true,
+   "expect": "\n"
+  },
+  {
+   "name": "to_send:4",
+   "op": "to_send",
+   "command": "a\r\nb\r\n\r\n",
+   "enter": true,
+   "expect": "a\nb\n"
+  },
+  {
+   "name": "to_send:5",
+   "op": "to_send",
+   "command": "a\n\n\n",
+   "enter": false,
+   "expect": "a"
+  },
+  {
+   "name": "to_send:6",
+   "op": "to_send",
+   "command": "a\rb",
+   "enter": true,
+   "expect": "a\rb\n"
+  },
+  {
+   "name": "to_send:7",
+   "op": "to_send",
+   "command": "\n",
+   "enter": false,
+   "expect": ""
+  },
+  {
+   "name": "to_send:8",
+   "op": "to_send",
+   "command": "ż\n",
+   "enter": true,
+   "expect": "ż\n"
+  },
+  {
+   "name": "normalize:0",
+   "op": "normalize",
+   "raw": [
+    {
+     "name": "Up",
+     "command": "uptime"
+    },
+    {
+     "command": "  "
+    },
+    "junk",
+    {
+     "command": "df -h\nfree"
+    }
+   ],
+   "expect": [
+    {
+     "name": "Up",
+     "command": "uptime",
+     "enter": true
+    },
+    {
+     "name": "df -h",
+     "command": "df -h\nfree",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:1",
+   "op": "normalize",
+   "raw": null,
+   "expect": []
+  },
+  {
+   "name": "normalize:2",
+   "op": "normalize",
+   "raw": "x",
+   "expect": []
+  },
+  {
+   "name": "normalize:3",
+   "op": "normalize",
+   "raw": {},
+   "expect": []
+  },
+  {
+   "name": "normalize:4",
+   "op": "normalize",
+   "raw": [],
+   "expect": []
+  },
+  {
+   "name": "normalize:5",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": false
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:6",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": 0
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:7",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": ""
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:8",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": "no"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:9",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": null
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:10",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": []
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:11",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": 0.0
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": false
+    }
+   ]
+  },
+  {
+   "name": "normalize:12",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a",
+     "enter": 2
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:13",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": 123
+    }
+   ],
+   "expect": [
+    {
+     "name": "123",
+     "command": "123",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:14",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": 0
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:15",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": true
+    }
+   ],
+   "expect": [
+    {
+     "name": "True",
+     "command": "True",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:16",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": false
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:17",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": 1.5
+    }
+   ],
+   "expect": [
+    {
+     "name": "1.5",
+     "command": "1.5",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:18",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": 1e+20
+    }
+   ],
+   "expect": [
+    {
+     "name": "1e+20",
+     "command": "1e+20",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:19",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": 1e-07
+    }
+   ],
+   "expect": [
+    {
+     "name": "1e-07",
+     "command": "1e-07",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:20",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": null
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:21",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": 5
+    }
+   ],
+   "expect": [
+    {
+     "name": "5",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:22",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": true
+    }
+   ],
+   "expect": [
+    {
+     "name": "True",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:23",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": 2.0
+    }
+   ],
+   "expect": [
+    {
+     "name": "2.0",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:24",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": ""
+    }
+   ],
+   "expect": [
+    {
+     "name": "x",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:25",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": null
+    }
+   ],
+   "expect": [
+    {
+     "name": "x",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:26",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": 0
+    }
+   ],
+   "expect": [
+    {
+     "name": "x",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:27",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "x",
+     "name": "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+    }
+   ],
+   "expect": [
+    {
+     "name": "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+     "command": "x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:28",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "żżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżż"
+    }
+   ],
+   "expect": [
+    {
+     "name": "żżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżż",
+     "command": "żżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżż",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:29",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "\nsecond"
+    }
+   ],
+   "expect": [
+    {
+     "name": "",
+     "command": "\nsecond",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:30",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "   "
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:31",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "\u001c"
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:32",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a\u000bb"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a\u000bb",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:33",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a b"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a b",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:34",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "ab"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "ab",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:35",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a\rb"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a\rb",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:36",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "a\r\nb"
+    }
+   ],
+   "expect": [
+    {
+     "name": "a",
+     "command": "a\r\nb",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:37",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "　x"
+    }
+   ],
+   "expect": [
+    {
+     "name": "　x",
+     "command": "　x",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:38",
+   "op": "normalize",
+   "raw": [
+    {
+     "name": "no command"
+    }
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:39",
+   "op": "normalize",
+   "raw": [
+    [],
+    5,
+    null,
+    "s"
+   ],
+   "expect": []
+  },
+  {
+   "name": "normalize:40",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "ok",
+     "extra": 1
+    }
+   ],
+   "expect": [
+    {
+     "name": "ok",
+     "command": "ok",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "normalize:41",
+   "op": "normalize",
+   "raw": [
+    {
+     "command": "polski zażółć",
+     "name": "żółć"
+    }
+   ],
+   "expect": [
+    {
+     "name": "żółć",
+     "command": "polski zażółć",
+     "enter": true
+    }
+   ]
+  },
+  {
+   "name": "waiting:0",
+   "op": "waiting",
+   "input": "root@10.0.0.5's password: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:1",
+   "op": "waiting",
+   "input": "Enter passphrase for key '/home/me/.ssh/id_ed25519': ",
+   "expect": true
+  },
+  {
+   "name": "waiting:2",
+   "op": "waiting",
+   "input": "Are you sure you want to continue connecting (yes/no/[fingerprint])? ",
+   "expect": true
+  },
+  {
+   "name": "waiting:3",
+   "op": "waiting",
+   "input": "\u001b[1mVerification code:\u001b[0m ",
+   "expect": true
+  },
+  {
+   "name": "waiting:4",
+   "op": "waiting",
+   "input": "Welcome to Ubuntu\r\n\u001b[01;32mroot@db\u001b[00m:~# ",
+   "expect": false
+  },
+  {
+   "name": "waiting:5",
+   "op": "waiting",
+   "input": "Last login: Mon Oct 20 from 10.0.0.1\r\n$ ",
+   "expect": false
+  },
+  {
+   "name": "waiting:6",
+   "op": "waiting",
+   "input": "password changed\r\nme@host:~$ ",
+   "expect": false
+  },
+  {
+   "name": "waiting:7",
+   "op": "waiting",
+   "input": "user@pinboard:~$ ",
+   "expect": false
+  },
+  {
+   "name": "waiting:8",
+   "op": "waiting",
+   "input": "[token@vault ~]# ",
+   "expect": false
+  },
+  {
+   "name": "waiting:9",
+   "op": "waiting",
+   "input": "Enter PIN for 'YubiKey': ",
+   "expect": true
+  },
+  {
+   "name": "waiting:10",
+   "op": "waiting",
+   "input": "",
+   "expect": false
+  },
+  {
+   "name": "waiting:11",
+   "op": "waiting",
+   "input": " ",
+   "expect": false
+  },
+  {
+   "name": "waiting:12",
+   "op": "waiting",
+   "input": "password",
+   "expect": false
+  },
+  {
+   "name": "waiting:13",
+   "op": "waiting",
+   "input": "password:",
+   "expect": true
+  },
+  {
+   "name": "waiting:14",
+   "op": "waiting",
+   "input": "password: x",
+   "expect": false
+  },
+  {
+   "name": "waiting:15",
+   "op": "waiting",
+   "input": "Password:",
+   "expect": true
+  },
+  {
+   "name": "waiting:16",
+   "op": "waiting",
+   "input": "PASSWORD: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:17",
+   "op": "waiting",
+   "input": "Password:\t",
+   "expect": true
+  },
+  {
+   "name": "waiting:18",
+   "op": "waiting",
+   "input": "Password:\r",
+   "expect": false
+  },
+  {
+   "name": "waiting:19",
+   "op": "waiting",
+   "input": "Password:\n",
+   "expect": false
+  },
+  {
+   "name": "waiting:20",
+   "op": "waiting",
+   "input": "Password:\r\n",
+   "expect": false
+  },
+  {
+   "name": "waiting:21",
+   "op": "waiting",
+   "input": "Password: \r\n$ ",
+   "expect": false
+  },
+  {
+   "name": "waiting:22",
+   "op": "waiting",
+   "input": "a\rPassword: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:23",
+   "op": "waiting",
+   "input": "Password:   ",
+   "expect": true
+  },
+  {
+   "name": "waiting:24",
+   "op": "waiting",
+   "input": "Password:\u001b[0m",
+   "expect": true
+  },
+  {
+   "name": "waiting:25",
+   "op": "waiting",
+   "input": "\u001b]0;title\u0007Password: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:26",
+   "op": "waiting",
+   "input": "\u001b]0;title\u001b\\Password: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:27",
+   "op": "waiting",
+   "input": "\u001b[31",
+   "expect": false
+  },
+  {
+   "name": "waiting:28",
+   "op": "waiting",
+   "input": "\u001b[31mPassword:",
+   "expect": true
+  },
+  {
+   "name": "waiting:29",
+   "op": "waiting",
+   "input": "\u001b[?25lPassword:\u001b[?25h ",
+   "expect": true
+  },
+  {
+   "name": "waiting:30",
+   "op": "waiting",
+   "input": "\u001b(BPassword: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:31",
+   "op": "waiting",
+   "input": "OTP: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:32",
+   "op": "waiting",
+   "input": "otp?",
+   "expect": true
+  },
+  {
+   "name": "waiting:33",
+   "op": "waiting",
+   "input": "an otp code:",
+   "expect": true
+  },
+  {
+   "name": "waiting:34",
+   "op": "waiting",
+   "input": "hotpot:",
+   "expect": false
+  },
+  {
+   "name": "waiting:35",
+   "op": "waiting",
+   "input": "your PIN?",
+   "expect": true
+  },
+  {
+   "name": "waiting:36",
+   "op": "waiting",
+   "input": "spin:",
+   "expect": false
+  },
+  {
+   "name": "waiting:37",
+   "op": "waiting",
+   "input": "pin code is: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:38",
+   "op": "waiting",
+   "input": "token: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:39",
+   "op": "waiting",
+   "input": "mytoken:",
+   "expect": false
+  },
+  {
+   "name": "waiting:40",
+   "op": "waiting",
+   "input": "one-time code: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:41",
+   "op": "waiting",
+   "input": "Passcode or option (1-3): ",
+   "expect": true
+  },
+  {
+   "name": "waiting:42",
+   "op": "waiting",
+   "input": "(yes/no):",
+   "expect": true
+  },
+  {
+   "name": "waiting:43",
+   "op": "waiting",
+   "input": "(yes/no)?",
+   "expect": true
+  },
+  {
+   "name": "waiting:44",
+   "op": "waiting",
+   "input": "(yes/no/[fingerprint]) ",
+   "expect": false
+  },
+  {
+   "name": "waiting:45",
+   "op": "waiting",
+   "input": "continue connecting",
+   "expect": false
+  },
+  {
+   "name": "waiting:46",
+   "op": "waiting",
+   "input": "continue connecting? ",
+   "expect": true
+  },
+  {
+   "name": "waiting:47",
+   "op": "waiting",
+   "input": "Hasło: ",
+   "expect": false
+  },
+  {
+   "name": "waiting:48",
+   "op": "waiting",
+   "input": "Podaj password: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:49",
+   "op": "waiting",
+   "input": "zażółć password: ż",
+   "expect": false
+  },
+  {
+   "name": "waiting:50",
+   "op": "waiting",
+   "input": "password  : ",
+   "expect": true
+  },
+  {
+   "name": "waiting:51",
+   "op": "waiting",
+   "input": "password: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:52",
+   "op": "waiting",
+   "input": "password:\u001f",
+   "expect": true
+  },
+  {
+   "name": "waiting:53",
+   "op": "waiting",
+   "input": "password:\u001c ",
+   "expect": true
+  },
+  {
+   "name": "waiting:54",
+   "op": "waiting",
+   "input": "password: \u001b[0m  ",
+   "expect": true
+  },
+  {
+   "name": "waiting:55",
+   "op": "waiting",
+   "input": "x\npassword:",
+   "expect": true
+  },
+  {
+   "name": "waiting:56",
+   "op": "waiting",
+   "input": "password:\nx",
+   "expect": false
+  },
+  {
+   "name": "waiting:57",
+   "op": "waiting",
+   "input": "password:\n\n",
+   "expect": false
+  },
+  {
+   "name": "waiting:58",
+   "op": "waiting",
+   "input": "line1\rpassword: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:59",
+   "op": "waiting",
+   "input": "line1\r\npassword: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:60",
+   "op": "waiting",
+   "input": "\u001b7Password: \u001b8",
+   "expect": true
+  },
+  {
+   "name": "waiting:61",
+   "op": "waiting",
+   "input": "\u001b[2K\u001b[1GPassword: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:62",
+   "op": "waiting",
+   "input": "Password\u001b[0m: ",
+   "expect": true
+  },
+  {
+   "name": "waiting:63",
+   "op": "waiting",
+   "input": "Pass\u001bword: ",
+   "expect": false
+  },
+  {
+   "name": "waiting:64",
+   "op": "waiting",
+   "input": "\u001bPassword: ",
+   "expect": false
+  }
+ ]
+}

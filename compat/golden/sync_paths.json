@@ -1,0 +1,2542 @@
+{
+ "cases": [
+  {
+   "name": "safe_rel:0",
+   "fn": "safe_rel",
+   "args": [
+    "../x"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:1",
+   "fn": "safe_rel",
+   "args": [
+    "a/../../x"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:2",
+   "fn": "safe_rel",
+   "args": [
+    "/etc/passwd"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:3",
+   "fn": "safe_rel",
+   "args": [
+    "a//b"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:4",
+   "fn": "safe_rel",
+   "args": [
+    "./a"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:5",
+   "fn": "safe_rel",
+   "args": [
+    ""
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:6",
+   "fn": "safe_rel",
+   "args": [
+    ".."
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:7",
+   "fn": "safe_rel",
+   "args": [
+    "a/."
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:8",
+   "fn": "safe_rel",
+   "args": [
+    "."
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:9",
+   "fn": "safe_rel",
+   "args": [
+    "/"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:10",
+   "fn": "safe_rel",
+   "args": [
+    "a/"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:11",
+   "fn": "safe_rel",
+   "args": [
+    "//a"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:12",
+   "fn": "safe_rel",
+   "args": [
+    "a/./b"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:13",
+   "fn": "safe_rel",
+   "args": [
+    "a/b/.."
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:14",
+   "fn": "safe_rel",
+   "args": [
+    "../"
+   ],
+   "expect": false
+  },
+  {
+   "name": "safe_rel:15",
+   "fn": "safe_rel",
+   "args": [
+    " "
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:16",
+   "fn": "safe_rel",
+   "args": [
+    "a/ /b"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:17",
+   "fn": "safe_rel",
+   "args": [
+    "a/b c/d.txt"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:18",
+   "fn": "safe_rel",
+   "args": [
+    "..hidden"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:19",
+   "fn": "safe_rel",
+   "args": [
+    "a..b"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:20",
+   "fn": "safe_rel",
+   "args": [
+    "a"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:21",
+   "fn": "safe_rel",
+   "args": [
+    "a/b/c"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:22",
+   "fn": "safe_rel",
+   "args": [
+    "é/ü"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:23",
+   "fn": "safe_rel",
+   "args": [
+    "..."
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:24",
+   "fn": "safe_rel",
+   "args": [
+    ".a"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:25",
+   "fn": "safe_rel",
+   "args": [
+    "a/.b"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:26",
+   "fn": "safe_rel",
+   "args": [
+    "-rf"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:27",
+   "fn": "safe_rel",
+   "args": [
+    "a\nb"
+   ],
+   "expect": true
+  },
+  {
+   "name": "safe_rel:non_utf8",
+   "fn": "safe_rel",
+   "args": [
+    {
+     "$bytes": "612fff"
+    }
+   ],
+   "expect": true
+  },
+  {
+   "name": "local_target:0:0",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:1",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:2",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:3",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:4",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:5",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:6",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:7",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:8",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:9",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:10",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:11",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:12",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:13",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:14",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:15",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    " "
+   ],
+   "expect": "/home/u/sync/ "
+  },
+  {
+   "name": "local_target:0:16",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/ /b"
+   ],
+   "expect": "/home/u/sync/a/ /b"
+  },
+  {
+   "name": "local_target:0:17",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/b c/d.txt"
+   ],
+   "expect": "/home/u/sync/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:0:18",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "..hidden"
+   ],
+   "expect": "/home/u/sync/..hidden"
+  },
+  {
+   "name": "local_target:0:19",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a..b"
+   ],
+   "expect": "/home/u/sync/a..b"
+  },
+  {
+   "name": "local_target:0:20",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a"
+   ],
+   "expect": "/home/u/sync/a"
+  },
+  {
+   "name": "local_target:0:21",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/b/c"
+   ],
+   "expect": "/home/u/sync/a/b/c"
+  },
+  {
+   "name": "local_target:0:22",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "é/ü"
+   ],
+   "expect": "/home/u/sync/é/ü"
+  },
+  {
+   "name": "local_target:0:23",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "..."
+   ],
+   "expect": "/home/u/sync/..."
+  },
+  {
+   "name": "local_target:0:24",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    ".a"
+   ],
+   "expect": "/home/u/sync/.a"
+  },
+  {
+   "name": "local_target:0:25",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/.b"
+   ],
+   "expect": "/home/u/sync/a/.b"
+  },
+  {
+   "name": "local_target:0:26",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "-rf"
+   ],
+   "expect": "/home/u/sync/-rf"
+  },
+  {
+   "name": "local_target:0:27",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a\nb"
+   ],
+   "expect": "/home/u/sync/a\nb"
+  },
+  {
+   "name": "local_target:0:28",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "sub/f"
+   ],
+   "expect": "/home/u/sync/sub/f"
+  },
+  {
+   "name": "local_target:0:29",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:30",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:0:31",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync",
+    "a/b/c/d/e"
+   ],
+   "expect": "/home/u/sync/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:1:0",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:1",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:2",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:3",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:4",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:5",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:6",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:7",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:8",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:9",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:10",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:11",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:12",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:13",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:14",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:15",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    " "
+   ],
+   "expect": "/home/u/sync/ "
+  },
+  {
+   "name": "local_target:1:16",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/ /b"
+   ],
+   "expect": "/home/u/sync/a/ /b"
+  },
+  {
+   "name": "local_target:1:17",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/b c/d.txt"
+   ],
+   "expect": "/home/u/sync/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:1:18",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "..hidden"
+   ],
+   "expect": "/home/u/sync/..hidden"
+  },
+  {
+   "name": "local_target:1:19",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a..b"
+   ],
+   "expect": "/home/u/sync/a..b"
+  },
+  {
+   "name": "local_target:1:20",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a"
+   ],
+   "expect": "/home/u/sync/a"
+  },
+  {
+   "name": "local_target:1:21",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/b/c"
+   ],
+   "expect": "/home/u/sync/a/b/c"
+  },
+  {
+   "name": "local_target:1:22",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "é/ü"
+   ],
+   "expect": "/home/u/sync/é/ü"
+  },
+  {
+   "name": "local_target:1:23",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "..."
+   ],
+   "expect": "/home/u/sync/..."
+  },
+  {
+   "name": "local_target:1:24",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    ".a"
+   ],
+   "expect": "/home/u/sync/.a"
+  },
+  {
+   "name": "local_target:1:25",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/.b"
+   ],
+   "expect": "/home/u/sync/a/.b"
+  },
+  {
+   "name": "local_target:1:26",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "-rf"
+   ],
+   "expect": "/home/u/sync/-rf"
+  },
+  {
+   "name": "local_target:1:27",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a\nb"
+   ],
+   "expect": "/home/u/sync/a\nb"
+  },
+  {
+   "name": "local_target:1:28",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "sub/f"
+   ],
+   "expect": "/home/u/sync/sub/f"
+  },
+  {
+   "name": "local_target:1:29",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:30",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:1:31",
+   "fn": "local_target",
+   "args": [
+    "/home/u/sync/",
+    "a/b/c/d/e"
+   ],
+   "expect": "/home/u/sync/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:2:0",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:1",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:2",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:3",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:4",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:5",
+   "fn": "local_target",
+   "args": [
+    "/",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:6",
+   "fn": "local_target",
+   "args": [
+    "/",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:7",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:8",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:9",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:10",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:11",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:12",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:13",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:14",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:15",
+   "fn": "local_target",
+   "args": [
+    "/",
+    " "
+   ],
+   "expect": "/ "
+  },
+  {
+   "name": "local_target:2:16",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/ /b"
+   ],
+   "expect": "/a/ /b"
+  },
+  {
+   "name": "local_target:2:17",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/b c/d.txt"
+   ],
+   "expect": "/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:2:18",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "..hidden"
+   ],
+   "expect": "/..hidden"
+  },
+  {
+   "name": "local_target:2:19",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a..b"
+   ],
+   "expect": "/a..b"
+  },
+  {
+   "name": "local_target:2:20",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a"
+   ],
+   "expect": "/a"
+  },
+  {
+   "name": "local_target:2:21",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/b/c"
+   ],
+   "expect": "/a/b/c"
+  },
+  {
+   "name": "local_target:2:22",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "é/ü"
+   ],
+   "expect": "/é/ü"
+  },
+  {
+   "name": "local_target:2:23",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "..."
+   ],
+   "expect": "/..."
+  },
+  {
+   "name": "local_target:2:24",
+   "fn": "local_target",
+   "args": [
+    "/",
+    ".a"
+   ],
+   "expect": "/.a"
+  },
+  {
+   "name": "local_target:2:25",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/.b"
+   ],
+   "expect": "/a/.b"
+  },
+  {
+   "name": "local_target:2:26",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "-rf"
+   ],
+   "expect": "/-rf"
+  },
+  {
+   "name": "local_target:2:27",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a\nb"
+   ],
+   "expect": "/a\nb"
+  },
+  {
+   "name": "local_target:2:28",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "sub/f"
+   ],
+   "expect": "/sub/f"
+  },
+  {
+   "name": "local_target:2:29",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:30",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:2:31",
+   "fn": "local_target",
+   "args": [
+    "/",
+    "a/b/c/d/e"
+   ],
+   "expect": "/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:3:0",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:1",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:2",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:3",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:4",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:5",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:6",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:7",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:8",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:9",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:10",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:11",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:12",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:13",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:14",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:15",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    " "
+   ],
+   "expect": "/a/c/ "
+  },
+  {
+   "name": "local_target:3:16",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/ /b"
+   ],
+   "expect": "/a/c/a/ /b"
+  },
+  {
+   "name": "local_target:3:17",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/b c/d.txt"
+   ],
+   "expect": "/a/c/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:3:18",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "..hidden"
+   ],
+   "expect": "/a/c/..hidden"
+  },
+  {
+   "name": "local_target:3:19",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a..b"
+   ],
+   "expect": "/a/c/a..b"
+  },
+  {
+   "name": "local_target:3:20",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a"
+   ],
+   "expect": "/a/c/a"
+  },
+  {
+   "name": "local_target:3:21",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/b/c"
+   ],
+   "expect": "/a/c/a/b/c"
+  },
+  {
+   "name": "local_target:3:22",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "é/ü"
+   ],
+   "expect": "/a/c/é/ü"
+  },
+  {
+   "name": "local_target:3:23",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "..."
+   ],
+   "expect": "/a/c/..."
+  },
+  {
+   "name": "local_target:3:24",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    ".a"
+   ],
+   "expect": "/a/c/.a"
+  },
+  {
+   "name": "local_target:3:25",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/.b"
+   ],
+   "expect": "/a/c/a/.b"
+  },
+  {
+   "name": "local_target:3:26",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "-rf"
+   ],
+   "expect": "/a/c/-rf"
+  },
+  {
+   "name": "local_target:3:27",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a\nb"
+   ],
+   "expect": "/a/c/a\nb"
+  },
+  {
+   "name": "local_target:3:28",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "sub/f"
+   ],
+   "expect": "/a/c/sub/f"
+  },
+  {
+   "name": "local_target:3:29",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:30",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:3:31",
+   "fn": "local_target",
+   "args": [
+    "/a/b/../c",
+    "a/b/c/d/e"
+   ],
+   "expect": "/a/c/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:4:0",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:1",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:2",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:3",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:4",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:5",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:6",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:7",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:8",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:9",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:10",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:11",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:12",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:13",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:14",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:15",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    " "
+   ],
+   "expect": "/a/b/ "
+  },
+  {
+   "name": "local_target:4:16",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/ /b"
+   ],
+   "expect": "/a/b/a/ /b"
+  },
+  {
+   "name": "local_target:4:17",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/b c/d.txt"
+   ],
+   "expect": "/a/b/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:4:18",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "..hidden"
+   ],
+   "expect": "/a/b/..hidden"
+  },
+  {
+   "name": "local_target:4:19",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a..b"
+   ],
+   "expect": "/a/b/a..b"
+  },
+  {
+   "name": "local_target:4:20",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a"
+   ],
+   "expect": "/a/b/a"
+  },
+  {
+   "name": "local_target:4:21",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/b/c"
+   ],
+   "expect": "/a/b/a/b/c"
+  },
+  {
+   "name": "local_target:4:22",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "é/ü"
+   ],
+   "expect": "/a/b/é/ü"
+  },
+  {
+   "name": "local_target:4:23",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "..."
+   ],
+   "expect": "/a/b/..."
+  },
+  {
+   "name": "local_target:4:24",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    ".a"
+   ],
+   "expect": "/a/b/.a"
+  },
+  {
+   "name": "local_target:4:25",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/.b"
+   ],
+   "expect": "/a/b/a/.b"
+  },
+  {
+   "name": "local_target:4:26",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "-rf"
+   ],
+   "expect": "/a/b/-rf"
+  },
+  {
+   "name": "local_target:4:27",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a\nb"
+   ],
+   "expect": "/a/b/a\nb"
+  },
+  {
+   "name": "local_target:4:28",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "sub/f"
+   ],
+   "expect": "/a/b/sub/f"
+  },
+  {
+   "name": "local_target:4:29",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:30",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:4:31",
+   "fn": "local_target",
+   "args": [
+    "/a/./b",
+    "a/b/c/d/e"
+   ],
+   "expect": "/a/b/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:5:0",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:1",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:2",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:3",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:4",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:5",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:6",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:7",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:8",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:9",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:10",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:11",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:12",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:13",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:14",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:15",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    " "
+   ],
+   "expect": "/home/u/sync/ "
+  },
+  {
+   "name": "local_target:5:16",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/ /b"
+   ],
+   "expect": "/home/u/sync/a/ /b"
+  },
+  {
+   "name": "local_target:5:17",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/b c/d.txt"
+   ],
+   "expect": "/home/u/sync/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:5:18",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "..hidden"
+   ],
+   "expect": "/home/u/sync/..hidden"
+  },
+  {
+   "name": "local_target:5:19",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a..b"
+   ],
+   "expect": "/home/u/sync/a..b"
+  },
+  {
+   "name": "local_target:5:20",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a"
+   ],
+   "expect": "/home/u/sync/a"
+  },
+  {
+   "name": "local_target:5:21",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/b/c"
+   ],
+   "expect": "/home/u/sync/a/b/c"
+  },
+  {
+   "name": "local_target:5:22",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "é/ü"
+   ],
+   "expect": "/home/u/sync/é/ü"
+  },
+  {
+   "name": "local_target:5:23",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "..."
+   ],
+   "expect": "/home/u/sync/..."
+  },
+  {
+   "name": "local_target:5:24",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    ".a"
+   ],
+   "expect": "/home/u/sync/.a"
+  },
+  {
+   "name": "local_target:5:25",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/.b"
+   ],
+   "expect": "/home/u/sync/a/.b"
+  },
+  {
+   "name": "local_target:5:26",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "-rf"
+   ],
+   "expect": "/home/u/sync/-rf"
+  },
+  {
+   "name": "local_target:5:27",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a\nb"
+   ],
+   "expect": "/home/u/sync/a\nb"
+  },
+  {
+   "name": "local_target:5:28",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "sub/f"
+   ],
+   "expect": "/home/u/sync/sub/f"
+  },
+  {
+   "name": "local_target:5:29",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:30",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:5:31",
+   "fn": "local_target",
+   "args": [
+    "/home/u//sync",
+    "a/b/c/d/e"
+   ],
+   "expect": "/home/u/sync/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:6:0",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:1",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:2",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:3",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:4",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:5",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:6",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:7",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:8",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:9",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:10",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:11",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:12",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:13",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:14",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:15",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    " "
+   ],
+   "expect": "/tmp/x y/ "
+  },
+  {
+   "name": "local_target:6:16",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/ /b"
+   ],
+   "expect": "/tmp/x y/a/ /b"
+  },
+  {
+   "name": "local_target:6:17",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/b c/d.txt"
+   ],
+   "expect": "/tmp/x y/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:6:18",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "..hidden"
+   ],
+   "expect": "/tmp/x y/..hidden"
+  },
+  {
+   "name": "local_target:6:19",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a..b"
+   ],
+   "expect": "/tmp/x y/a..b"
+  },
+  {
+   "name": "local_target:6:20",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a"
+   ],
+   "expect": "/tmp/x y/a"
+  },
+  {
+   "name": "local_target:6:21",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/b/c"
+   ],
+   "expect": "/tmp/x y/a/b/c"
+  },
+  {
+   "name": "local_target:6:22",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "é/ü"
+   ],
+   "expect": "/tmp/x y/é/ü"
+  },
+  {
+   "name": "local_target:6:23",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "..."
+   ],
+   "expect": "/tmp/x y/..."
+  },
+  {
+   "name": "local_target:6:24",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    ".a"
+   ],
+   "expect": "/tmp/x y/.a"
+  },
+  {
+   "name": "local_target:6:25",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/.b"
+   ],
+   "expect": "/tmp/x y/a/.b"
+  },
+  {
+   "name": "local_target:6:26",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "-rf"
+   ],
+   "expect": "/tmp/x y/-rf"
+  },
+  {
+   "name": "local_target:6:27",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a\nb"
+   ],
+   "expect": "/tmp/x y/a\nb"
+  },
+  {
+   "name": "local_target:6:28",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "sub/f"
+   ],
+   "expect": "/tmp/x y/sub/f"
+  },
+  {
+   "name": "local_target:6:29",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:30",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:6:31",
+   "fn": "local_target",
+   "args": [
+    "/tmp/x y",
+    "a/b/c/d/e"
+   ],
+   "expect": "/tmp/x y/a/b/c/d/e"
+  },
+  {
+   "name": "local_target:7:0",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:1",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:2",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "/etc/passwd"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:3",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a//b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:4",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "./a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:5",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    ""
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:6",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    ".."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:7",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:8",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:9",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:10",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:11",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "//a"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:12",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/./b"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:13",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/b/.."
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:14",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "../"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:15",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    " "
+   ],
+   "expect": "/home/café/ "
+  },
+  {
+   "name": "local_target:7:16",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/ /b"
+   ],
+   "expect": "/home/café/a/ /b"
+  },
+  {
+   "name": "local_target:7:17",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/b c/d.txt"
+   ],
+   "expect": "/home/café/a/b c/d.txt"
+  },
+  {
+   "name": "local_target:7:18",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "..hidden"
+   ],
+   "expect": "/home/café/..hidden"
+  },
+  {
+   "name": "local_target:7:19",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a..b"
+   ],
+   "expect": "/home/café/a..b"
+  },
+  {
+   "name": "local_target:7:20",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a"
+   ],
+   "expect": "/home/café/a"
+  },
+  {
+   "name": "local_target:7:21",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/b/c"
+   ],
+   "expect": "/home/café/a/b/c"
+  },
+  {
+   "name": "local_target:7:22",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "é/ü"
+   ],
+   "expect": "/home/café/é/ü"
+  },
+  {
+   "name": "local_target:7:23",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "..."
+   ],
+   "expect": "/home/café/..."
+  },
+  {
+   "name": "local_target:7:24",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    ".a"
+   ],
+   "expect": "/home/café/.a"
+  },
+  {
+   "name": "local_target:7:25",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/.b"
+   ],
+   "expect": "/home/café/a/.b"
+  },
+  {
+   "name": "local_target:7:26",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "-rf"
+   ],
+   "expect": "/home/café/-rf"
+  },
+  {
+   "name": "local_target:7:27",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a\nb"
+   ],
+   "expect": "/home/café/a\nb"
+  },
+  {
+   "name": "local_target:7:28",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "sub/f"
+   ],
+   "expect": "/home/café/sub/f"
+  },
+  {
+   "name": "local_target:7:29",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "../../.bashrc"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:30",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "sub/../../x"
+   ],
+   "expect": null
+  },
+  {
+   "name": "local_target:7:31",
+   "fn": "local_target",
+   "args": [
+    "/home/café",
+    "a/b/c/d/e"
+   ],
+   "expect": "/home/café/a/b/c/d/e"
+  }
+ ]
+}

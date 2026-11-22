@@ -1,0 +1,43 @@
+# Copy to ~/.config/termigator/session.yaml (or $TERMIGATOR_CONFIG_DIR) — SSH, RDP, VNC, … connections (same fields as in the app: label, host, user, …).
+
+- label: example SSH
+  host: server.example
+  user: admin
+  port: 22
+  terminal: embedded
+  # group: Production        # optional folder shown in the sidebar (right-click → Move to group…)
+  # environment: production  # production | staging | test | development — coloured in the list,
+  #                          # on the tab and (production, staging) around the terminal
+  # password: "secret"
+  # identity_file: ~/.ssh/id_ed25519   # private key only (not .pub); must exist and be readable
+  # Encrypted keys need ssh-agent (ssh-add) or ssh will exit — Termigator shows the message in embedded mode.
+  # extra_ssh_args: "-o StrictHostKeyChecking=accept-new"
+
+  # --- DevOps / tunneling (optional; same as OpenSSH) ---
+  # Bastion / jump host (comma = multiple hops, like ssh -J hop1,hop2):
+  # proxy_jump: bastion.example
+  # Legacy aliases also read by the app: jumphost, jump_host
+  # forward_agent: true          # -o ForwardAgent=yes
+  # x11_forwarding: true         # -X
+  # local_forwards:              # ssh -L (list or one string per line)
+  #   - "8080:127.0.0.1:80"
+  # remote_forwards:
+  #   - "9090:127.0.0.1:9090"
+  # dynamic_forward: 1080        # int → 127.0.0.1:1080, or string e.g. "127.0.0.1:1080"
+  # remote_command: "uptime"     # non-interactive remote argv (quoted in the shell when needed)
+  # strict_host_key_checking: accept-new   # or: yes, no, ask, off — adds -o StrictHostKeyChecking=…
+
+# --- RDP connection (FreeRDP / xfreerdp) ---
+# Set protocol: rdp to launch xfreerdp instead of ssh. Requires an installed FreeRDP client
+# (xfreerdp / xfreerdp3); override with launch.rdp_client in config.yaml if needed.
+# - label: Windows box
+#   protocol: rdp
+#   host: 192.168.1.20
+#   user: Administrator     # optional
+#   # password: "secret"    # passed as /p: (or omit to be prompted by the client)
+#   # domain: WORKGROUP     # optional (/d:)
+#   port: 3389
+#   # resolution: 1920x1080 # /size: — omit for the client default
+#   # fullscreen: true      # /f (takes precedence over resolution)
+#   # extra_rdp_args: "/cert:ignore +clipboard /sound"
+#   terminal: external

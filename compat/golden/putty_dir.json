@@ -1,0 +1,332 @@
+{
+ "cases": [
+  {
+   "name": "basic",
+   "files": {
+    "One": "HostName=h1\nProtocol=ssh\n",
+    "Default%20Settings": "HostName=ignored\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "One"
+      ],
+      [
+       "host",
+       "h1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "sorted_by_name",
+   "files": {
+    "b": "HostName=hb\n",
+    "a": "HostName=ha\n",
+    "B": "HostName=hB\n",
+    "a%20x": "HostName=hax\n",
+    "ab": "HostName=hab\n",
+    "Z": "HostName=hZ\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "hB"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Z"
+      ],
+      [
+       "host",
+       "hZ"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "ha"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a x"
+      ],
+      [
+       "host",
+       "hax"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "ab"
+      ],
+      [
+       "host",
+       "hab"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "host",
+       "hb"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "non_ssh_and_empty",
+   "files": {
+    "serial": "HostName=COM1\nProtocol=serial\n",
+    "empty": "",
+    "ok": "HostName=h\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "ok"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "subdir_skipped",
+   "files": {
+    "file": "HostName=h\n"
+   },
+   "subdirs": [
+    "sub",
+    "Default%20Settings2"
+   ],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "file"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "default_settings_only",
+   "files": {
+    "Default%20Settings": "HostName=h\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "default_settings_dir",
+   "files": {
+    "x": "HostName=h\n"
+   },
+   "subdirs": [
+    "Default%20Settings"
+   ],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "x"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "encoded_names",
+   "files": {
+    "Prod%20Web%20%231": "HostName=h\nUserName=root\n",
+    "pl%C5%82": "HostName=h2\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web #1"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "plł"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "lookalike_default",
+   "files": {
+    "default%20settings": "HostName=h\n",
+    "Default Settings": "HostName=h2\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Default Settings"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "default settings"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "full_session",
+   "files": {
+    "app": "HostName=app.example\nUserName=ops\nProtocol=ssh\nPortForwardings=L8080=localhost:80,4R9000=localhost:22,L127.0.0.1:5433=db:5432,D1080\nRemoteCommand=tmux attach\nX11Forward=1\nAgentFwd=0\nProxyMethod=6\nProxyHost=bastion.example\nProxyPort=2200\nProxyUsername=jump\n"
+   },
+   "subdirs": [],
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "app"
+      ],
+      [
+       "host",
+       "app.example"
+      ],
+      [
+       "user",
+       "ops"
+      ],
+      [
+       "dynamic_forward",
+       "1080"
+      ],
+      [
+       "local_forwards",
+       [
+        "8080:localhost:80",
+        "127.0.0.1:5433:db:5432"
+       ]
+      ],
+      [
+       "remote_forwards",
+       [
+        "9000:localhost:22"
+       ]
+      ],
+      [
+       "remote_command",
+       "tmux attach"
+      ],
+      [
+       "x11_forwarding",
+       true
+      ],
+      [
+       "proxy_jump",
+       "jump@bastion.example:2200"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "none",
+   "files": {},
+   "subdirs": [],
+   "user": "tester",
+   "expect": []
+  }
+ ]
+}

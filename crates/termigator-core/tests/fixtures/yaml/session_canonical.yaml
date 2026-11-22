@@ -1,0 +1,134 @@
+# Termigator SSH connections — edited by the app or by hand.
+- label: web-01
+  host: web-01.example.test
+  user: deploy
+  port: 22
+  terminal: embedded
+  group: Production/Web
+  protocol: ssh
+  password: enc:v1:QUFBQUFBQUFBQUFBQUFBQS1ub3QtYS1yZWFsLXNlYWxlZC1wYXNzd29yZC1qdXN0LWEtZml4dHVyZQ==
+  identity_file: ~/.ssh/id_ed25519_fixture
+  extra_ssh_args: -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o
+    ServerAliveCountMax=4 -C
+  local_forwards:
+  - 8080:localhost:80
+  - 15432:db.internal.test:5432
+  remote_forwards: []
+  dynamic_forward: '1080'
+  forward_agent: true
+  compression: false
+  tags:
+  - prod
+  - web
+  - nginx
+- label: Serwer główny – Łódź (zażółć gęślą jaźń)
+  host: 192.0.2.10
+  user: admin
+  port: 2222
+  group: Biuro/Łódź/Piętro 2
+  password: hunter2-fixture
+  jump_host: bastion@198.51.100.7:2200
+  startup_commands:
+  - cd /srv/app
+  - export LANG=pl_PL.UTF-8
+  - tmux attach || tmux
+  notes: "Line one\nLine two: with colon\n\n  indented line\ntrailing spaces   "
+  remote_locale: pl_PL.UTF-8
+- label: 'yes'
+  host: '0777'
+  user: '1:30'
+  port: '2026-01-02'
+  group: 'on'
+  protocol: '3.14'
+  password: 1e3
+  identity_file: '1_000'
+  extra_ssh_args: '0x1F'
+  terminal: '~'
+  tags:
+  - 'null'
+  - 'No'
+  - 'OFF'
+  - 'true'
+  - '.inf'
+  - -.5
+  - '+1'
+  - '0b101'
+  - '<<'
+  - '='
+  - y
+  - n
+  - '190:20:30'
+- label: quotes 'single' and "double"
+  host: host-with-#hash.example.test
+  user: '  leading and trailing  '
+  port: 0
+  group: 'a: b'
+  password: '#not a comment'
+  identity_file: ''
+  extra_ssh_args: '-L 9000:localhost:9000 # forward'
+  remote_command: echo 'it''s' && printf "%s\n" "$HOME"
+  notes: "tab\there, backslash \\ and bell \a and nel \N end"
+  tags: []
+  request_tty: null
+- label: A very long label that goes well past the eighty column limit of PyYAML emitter
+    width
+  host: 2001:db8::1
+  user: u
+  port: 65535
+  protocol: rdp
+  domain: EXAMPLE
+  resolution: 1920x1080
+  shared_folders:
+  - /home/user/Shared Folder With Spaces
+  - /tmp
+  fullscreen: true
+  multimon: false
+  notes: averyveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylongwordwithoutspaces
+  description: Ten opis jest bardzo długi i zawiera polskie znaki ąćęłńóśźż oraz emoji
+    🚀 żeby sprawdzić zawijanie wierszy przez emiter
+- label: serial-console
+  protocol: serial
+  device: /dev/ttyUSB0
+  baud: 115200
+  parity: none
+  stop_bits: 1
+  flow: none
+  port: -1
+  ratio: 0.5
+  big: 12345678901234567
+  tiny: 1.0e-07
+  huge: 1.0e+17
+  neg_zero: -0.0
+  groups:
+    nested:
+      deeper:
+      - 1
+      - - 2
+        - 3
+      - k: v
+      empty_map: {}
+      empty_list: []
+- label: telnet-router
+  protocol: telnet
+  host: router.example.test
+  port: 23
+  group: Network/Routers/Core
+  user: null
+  password: null
+  vnc_password: '- dash start'
+  x: '? question'
+  y: ': colon start'
+  z: '@at'
+  w: '`backtick'
+  v: '%percent'
+  u: '!bang'
+  t: '&amp'
+  s: '*star'
+  r: '|pipe'
+  q: '>gt'
+  p: '[bracket'
+  o: '{brace'
+  m: comma, inside
+  l: 'trailing colon:'
+  k: '--- document'
+  j: '... end'

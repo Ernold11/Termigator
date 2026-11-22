@@ -1,0 +1,166 @@
+{
+ "cases": [
+  {
+   "name": "glob:0:''",
+   "fn": "glob_escape",
+   "input": "",
+   "expect": ""
+  },
+  {
+   "name": "glob:1:'plain'",
+   "fn": "glob_escape",
+   "input": "plain",
+   "expect": "plain"
+  },
+  {
+   "name": "glob:2:'[ab].log'",
+   "fn": "glob_escape",
+   "input": "[ab].log",
+   "expect": "\\[ab\\].log"
+  },
+  {
+   "name": "glob:3:'q?.txt'",
+   "fn": "glob_escape",
+   "input": "q?.txt",
+   "expect": "q\\?.txt"
+  },
+  {
+   "name": "glob:4:'a\\\\b'",
+   "fn": "glob_escape",
+   "input": "a\\b",
+   "expect": "a\\\\b"
+  },
+  {
+   "name": "glob:5:'{a,b}.log'",
+   "fn": "glob_escape",
+   "input": "{a,b}.log",
+   "expect": "{a,b}.log"
+  },
+  {
+   "name": "glob:6:'*'",
+   "fn": "glob_escape",
+   "input": "*",
+   "expect": "\\*"
+  },
+  {
+   "name": "glob:7:'**'",
+   "fn": "glob_escape",
+   "input": "**",
+   "expect": "\\*\\*"
+  },
+  {
+   "name": "glob:8:'\\\\*'",
+   "fn": "glob_escape",
+   "input": "\\*",
+   "expect": "\\\\\\*"
+  },
+  {
+   "name": "glob:9:'a]b'",
+   "fn": "glob_escape",
+   "input": "a]b",
+   "expect": "a\\]b"
+  },
+  {
+   "name": "glob:10:'é[ł]'",
+   "fn": "glob_escape",
+   "input": "é[ł]",
+   "expect": "é\\[ł\\]"
+  },
+  {
+   "name": "glob:11:'~/x'",
+   "fn": "glob_escape",
+   "input": "~/x",
+   "expect": "~/x"
+  },
+  {
+   "name": "glob:12:'a b'",
+   "fn": "glob_escape",
+   "input": "a b",
+   "expect": "a b"
+  },
+  {
+   "name": "glob:13:'\\\\\\\\'",
+   "fn": "glob_escape",
+   "input": "\\\\",
+   "expect": "\\\\\\\\"
+  },
+  {
+   "name": "glob:14:'?*[]\\\\'",
+   "fn": "glob_escape",
+   "input": "?*[]\\",
+   "expect": "\\?\\*\\[\\]\\\\"
+  },
+  {
+   "name": "quote:0:''",
+   "fn": "sftp_quote",
+   "input": "",
+   "expect": "\"\""
+  },
+  {
+   "name": "quote:1:'plain'",
+   "fn": "sftp_quote",
+   "input": "plain",
+   "expect": "\"plain\""
+  },
+  {
+   "name": "quote:2:'a \"b\" \\\\c [1]'",
+   "fn": "sftp_quote",
+   "input": "a \"b\" \\c [1]",
+   "expect": "\"a \\\"b\\\" \\\\c [1]\""
+  },
+  {
+   "name": "quote:3:'\"'",
+   "fn": "sftp_quote",
+   "input": "\"",
+   "expect": "\"\\\"\""
+  },
+  {
+   "name": "quote:4:'\\\\'",
+   "fn": "sftp_quote",
+   "input": "\\",
+   "expect": "\"\\\\\""
+  },
+  {
+   "name": "quote:5:\"'\"",
+   "fn": "sftp_quote",
+   "input": "'",
+   "expect": "\"'\""
+  },
+  {
+   "name": "quote:6:'a b'",
+   "fn": "sftp_quote",
+   "input": "a b",
+   "expect": "\"a b\""
+  },
+  {
+   "name": "quote:7:'é'",
+   "fn": "sftp_quote",
+   "input": "é",
+   "expect": "\"é\""
+  },
+  {
+   "name": "quote:8:'~/x'",
+   "fn": "sftp_quote",
+   "input": "~/x",
+   "expect": "\"~/x\""
+  },
+  {
+   "name": "quote:9:'line\\nbreak'",
+   "fn": "sftp_quote",
+   "input": "line\nbreak",
+   "expect": "\"line\nbreak\""
+  },
+  {
+   "name": "quote:10:'\\\\\"'",
+   "fn": "sftp_quote",
+   "input": "\\\"",
+   "expect": "\"\\\\\\\"\""
+  },
+  {
+   "name": "quote:11:'[x]*?'",
+   "fn": "sftp_quote",
+   "input": "[x]*?",
+   "expect": "\"[x]*?\""
+  }
+ ]
+}

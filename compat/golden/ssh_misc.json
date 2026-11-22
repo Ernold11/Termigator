@@ -1,0 +1,7009 @@
+{
+ "cases": [
+  {
+   "name": "keepalive_opts:-5",
+   "fn": "keepalive",
+   "input": {
+    "$int": "-5"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:0",
+   "fn": "keepalive",
+   "input": {
+    "$int": "0"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:1",
+   "fn": "keepalive",
+   "input": {
+    "$int": "1"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:2",
+   "fn": "keepalive",
+   "input": {
+    "$int": "2"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:3",
+   "fn": "keepalive",
+   "input": {
+    "$int": "3"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:4",
+   "fn": "keepalive",
+   "input": {
+    "$int": "4"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=1",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:5",
+   "fn": "keepalive",
+   "input": {
+    "$int": "5"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=2",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:6",
+   "fn": "keepalive",
+   "input": {
+    "$int": "6"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=2",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:7",
+   "fn": "keepalive",
+   "input": {
+    "$int": "7"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=2",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:8",
+   "fn": "keepalive",
+   "input": {
+    "$int": "8"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=3",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:14",
+   "fn": "keepalive",
+   "input": {
+    "$int": "14"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:15",
+   "fn": "keepalive",
+   "input": {
+    "$int": "15"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:16",
+   "fn": "keepalive",
+   "input": {
+    "$int": "16"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:17",
+   "fn": "keepalive",
+   "input": {
+    "$int": "17"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=6",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:20",
+   "fn": "keepalive",
+   "input": {
+    "$int": "20"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=7",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:29",
+   "fn": "keepalive",
+   "input": {
+    "$int": "29"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:30",
+   "fn": "keepalive",
+   "input": {
+    "$int": "30"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:31",
+   "fn": "keepalive",
+   "input": {
+    "$int": "31"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:60",
+   "fn": "keepalive",
+   "input": {
+    "$int": "60"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=20",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:300",
+   "fn": "keepalive",
+   "input": {
+    "$int": "300"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=100",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:301",
+   "fn": "keepalive",
+   "input": {
+    "$int": "301"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=100",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "keepalive_opts:100000",
+   "fn": "keepalive",
+   "input": {
+    "$int": "100000"
+   },
+   "expect": [
+    "-o",
+    "ServerAliveInterval=33333",
+    "-o",
+    "ServerAliveCountMax=3"
+   ]
+  },
+  {
+   "name": "control_opts:'/run/user/1000/termigator'",
+   "fn": "control_opts",
+   "input": "/run/user/1000/termigator",
+   "expect": [
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60"
+   ]
+  },
+  {
+   "name": "control_opts:None",
+   "fn": "control_opts",
+   "input": null,
+   "expect": []
+  },
+  {
+   "name": "control_opts:\"/x y/it's\"",
+   "fn": "control_opts",
+   "input": "/x y/it's",
+   "expect": [
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/x y/it's/cm-%C",
+    "-o",
+    "ControlPersist=60"
+   ]
+  },
+  {
+   "name": "password_env:0:None",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "clipboard:0:None",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:1:''",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "clipboard:1:''",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:2:'pw'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "pw"
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "pw"
+   }
+  },
+  {
+   "name": "clipboard:2:'pw'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "pw"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:3:'enc:v1:AAAA'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v1:AAAA"
+     ]
+    ]
+   },
+   "error": "VaultError",
+   "message": "Password is still encrypted — unlock the vault first."
+  },
+  {
+   "name": "clipboard:3:'enc:v1:AAAA'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v1:AAAA"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:4:'enc:v1:'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v1:"
+     ]
+    ]
+   },
+   "error": "VaultError",
+   "message": "Password is still encrypted — unlock the vault first."
+  },
+  {
+   "name": "clipboard:4:'enc:v1:'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v1:"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:5:' enc:v1:x'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      " enc:v1:x"
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": " enc:v1:x"
+   }
+  },
+  {
+   "name": "clipboard:5:' enc:v1:x'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      " enc:v1:x"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:6:'enc:v2:x'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v2:x"
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "enc:v2:x"
+   }
+  },
+  {
+   "name": "clipboard:6:'enc:v2:x'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v2:x"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:7:'enc:'",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:"
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "enc:"
+   }
+  },
+  {
+   "name": "clipboard:7:'enc:'",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:8:123",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "123"
+      }
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "123"
+   }
+  },
+  {
+   "name": "clipboard:8:123",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "123"
+      }
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:9:0",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "clipboard:9:0",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:10:True",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      true
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "True"
+   }
+  },
+  {
+   "name": "clipboard:10:True",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      true
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:11:False",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "clipboard:11:False",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      false
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:12:\"p'w\"",
+   "fn": "password_env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "p'w"
+     ]
+    ]
+   },
+   "expect": {
+    "SSHPASS": "p'w"
+   }
+  },
+  {
+   "name": "clipboard:12:\"p'w\"",
+   "fn": "clipboard",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "p'w"
+     ]
+    ]
+   },
+   "cmd": "sshpass -e ssh u@h",
+   "expect": "SSHPASS='****' sshpass -e ssh u@h"
+  },
+  {
+   "name": "password_env:missing",
+   "fn": "password_env",
+   "conn": {
+    "$map": []
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:0:None",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      null
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:1:''",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      ""
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:2:'  '",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "  "
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:3:'pl_PL.UTF-8'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "pl_PL.UTF-8"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "pl_PL.UTF-8",
+    "LC_ALL": "pl_PL.UTF-8"
+   }
+  },
+  {
+   "name": "session_env:4:' pl_PL.UTF-8 '",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      " pl_PL.UTF-8 "
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "pl_PL.UTF-8",
+    "LC_ALL": "pl_PL.UTF-8"
+   }
+  },
+  {
+   "name": "session_env:5:'C'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "C"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "C",
+    "LC_ALL": "C"
+   }
+  },
+  {
+   "name": "session_env:6:'a'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "a"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "a",
+    "LC_ALL": "a"
+   }
+  },
+  {
+   "name": "session_env:7:'1x'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "1x"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:8:'é'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "é"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:9:'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "LC_ALL": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   }
+  },
+  {
+   "name": "session_env:10:'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:11:'a b'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "a b"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:12:'x; rm -rf /'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "x; rm -rf /"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "session_env:13:'en_US.UTF-8\\n'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "en_US.UTF-8\n"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8"
+   }
+  },
+  {
+   "name": "session_env:14:'a@b'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "a@b"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "a@b",
+    "LC_ALL": "a@b"
+   }
+  },
+  {
+   "name": "session_env:15:'a-b_c.d'",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      "a-b_c.d"
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "a-b_c.d",
+    "LC_ALL": "a-b_c.d"
+   }
+  },
+  {
+   "name": "session_env:16:True",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      true
+     ]
+    ]
+   },
+   "expect": {
+    "LANG": "True",
+    "LC_ALL": "True"
+   }
+  },
+  {
+   "name": "session_env:17:5",
+   "fn": "session_env",
+   "conn": {
+    "$map": [
+     [
+      "remote_locale",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "x11:0",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      null
+     ]
+    ]
+   },
+   "env": {},
+   "expect": null
+  },
+  {
+   "name": "x11:1",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      null
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ":0"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:2",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      null
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": "  "
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:3",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      null
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ""
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:4",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      null
+     ]
+    ]
+   },
+   "env": {
+    "WAYLAND_DISPLAY": "w"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:5",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "env": {},
+   "expect": "X11 forwarding is on, but DISPLAY is not set here — graphical programs on the server will not be able to open windows (no local X server / XWayland)."
+  },
+  {
+   "name": "x11:6",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ":0"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:7",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": "  "
+   },
+   "expect": "X11 forwarding is on, but DISPLAY is not set here — graphical programs on the server will not be able to open windows (no local X server / XWayland)."
+  },
+  {
+   "name": "x11:8",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ""
+   },
+   "expect": "X11 forwarding is on, but DISPLAY is not set here — graphical programs on the server will not be able to open windows (no local X server / XWayland)."
+  },
+  {
+   "name": "x11:9",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "env": {
+    "WAYLAND_DISPLAY": "w"
+   },
+   "expect": "X11 forwarding is on, but DISPLAY is not set here — graphical programs on the server will not be able to open windows (no local X server / XWayland)."
+  },
+  {
+   "name": "x11:10",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      false
+     ]
+    ]
+   },
+   "env": {},
+   "expect": null
+  },
+  {
+   "name": "x11:11",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      false
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ":0"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:12",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      false
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": "  "
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:13",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      false
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ""
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:14",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      false
+     ]
+    ]
+   },
+   "env": {
+    "WAYLAND_DISPLAY": "w"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:15",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      "yes"
+     ]
+    ]
+   },
+   "env": {},
+   "expect": null
+  },
+  {
+   "name": "x11:16",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      "yes"
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ":0"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:17",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      "yes"
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": "  "
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:18",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      "yes"
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ""
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:19",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      "yes"
+     ]
+    ]
+   },
+   "env": {
+    "WAYLAND_DISPLAY": "w"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:20",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "env": {},
+   "expect": null
+  },
+  {
+   "name": "x11:21",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ":0"
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:22",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": "  "
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:23",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "env": {
+    "DISPLAY": ""
+   },
+   "expect": null
+  },
+  {
+   "name": "x11:24",
+   "fn": "x11",
+   "conn": {
+    "$map": [
+     [
+      "x11_forwarding",
+      {
+       "$int": "1"
+      }
+     ]
+    ]
+   },
+   "env": {
+    "WAYLAND_DISPLAY": "w"
+   },
+   "expect": null
+  },
+  {
+   "name": "forward_specs:0",
+   "fn": "forward_specs",
+   "input": null,
+   "expect": []
+  },
+  {
+   "name": "forward_specs:1",
+   "fn": "forward_specs",
+   "input": "a",
+   "expect": [
+    "a"
+   ]
+  },
+  {
+   "name": "forward_specs:2",
+   "fn": "forward_specs",
+   "input": "a\nb",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "forward_specs:3",
+   "fn": "forward_specs",
+   "input": " a \n\n b ",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "forward_specs:4",
+   "fn": "forward_specs",
+   "input": [
+    " a ",
+    "",
+    "b",
+    null,
+    {
+     "$int": "5"
+    }
+   ],
+   "expect": [
+    "a",
+    "b",
+    "None",
+    "5"
+   ]
+  },
+  {
+   "name": "forward_specs:5",
+   "fn": "forward_specs",
+   "input": [],
+   "expect": []
+  },
+  {
+   "name": "forward_specs:6",
+   "fn": "forward_specs",
+   "input": "",
+   "expect": []
+  },
+  {
+   "name": "forward_specs:7",
+   "fn": "forward_specs",
+   "input": "  ",
+   "expect": []
+  },
+  {
+   "name": "forward_specs:8",
+   "fn": "forward_specs",
+   "input": {
+    "$int": "5"
+   },
+   "expect": [
+    "5"
+   ]
+  },
+  {
+   "name": "forward_specs:9",
+   "fn": "forward_specs",
+   "input": true,
+   "expect": [
+    "True"
+   ]
+  },
+  {
+   "name": "forward_specs:10",
+   "fn": "forward_specs",
+   "input": false,
+   "expect": [
+    "False"
+   ]
+  },
+  {
+   "name": "forward_specs:11",
+   "fn": "forward_specs",
+   "input": "a\r\nb\rc",
+   "expect": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  {
+   "name": "forward_specs:12",
+   "fn": "forward_specs",
+   "input": "a\u000bb\fc\u001cd\u001de\u001efg h i",
+   "expect": [
+    "a\u000bb\fc\u001cd\u001de\u001efg h i"
+   ]
+  },
+  {
+   "name": "proxy_ui:0",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": []
+   },
+   "expect": ""
+  },
+  {
+   "name": "proxy_ui:1",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      "x"
+     ]
+    ]
+   },
+   "expect": "x"
+  },
+  {
+   "name": "proxy_ui:2",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "jumphost",
+      [
+       "a",
+       "b"
+      ]
+     ]
+    ]
+   },
+   "expect": "a,b"
+  },
+  {
+   "name": "proxy_ui:3",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "jump_host",
+      " a "
+     ]
+    ]
+   },
+   "expect": "a"
+  },
+  {
+   "name": "proxy_ui:4",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      ""
+     ]
+    ]
+   },
+   "expect": ""
+  },
+  {
+   "name": "proxy_ui:5",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      null
+     ],
+     [
+      "jumphost",
+      "h"
+     ]
+    ]
+   },
+   "expect": "h"
+  },
+  {
+   "name": "proxy_ui:6",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      false
+     ]
+    ]
+   },
+   "expect": ""
+  },
+  {
+   "name": "proxy_ui:7",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "jump_host",
+      false
+     ]
+    ]
+   },
+   "expect": "False"
+  },
+  {
+   "name": "proxy_ui:8",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "jump_host",
+      null
+     ]
+    ]
+   },
+   "expect": ""
+  },
+  {
+   "name": "proxy_ui:9",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      [
+       "a",
+       " ",
+       "b"
+      ]
+     ]
+    ]
+   },
+   "expect": "a,b"
+  },
+  {
+   "name": "proxy_ui:10",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "expect": "5"
+  },
+  {
+   "name": "proxy_ui:11",
+   "fn": "proxy_ui",
+   "conn": {
+    "$map": [
+     [
+      "proxy_jump",
+      []
+     ],
+     [
+      "jumphost",
+      "z"
+     ]
+    ]
+   },
+   "expect": "z"
+  },
+  {
+   "name": "shell:0",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:1",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:2",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:3",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:4",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:5",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:6",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:7",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:8",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:9",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:10",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:11",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:12",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:13",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:14",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:15",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:16",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:17",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:18",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:19",
+   "fn": "shell",
+   "cfg": {
+    "$map": []
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:20",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:21",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:22",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:23",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:24",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:25",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:26",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:27",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:28",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:29",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:30",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:31",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:32",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:33",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:34",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:35",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:36",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:37",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:38",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:39",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:40",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:41",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:42",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:43",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:44",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:45",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:46",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:47",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:48",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:49",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:50",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:51",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:52",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:53",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:54",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:55",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:56",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:57",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:58",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:59",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      null
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:60",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:61",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:62",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:63",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:64",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:65",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:66",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:67",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:68",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:69",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:70",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:71",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:72",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:73",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:74",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:75",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:76",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:77",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:78",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:79",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         ""
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:80",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:81",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:82",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:83",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:84",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:85",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:86",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:87",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:88",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:89",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:90",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:91",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:92",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:93",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:94",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:95",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:96",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:97",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:98",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:99",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "zsh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:100",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:101",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:102",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:103",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:104",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:105",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:106",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:107",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:108",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:109",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:110",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:111",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:112",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:113",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:114",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:115",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:116",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:117",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:118",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:119",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "fish"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:120",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:121",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:122",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:123",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:124",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:125",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:126",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:127",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:128",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:129",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:130",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:131",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:132",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:133",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:134",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:135",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:136",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:137",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:138",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:139",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell",
+         "bash"
+        ],
+        [
+         "shell_executable",
+         "/bin/sh"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:140",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:141",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:142",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:143",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:144",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:145",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:146",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:147",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:148",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:149",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:150",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:151",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:152",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:153",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:154",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:155",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:156",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:157",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:158",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:159",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/no/such/shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:160",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:161",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:162",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:163",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:164",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:165",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:166",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:167",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:168",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:169",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:170",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:171",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:172",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:173",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:174",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:175",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:176",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:177",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:178",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:179",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "relative"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:180",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:181",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:182",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:183",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:184",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:185",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:186",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:187",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/sh -l"
+  },
+  {
+   "name": "shell:188",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:189",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:190",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:191",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/usr/bin/zsh -l"
+  },
+  {
+   "name": "shell:192",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:193",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:194",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:195",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:196",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:197",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:198",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/usr/bin/bash -l"
+  },
+  {
+   "name": "shell:199",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/bin/it's a shell"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:200",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:201",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:202",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:203",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:204",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:205",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:206",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:207",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:208",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:209",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:210",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:211",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:212",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:213",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:214",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:215",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:216",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:217",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:218",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:219",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         "/etc"
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/etc -l"
+  },
+  {
+   "name": "shell:220",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:221",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:222",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:223",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:224",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:225",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:226",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:227",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "sh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:228",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:229",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:230",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:231",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:232",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:233",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:234",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:235",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "/bin/zsh",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:236",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:237",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:238",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "sh",
+    "bash"
+   ],
+   "expect": "/bin/sh -l"
+  },
+  {
+   "name": "shell:239",
+   "fn": "shell",
+   "cfg": {
+    "$map": [
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "shell_executable",
+         " /bin/sh "
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "shell_env": "nope",
+   "which": [
+    "zsh",
+    "sh"
+   ],
+   "expect": "/bin/sh -l"
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+# Copy to ~/.config/termigator/config.yaml (or $TERMIGATOR_CONFIG_DIR) — window, launch, favorites (not the connection list; that is session.yaml).
+
+window:
+  width: 900
+  min_height: 560
+  list_width: 280
+  always_on_top: false
+  follow_konsole: false
+  follow_poll_ms: 500
+  # Default for "New local shell" / "+" when not using a list entry:
+  default_terminal: embedded # or: external
+  # Qt Quick Controls style, also set in Settings > Configure Termigator > Appearance.
+  # Empty/absent = org.kde.desktop. Applies after a restart.
+  # quick_style: org.kde.desktop
+  # Also pop up a window when an embedded session ends on its own (dropped link, remote
+  # logout, failed connect). Off by default: the dead tab itself shows a
+  # "Session stopped" prompt (R = restart, Enter = close tab, S = save output).
+  notify_on_disconnect: false
+  # Once a day at startup ask GitHub for the latest release and show a banner when it is newer
+  # (nothing is downloaded). Also in Settings > Configure Termigator > Application.
+  check_updates: true
+
+launch:
+  shell: bash
+  term: xterm-256color
+  # SSH: send periodic keepalives. Per-connection override: ssh_keepalive: false in session.yaml.
+  ssh_keepalive: true
+  # Declare a silently dead connection (cable pulled, laptop suspended, a firewall that
+  # eats the flow) dead after this many seconds, instead of waiting on ssh's own
+  # multi-minute default — this is what makes the "Session stopped" prompt appear promptly.
+  ssh_keepalive_seconds: 15
+  # OpenSSH connection sharing (ControlMaster): the terminal session authenticates once
+  # and the Files panel / scp reuse that connection — no re-logins.
+  ssh_control_master: true
+  # External terminal only (Konsole, etc.):
+  template: konsole -e bash -lc {cmd_quoted}
+  # Seconds "Test connection" waits for DNS / ping / the TCP connect.
+  probe_timeout: 5
+  # Embedded terminal only (ignored for external / Konsole):
+  embedded_pyte_history: 10000 # terminal scrollback in lines (historic key name)
+  # shell_executable: /bin/zsh
+  # Embedded terminal appearance. When unset, Termigator follows your KDE Konsole default
+  # profile (color scheme + font); Konsole's own schemes like "Breeze" are picked up too.
+  # font_family: JetBrains Mono # unset = Konsole's font, else first installed monospace
+  # font_size: 11              # unset = Konsole's font size
+  # color_scheme: DarkPastels  # unset = Konsole's scheme (e.g. Breeze); else matches light/dark UI
+
+favorites:
+  - label: local shell
+    command: bash
+    terminal: external
+
+# Saved-password encryption — written by Settings → Master password…, do not edit
+# by hand. Holds only the KDF parameters, salt and a check value, never the master:
+# vault:
+#   kdf: scrypt
+#   n: 32768
+#   r: 8
+#   p: 1
+#   salt: …
+#   check: enc:v1:…

@@ -1,0 +1,122 @@
+{
+ "cases": [
+  {
+   "name": "basic",
+   "labels": [
+    "Prod web",
+    "Prod web",
+    "a*b?",
+    ""
+   ],
+   "expect": {
+    "aliases": [
+     "Prod-web",
+     "Prod-web-2",
+     "a-b",
+     "host"
+    ],
+    "taken": [
+     "a-b",
+     "host",
+     "prod-web",
+     "prod-web-2"
+    ]
+   }
+  },
+  {
+   "name": "case_insensitive",
+   "labels": [
+    "Web",
+    "web",
+    "WEB",
+    "web-2",
+    "Web"
+   ],
+   "expect": {
+    "aliases": [
+     "Web",
+     "web-2",
+     "WEB-3",
+     "web-2-2",
+     "Web-4"
+    ],
+    "taken": [
+     "web",
+     "web-2",
+     "web-2-2",
+     "web-3",
+     "web-4"
+    ]
+   }
+  },
+  {
+   "name": "trim_dashes_dots",
+   "labels": [
+    "  .hidden. ",
+    "--x--",
+    "...",
+    "a  b\tc",
+    "host.name_1@x+y"
+   ],
+   "expect": {
+    "aliases": [
+     "hidden",
+     "x",
+     "host",
+     "a-b-c",
+     "host.name_1@x+y"
+    ],
+    "taken": [
+     "a-b-c",
+     "hidden",
+     "host",
+     "host.name_1@x+y",
+     "x"
+    ]
+   }
+  },
+  {
+   "name": "unicode",
+   "labels": [
+    "zażółć gęślą",
+    "日本",
+    "Ünï"
+   ],
+   "expect": {
+    "aliases": [
+     "za-g-l",
+     "host",
+     "n"
+    ],
+    "taken": [
+     "host",
+     "n",
+     "za-g-l"
+    ]
+   }
+  },
+  {
+   "name": "collide_with_suffix",
+   "labels": [
+    "a",
+    "a-2",
+    "a",
+    "a"
+   ],
+   "expect": {
+    "aliases": [
+     "a",
+     "a-2",
+     "a-3",
+     "a-4"
+    ],
+    "taken": [
+     "a",
+     "a-2",
+     "a-3",
+     "a-4"
+    ]
+   }
+  }
+ ]
+}

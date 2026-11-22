@@ -1,0 +1,1026 @@
+{
+ "cases": [
+  {
+   "name": "normalize:'embedded'",
+   "input": [
+    "embedded"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'embed'",
+   "input": [
+    "embed"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'pty'",
+   "input": [
+    "pty"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'internal'",
+   "input": [
+    "internal"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'in'",
+   "input": [
+    "in"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'external'",
+   "input": [
+    "external"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'konsole'",
+   "input": [
+    "konsole"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'window'",
+   "input": [
+    "window"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'out'",
+   "input": [
+    "out"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'EXTERNAL'",
+   "input": [
+    "EXTERNAL"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'  Konsole '",
+   "input": [
+    "  Konsole "
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'Out\\n'",
+   "input": [
+    "Out\n"
+   ],
+   "expect": "external",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:''",
+   "input": [
+    ""
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'  '",
+   "input": [
+    "  "
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'weird'",
+   "input": [
+    "weird"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:'ext'",
+   "input": [
+    "ext"
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:None",
+   "input": [
+    null
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:0",
+   "input": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:1",
+   "input": [
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:True",
+   "input": [
+    true
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:False",
+   "input": [
+    false
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:1.5",
+   "input": [
+    {
+     "$float": "1.5"
+    }
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:[]",
+   "input": [
+    []
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:['external']",
+   "input": [
+    [
+     "external"
+    ]
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:{}",
+   "input": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "normalize"
+  },
+  {
+   "name": "normalize:absent",
+   "input": [],
+   "expect": "embedded",
+   "fn": "normalize_absent"
+  },
+  {
+   "name": "default:0",
+   "input": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": []
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:2",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:3",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "default"
+  },
+  {
+   "name": "default:4",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "KONSOLE"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "default"
+  },
+  {
+   "name": "default:5",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "embedded"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:6",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          null
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:7",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          {
+           "$int": "3"
+          }
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:8",
+   "input": [
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "bogus"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "default:9",
+   "input": [
+    {
+     "$map": [
+      [
+       "launch",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "default"
+  },
+  {
+   "name": "entry:0:0",
+   "input": [
+    null,
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:0:1",
+   "input": [
+    null,
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:1:0",
+   "input": [
+    {
+     "$map": []
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:1:1",
+   "input": [
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:2:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:2:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:3:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "external"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:3:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "external"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:4:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:4:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:5:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "   "
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:5:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "   "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:6:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:6:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:7:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "weird"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:7:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "weird"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:8:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:8:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:9:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       false
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:9:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       false
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:10:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:10:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:11:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "OUT"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:11:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "terminal",
+       "OUT"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:12:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    {
+     "$map": []
+    }
+   ],
+   "expect": "embedded",
+   "fn": "entry"
+  },
+  {
+   "name": "entry:12:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "default_terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "external",
+   "fn": "entry"
+  }
+ ]
+}

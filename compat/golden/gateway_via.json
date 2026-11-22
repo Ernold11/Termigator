@@ -1,0 +1,2774 @@
+{
+ "cases": [
+  {
+   "name": "v:0:vnc",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "desk.lan"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:desk.lan:5901 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:1:vnc_default_port",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "desk.lan"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:desk.lan:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:2:vnc_gateway_key_dropped",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "VNC"
+     ],
+     [
+      "host",
+      "desk"
+     ],
+     [
+      "ssh_gateway",
+      "bastion"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:desk:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:3:rdp_fr3",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "win.lan"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "xfreerdp3"
+     ]
+    ]
+   },
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:win.lan:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nxfreerdp3 /port:40001 /v:127.0.0.1 /server-name:win.lan /u:u\n"
+  },
+  {
+   "name": "v:4:rdp_fr3_password",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "win.lan"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "password",
+      "p"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "xfreerdp3"
+     ]
+    ]
+   },
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:win.lan:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nprintf '%s\\n' \"$TERMIGATOR_RDP_PW\" | xfreerdp3 /port:40001 /v:127.0.0.1 /server-name:win.lan /u:u /from-stdin\n"
+  },
+  {
+   "name": "v:5:rdp_sdl3",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "win.lan"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": null,
+   "client_which": [
+    "sdl-freerdp3"
+   ],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:win.lan:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nsdl-freerdp3 /port:40001 /v:127.0.0.1 /server-name:win.lan\n"
+  },
+  {
+   "name": "v:6:rdp_fr2",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "win.lan"
+     ],
+     [
+      "port",
+      {
+       "$int": "3390"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "xfreerdp"
+     ]
+    ]
+   },
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:win.lan:3390 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nxfreerdp /port:40001 /v:127.0.0.1\n"
+  },
+  {
+   "name": "v:7:rdp_path_fr3",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "win.lan"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "/opt/freerdp3/bin/xfreerdp"
+     ]
+    ]
+   },
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:win.lan:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\n/opt/freerdp3/bin/xfreerdp /port:40001 /v:127.0.0.1 /server-name:win.lan\n"
+  },
+  {
+   "name": "v:8:rdp_host_quote",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "wi n's.lan"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "xfreerdp3"
+     ]
+    ]
+   },
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L '127.0.0.1:40001:wi n'\"'\"'s.lan:3389' jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nxfreerdp3 /port:40001 /v:127.0.0.1 '/server-name:wi n'\"'\"'s.lan'\n"
+  },
+  {
+   "name": "v:9:rdp_default_port",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "w"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:w:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:10:unknown_proto_port",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "telnet"
+     ],
+     [
+      "host",
+      "w"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:w:0 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:11:no_proto_port",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "w"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:w:0 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:12:no_host",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "Host is missing."
+  },
+  {
+   "name": "v:13:blank_host",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "  "
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "Host is missing."
+  },
+  {
+   "name": "v:14:port='x'",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "Invalid port."
+  },
+  {
+   "name": "v:15:port='5901'",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      "5901"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5901 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:16:port=5901",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "5901"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5901 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:17:port=' 7 '",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      " 7 "
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:7 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:18:port=0",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:19:port=None",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:20:port=''",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      ""
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:21:port=True",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:1 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:22:port=59.9",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "59.9"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:59 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:23:port=nan",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$float": "nan"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "Invalid port."
+  },
+  {
+   "name": "v:24:port=[]",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      []
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:25:port=-5",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "-5"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:-5 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:26:port=70000",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "port",
+      {
+       "$int": "70000"
+      }
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:70000 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  },
+  {
+   "name": "v:27:password_gw",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "sshpass -e ssh -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:28:password_gw_no_sshpass",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [],
+   "error": "GatewayError",
+   "message": "SSH gateway: Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "v:29:gw_bad",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "host",
+      "b"
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Host or user is missing."
+  },
+  {
+   "name": "v:30:client_error",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "VNC entries do not support a stored password — the viewer prompts for it. Edit the entry and save it to remove the password."
+  },
+  {
+   "name": "v:31:client_error_rdp",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      "h"
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "rdp",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "Password is set but user is empty. FreeRDP would read the piped password as the username — set user as well."
+  },
+  {
+   "name": "v:32:name=label",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:33:name=host_only",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion.example\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion.example\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:34:name=neither",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "user",
+      "u"
+     ],
+     [
+      "host",
+      ""
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Host or user is missing."
+  },
+  {
+   "name": "v:35:name=label_quote",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "my 'gw'"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"'my '\"'\"'gw'\"'\"''\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"'my '\"'\"'gw'\"'\"''\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:36:name=label_empty",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      ""
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion.example\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion.example\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:37:name=label_zero",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion.example\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion.example\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:38:name=label_unicode",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "brama żółw"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"'brama żółw'\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"'brama żółw'\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:39:name=label_num",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      {
+       "$int": "42"
+      }
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"42\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"42\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:40:lport_65535",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "h"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 65535,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:65535:h:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/65535) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/65535) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:65535\"\nvncviewer 127.0.0.1::65535\n"
+  },
+  {
+   "name": "v:41:v6_host",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "vnc"
+     ],
+     [
+      "host",
+      "2001:db8::1"
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "vnc",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:2001:db8::1:5900 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nvncviewer 127.0.0.1::40001\n"
+  },
+  {
+   "name": "v:42:host_padded",
+   "fn": "via",
+   "conn": {
+    "$map": [
+     [
+      "protocol",
+      "rdp"
+     ],
+     [
+      "host",
+      " h "
+     ]
+    ]
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "client": "stub",
+   "client_launch": null,
+   "client_which": [],
+   "local_port": 40001,
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": "ssh -o BatchMode=yes -N -o ExitOnForwardFailure=yes -L 127.0.0.1:40001:h:3389 jump@bastion.example & TERMIGATOR_GW=$!\ntrap 'kill $TERMIGATOR_GW 2>/dev/null' EXIT HUP TERM INT\nfor _ in $(seq 100); do\n  (exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null && break\n  kill -0 $TERMIGATOR_GW 2>/dev/null || { echo \"SSH gateway \"bastion\" failed (see above).\"; exit 1; }\n  sleep 0.2\ndone\n(exec 3<>/dev/tcp/127.0.0.1/40001) 2>/dev/null || { echo 'SSH gateway: the tunnel did not open in time.'; exit 1; }\necho \"via SSH gateway \"bastion\" → 127.0.0.1:40001\"\nstub 127.0.0.1 40001\n"
+  }
+ ]
+}

@@ -1,0 +1,1312 @@
+{
+ "cases": [
+  {
+   "name": "sample",
+   "input": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ArrayOfSessionData xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <SessionData SessionId=\"Linux/Web/frontend\" SessionName=\"frontend\" Host=\"10.0.0.5\"\n    Port=\"22\" Proto=\"SSH\" Username=\"deploy\" />\n  <SessionData SessionId=\"Windows/dc1\" SessionName=\"dc1\" Host=\"10.0.0.9\" Port=\"3389\"\n    Proto=\"RDP\" Username=\"administrator\" />\n  <SessionData SessionId=\"bare\" SessionName=\"bare\" Host=\"10.0.0.7\" Port=\"2222\" Proto=\"SSH\" />\n</ArrayOfSessionData>\n",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "frontend"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "deploy"
+      ],
+      [
+       "group",
+       "Linux/Web"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bare"
+      ],
+      [
+       "host",
+       "10.0.0.7"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "bad_xml",
+   "input": "<not-xml",
+   "expect": []
+  },
+  {
+   "name": "empty",
+   "input": "",
+   "expect": []
+  },
+  {
+   "name": "no_root",
+   "input": "<?xml version=\"1.0\"?>",
+   "expect": []
+  },
+  {
+   "name": "text_only",
+   "input": "hello",
+   "expect": []
+  },
+  {
+   "name": "root_is_session",
+   "input": "<SessionData Host=\"h\" Proto=\"SSH\" />",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "unclosed",
+   "input": "<A><SessionData Host=\"h\" />",
+   "expect": []
+  },
+  {
+   "name": "mismatched",
+   "input": "<A><SessionData Host=\"h\" /></B>",
+   "expect": []
+  },
+  {
+   "name": "two_roots",
+   "input": "<A/><B/>",
+   "expect": []
+  },
+  {
+   "name": "junk_after_root",
+   "input": "<A/>junk",
+   "expect": []
+  },
+  {
+   "name": "duplicate_attr",
+   "input": "<A><SessionData Host=\"h\" Host=\"g\" /></A>",
+   "expect": []
+  },
+  {
+   "name": "unknown_entity",
+   "input": "<A><SessionData Host=\"&nope;\" /></A>",
+   "expect": []
+  },
+  {
+   "name": "entities",
+   "input": "<ArrayOfSessionData><SessionData Host=\"a&amp;b&lt;&#65;&#x42;\" SessionName=\"q&quot;&apos;\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "q\"'"
+      ],
+      [
+       "host",
+       "a&b<AB"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "single_quotes",
+   "input": "<ArrayOfSessionData><SessionData Host='h' Proto='ssh2' /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proto_ssh2",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Proto=\"SSH2\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proto_lowercase",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Proto=\"ssh\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proto_missing",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proto_empty",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Proto=\"\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proto_telnet",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Proto=\"Telnet\" /></ArrayOfSessionData>",
+   "expect": []
+  },
+  {
+   "name": "proto_rdp_vnc",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Proto=\"RDP\" /><SessionData Host=\"h2\" Proto=\"VNC\" /></ArrayOfSessionData>",
+   "expect": []
+  },
+  {
+   "name": "no_host",
+   "input": "<ArrayOfSessionData><SessionData Proto=\"SSH\" SessionName=\"x\" /></ArrayOfSessionData>",
+   "expect": []
+  },
+  {
+   "name": "blank_host",
+   "input": "<ArrayOfSessionData><SessionData Host=\"   \" /></ArrayOfSessionData>",
+   "expect": []
+  },
+  {
+   "name": "host_user_at",
+   "input": "<ArrayOfSessionData><SessionData Host=\"joe@srv\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "joe@srv"
+      ],
+      [
+       "host",
+       "srv"
+      ],
+      [
+       "user",
+       "joe"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "host_user_at_with_username",
+   "input": "<ArrayOfSessionData><SessionData Host=\"joe@srv\" Username=\"given\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "joe@srv"
+      ],
+      [
+       "host",
+       "joe@srv"
+      ],
+      [
+       "user",
+       "given"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_default",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\"22\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_empty",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\"\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_bad",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\"x\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_zero",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\"0\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_spaces",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\" 2200 \" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2200"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_big",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Port=\"99999\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "99999"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_id_groups",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"A/B/C/leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A/B/C"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_id_backslashes",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"A\\B\\leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A/B"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_id_edge_slashes",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"/A/leaf/\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_id_only_slashes",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"///\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_id_single",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "label_from_id",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"A/leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "label_from_host",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "label_name_wins",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"A/leaf\" SessionName=\"Name\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Name"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "label_blank_name",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"A/leaf\" SessionName=\"  \" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "A"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "label_120",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionName=\"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "group_80",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG/leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "group_80_unicode",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionId=\"ŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁ/leaf\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "leaf"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "group",
+       "ŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁŁ"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "username_strip",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" Username=\"  deploy  \" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "deploy"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "namespaced_tag",
+   "input": "<a:Root xmlns:a=\"urn:x\"><a:SessionData Host=\"h\" /></a:Root>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "default_namespace",
+   "input": "<Root xmlns=\"urn:x\"><SessionData Host=\"h\" /></Root>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "tag_suffix_match",
+   "input": "<ArrayOfSessionData><XSessionData Host=\"h\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "nested",
+   "input": "<A><B><C><SessionData Host=\"deep\" /></C></B></A>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "deep"
+      ],
+      [
+       "host",
+       "deep"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "session_data_with_children",
+   "input": "<ArrayOfSessionData><SessionData Host=\"outer\"><SessionData Host=\"inner\" /></SessionData></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "outer"
+      ],
+      [
+       "host",
+       "outer"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "inner"
+      ],
+      [
+       "host",
+       "inner"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "comments_and_cdata",
+   "input": "<ArrayOfSessionData><!-- c --><![CDATA[x]]><SessionData Host=\"h\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "doctype",
+   "input": "<!DOCTYPE A><A><SessionData Host=\"h\" /></A>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "pi",
+   "input": "<?xml version=\"1.0\"?><?x y?><A><SessionData Host=\"h\" /></A>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "bom",
+   "input": "﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ArrayOfSessionData xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <SessionData SessionId=\"Linux/Web/frontend\" SessionName=\"frontend\" Host=\"10.0.0.5\"\n    Port=\"22\" Proto=\"SSH\" Username=\"deploy\" />\n  <SessionData SessionId=\"Windows/dc1\" SessionName=\"dc1\" Host=\"10.0.0.9\" Port=\"3389\"\n    Proto=\"RDP\" Username=\"administrator\" />\n  <SessionData SessionId=\"bare\" SessionName=\"bare\" Host=\"10.0.0.7\" Port=\"2222\" Proto=\"SSH\" />\n</ArrayOfSessionData>\n",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "frontend"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "deploy"
+      ],
+      [
+       "group",
+       "Linux/Web"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bare"
+      ],
+      [
+       "host",
+       "10.0.0.7"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "attr_newline_tab",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionName=\"a\tb\nc\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a b c"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "attr_char_ref_newline",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h\" SessionName=\"a&#10;b\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a\nb"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "polish",
+   "input": "<ArrayOfSessionData><SessionData Host=\"serwer.łódź\" SessionId=\"Grupa/Żółw\" SessionName=\"Żółw\" Username=\"użytkownik\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Żółw"
+      ],
+      [
+       "host",
+       "serwer.łódź"
+      ],
+      [
+       "user",
+       "użytkownik"
+      ],
+      [
+       "group",
+       "Grupa"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "many",
+   "input": "<ArrayOfSessionData><SessionData Host=\"h0\" Port=\"2000\" /><SessionData Host=\"h1\" Port=\"2001\" /><SessionData Host=\"h2\" Port=\"2002\" /><SessionData Host=\"h3\" Port=\"2003\" /><SessionData Host=\"h4\" Port=\"2004\" /><SessionData Host=\"h5\" Port=\"2005\" /><SessionData Host=\"h6\" Port=\"2006\" /><SessionData Host=\"h7\" Port=\"2007\" /><SessionData Host=\"h8\" Port=\"2008\" /><SessionData Host=\"h9\" Port=\"2009\" /><SessionData Host=\"h10\" Port=\"2010\" /><SessionData Host=\"h11\" Port=\"2011\" /><SessionData Host=\"h12\" Port=\"2012\" /><SessionData Host=\"h13\" Port=\"2013\" /><SessionData Host=\"h14\" Port=\"2014\" /><SessionData Host=\"h15\" Port=\"2015\" /><SessionData Host=\"h16\" Port=\"2016\" /><SessionData Host=\"h17\" Port=\"2017\" /><SessionData Host=\"h18\" Port=\"2018\" /><SessionData Host=\"h19\" Port=\"2019\" /></ArrayOfSessionData>",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "h0"
+      ],
+      [
+       "host",
+       "h0"
+      ],
+      [
+       "port",
+       {
+        "$int": "2000"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h1"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "port",
+       {
+        "$int": "2001"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h2"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "port",
+       {
+        "$int": "2002"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h3"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "port",
+       {
+        "$int": "2003"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h4"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "port",
+       {
+        "$int": "2004"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h5"
+      ],
+      [
+       "host",
+       "h5"
+      ],
+      [
+       "port",
+       {
+        "$int": "2005"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h6"
+      ],
+      [
+       "host",
+       "h6"
+      ],
+      [
+       "port",
+       {
+        "$int": "2006"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h7"
+      ],
+      [
+       "host",
+       "h7"
+      ],
+      [
+       "port",
+       {
+        "$int": "2007"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h8"
+      ],
+      [
+       "host",
+       "h8"
+      ],
+      [
+       "port",
+       {
+        "$int": "2008"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h9"
+      ],
+      [
+       "host",
+       "h9"
+      ],
+      [
+       "port",
+       {
+        "$int": "2009"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h10"
+      ],
+      [
+       "host",
+       "h10"
+      ],
+      [
+       "port",
+       {
+        "$int": "2010"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h11"
+      ],
+      [
+       "host",
+       "h11"
+      ],
+      [
+       "port",
+       {
+        "$int": "2011"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h12"
+      ],
+      [
+       "host",
+       "h12"
+      ],
+      [
+       "port",
+       {
+        "$int": "2012"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h13"
+      ],
+      [
+       "host",
+       "h13"
+      ],
+      [
+       "port",
+       {
+        "$int": "2013"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h14"
+      ],
+      [
+       "host",
+       "h14"
+      ],
+      [
+       "port",
+       {
+        "$int": "2014"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h15"
+      ],
+      [
+       "host",
+       "h15"
+      ],
+      [
+       "port",
+       {
+        "$int": "2015"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h16"
+      ],
+      [
+       "host",
+       "h16"
+      ],
+      [
+       "port",
+       {
+        "$int": "2016"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h17"
+      ],
+      [
+       "host",
+       "h17"
+      ],
+      [
+       "port",
+       {
+        "$int": "2017"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h18"
+      ],
+      [
+       "host",
+       "h18"
+      ],
+      [
+       "port",
+       {
+        "$int": "2018"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "h19"
+      ],
+      [
+       "host",
+       "h19"
+      ],
+      [
+       "port",
+       {
+        "$int": "2019"
+       }
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

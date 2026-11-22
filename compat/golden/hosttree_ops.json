@@ -1,0 +1,10832 @@
+{
+ "cases": [
+  {
+   "name": "dropped:into_folder",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "2"
+    },
+    "prod/web/eu"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web/eu"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "prod",
+     "prod/web",
+     "prod/web/eu"
+    ],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:back_to_top",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    ""
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:same_folder_noop",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    "prod/web"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:normalizes_path",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "2"
+    },
+    " a \\ b/ "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "a/b"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "a",
+     "a/b"
+    ],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:favorite",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "favorite",
+    {
+     "$int": "0"
+    },
+    "x/y"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "x/y"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "x",
+     "x/y"
+    ],
+    "select": [
+     "favorite",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:out_of_range",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "9"
+    },
+    "x"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:c_above_a",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "2"
+      }
+     ]
+    ],
+    "prod",
+    [
+     "connection",
+     {
+      "$int": "0"
+     }
+    ],
+    false
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:c_below_b",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "2"
+      }
+     ]
+    ],
+    "prod",
+    [
+     "connection",
+     {
+      "$int": "1"
+     }
+    ],
+    true
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:selection_into_infra",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "connection",
+      {
+       "$int": "1"
+      }
+     ]
+    ],
+    "infra",
+    [
+     "connection",
+     {
+      "$int": "3"
+     }
+    ],
+    false
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     1
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:after_last",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "0"
+      }
+     ]
+    ],
+    "",
+    [
+     "connection",
+     {
+      "$int": "4"
+     }
+    ],
+    true
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     4
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:anchor_other_kind",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "0"
+      }
+     ]
+    ],
+    "infra",
+    [
+     "favorite",
+     {
+      "$int": "0"
+     }
+    ],
+    false
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     4
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:out_of_range_ignored",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "connection",
+      {
+       "$int": "9"
+      }
+     ]
+    ],
+    "infra",
+    [
+     "connection",
+     {
+      "$int": "0"
+     }
+    ],
+    false
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:both_kinds",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f1"
+         ],
+         [
+          "command",
+          "x"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "f2"
+         ],
+         [
+          "command",
+          "y"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "favorite",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "connection",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "favorite",
+      {
+       "$int": "0"
+      }
+     ]
+    ],
+    "g",
+    [
+     "connection",
+     {
+      "$int": "1"
+     }
+    ],
+    true
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f1"
+          ],
+          [
+           "command",
+           "x"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "f2"
+          ],
+          [
+           "command",
+           "y"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "g"
+    ],
+    "select": [
+     "connection",
+     1
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "placed:favorite_first_select",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f1"
+         ],
+         [
+          "command",
+          "x"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "f2"
+         ],
+         [
+          "command",
+          "y"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "entries_placed",
+   "args": [
+    [
+     [
+      "favorite",
+      {
+       "$int": "1"
+      }
+     ]
+    ],
+    "g",
+    [
+     "favorite",
+     {
+      "$int": "0"
+     }
+    ],
+    false
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f2"
+          ],
+          [
+           "command",
+           "y"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "f1"
+          ],
+          [
+           "command",
+           "x"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "g"
+    ],
+    "select": [
+     "favorite",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "dropped:on_entry_keeps_order",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "entry_dropped",
+   "args": [
+    "connection",
+    {
+     "$int": "4"
+    },
+    "prod"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": [
+     "connection",
+     4
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "folder:into_other",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "folder_moved",
+   "args": [
+    "prod",
+    "infra"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra/prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra/prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra/prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "infra/prod"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "folder:to_top",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra/prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra/prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra/prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "infra/prod"
+   ],
+   "op": "folder_moved",
+   "args": [
+    "infra/prod",
+    ""
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "folder:same_place_noop",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "folder_moved",
+   "args": [
+    "prod",
+    ""
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "folder:into_itself",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/sub"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod",
+    "prod/sub"
+   ],
+   "op": "folder_moved",
+   "args": [
+    "prod",
+    "prod/sub"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/sub"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod",
+     "prod/sub"
+    ],
+    "select": null,
+    "ret": "Cannot move a folder into itself."
+   }
+  },
+  {
+   "name": "folder:into_own_descendant_leaf",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/sub"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "infra"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "top"
+         ],
+         [
+          "host",
+          "top.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [
+    "infra",
+    "prod"
+   ],
+   "op": "folder_moved",
+   "args": [
+    "prod",
+    "prod"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/sub"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "infra"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "top"
+          ],
+          [
+           "host",
+           "top.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           ""
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "infra",
+     "prod"
+    ],
+    "select": null,
+    "ret": "Cannot move a folder into itself."
+   }
+  },
+  {
+   "name": "rename:subtree_and_explicit",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [
+    "p",
+    "p/q"
+   ],
+   "op": "group_rename",
+   "args": [
+    "p",
+    "m/n"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "m/n/q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "m/n"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "m/n/e",
+        "m/n/q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "m",
+     "m/n",
+     "m/n/q"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "rename:equal_noop",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "group_rename",
+   "args": [
+    "p",
+    "p"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "p/q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "p/q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "rename:blank_new",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "group_rename",
+   "args": [
+    "p",
+    "  "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "p/q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "p/q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "rename:into_itself",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "group_rename",
+   "args": [
+    "p",
+    "p/q/z"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "p/q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "p/q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": "Cannot move a folder into itself."
+   }
+  },
+  {
+   "name": "rename:backslash",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "group_rename",
+   "args": [
+    "p\\q",
+    "z\\y"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "z/y"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "z/y/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "z"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "ungroup:nested",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [
+    "p",
+    "p/q",
+    "p/q/r"
+   ],
+   "op": "ungroup",
+   "args": [
+    "p/q"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "p/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "p",
+     "p/r"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "ungroup:top_folder",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [
+    "p",
+    "p/q"
+   ],
+   "op": "ungroup",
+   "args": [
+    "p"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "e",
+        "q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "q"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "ungroup:blank",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "ungroup",
+   "args": [
+    " "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "p/q"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "p/q/r",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "delete:subtree",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/q"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ],
+         [
+          "group",
+          "p"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "p/e",
+       "p/q/r",
+       "other"
+      ]
+     ]
+    ]
+   },
+   "expanded": [
+    "p",
+    "p/q",
+    "p/q/r"
+   ],
+   "op": "delete_group",
+   "args": [
+    "p/q"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       []
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ],
+          [
+           "group",
+           "p"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "p/e",
+        "other"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "p"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "delete:top_folder_prefix_only",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "pp"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "p/x"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ],
+     [
+      "groups",
+      [
+       "pp/z",
+       "p/y"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "delete_group",
+   "args": [
+    "p"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "pp"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "groups",
+       [
+        "pp/z"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "delete:empties_groups_key",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "favorites",
+      []
+     ],
+     [
+      "groups",
+      [
+       "only"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "delete_group",
+   "args": [
+    "only"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       []
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "add_group:top",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "add_group",
+   "args": [
+    "",
+    "newdir"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub",
+        "newdir"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "newdir"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "add_group:nested",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "add_group",
+   "args": [
+    "prod",
+    "x/y"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub",
+        "prod/x/y"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "prod",
+     "prod/x",
+     "prod/x/y"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "add_group:blank",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "add_group",
+   "args": [
+    "",
+    "  "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "add_group:duplicate",
+   "cfg": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "show_recent",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "web1"
+         ],
+         [
+          "host",
+          "w1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/web"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "db1"
+         ],
+         [
+          "host",
+          "d1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod/db"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "solo"
+         ],
+         [
+          "host",
+          "s1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "moba"
+         ],
+         [
+          "host",
+          "m1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "prod\\web\\eu"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "fav"
+         ],
+         [
+          "command",
+          "htop"
+         ],
+         [
+          "group",
+          "tools"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "groups",
+      [
+       "empty/sub"
+      ]
+     ],
+     [
+      "recent",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "add_group",
+   "args": [
+    "",
+    "empty/sub"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "window",
+       {
+        "$map": [
+         [
+          "show_recent",
+          true
+         ]
+        ]
+       }
+      ],
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "web1"
+          ],
+          [
+           "host",
+           "w1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/web"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "db1"
+          ],
+          [
+           "host",
+           "d1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod/db"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "solo"
+          ],
+          [
+           "host",
+           "s1"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "moba"
+          ],
+          [
+           "host",
+           "m1"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "prod\\web\\eu"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "fav"
+          ],
+          [
+           "command",
+           "htop"
+          ],
+          [
+           "group",
+           "tools"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "groups",
+       [
+        "empty/sub"
+       ]
+      ],
+      [
+       "recent",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "empty",
+     "empty/sub"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "add_group:from_missing_key",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      []
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "add_group",
+   "args": [
+    "",
+    "g"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       []
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "groups",
+       [
+        "g"
+       ]
+      ]
+     ]
+    },
+    "expanded": [
+     "g"
+    ],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "duplicate:connection",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "tags",
+          [
+           "prod"
+          ]
+         ],
+         [
+          "local_forwards",
+          [
+           "1:x:2"
+          ]
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          ""
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          " padded "
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "duplicate",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "h"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "tags",
+           [
+            "prod"
+           ]
+          ],
+          [
+           "local_forwards",
+           [
+            "1:x:2"
+           ]
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a (copy)"
+          ],
+          [
+           "host",
+           "h"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "tags",
+           [
+            "prod"
+           ]
+          ],
+          [
+           "local_forwards",
+           [
+            "1:x:2"
+           ]
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           ""
+          ],
+          [
+           "host",
+           "h2"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           " padded "
+          ],
+          [
+           "host",
+           "h3"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     1
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "duplicate:no_label",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "tags",
+          [
+           "prod"
+          ]
+         ],
+         [
+          "local_forwards",
+          [
+           "1:x:2"
+          ]
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          ""
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          " padded "
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "duplicate",
+   "args": [
+    "connection",
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "h"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "tags",
+           [
+            "prod"
+           ]
+          ],
+          [
+           "local_forwards",
+           [
+            "1:x:2"
+           ]
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           ""
+          ],
+          [
+           "host",
+           "h2"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "copy"
+          ],
+          [
+           "host",
+           "h2"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           " padded "
+          ],
+          [
+           "host",
+           "h3"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "duplicate:favorite",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "tags",
+          [
+           "prod"
+          ]
+         ],
+         [
+          "local_forwards",
+          [
+           "1:x:2"
+          ]
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          ""
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          " padded "
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "duplicate",
+   "args": [
+    "favorite",
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "h"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "tags",
+           [
+            "prod"
+           ]
+          ],
+          [
+           "local_forwards",
+           [
+            "1:x:2"
+           ]
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           ""
+          ],
+          [
+           "host",
+           "h2"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           " padded "
+          ],
+          [
+           "host",
+           "h3"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "f (copy)"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "favorite",
+     1
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "duplicate:out_of_range",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "tags",
+          [
+           "prod"
+          ]
+         ],
+         [
+          "local_forwards",
+          [
+           "1:x:2"
+          ]
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          ""
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          " padded "
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f"
+         ],
+         [
+          "command",
+          "c"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "duplicate",
+   "args": [
+    "connection",
+    {
+     "$int": "7"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "h"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "tags",
+           [
+            "prod"
+           ]
+          ],
+          [
+           "local_forwards",
+           [
+            "1:x:2"
+           ]
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           ""
+          ],
+          [
+           "host",
+           "h2"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           " padded "
+          ],
+          [
+           "host",
+           "h3"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f"
+          ],
+          [
+           "command",
+           "c"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "move:down_skips_other_folder",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "move:up",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move",
+   "args": [
+    "connection",
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "-1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     2
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "move:top_edge",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    {
+     "$int": "-1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "move:bottom_edge",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move",
+   "args": [
+    "connection",
+    {
+     "$int": "3"
+    },
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "move_to_group:new",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move_to_group",
+   "args": [
+    "connection",
+    {
+     "$int": "1"
+    },
+    "n/m"
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "n/m"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [
+     "n",
+     "n/m"
+    ],
+    "select": [
+     "connection",
+     1
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "move_to_group:top",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move_to_group",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    " (top level) "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "move_to_group:blank_name",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "move_to_group",
+   "args": [
+    "connection",
+    {
+     "$int": "0"
+    },
+    "  "
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": [
+     "connection",
+     0
+    ],
+    "ret": null
+   }
+  },
+  {
+   "name": "remove:connection",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "remove",
+   "args": [
+    "connection",
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "remove:favorite",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "f1"
+         ],
+         [
+          "command",
+          "x"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "f2"
+         ],
+         [
+          "command",
+          "y"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "remove",
+   "args": [
+    "favorite",
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "f2"
+          ],
+          [
+           "command",
+           "y"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "bulk_delete:several",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "x"
+         ],
+         [
+          "host",
+          "x"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "c"
+         ],
+         [
+          "host",
+          "c"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "g"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "bulk_delete",
+   "args": [
+    [
+     {
+      "$int": "0"
+     },
+     {
+      "$int": "2"
+     },
+     {
+      "$int": "9"
+     }
+    ]
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "x"
+          ],
+          [
+           "host",
+           "x"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "c"
+          ],
+          [
+           "host",
+           "c"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "group",
+           "g"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "recent:touch_existing",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "A.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "dev"
+         ],
+         [
+          "device",
+          "/dev/X"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ],
+     [
+      "recent",
+      [
+       "b|u|",
+       "a.lan|u|22",
+       {
+        "$int": "7"
+       },
+       "gone"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "touch_recent",
+   "args": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "A.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "port",
+           {
+            "$int": "22"
+           }
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "dev"
+          ],
+          [
+           "device",
+           "/dev/X"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "recent",
+       [
+        "a.lan|u|22",
+        "b|u|",
+        "gone"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "recent:touch_device",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "A.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "dev"
+         ],
+         [
+          "device",
+          "/dev/X"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ],
+     [
+      "recent",
+      [
+       "b|u|",
+       "a.lan|u|22",
+       {
+        "$int": "7"
+       },
+       "gone"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "touch_recent",
+   "args": [
+    {
+     "$int": "2"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "A.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "port",
+           {
+            "$int": "22"
+           }
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "dev"
+          ],
+          [
+           "device",
+           "/dev/X"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "recent",
+       [
+        "/dev/x||",
+        "b|u|",
+        "a.lan|u|22",
+        "gone"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "recent:touch_truncates_to_ten",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "A.lan"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "22"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "b"
+         ],
+         [
+          "host",
+          "b"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "dev"
+         ],
+         [
+          "device",
+          "/dev/X"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ],
+     [
+      "recent",
+      [
+       "k0||",
+       "k1||",
+       "k2||",
+       "k3||",
+       "k4||",
+       "k5||",
+       "k6||",
+       "k7||",
+       "k8||",
+       "k9||"
+      ]
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "touch_recent",
+   "args": [
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "A.lan"
+          ],
+          [
+           "user",
+           "u"
+          ],
+          [
+           "port",
+           {
+            "$int": "22"
+           }
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "b"
+          ],
+          [
+           "host",
+           "b"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "label",
+           "dev"
+          ],
+          [
+           "device",
+           "/dev/X"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "recent",
+       [
+        "b|u|",
+        "k0||",
+        "k1||",
+        "k2||",
+        "k3||",
+        "k4||",
+        "k5||",
+        "k6||",
+        "k7||",
+        "k8||"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  },
+  {
+   "name": "recent:touch_creates_key",
+   "cfg": {
+    "$map": [
+     [
+      "connections",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "a"
+         ],
+         [
+          "host",
+          "a"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "favorites",
+      []
+     ]
+    ]
+   },
+   "expanded": [],
+   "op": "touch_recent",
+   "args": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": {
+    "cfg": {
+     "$map": [
+      [
+       "connections",
+       [
+        {
+         "$map": [
+          [
+           "label",
+           "a"
+          ],
+          [
+           "host",
+           "a"
+          ],
+          [
+           "user",
+           "u"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "favorites",
+       []
+      ],
+      [
+       "recent",
+       [
+        "a|u|"
+       ]
+      ]
+     ]
+    },
+    "expanded": [],
+    "select": null,
+    "ret": null
+   }
+  }
+ ]
+}

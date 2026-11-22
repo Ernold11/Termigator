@@ -1,0 +1,1147 @@
+{
+ "cases": [
+  {
+   "name": "empty",
+   "conns": [],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n",
+    "exported": 0,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "full",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod web"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "deploy"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "identity_file",
+       "/home/x/id test"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ],
+      [
+       "local_forwards",
+       [
+        "8080:localhost:80",
+        "127.0.0.1:5433:db:5432"
+       ]
+      ],
+      [
+       "dynamic_forward",
+       {
+        "$int": "1080"
+       }
+      ],
+      [
+       "forward_agent",
+       true
+      ],
+      [
+       "password",
+       "SECRET"
+      ],
+      [
+       "group",
+       "prod"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "Ciphers=aes256-gcm@openssh.com",
+        "-o",
+        "ControlMaster=no",
+        "-v"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Prod web"
+      ],
+      [
+       "host",
+       "10.0.0.6"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "remote_command",
+       "tmux attach"
+      ],
+      [
+       "x11_forwarding",
+       true
+      ],
+      [
+       "x11_trusted",
+       true
+      ],
+      [
+       "remote_locale",
+       "pl_PL.UTF-8"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "desk"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "win"
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\n# group: prod\nHost Prod-web\n    HostName 10.0.0.5\n    User deploy\n    Port 2222\n    IdentityFile \"/home/x/id test\"\n    IdentitiesOnly yes\n    ProxyJump bastion\n    LocalForward 8080 localhost:80\n    LocalForward 127.0.0.1:5433 db:5432\n    DynamicForward 1080\n    ForwardAgent yes\n    Ciphers aes256-gcm@openssh.com\n    # not expressible here, from extra ssh arguments: -v\n\nHost Prod-web-2\n    HostName 10.0.0.6\n    User root\n    ForwardX11 yes\n    ForwardX11Trusted yes\n    RequestTTY yes\n    RemoteCommand \"tmux attach\"\n    SetEnv LANG=pl_PL.UTF-8 LC_ALL=pl_PL.UTF-8\n",
+    "exported": 2,
+    "skipped": 1
+   }
+  },
+  {
+   "name": "skips",
+   "conns": [
+    null,
+    "str",
+    {
+     "$int": "5"
+    },
+    {
+     "$map": [
+      [
+       "protocol",
+       "SSH"
+      ],
+      [
+       "host",
+       "  "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "L"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "protocol",
+       "Telnet"
+      ],
+      [
+       "host",
+       "t"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "protocol",
+       "SSH"
+      ],
+      [
+       "host",
+       " UP "
+      ],
+      [
+       "label",
+       null
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost UP\n    HostName UP\n",
+    "exported": 1,
+    "skipped": 4
+   }
+  },
+  {
+   "name": "port_forms",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "port",
+       "22"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "port",
+       "2200"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "e"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "f"
+      ],
+      [
+       "port",
+       " 22 "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "g"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n\nHost b\n    HostName b\n\nHost c\n    HostName c\n    Port 2200\n\nHost d\n    HostName d\n\nHost e\n    HostName e\n\nHost f\n    HostName f\n    Port 22\n\nHost g\n    HostName g\n    Port True\n\nHost h\n    HostName h\n    Port 0\n",
+    "exported": 8,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "proxy",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "proxy_jump",
+       [
+        "j1",
+        "u@j2:2200"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "jumphost",
+       "jh"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "jump_host",
+       "jj"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       "jh2"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "e"
+      ],
+      [
+       "proxy_jump",
+       []
+      ],
+      [
+       "jump_host",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "f"
+      ],
+      [
+       "proxy_jump",
+       "a b"
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n    ProxyJump j1,u@j2:2200\n\nHost b\n    HostName b\n    ProxyJump jh\n\nHost c\n    HostName c\n    ProxyJump jj\n\nHost d\n    HostName d\n    ProxyJump jh2\n\nHost e\n    HostName e\n    ProxyJump 0\n\nHost f\n    HostName f\n    ProxyJump \"a b\"\n",
+    "exported": 6,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "forwards",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "local_forwards",
+       "8080:h:80\n9090:h2:90\n\n"
+      ],
+      [
+       "remote_forwards",
+       [
+        "2222:localhost:22",
+        "0.0.0.0:80:web:80",
+        "bad"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "local_forwards",
+       "3306:db:3306"
+      ],
+      [
+       "remote_forwards",
+       "x:y"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "local_forwards",
+       null
+      ],
+      [
+       "remote_forwards",
+       []
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "local_forwards",
+       [
+        "[::1]:8080:host:80"
+       ]
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n    LocalForward 8080 h:80\n    LocalForward 9090 h2:90\n    RemoteForward 2222 localhost:22\n    RemoteForward 0.0.0.0:80 web:80\n    RemoteForward bad\n\nHost b\n    HostName b\n    LocalForward 3306 db:3306\n    RemoteForward x:y\n\nHost c\n    HostName c\n\nHost d\n    HostName d\n    LocalForward [::1]:8080 host:80\n",
+    "exported": 4,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "dynamic",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "dynamic_forward",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "dynamic_forward",
+       "none"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "dynamic_forward",
+       "Off"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "dynamic_forward",
+       "localhost:1080"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "e"
+      ],
+      [
+       "dynamic_forward",
+       false
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "f"
+      ],
+      [
+       "dynamic_forward",
+       true
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "g"
+      ],
+      [
+       "dynamic_forward",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "dynamic_forward",
+       "false"
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n\nHost b\n    HostName b\n\nHost c\n    HostName c\n\nHost d\n    HostName d\n    DynamicForward localhost:1080\n\nHost e\n    HostName e\n\nHost f\n    HostName f\n    DynamicForward True\n\nHost g\n    HostName g\n\nHost h\n    HostName h\n",
+    "exported": 8,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "flags",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "forward_agent",
+       "yes"
+      ],
+      [
+       "x11_forwarding",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "compression",
+       "true"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "x11_forwarding",
+       true
+      ],
+      [
+       "compression",
+       true
+      ],
+      [
+       "request_tty",
+       true
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "remote_command",
+       "ls -l"
+      ],
+      [
+       "strict_host_key_checking",
+       "accept-new"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "x11_trusted",
+       true
+      ],
+      [
+       "x11_forwarding",
+       false
+      ],
+      [
+       "forward_agent",
+       false
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "e"
+      ],
+      [
+       "remote_locale",
+       "C"
+      ],
+      [
+       "remote_command",
+       "  "
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n\nHost b\n    HostName b\n    ForwardX11 yes\n    Compression yes\n    RequestTTY yes\n\nHost c\n    HostName c\n    RequestTTY yes\n    RemoteCommand \"ls -l\"\n    StrictHostKeyChecking accept-new\n\nHost d\n    HostName d\n\nHost e\n    HostName e\n    RequestTTY yes\n    SetEnv LANG=C LC_ALL=C\n",
+    "exported": 5,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "quoting",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a b"
+      ],
+      [
+       "user",
+       "us er"
+      ],
+      [
+       "identity_file",
+       "/p/with space/key"
+      ],
+      [
+       "group",
+       "  g r  "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       {
+        "$int": "123"
+       }
+      ],
+      [
+       "strict_host_key_checking",
+       false
+      ],
+      [
+       "group",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       ""
+      ],
+      [
+       "identity_file",
+       ""
+      ],
+      [
+       "group",
+       "   "
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\n# group: g r\nHost a-b\n    HostName \"a b\"\n    User \"us er\"\n    IdentityFile \"/p/with space/key\"\n    IdentitiesOnly yes\n\n# group: 5\nHost h\n    HostName h\n    User 123\n    StrictHostKeyChecking False\n\nHost h2\n    HostName h2\n",
+    "exported": 3,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "extras",
+   "conns": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p",
+        "2200",
+        "-i",
+        "/k",
+        "-J",
+        "jj",
+        "-C",
+        "-A"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2200 -o 'ProxyCommand=nc %h %p' -Xv"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-o User=other -o Port=1 -oIdentitiesOnly=yes -o ForwardAgent yes"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "d"
+      ],
+      [
+       "extra_ssh_args",
+       "-o ControlPath=/x -o ControlPersist=5m -o controlmaster=auto -oControlMaster=no"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "e"
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'unbalanced"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "f"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "g"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-p"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "Foo"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "i"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "  Key  =  va lue  ",
+        "-o",
+        "="
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "j"
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "k"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "HostName=other",
+        "-o",
+        "hostname=x",
+        "-vvv",
+        "--",
+        "-4"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "l"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "LocalForward=1 h:2"
+       ]
+      ],
+      [
+       "local_forwards",
+       [
+        "3:h:4"
+       ]
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "m"
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "n"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-J"
+       ]
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost a\n    HostName a\n    Port 2200\n    IdentityFile /k\n    ProxyJump jj\n    Compression yes\n    ForwardAgent yes\n\nHost b\n    HostName b\n    Port 2200\n    ProxyCommand \"nc %h %p\"\n    # not expressible here, from extra ssh arguments: -Xv\n\nHost c\n    HostName c\n    User u\n    Port 1\n    IdentitiesOnly yes\n    # not expressible here, from extra ssh arguments: yes\n\nHost d\n    HostName d\n\nHost e\n    HostName e\n    # not expressible here, from extra ssh arguments: -o 'unbalanced\n\nHost f\n    HostName f\n    # not expressible here, from extra ssh arguments: -o\n\nHost g\n    HostName g\n    # not expressible here, from extra ssh arguments: -p\n\nHost h\n    HostName h\n\nHost i\n    HostName i\n    Key \"va lue\"\n\nHost j\n    HostName j\n    # not expressible here, from extra ssh arguments: 7\n\nHost k\n    HostName k\n    # not expressible here, from extra ssh arguments: -vvv -- -4\n\nHost l\n    HostName l\n    LocalForward 3 h:4\n\nHost m\n    HostName m\n\nHost n\n    HostName n\n    # not expressible here, from extra ssh arguments: -J\n",
+    "exported": 14,
+    "skipped": 0
+   }
+  },
+  {
+   "name": "dupes",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "Web"
+      ],
+      [
+       "host",
+       "1"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "web"
+      ],
+      [
+       "host",
+       "2"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "web"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "web-2"
+      ],
+      [
+       "host",
+       "4"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "*"
+      ],
+      [
+       "host",
+       "5"
+      ]
+     ]
+    }
+   ],
+   "now": [
+    2026,
+    11,
+    8,
+    9,
+    5
+   ],
+   "expect": {
+    "text": "# Termigator export, 2026-11-08 09:05 — SSH entries as an OpenSSH client config.\n# Use it from ~/.ssh/config with:  Include <path of this file>\n# Saved passwords are never exported.\n\nHost Web\n    HostName 1\n\nHost web-2\n    HostName 2\n\nHost web-3\n    HostName web\n\nHost web-2-2\n    HostName 4\n\nHost host\n    HostName 5\n",
+    "exported": 5,
+    "skipped": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,538 @@
+{
+ "cases": [
+  {
+   "name": "proxy:0",
+   "input": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      null
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       "bastion"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "bastion"
+     ],
+     [
+      "text",
+      "bastion"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:2",
+   "input": [
+    {
+     "$map": [
+      [
+       "jumphost",
+       "jh"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "jh"
+     ],
+     [
+      "text",
+      "jh"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:3",
+   "input": [
+    {
+     "$map": [
+      [
+       "jump_host",
+       "j_h"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "j_h"
+     ],
+     [
+      "text",
+      "j_h"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:4",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       "a"
+      ],
+      [
+       "jumphost",
+       "b"
+      ],
+      [
+       "jump_host",
+       "c"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "a"
+     ],
+     [
+      "text",
+      "a"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:5",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       "b"
+      ],
+      [
+       "jump_host",
+       "c"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "b"
+     ],
+     [
+      "text",
+      "b"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:6",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       null
+      ],
+      [
+       "jumphost",
+       ""
+      ],
+      [
+       "jump_host",
+       "c"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "c"
+     ],
+     [
+      "text",
+      "c"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:7",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       ""
+      ],
+      [
+       "jump_host",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      ""
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:8",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "jump_host",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      null
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:9",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       ""
+      ],
+      [
+       "jumphost",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      null
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:10",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      null
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:11",
+   "input": [
+    {
+     "$map": [
+      [
+       "jump_host",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:12",
+   "input": [
+    {
+     "$map": [
+      [
+       "jump_host",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      false
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:13",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       "  user@h:22  "
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "  user@h:22  "
+     ],
+     [
+      "text",
+      "user@h:22"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:14",
+   "input": [
+    {
+     "$map": [
+      [
+       "jumphost",
+       "\t"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "\t"
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:15",
+   "input": [
+    {
+     "$map": [
+      [
+       "jumphost",
+       "  "
+      ],
+      [
+       "jump_host",
+       "x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      "  "
+     ],
+     [
+      "text",
+      ""
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:16",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      {
+       "$int": "22"
+      }
+     ],
+     [
+      "text",
+      "22"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:17",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       true
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      true
+     ],
+     [
+      "text",
+      "True"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "proxy:18",
+   "input": [
+    {
+     "$map": [
+      [
+       "proxy_jump",
+       {
+        "$float": "1.5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "value",
+      {
+       "$float": "1.5"
+      }
+     ],
+     [
+      "text",
+      "1.5"
+     ]
+    ]
+   }
+  }
+ ]
+}

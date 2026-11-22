@@ -1,0 +1,172 @@
+{
+ "cases": [
+  {
+   "name": "empty",
+   "input": {
+    "$bytes": ""
+   },
+   "expect": ""
+  },
+  {
+   "name": "ascii",
+   "input": {
+    "$bytes": "5b426f6f6b6d61726b735d0a"
+   },
+   "expect": "[Bookmarks]\n"
+  },
+  {
+   "name": "utf8_plain",
+   "input": {
+    "$bytes": "5b426f6f6b6d61726b735d0a5a61c5bcc3b3c582c4873d78"
+   },
+   "expect": "[Bookmarks]\nZażółć=x"
+  },
+  {
+   "name": "utf8_bom",
+   "input": {
+    "$bytes": "efbbbf5b426f6f6b6d61726b735d0a"
+   },
+   "expect": "[Bookmarks]\n"
+  },
+  {
+   "name": "utf8_bom_invalid_byte",
+   "input": {
+    "$bytes": "efbbbf6162ff6364"
+   },
+   "expect": "ab�cd"
+  },
+  {
+   "name": "utf8_bom_truncated_seq",
+   "input": {
+    "$bytes": "efbbbf6162e282"
+   },
+   "expect": "ab�"
+  },
+  {
+   "name": "utf8_bom_surrogate_bytes",
+   "input": {
+    "$bytes": "efbbbf61eda08062"
+   },
+   "expect": "a���b"
+  },
+  {
+   "name": "utf8_bom_overlong",
+   "input": {
+    "$bytes": "efbbbf61c08062"
+   },
+   "expect": "a��b"
+  },
+  {
+   "name": "utf8_bom_f5",
+   "input": {
+    "$bytes": "efbbbf61f580808062"
+   },
+   "expect": "a����b"
+  },
+  {
+   "name": "utf8_bom_twice",
+   "input": {
+    "$bytes": "efbbbfefbbbf5b426f6f6b6d61726b735d"
+   },
+   "expect": "﻿[Bookmarks]"
+  },
+  {
+   "name": "utf8_bom_only",
+   "input": {
+    "$bytes": "efbbbf"
+   },
+   "expect": ""
+  },
+  {
+   "name": "utf16le_bom",
+   "input": {
+    "$bytes": "fffe5b0042006f006f006b006d00610072006b0073005d000a004101f30064007a013d007800"
+   },
+   "expect": "[Bookmarks]\nŁódź=x"
+  },
+  {
+   "name": "utf16be_bom",
+   "input": {
+    "$bytes": "feff005b0042006f006f006b006d00610072006b0073005d000a014100f30064017a003d0078"
+   },
+   "expect": "[Bookmarks]\nŁódź=x"
+  },
+  {
+   "name": "utf16le_astral",
+   "input": {
+    "$bytes": "fffe61003dd800de6200"
+   },
+   "expect": "a😀b"
+  },
+  {
+   "name": "utf16_bom_only_le",
+   "input": {
+    "$bytes": "fffe"
+   },
+   "expect": ""
+  },
+  {
+   "name": "utf16_bom_only_be",
+   "input": {
+    "$bytes": "feff"
+   },
+   "expect": ""
+  },
+  {
+   "name": "utf16_odd_length",
+   "input": {
+    "$bytes": "fffe610062"
+   },
+   "error": "UnicodeDecodeError"
+  },
+  {
+   "name": "utf16_lone_high_surrogate",
+   "input": {
+    "$bytes": "fffe00d86100"
+   },
+   "error": "UnicodeDecodeError"
+  },
+  {
+   "name": "utf16_lone_low_surrogate",
+   "input": {
+    "$bytes": "fffe00dc6100"
+   },
+   "error": "UnicodeDecodeError"
+  },
+  {
+   "name": "cp1250_polish",
+   "input": {
+    "$bytes": "53657277657220b3f3649f20a5ca8c8f"
+   },
+   "expect": "Serwer łódź ĄĘŚŹ"
+  },
+  {
+   "name": "cp1250_undefined_bytes",
+   "input": {
+    "$bytes": "6181628363886490659866"
+   },
+   "expect": "a�b�c�d�e�f"
+  },
+  {
+   "name": "cp1250_high_range",
+   "input": {
+    "$bytes": "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff"
+   },
+   "expect": "€�‚�„…†‡�‰Š‹ŚŤŽŹ�‘’“”•–—�™š›śťžź ˇ˘Ł¤Ą¦§¨©Ş«¬­®Ż°±˛ł´µ¶·¸ąş»Ľ˝ľżŔÁÂĂÄĹĆÇČÉĘËĚÍÎĎĐŃŇÓÔŐÖ×ŘŮÚŰÜÝŢßŕáâăäĺćçčéęëěíîďđńňóôőö÷řůúűüýţ˙"
+  },
+  {
+   "name": "invalid_utf8_lone_continuation",
+   "input": {
+    "$bytes": "6162806364"
+   },
+   "expect": "ab€cd"
+  },
+  {
+   "name": "invalid_utf8_latin1_style",
+   "input": {
+    "$bytes": "636166e9"
+   },
+   "expect": "café"
+  }
+ ]
+}

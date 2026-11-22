@@ -1,0 +1,420 @@
+{
+ "cases": [
+  {
+   "name": "basic",
+   "input": "@@TERMIGATOR-SYNC@@\nd\u00004096\u00001700000000.0\u0000sub\u0000f\u000012\u00001700000001.5000000000\u0000sub/a.txt\u0000",
+   "expect": {
+    "tree": [
+     [
+      "sub",
+      true,
+      0,
+      1700000000
+     ],
+     [
+      "sub/a.txt",
+      false,
+      12,
+      1700000001
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "noise_before",
+   "input": "Welcome\nmotd\n@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000x\u0000",
+   "expect": {
+    "tree": [
+     [
+      "x",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "no_marker",
+   "input": "f\u00001\u00005\u0000x\u0000",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  },
+  {
+   "name": "marker_no_newline",
+   "input": "@@TERMIGATOR-SYNC@@f\u00001\u00005\u0000x\u0000",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  },
+  {
+   "name": "marker_twice",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000a\u0000@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000b\u0000",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "empty_body",
+   "input": "@@TERMIGATOR-SYNC@@\n",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  },
+  {
+   "name": "empty",
+   "input": "",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  },
+  {
+   "name": "hostile",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00006\u00001700000000\u0000../../evil.txt\u0000f\u00001\u00005\u0000ok.txt\u0000d\u00000\u00005\u0000/abs\u0000f\u00001\u00005\u0000a//b\u0000f\u00001\u00005\u0000./a\u0000f\u00001\u00005\u0000a/..\u0000f\u00001\u00005\u0000..\u0000f\u00001\u00005\u0000a/\u0000",
+   "expect": {
+    "tree": [
+     [
+      "ok.txt",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": [
+     "../../evil.txt",
+     "/abs",
+     "a//b",
+     "./a",
+     "a/..",
+     "..",
+     "a/"
+    ]
+   }
+  },
+  {
+   "name": "empty_rel_skipped_not_rejected",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000\u0000",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  },
+  {
+   "name": "bad_kinds",
+   "input": "@@TERMIGATOR-SYNC@@\nl\u00001\u00005\u0000l\u0000\u00001\u00005\u0000e\u0000F\u00001\u00005\u0000F\u0000fd\u00001\u00005\u0000fd\u0000f\u00001\u00005\u0000good\u0000",
+   "expect": {
+    "tree": [
+     [
+      "good",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "bad_numbers",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u0000x\u00005\u0000a\u0000f\u00001\u0000y\u0000b\u0000f\u0000\u00005\u0000c\u0000f\u00001\u0000\u0000d\u0000f\u00001.5\u00005\u0000e\u0000d\u0000junk\u00005\u0000dd\u0000d\u00000\u0000junk\u0000de\u0000f\u00001\u0000nan\u0000n\u0000",
+   "expect": {
+    "tree": [
+     [
+      "dd",
+      true,
+      0,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "number_shapes",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u0000 7 \u00005\u0000a\u0000f\u0000+5\u00005\u0000b\u0000f\u00001_0\u00005\u0000c\u0000f\u0000-5\u00005\u0000d\u0000f\u0000007\u00005\u0000e\u0000f\u00001__0\u00005\u0000f\u0000f\u00001\u00001e3\u0000g\u0000f\u00001\u0000-1.9\u0000h\u0000f\u00001\u0000.5\u0000i\u0000f\u00001\u00005.\u0000j\u0000f\u00001\u0000 9.9 \u0000k\u0000f\u00001\u00001_0.5\u0000l\u0000f\u00001\u0000_1\u0000m\u0000f\u00001\u00001_\u0000n\u0000f\u00001\u00000x10\u0000o\u0000",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      7,
+      5
+     ],
+     [
+      "b",
+      false,
+      5,
+      5
+     ],
+     [
+      "c",
+      false,
+      10,
+      5
+     ],
+     [
+      "d",
+      false,
+      -5,
+      5
+     ],
+     [
+      "e",
+      false,
+      7,
+      5
+     ],
+     [
+      "g",
+      false,
+      1,
+      1000
+     ],
+     [
+      "h",
+      false,
+      1,
+      -1
+     ],
+     [
+      "i",
+      false,
+      1,
+      0
+     ],
+     [
+      "j",
+      false,
+      1,
+      5
+     ],
+     [
+      "k",
+      false,
+      1,
+      9
+     ],
+     [
+      "l",
+      false,
+      1,
+      10
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "dir_size_ignored",
+   "input": "@@TERMIGATOR-SYNC@@\nd\u0000garbage\u00005\u0000d1\u0000d\u000099\u00005\u0000d2\u0000",
+   "expect": {
+    "tree": [
+     [
+      "d1",
+      true,
+      0,
+      5
+     ],
+     [
+      "d2",
+      true,
+      0,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "duplicate_last_wins",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000a\u0000f\u00002\u00006\u0000a\u0000",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      2,
+      6
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "truncated_record",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000a\u0000f\u00001\u00005\u0000half",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      1,
+      5
+     ],
+     [
+      "half",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "two_extra_fields",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000a\u0000x\u0000y",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "trailing_no_nul",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000a\u0000f\u00001\u00005\u0000last",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      1,
+      5
+     ],
+     [
+      "last",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "non_utf8_name",
+   "input": {
+    "$bytes": "40405445524d494741544f522d53594e4340400a660031003500636166e900660031003500fffe2f7800"
+   },
+   "expect": {
+    "tree": [
+     [
+      {
+       "$bytes": "636166e9"
+      },
+      false,
+      1,
+      5
+     ],
+     [
+      {
+       "$bytes": "fffe2f78"
+      },
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "utf8_names",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000zażółć/日本語\u0000f\u00001\u00005\u0000new\nline\u0000",
+   "expect": {
+    "tree": [
+     [
+      "new\nline",
+      false,
+      1,
+      5
+     ],
+     [
+      "zażółć/日本語",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "hidden_dots",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u00001\u00005\u0000..hidden\u0000f\u00001\u00005\u0000a..b\u0000f\u00001\u00005\u0000...\u0000",
+   "expect": {
+    "tree": [
+     [
+      "...",
+      false,
+      1,
+      5
+     ],
+     [
+      "..hidden",
+      false,
+      1,
+      5
+     ],
+     [
+      "a..b",
+      false,
+      1,
+      5
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "big_numbers",
+   "input": "@@TERMIGATOR-SYNC@@\nf\u000099999999999\u00004102444800.123\u0000a\u0000f\u00000\u00000\u0000b\u0000",
+   "expect": {
+    "tree": [
+     [
+      "a",
+      false,
+      99999999999,
+      4102444800
+     ],
+     [
+      "b",
+      false,
+      0,
+      0
+     ]
+    ],
+    "rejected": []
+   }
+  },
+  {
+   "name": "crlf_marker",
+   "input": "@@TERMIGATOR-SYNC@@\r\nf\u00001\u00005\u0000x\u0000",
+   "expect": {
+    "tree": [],
+    "rejected": []
+   }
+  }
+ ]
+}

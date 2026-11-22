@@ -1,0 +1,7687 @@
+{
+ "cases": [
+  {
+   "name": "mode_bits:0:'-rwxr-x---'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxr-x---"
+   ],
+   "expect": 488
+  },
+  {
+   "name": "mode_bits:1:'drwxrwxrwt'",
+   "fn": "mode_bits",
+   "args": [
+    "drwxrwxrwt"
+   ],
+   "expect": 1023
+  },
+  {
+   "name": "mode_bits:2:'-rwsr-Sr--'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwsr-Sr--"
+   ],
+   "expect": 3556
+  },
+  {
+   "name": "mode_bits:3:'?'",
+   "fn": "mode_bits",
+   "args": [
+    "?"
+   ],
+   "expect": 0
+  },
+  {
+   "name": "mode_bits:4:''",
+   "fn": "mode_bits",
+   "args": [
+    ""
+   ],
+   "expect": 0
+  },
+  {
+   "name": "mode_bits:5:'-rwxrwxrwx'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxrwxrwx"
+   ],
+   "expect": 511
+  },
+  {
+   "name": "mode_bits:6:'----------'",
+   "fn": "mode_bits",
+   "args": [
+    "----------"
+   ],
+   "expect": 0
+  },
+  {
+   "name": "mode_bits:7:'-rwxrwxrwx+'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxrwxrwx+"
+   ],
+   "expect": 511
+  },
+  {
+   "name": "mode_bits:8:'-rwsrwsrwt'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwsrwsrwt"
+   ],
+   "expect": 4095
+  },
+  {
+   "name": "mode_bits:9:'-rwSrwSrwT'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwSrwSrwT"
+   ],
+   "expect": 4022
+  },
+  {
+   "name": "mode_bits:10:'-rw-rw-rw-'",
+   "fn": "mode_bits",
+   "args": [
+    "-rw-rw-rw-"
+   ],
+   "expect": 438
+  },
+  {
+   "name": "mode_bits:11:'lrwxrwxrwx'",
+   "fn": "mode_bits",
+   "args": [
+    "lrwxrwxrwx"
+   ],
+   "expect": 511
+  },
+  {
+   "name": "mode_bits:12:'-r-xr-xr-x'",
+   "fn": "mode_bits",
+   "args": [
+    "-r-xr-xr-x"
+   ],
+   "expect": 365
+  },
+  {
+   "name": "mode_bits:13:'-rwx'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwx"
+   ],
+   "expect": 0
+  },
+  {
+   "name": "mode_bits:14:'-rwxr-x--'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxr-x--"
+   ],
+   "expect": 0
+  },
+  {
+   "name": "mode_bits:15:'-rwxr-x---x'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxr-x---x"
+   ],
+   "expect": 488
+  },
+  {
+   "name": "mode_bits:16:'-RWXR-X---'",
+   "fn": "mode_bits",
+   "args": [
+    "-RWXR-X---"
+   ],
+   "expect": 488
+  },
+  {
+   "name": "mode_bits:17:'-rwxr-x--é'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxr-x--é"
+   ],
+   "expect": 489
+  },
+  {
+   "name": "mode_bits:18:'é-wxr-x---'",
+   "fn": "mode_bits",
+   "args": [
+    "é-wxr-x---"
+   ],
+   "expect": 232
+  },
+  {
+   "name": "mode_bits:19:'-rwxr-x--é-'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxr-x--é-"
+   ],
+   "expect": 489
+  },
+  {
+   "name": "mode_bits:20:'-r-sr-sr-t'",
+   "fn": "mode_bits",
+   "args": [
+    "-r-sr-sr-t"
+   ],
+   "expect": 3949
+  },
+  {
+   "name": "mode_bits:21:'-rwx------'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwx------"
+   ],
+   "expect": 448
+  },
+  {
+   "name": "mode_bits:22:'-rwxrwxrwxS'",
+   "fn": "mode_bits",
+   "args": [
+    "-rwxrwxrwxS"
+   ],
+   "expect": 511
+  },
+  {
+   "name": "mode_bits:23:'drwxr-sr-x'",
+   "fn": "mode_bits",
+   "args": [
+    "drwxr-sr-x"
+   ],
+   "expect": 1517
+  },
+  {
+   "name": "mode_bits:24:'drwxr-Sr-x'",
+   "fn": "mode_bits",
+   "args": [
+    "drwxr-Sr-x"
+   ],
+   "expect": 1509
+  },
+  {
+   "name": "human_size:0",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "0"
+    }
+   ],
+   "expect": "0 B"
+  },
+  {
+   "name": "human_size:1",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1"
+    }
+   ],
+   "expect": "1 B"
+  },
+  {
+   "name": "human_size:1023",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1023"
+    }
+   ],
+   "expect": "1023 B"
+  },
+  {
+   "name": "human_size:1024",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1024"
+    }
+   ],
+   "expect": "1.0 K"
+  },
+  {
+   "name": "human_size:1025",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1025"
+    }
+   ],
+   "expect": "1.0 K"
+  },
+  {
+   "name": "human_size:1280",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1280"
+    }
+   ],
+   "expect": "1.2 K"
+  },
+  {
+   "name": "human_size:1152",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1152"
+    }
+   ],
+   "expect": "1.1 K"
+  },
+  {
+   "name": "human_size:1536",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1536"
+    }
+   ],
+   "expect": "1.5 K"
+  },
+  {
+   "name": "human_size:1792",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1792"
+    }
+   ],
+   "expect": "1.8 K"
+  },
+  {
+   "name": "human_size:2560",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "2560"
+    }
+   ],
+   "expect": "2.5 K"
+  },
+  {
+   "name": "human_size:1048575",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1048575"
+    }
+   ],
+   "expect": "1024.0 K"
+  },
+  {
+   "name": "human_size:1048576",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1048576"
+    }
+   ],
+   "expect": "1.0 M"
+  },
+  {
+   "name": "human_size:1101005",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1101005"
+    }
+   ],
+   "expect": "1.1 M"
+  },
+  {
+   "name": "human_size:5242880",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "5242880"
+    }
+   ],
+   "expect": "5.0 M"
+  },
+  {
+   "name": "human_size:1073741823",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1073741823"
+    }
+   ],
+   "expect": "1024.0 M"
+  },
+  {
+   "name": "human_size:1073741824",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1073741824"
+    }
+   ],
+   "expect": "1.0 G"
+  },
+  {
+   "name": "human_size:1099511627775",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1099511627775"
+    }
+   ],
+   "expect": "1024.0 G"
+  },
+  {
+   "name": "human_size:1099511627776",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1099511627776"
+    }
+   ],
+   "expect": "1.0 T"
+  },
+  {
+   "name": "human_size:1125899906842624",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1125899906842624"
+    }
+   ],
+   "expect": "1024.0 T"
+  },
+  {
+   "name": "human_size:1152921504606846976",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1152921504606846976"
+    }
+   ],
+   "expect": "1048576.0 T"
+  },
+  {
+   "name": "human_size:3298534883329",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "3298534883329"
+    }
+   ],
+   "expect": "3.0 T"
+  },
+  {
+   "name": "human_size:1000000000000000",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1000000000000000"
+    }
+   ],
+   "expect": "909.5 T"
+  },
+  {
+   "name": "human_size:4611686018427387904",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "4611686018427387904"
+    }
+   ],
+   "expect": "4194304.0 T"
+  },
+  {
+   "name": "human_size:9223372036854775807",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "9223372036854775807"
+    }
+   ],
+   "expect": "8388608.0 T"
+  },
+  {
+   "name": "human_size:-1",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "-1"
+    }
+   ],
+   "expect": "-1 B"
+  },
+  {
+   "name": "human_size:-1023",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "-1023"
+    }
+   ],
+   "expect": "-1023 B"
+  },
+  {
+   "name": "human_size:-1024",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "-1024"
+    }
+   ],
+   "expect": "-1024 B"
+  },
+  {
+   "name": "human_size:-2048",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "-2048"
+    }
+   ],
+   "expect": "-2048 B"
+  },
+  {
+   "name": "human_size:-1000000000",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "-1000000000"
+    }
+   ],
+   "expect": "-1000000000 B"
+  },
+  {
+   "name": "human_size:1000",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1000"
+    }
+   ],
+   "expect": "1000 B"
+  },
+  {
+   "name": "human_size:999999",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "999999"
+    }
+   ],
+   "expect": "976.6 K"
+  },
+  {
+   "name": "human_size:12345",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "12345"
+    }
+   ],
+   "expect": "12.1 K"
+  },
+  {
+   "name": "human_size:99999",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "99999"
+    }
+   ],
+   "expect": "97.7 K"
+  },
+  {
+   "name": "human_size:102400",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "102400"
+    }
+   ],
+   "expect": "100.0 K"
+  },
+  {
+   "name": "human_size:104857",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "104857"
+    }
+   ],
+   "expect": "102.4 K"
+  },
+  {
+   "name": "human_size:1126",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1126"
+    }
+   ],
+   "expect": "1.1 K"
+  },
+  {
+   "name": "human_size:1127",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1127"
+    }
+   ],
+   "expect": "1.1 K"
+  },
+  {
+   "name": "human_size:11315",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "11315"
+    }
+   ],
+   "expect": "11.0 K"
+  },
+  {
+   "name": "human_size:1073741824000",
+   "fn": "human_size",
+   "args": [
+    {
+     "$int": "1073741824000"
+    }
+   ],
+   "expect": "1000.0 G"
+  },
+  {
+   "name": "display_name:0:b''",
+   "fn": "display_name",
+   "args": [
+    ""
+   ],
+   "expect": ""
+  },
+  {
+   "name": "display_name:1:b'plain'",
+   "fn": "display_name",
+   "args": [
+    "plain"
+   ],
+   "expect": "plain"
+  },
+  {
+   "name": "display_name:2:b'caf\\xe9.txt'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "636166e92e747874"
+    }
+   ],
+   "expect": "caf�.txt"
+  },
+  {
+   "name": "display_name:3:b'\\xff'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "ff"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:4:b'a\\x80b'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "618062"
+    }
+   ],
+   "expect": "a�b"
+  },
+  {
+   "name": "display_name:5:b'\\xc3'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "c3"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:6:b'\\xe2\\x82'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "e282"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:7:b'\\xe2\\x82\\xac'",
+   "fn": "display_name",
+   "args": [
+    "€"
+   ],
+   "expect": "€"
+  },
+  {
+   "name": "display_name:8:b'\\xf0\\x9f\\x98'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f09f98"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:9:b'\\xf0\\x9f\\x98\\x80'",
+   "fn": "display_name",
+   "args": [
+    "😀"
+   ],
+   "expect": "😀"
+  },
+  {
+   "name": "display_name:10:b'\\xed\\xa0\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "eda080"
+    }
+   ],
+   "expect": "���"
+  },
+  {
+   "name": "display_name:11:b'\\xed\\xb0\\x80\\xed\\xa0\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "edb080eda080"
+    }
+   ],
+   "expect": "������"
+  },
+  {
+   "name": "display_name:12:b'\\xc0\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "c080"
+    }
+   ],
+   "expect": "��"
+  },
+  {
+   "name": "display_name:13:b'\\xc1\\xbf'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "c1bf"
+    }
+   ],
+   "expect": "��"
+  },
+  {
+   "name": "display_name:14:b'\\xe0\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "e08080"
+    }
+   ],
+   "expect": "���"
+  },
+  {
+   "name": "display_name:15:b'\\xf4\\x90\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f4908080"
+    }
+   ],
+   "expect": "����"
+  },
+  {
+   "name": "display_name:16:b'\\xf5\\x80\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f5808080"
+    }
+   ],
+   "expect": "����"
+  },
+  {
+   "name": "display_name:17:b'\\xf8\\x88\\x80\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f888808080"
+    }
+   ],
+   "expect": "�����"
+  },
+  {
+   "name": "display_name:18:b'\\x80\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "808080"
+    }
+   ],
+   "expect": "���"
+  },
+  {
+   "name": "display_name:19:b'\\xe2\\x82\\xe2\\x82\\xac'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "e282e282ac"
+    }
+   ],
+   "expect": "�€"
+  },
+  {
+   "name": "display_name:20:b'\\xf0\\x9f\\xf0\\x9f\\x98\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f09ff09f9880"
+    }
+   ],
+   "expect": "�😀"
+  },
+  {
+   "name": "display_name:21:b'zy\\xc5\\xbc'",
+   "fn": "display_name",
+   "args": [
+    "zyż"
+   ],
+   "expect": "zyż"
+  },
+  {
+   "name": "display_name:22:b'za\\xc5\\xbc\\xc3\\xb3\\xc5\\x82\\xc4\\x87.txt'",
+   "fn": "display_name",
+   "args": [
+    "zażółć.txt"
+   ],
+   "expect": "zażółć.txt"
+  },
+  {
+   "name": "display_name:23:b'a\\x00b'",
+   "fn": "display_name",
+   "args": [
+    "a\u0000b"
+   ],
+   "expect": "a\u0000b"
+  },
+  {
+   "name": "display_name:24:b'\\xef\\xbf\\xbd\\xff'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "efbfbdff"
+    }
+   ],
+   "expect": "��"
+  },
+  {
+   "name": "display_name:25:b'\\xe1\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "e180"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:26:b'\\xe1\\x80\\xe1\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "e180e180"
+    }
+   ],
+   "expect": "��"
+  },
+  {
+   "name": "display_name:27:b'\\xf0\\x80\\x80\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f0808080"
+    }
+   ],
+   "expect": "����"
+  },
+  {
+   "name": "display_name:28:b'\\xf0\\x90\\x80'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f09080"
+    }
+   ],
+   "expect": "�"
+  },
+  {
+   "name": "display_name:29:b'\\xf4\\x8f\\xbf\\xbf\\xf4\\x90'",
+   "fn": "display_name",
+   "args": [
+    {
+     "$bytes": "f48fbfbff490"
+    }
+   ],
+   "expect": "􏿿��"
+  },
+  {
+   "name": "host_key:0",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22"
+  },
+  {
+   "name": "edit_cache:0:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache:0:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/ba7b4f59b60c/file"
+  },
+  {
+   "name": "edit_cache:0:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/d81b06cf3783/file"
+  },
+  {
+   "name": "edit_cache:0:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/485eebea8f3f/b"
+  },
+  {
+   "name": "edit_cache:0:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c5bec899239f/b"
+  },
+  {
+   "name": "edit_cache:0:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/aa4564984eef/x"
+  },
+  {
+   "name": "edit_cache:0:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/a56828910547/file"
+  },
+  {
+   "name": "edit_cache:0:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6230323037306234653030392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:0:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3562356239376662326363622fff"
+   }
+  },
+  {
+   "name": "edit_cache:0:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/3809bf102c37/it's"
+  },
+  {
+   "name": "edit_cache:0:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/deac48524fee/ü.txt"
+  },
+  {
+   "name": "edit_cache:0:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/65c11694e6a8/c d"
+  },
+  {
+   "name": "edit_cache:0:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/400fd4f6c931/file"
+  },
+  {
+   "name": "host_key:1",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22"
+  },
+  {
+   "name": "edit_cache:1:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache:1:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/ba7b4f59b60c/file"
+  },
+  {
+   "name": "edit_cache:1:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/d81b06cf3783/file"
+  },
+  {
+   "name": "edit_cache:1:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/485eebea8f3f/b"
+  },
+  {
+   "name": "edit_cache:1:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c5bec899239f/b"
+  },
+  {
+   "name": "edit_cache:1:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/aa4564984eef/x"
+  },
+  {
+   "name": "edit_cache:1:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/a56828910547/file"
+  },
+  {
+   "name": "edit_cache:1:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6230323037306234653030392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:1:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3562356239376662326363622fff"
+   }
+  },
+  {
+   "name": "edit_cache:1:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/3809bf102c37/it's"
+  },
+  {
+   "name": "edit_cache:1:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/deac48524fee/ü.txt"
+  },
+  {
+   "name": "edit_cache:1:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/65c11694e6a8/c d"
+  },
+  {
+   "name": "edit_cache:1:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/400fd4f6c931/file"
+  },
+  {
+   "name": "host_key:2",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:2222"
+  },
+  {
+   "name": "edit_cache:2:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/eb49206eac6f/hosts"
+  },
+  {
+   "name": "edit_cache:2:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/f24b63371eec/file"
+  },
+  {
+   "name": "edit_cache:2:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/3fc185e68840/file"
+  },
+  {
+   "name": "edit_cache:2:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/c01abcedddc8/b"
+  },
+  {
+   "name": "edit_cache:2:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c73757f69158/b"
+  },
+  {
+   "name": "edit_cache:2:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/888a606463e9/x"
+  },
+  {
+   "name": "edit_cache:2:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/e632acc6688d/file"
+  },
+  {
+   "name": "edit_cache:2:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3430643932303732326339372f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:2:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3039306130346133613264352fff"
+   }
+  },
+  {
+   "name": "edit_cache:2:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/894f567544f1/it's"
+  },
+  {
+   "name": "edit_cache:2:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/344ad2d4fd1b/ü.txt"
+  },
+  {
+   "name": "edit_cache:2:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/afcd39666995/c d"
+  },
+  {
+   "name": "edit_cache:2:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/5425d86e046b/file"
+  },
+  {
+   "name": "host_key:3",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:2222"
+  },
+  {
+   "name": "edit_cache:3:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/eb49206eac6f/hosts"
+  },
+  {
+   "name": "edit_cache:3:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/f24b63371eec/file"
+  },
+  {
+   "name": "edit_cache:3:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/3fc185e68840/file"
+  },
+  {
+   "name": "edit_cache:3:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/c01abcedddc8/b"
+  },
+  {
+   "name": "edit_cache:3:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c73757f69158/b"
+  },
+  {
+   "name": "edit_cache:3:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/888a606463e9/x"
+  },
+  {
+   "name": "edit_cache:3:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/e632acc6688d/file"
+  },
+  {
+   "name": "edit_cache:3:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3430643932303732326339372f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:3:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3039306130346133613264352fff"
+   }
+  },
+  {
+   "name": "edit_cache:3:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/894f567544f1/it's"
+  },
+  {
+   "name": "edit_cache:3:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/344ad2d4fd1b/ü.txt"
+  },
+  {
+   "name": "edit_cache:3:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/afcd39666995/c d"
+  },
+  {
+   "name": "edit_cache:3:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "2222"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/5425d86e046b/file"
+  },
+  {
+   "name": "host_key:4",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22"
+  },
+  {
+   "name": "edit_cache:4:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache:4:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/ba7b4f59b60c/file"
+  },
+  {
+   "name": "edit_cache:4:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/d81b06cf3783/file"
+  },
+  {
+   "name": "edit_cache:4:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/485eebea8f3f/b"
+  },
+  {
+   "name": "edit_cache:4:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c5bec899239f/b"
+  },
+  {
+   "name": "edit_cache:4:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/aa4564984eef/x"
+  },
+  {
+   "name": "edit_cache:4:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/a56828910547/file"
+  },
+  {
+   "name": "edit_cache:4:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6230323037306234653030392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:4:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3562356239376662326363622fff"
+   }
+  },
+  {
+   "name": "edit_cache:4:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/3809bf102c37/it's"
+  },
+  {
+   "name": "edit_cache:4:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/deac48524fee/ü.txt"
+  },
+  {
+   "name": "edit_cache:4:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/65c11694e6a8/c d"
+  },
+  {
+   "name": "edit_cache:4:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/400fd4f6c931/file"
+  },
+  {
+   "name": "host_key:5",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22"
+  },
+  {
+   "name": "edit_cache:5:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache:5:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/ba7b4f59b60c/file"
+  },
+  {
+   "name": "edit_cache:5:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/d81b06cf3783/file"
+  },
+  {
+   "name": "edit_cache:5:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/485eebea8f3f/b"
+  },
+  {
+   "name": "edit_cache:5:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c5bec899239f/b"
+  },
+  {
+   "name": "edit_cache:5:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/aa4564984eef/x"
+  },
+  {
+   "name": "edit_cache:5:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/a56828910547/file"
+  },
+  {
+   "name": "edit_cache:5:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6230323037306234653030392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:5:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3562356239376662326363622fff"
+   }
+  },
+  {
+   "name": "edit_cache:5:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/3809bf102c37/it's"
+  },
+  {
+   "name": "edit_cache:5:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/deac48524fee/ü.txt"
+  },
+  {
+   "name": "edit_cache:5:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/65c11694e6a8/c d"
+  },
+  {
+   "name": "edit_cache:5:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/400fd4f6c931/file"
+  },
+  {
+   "name": "host_key:6",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22"
+  },
+  {
+   "name": "edit_cache:6:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache:6:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/ba7b4f59b60c/file"
+  },
+  {
+   "name": "edit_cache:6:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/d81b06cf3783/file"
+  },
+  {
+   "name": "edit_cache:6:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/485eebea8f3f/b"
+  },
+  {
+   "name": "edit_cache:6:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/c5bec899239f/b"
+  },
+  {
+   "name": "edit_cache:6:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/aa4564984eef/x"
+  },
+  {
+   "name": "edit_cache:6:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/a56828910547/file"
+  },
+  {
+   "name": "edit_cache:6:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6230323037306234653030392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:6:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3562356239376662326363622fff"
+   }
+  },
+  {
+   "name": "edit_cache:6:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/3809bf102c37/it's"
+  },
+  {
+   "name": "edit_cache:6:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/deac48524fee/ü.txt"
+  },
+  {
+   "name": "edit_cache:6:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/65c11694e6a8/c d"
+  },
+  {
+   "name": "edit_cache:6:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       ""
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/400fd4f6c931/file"
+  },
+  {
+   "name": "host_key:7",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:22.0"
+  },
+  {
+   "name": "edit_cache:7:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/15e51c631011/hosts"
+  },
+  {
+   "name": "edit_cache:7:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/df4884e8a31e/file"
+  },
+  {
+   "name": "edit_cache:7:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/8de4fd6c86f5/file"
+  },
+  {
+   "name": "edit_cache:7:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/8e4e1d61ef98/b"
+  },
+  {
+   "name": "edit_cache:7:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/d2cfd22cea65/b"
+  },
+  {
+   "name": "edit_cache:7:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/6831c173af6a/x"
+  },
+  {
+   "name": "edit_cache:7:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/90d569059443/file"
+  },
+  {
+   "name": "edit_cache:7:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6337373035336335373665632f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:7:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6261323931326438623563382fff"
+   }
+  },
+  {
+   "name": "edit_cache:7:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/f6b00752291e/it's"
+  },
+  {
+   "name": "edit_cache:7:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/729c2527a7ec/ü.txt"
+  },
+  {
+   "name": "edit_cache:7:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/ecea5c332aa1/c d"
+  },
+  {
+   "name": "edit_cache:7:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "22.0"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/5646edbf349f/file"
+  },
+  {
+   "name": "host_key:8",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:True"
+  },
+  {
+   "name": "edit_cache:8:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/c4c722c25e8e/hosts"
+  },
+  {
+   "name": "edit_cache:8:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/d96cb33ceec9/file"
+  },
+  {
+   "name": "edit_cache:8:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/8f548966e5fb/file"
+  },
+  {
+   "name": "edit_cache:8:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/f370aa7ed981/b"
+  },
+  {
+   "name": "edit_cache:8:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/1cc3c0428bec/b"
+  },
+  {
+   "name": "edit_cache:8:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/0c2acbdf0b7c/x"
+  },
+  {
+   "name": "edit_cache:8:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/901708151bee/file"
+  },
+  {
+   "name": "edit_cache:8:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3766353366353034356139362f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:8:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6438633539636133663439352fff"
+   }
+  },
+  {
+   "name": "edit_cache:8:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/b28a63c3128a/it's"
+  },
+  {
+   "name": "edit_cache:8:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/da8a3cfcb84b/ü.txt"
+  },
+  {
+   "name": "edit_cache:8:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/17a178230e60/c d"
+  },
+  {
+   "name": "edit_cache:8:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       true
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/b41a89bbbfb2/file"
+  },
+  {
+   "name": "host_key:9",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ],
+   "expect": "@h:22"
+  },
+  {
+   "name": "edit_cache:9:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/263edf39d38c/hosts"
+  },
+  {
+   "name": "edit_cache:9:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/37d88e3ef4d1/file"
+  },
+  {
+   "name": "edit_cache:9:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/08c68c85987f/file"
+  },
+  {
+   "name": "edit_cache:9:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/b17555bcd01c/b"
+  },
+  {
+   "name": "edit_cache:9:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/48d7f2ceae32/b"
+  },
+  {
+   "name": "edit_cache:9:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/12c5ffb878c1/x"
+  },
+  {
+   "name": "edit_cache:9:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/2c18f2297431/file"
+  },
+  {
+   "name": "edit_cache:9:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3234333733356539623935612f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:9:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6336386333656363643332612fff"
+   }
+  },
+  {
+   "name": "edit_cache:9:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/abd156f0553b/it's"
+  },
+  {
+   "name": "edit_cache:9:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/db3f5724d3a0/ü.txt"
+  },
+  {
+   "name": "edit_cache:9:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/1f28db502f67/c d"
+  },
+  {
+   "name": "edit_cache:9:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/1b1fd3cc4404/file"
+  },
+  {
+   "name": "host_key:10",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "expect": "u@:22"
+  },
+  {
+   "name": "edit_cache:10:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/2e62f08060f7/hosts"
+  },
+  {
+   "name": "edit_cache:10:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/06723dc8ae61/file"
+  },
+  {
+   "name": "edit_cache:10:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/132a234486df/file"
+  },
+  {
+   "name": "edit_cache:10:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/d4f62534d344/b"
+  },
+  {
+   "name": "edit_cache:10:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/3fa853cc879d/b"
+  },
+  {
+   "name": "edit_cache:10:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/f0f0ae7b9df9/x"
+  },
+  {
+   "name": "edit_cache:10:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/e99c7faff752/file"
+  },
+  {
+   "name": "edit_cache:10:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3538373937326439636636302f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:10:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3537616439376665373131652fff"
+   }
+  },
+  {
+   "name": "edit_cache:10:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/cf7b32082215/it's"
+  },
+  {
+   "name": "edit_cache:10:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/f7d6bfd186b1/ü.txt"
+  },
+  {
+   "name": "edit_cache:10:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/c7d7fdb65836/c d"
+  },
+  {
+   "name": "edit_cache:10:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/fb40337a273c/file"
+  },
+  {
+   "name": "host_key:11",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": "@:22"
+  },
+  {
+   "name": "edit_cache:11:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/820de89bd3e7/hosts"
+  },
+  {
+   "name": "edit_cache:11:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/b8ad83a6eab0/file"
+  },
+  {
+   "name": "edit_cache:11:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/1865d383fba9/file"
+  },
+  {
+   "name": "edit_cache:11:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/84394f7a31a7/b"
+  },
+  {
+   "name": "edit_cache:11:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/d92ab7d1e15f/b"
+  },
+  {
+   "name": "edit_cache:11:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/8a1512350093/x"
+  },
+  {
+   "name": "edit_cache:11:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/fff37d58501e/file"
+  },
+  {
+   "name": "edit_cache:11:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3437316662346562383935322f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:11:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6533653838623762666132382fff"
+   }
+  },
+  {
+   "name": "edit_cache:11:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/d9e286b83997/it's"
+  },
+  {
+   "name": "edit_cache:11:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/462661b14474/ü.txt"
+  },
+  {
+   "name": "edit_cache:11:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/cdbff28c2296/c d"
+  },
+  {
+   "name": "edit_cache:11:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": []
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/cbb7bb6d58bd/file"
+  },
+  {
+   "name": "host_key:12",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": "@:22"
+  },
+  {
+   "name": "edit_cache:12:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/820de89bd3e7/hosts"
+  },
+  {
+   "name": "edit_cache:12:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/b8ad83a6eab0/file"
+  },
+  {
+   "name": "edit_cache:12:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/1865d383fba9/file"
+  },
+  {
+   "name": "edit_cache:12:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/84394f7a31a7/b"
+  },
+  {
+   "name": "edit_cache:12:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/d92ab7d1e15f/b"
+  },
+  {
+   "name": "edit_cache:12:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/8a1512350093/x"
+  },
+  {
+   "name": "edit_cache:12:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/fff37d58501e/file"
+  },
+  {
+   "name": "edit_cache:12:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3437316662346562383935322f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:12:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6533653838623762666132382fff"
+   }
+  },
+  {
+   "name": "edit_cache:12:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/d9e286b83997/it's"
+  },
+  {
+   "name": "edit_cache:12:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/462661b14474/ü.txt"
+  },
+  {
+   "name": "edit_cache:12:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/cdbff28c2296/c d"
+  },
+  {
+   "name": "edit_cache:12:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       null
+      ],
+      [
+       "user",
+       null
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/cbb7bb6d58bd/file"
+  },
+  {
+   "name": "host_key:13",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": "@:22"
+  },
+  {
+   "name": "edit_cache:13:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/a83c74303849/hosts"
+  },
+  {
+   "name": "edit_cache:13:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/eed94f0fe7da/file"
+  },
+  {
+   "name": "edit_cache:13:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/f6400a38b6f7/file"
+  },
+  {
+   "name": "edit_cache:13:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/53c1dcf0090a/b"
+  },
+  {
+   "name": "edit_cache:13:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/6a562ba03b76/b"
+  },
+  {
+   "name": "edit_cache:13:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/d40769c29b98/x"
+  },
+  {
+   "name": "edit_cache:13:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/023038a500bf/file"
+  },
+  {
+   "name": "edit_cache:13:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3464393761393533666336342f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:13:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3438636235396534373833312fff"
+   }
+  },
+  {
+   "name": "edit_cache:13:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/1bd5efab2dfa/it's"
+  },
+  {
+   "name": "edit_cache:13:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/444232fa8e2b/ü.txt"
+  },
+  {
+   "name": "edit_cache:13:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/ed8c729c85f8/c d"
+  },
+  {
+   "name": "edit_cache:13:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       ""
+      ],
+      [
+       "user",
+       ""
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/fc053fa96883/file"
+  },
+  {
+   "name": "host_key:14",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "6@5:22"
+  },
+  {
+   "name": "edit_cache:14:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/acac9ff18005/hosts"
+  },
+  {
+   "name": "edit_cache:14:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/55c02bd14525/file"
+  },
+  {
+   "name": "edit_cache:14:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/75705bc09bc7/file"
+  },
+  {
+   "name": "edit_cache:14:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/da278f714322/b"
+  },
+  {
+   "name": "edit_cache:14:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/d94dff4bc49d/b"
+  },
+  {
+   "name": "edit_cache:14:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/df73470c4d5a/x"
+  },
+  {
+   "name": "edit_cache:14:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/7568986901e9/file"
+  },
+  {
+   "name": "edit_cache:14:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3433343230356239353061652f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:14:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3936363239396138323965352fff"
+   }
+  },
+  {
+   "name": "edit_cache:14:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/168f8e8b214e/it's"
+  },
+  {
+   "name": "edit_cache:14:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/ee46c77f4c77/ü.txt"
+  },
+  {
+   "name": "edit_cache:14:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/8b653004a2b0/c d"
+  },
+  {
+   "name": "edit_cache:14:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "user",
+       {
+        "$int": "6"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/a75214014773/file"
+  },
+  {
+   "name": "host_key:15",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    }
+   ],
+   "expect": "ü@é:22"
+  },
+  {
+   "name": "edit_cache:15:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/0f8825c1ce54/hosts"
+  },
+  {
+   "name": "edit_cache:15:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/7567864fc9d2/file"
+  },
+  {
+   "name": "edit_cache:15:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/46899ce074ef/file"
+  },
+  {
+   "name": "edit_cache:15:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/6b82c92dc1de/b"
+  },
+  {
+   "name": "edit_cache:15:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/d611cb192e99/b"
+  },
+  {
+   "name": "edit_cache:15:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/e7670c232a40/x"
+  },
+  {
+   "name": "edit_cache:15:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/28dd97a4a1c9/file"
+  },
+  {
+   "name": "edit_cache:15:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3161613936346661623462392f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:15:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6463663534373639346437622fff"
+   }
+  },
+  {
+   "name": "edit_cache:15:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/6f0c35d473d3/it's"
+  },
+  {
+   "name": "edit_cache:15:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/ff6eb23d0309/ü.txt"
+  },
+  {
+   "name": "edit_cache:15:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/9073f459826b/c d"
+  },
+  {
+   "name": "edit_cache:15:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "é"
+      ],
+      [
+       "user",
+       "ü"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/4c39172a6b60/file"
+  },
+  {
+   "name": "host_key:16",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "expect": "u@::1:22"
+  },
+  {
+   "name": "edit_cache:16:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/a733d29e5417/hosts"
+  },
+  {
+   "name": "edit_cache:16:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/6de84b14dd2b/file"
+  },
+  {
+   "name": "edit_cache:16:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/a82d2f134352/file"
+  },
+  {
+   "name": "edit_cache:16:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/e1507df7f964/b"
+  },
+  {
+   "name": "edit_cache:16:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/4fae23fece7f/b"
+  },
+  {
+   "name": "edit_cache:16:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/73cdfb4c6381/x"
+  },
+  {
+   "name": "edit_cache:16:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/66de58703132/file"
+  },
+  {
+   "name": "edit_cache:16:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f6334663036636163363361322f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:16:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3337336432353434343232622fff"
+   }
+  },
+  {
+   "name": "edit_cache:16:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/a2693a6772cc/it's"
+  },
+  {
+   "name": "edit_cache:16:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/136a4e4dbf98/ü.txt"
+  },
+  {
+   "name": "edit_cache:16:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/a0007f058482/c d"
+  },
+  {
+   "name": "edit_cache:16:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "::1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/b7144d254153/file"
+  },
+  {
+   "name": "host_key:17",
+   "fn": "host_key",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "u@h:2222.5"
+  },
+  {
+   "name": "edit_cache:17:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/cache"
+   ],
+   "expect": "/cache/08cd68a2d7ed/hosts"
+  },
+  {
+   "name": "edit_cache:17:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/",
+    "/cache"
+   ],
+   "expect": "/cache/58460651501e/file"
+  },
+  {
+   "name": "edit_cache:17:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "",
+    "/cache"
+   ],
+   "expect": "/cache/139d0e5e8545/file"
+  },
+  {
+   "name": "edit_cache:17:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/a/b/",
+    "/cache"
+   ],
+   "expect": "/cache/25ae44a69bd4/b"
+  },
+  {
+   "name": "edit_cache:17:4",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/a//b//",
+    "/cache"
+   ],
+   "expect": "/cache/789f297ca993/b"
+  },
+  {
+   "name": "edit_cache:17:5",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "x",
+    "/cache"
+   ],
+   "expect": "/cache/e2eabb289b2a/x"
+  },
+  {
+   "name": "edit_cache:17:6",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "//",
+    "/cache"
+   ],
+   "expect": "/cache/9a56fe2603c4/file"
+  },
+  {
+   "name": "edit_cache:17:7",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722f636166e9"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3639633037316462386366622f636166e9"
+   }
+  },
+  {
+   "name": "edit_cache:17:8",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    {
+     "$bytes": "2f722fff2f"
+    },
+    "/cache"
+   ],
+   "expect": {
+    "$bytes": "2f63616368652f3063333262303030333465662fff"
+   }
+  },
+  {
+   "name": "edit_cache:17:9",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/r/it's",
+    "/cache"
+   ],
+   "expect": "/cache/a86d05b34421/it's"
+  },
+  {
+   "name": "edit_cache:17:10",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/r/é/ü.txt",
+    "/cache"
+   ],
+   "expect": "/cache/0aa357e3c725/ü.txt"
+  },
+  {
+   "name": "edit_cache:17:11",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "/a b/c d",
+    "/cache"
+   ],
+   "expect": "/cache/d0b0d292a017/c d"
+  },
+  {
+   "name": "edit_cache:17:12",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$float": "2222.5"
+       }
+      ]
+     ]
+    },
+    "///",
+    "/cache"
+   ],
+   "expect": "/cache/fd087aaae784/file"
+  },
+  {
+   "name": "edit_cache_root:0",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/c"
+   ],
+   "expect": "/c/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache_root:1",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/c/"
+   ],
+   "expect": "/c/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache_root:2",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "rel"
+   ],
+   "expect": "rel/24c8882f6c94/hosts"
+  },
+  {
+   "name": "edit_cache_root:3",
+   "fn": "edit_cache_path",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    "/etc/hosts",
+    "/a b/c"
+   ],
+   "expect": "/a b/c/24c8882f6c94/hosts"
+  },
+  {
+   "name": "remote_join:0",
+   "fn": "remote_join",
+   "args": [
+    "/var/log",
+    "syslog"
+   ],
+   "expect": "/var/log/syslog"
+  },
+  {
+   "name": "remote_join:1",
+   "fn": "remote_join",
+   "args": [
+    "/var/log/",
+    "syslog"
+   ],
+   "expect": "/var/log/syslog"
+  },
+  {
+   "name": "remote_join:2",
+   "fn": "remote_join",
+   "args": [
+    "",
+    "x"
+   ],
+   "expect": "/x"
+  },
+  {
+   "name": "remote_join:3",
+   "fn": "remote_join",
+   "args": [
+    "/",
+    "x"
+   ],
+   "expect": "/x"
+  },
+  {
+   "name": "remote_join:4",
+   "fn": "remote_join",
+   "args": [
+    "/a",
+    ""
+   ],
+   "expect": "/a/"
+  },
+  {
+   "name": "remote_join:5",
+   "fn": "remote_join",
+   "args": [
+    "/a/",
+    ""
+   ],
+   "expect": "/a/"
+  },
+  {
+   "name": "remote_join:6",
+   "fn": "remote_join",
+   "args": [
+    "",
+    ""
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_join:7",
+   "fn": "remote_join",
+   "args": [
+    "/a",
+    "/abs"
+   ],
+   "expect": "/abs"
+  },
+  {
+   "name": "remote_join:8",
+   "fn": "remote_join",
+   "args": [
+    "/a",
+    "b/c"
+   ],
+   "expect": "/a/b/c"
+  },
+  {
+   "name": "remote_join:9",
+   "fn": "remote_join",
+   "args": [
+    "//",
+    "x"
+   ],
+   "expect": "//x"
+  },
+  {
+   "name": "remote_join:10",
+   "fn": "remote_join",
+   "args": [
+    "a",
+    "b"
+   ],
+   "expect": "a/b"
+  },
+  {
+   "name": "remote_join:11",
+   "fn": "remote_join",
+   "args": [
+    {
+     "$bytes": "2f72e9"
+    },
+    {
+     "$bytes": "63e9"
+    }
+   ],
+   "expect": {
+    "$bytes": "2f72e92f63e9"
+   }
+  },
+  {
+   "name": "remote_join:12",
+   "fn": "remote_join",
+   "args": [
+    "/a",
+    ".."
+   ],
+   "expect": "/a/.."
+  },
+  {
+   "name": "remote_join:13",
+   "fn": "remote_join",
+   "args": [
+    "/a b",
+    "c d"
+   ],
+   "expect": "/a b/c d"
+  },
+  {
+   "name": "remote_parent:0",
+   "fn": "remote_parent",
+   "args": [
+    "/var/log"
+   ],
+   "expect": "/var"
+  },
+  {
+   "name": "remote_parent:1",
+   "fn": "remote_parent",
+   "args": [
+    "/var"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:2",
+   "fn": "remote_parent",
+   "args": [
+    "/"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:3",
+   "fn": "remote_parent",
+   "args": [
+    ""
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:4",
+   "fn": "remote_parent",
+   "args": [
+    "//"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:5",
+   "fn": "remote_parent",
+   "args": [
+    "/a/b/"
+   ],
+   "expect": "/a"
+  },
+  {
+   "name": "remote_parent:6",
+   "fn": "remote_parent",
+   "args": [
+    "/a//b"
+   ],
+   "expect": "/a"
+  },
+  {
+   "name": "remote_parent:7",
+   "fn": "remote_parent",
+   "args": [
+    "a"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:8",
+   "fn": "remote_parent",
+   "args": [
+    "a/b"
+   ],
+   "expect": "a"
+  },
+  {
+   "name": "remote_parent:9",
+   "fn": "remote_parent",
+   "args": [
+    "a/"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:10",
+   "fn": "remote_parent",
+   "args": [
+    "///a///"
+   ],
+   "expect": "///"
+  },
+  {
+   "name": "remote_parent:11",
+   "fn": "remote_parent",
+   "args": [
+    "//a"
+   ],
+   "expect": "//"
+  },
+  {
+   "name": "remote_parent:12",
+   "fn": "remote_parent",
+   "args": [
+    "/a/"
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:13",
+   "fn": "remote_parent",
+   "args": [
+    "a//b//"
+   ],
+   "expect": "a"
+  },
+  {
+   "name": "remote_parent:14",
+   "fn": "remote_parent",
+   "args": [
+    {
+     "$bytes": "2f72e92f63"
+    }
+   ],
+   "expect": {
+    "$bytes": "2f72e9"
+   }
+  },
+  {
+   "name": "remote_parent:15",
+   "fn": "remote_parent",
+   "args": [
+    "/a b/c"
+   ],
+   "expect": "/a b"
+  },
+  {
+   "name": "remote_parent:16",
+   "fn": "remote_parent",
+   "args": [
+    "x/y/z/"
+   ],
+   "expect": "x/y"
+  },
+  {
+   "name": "remote_parent:17",
+   "fn": "remote_parent",
+   "args": [
+    "."
+   ],
+   "expect": "/"
+  },
+  {
+   "name": "remote_parent:18",
+   "fn": "remote_parent",
+   "args": [
+    "./a"
+   ],
+   "expect": "."
+  },
+  {
+   "name": "browse_conn:0",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:1",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "password",
+       "p"
+      ],
+      [
+       "identity_file",
+       "@FIX@/id_ok"
+      ],
+      [
+       "proxy_jump",
+       "j"
+      ],
+      [
+       "jumphost",
+       "j"
+      ],
+      [
+       "jump_host",
+       "j"
+      ],
+      [
+       "strict_host_key_checking",
+       "no"
+      ],
+      [
+       "ssh_keepalive",
+       false
+      ],
+      [
+       "label",
+       "x"
+      ],
+      [
+       "remote_command",
+       "tmux"
+      ],
+      [
+       "use_mosh",
+       true
+      ],
+      [
+       "local_forwards",
+       [
+        "a"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ],
+     [
+      "password",
+      "p"
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ],
+     [
+      "proxy_jump",
+      "j"
+     ],
+     [
+      "jumphost",
+      "j"
+     ],
+     [
+      "jump_host",
+      "j"
+     ],
+     [
+      "strict_host_key_checking",
+      "no"
+     ],
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:2",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-p 2222 -L 1:2:3 -N"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "-p",
+       "2222"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:3",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        "-o",
+        "A=b",
+        "-R",
+        "x",
+        "-t"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "-o",
+       "A=b"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:4",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:5",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-L"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:6",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-N -f -T"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:7",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-o 'x"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:8",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       [
+        {
+         "$int": "1"
+        },
+        null,
+        true
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "1",
+       "None",
+       "True"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:9",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       []
+      ],
+      [
+       "port",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:10",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": {
+    "$map": []
+   }
+  },
+  {
+   "name": "browse_conn:11",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "5"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:12",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra_ssh_args",
+       "-Dx -Ly -Rz -L -D"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "host",
+      "h"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   }
+  },
+  {
+   "name": "browse_conn:13",
+   "fn": "browse_conn",
+   "args": [
+    {
+     "$map": [
+      [
+       "extra_ssh_args",
+       "-p 1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "$map": [
+     [
+      "extra_ssh_args",
+      [
+       "-p",
+       "1"
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

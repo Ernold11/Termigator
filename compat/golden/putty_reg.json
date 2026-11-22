@@ -1,0 +1,1163 @@
+{
+ "cases": [
+  {
+   "name": "sample",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Prod%20Web]\n\"HostName\"=\"web1.example.com\"\n\"PortNumber\"=dword:00000016\n\"UserName\"=\"admin\"\n\"Protocol\"=\"ssh\"\n\"PublicKeyFile\"=\"C:\\\\keys\\\\id.ppk\"\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\SerialThing]\n\"HostName\"=\"COM3\"\n\"Protocol\"=\"serial\"\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\HighPort]\n\"HostName\"=\"db.example.com\"\n\"PortNumber\"=dword:00000a8c\n\"Protocol\"=\"ssh\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web1.example.com"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "HighPort"
+      ],
+      [
+       "host",
+       "db.example.com"
+      ],
+      [
+       "port",
+       {
+        "$int": "2700"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "dwords_and_proxy",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\s1]\n\"HostName\"=\"h1\"\n\"AgentFwd\"=dword:00000001\n\"ProxyMethod\"=dword:00000002\n\"ProxyHost\"=\"socks.example\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "s1"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "forward_agent",
+       true
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proxy_jump_dword",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\j]\n\"HostName\"=\"h\"\n\"ProxyMethod\"=dword:00000006\n\"ProxyHost\"=\"bastion\"\n\"ProxyPort\"=dword:000008a8\n\"ProxyUsername\"=\"u\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "j"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "u@bastion:2216"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "proxy_port_dword_zero",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\j]\n\"HostName\"=\"h\"\n\"ProxyMethod\"=dword:00000006\n\"ProxyHost\"=\"bastion\"\n\"ProxyPort\"=dword:00000000\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "j"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "proxy_jump",
+       "bastion"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "flags_dword",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\f]\n\"HostName\"=\"h\"\n\"X11Forward\"=dword:00000001\n\"AgentFwd\"=dword:00000000\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "f"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "x11_forwarding",
+       true
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "forwardings",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\f]\n\"HostName\"=\"h\"\n\"PortForwardings\"=\"L8080=localhost:80,R9000=localhost:22,D1080\"\n\"RemoteCommand\"=\"tmux a\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "f"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "dynamic_forward",
+       "1080"
+      ],
+      [
+       "local_forwards",
+       [
+        "8080:localhost:80"
+       ]
+      ],
+      [
+       "remote_forwards",
+       [
+        "9000:localhost:22"
+       ]
+      ],
+      [
+       "remote_command",
+       "tmux a"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_as_string_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=\"2222\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_dword_22",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:00000016\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_dword_zero",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:00000000\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "port_dword_max",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:ffffffff\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "4294967295"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "dword_short_and_upper",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:A8C\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "port",
+       {
+        "$int": "2700"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "dword_too_long_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:000000016\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "dword_bad_hex_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:xyz\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "dword_empty_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"PortNumber\"=dword:\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "protocol_dword",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"Protocol\"=dword:00000001\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "protocol_case",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=\"h\"\n\"Protocol\"=\"SSH\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "hostname_dword",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"HostName\"=dword:00000001\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "p"
+      ],
+      [
+       "host",
+       "1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "no_hostname",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\p]\n\"UserName\"=\"u\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "escapes",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n\"HostName\"=\"h\"\n\"UserName\"=\"DOM\\\\user\"\n\"RemoteCommand\"=\"echo \\\"x\\\"\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "DOM\\user"
+      ],
+      [
+       "remote_command",
+       "echo \\\"x\\\""
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "quote_inside_value",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n\"HostName\"=\"h\"\n\"UserName\"=\"a\"b\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "a\"b"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "trailing_spaces",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]  \n\"HostName\"=\"h\"  \n\"UserName\"=\"u\"\t\n\"PortNumber\"=dword:00000050 \n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "80"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "leading_spaces_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n  \"HostName\"=\"h\"\n\"UserName\"=\"u\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "indented_section_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n  [HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "empty_key_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n\"HostName\"=\"h\"\n\"\"=\"x\"\n\"UserName\"=\"\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "no_closing_quote",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\e]\n\"HostName\"=\"h\"\n\"UserName\"=\"u\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "not_ppk_key",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"C:\\\\keys\\\\id_rsa\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "~/keys/id_rsa"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "ppk_key_upper",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"C:\\\\keys\\\\ID.PPK\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "key_home_mapping",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"Z:\\\\home\\\\tester\\\\.ssh\\\\id_ed25519\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "~/.ssh/id_ed25519"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "key_home_mapping:bob",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"Z:\\\\home\\\\tester\\\\.ssh\\\\id_ed25519\"\n",
+   "user": "bob",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "/home/tester/.ssh/id_ed25519"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "key_other_home_mapping",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"Z:\\\\home\\\\bob\\\\.ssh\\\\id_ed25519\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "/home/bob/.ssh/id_ed25519"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "key_other_home_mapping:bob",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"Z:\\\\home\\\\bob\\\\.ssh\\\\id_ed25519\"\n",
+   "user": "bob",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "~/.ssh/id_ed25519"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "key_backup_documents",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\k]\n\"HostName\"=\"h\"\n\"PublicKeyFile\"=\"D:\\\\Backup\\\\Documents\\\\old\\\\k\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "k"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "identity_file",
+       "~/Documents/k"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "user_at_host",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\u]\n\"HostName\"=\"joe@srv\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "u"
+      ],
+      [
+       "host",
+       "srv"
+      ],
+      [
+       "user",
+       "joe"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "user_at_host_with_user",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\u]\n\"HostName\"=\"joe@srv\"\n\"UserName\"=\"given\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "u"
+      ],
+      [
+       "host",
+       "joe@srv"
+      ],
+      [
+       "user",
+       "given"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_case_insensitive",
+   "input": "Windows Registry Editor Version 5.00\n\n[hkey_current_user\\software\\simontatham\\putty\\sessions\\ci]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "ci"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_other_hive",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_LOCAL_MACHINE\\Software\\PuTTY\\Sessions\\hklm]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "hklm"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_other_key_resets",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h1\"\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\SshHostKeys]\n\"HostName\"=\"ignored\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_parent_only",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions]\n\"HostName\"=\"ignored\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "section_empty_name",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\]\n\"HostName\"=\"ignored\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "section_nested_marker",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\PuTTY\\Sessions\\x\\PuTTY\\Sessions\\inner]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "inner"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_bracket_in_name",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]b]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a]b"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_backslash_name",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\dir\\sub]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "dir\\sub"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_encoded_name",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\pl%C5%82%20%zz]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "plł %zz"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "section_trailing_junk",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a] x\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "lines_before_section",
+   "input": "\"HostName\"=\"orphan\"\nWindows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "duplicate_keys_last_wins",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h1\"\n\"HostName\"=\"h2\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "duplicate_sections",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h1\"\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h2\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h1"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "bom_text",
+   "input": "﻿Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Prod%20Web]\n\"HostName\"=\"web1.example.com\"\n\"PortNumber\"=dword:00000016\n\"UserName\"=\"admin\"\n\"Protocol\"=\"ssh\"\n\"PublicKeyFile\"=\"C:\\\\keys\\\\id.ppk\"\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\SerialThing]\n\"HostName\"=\"COM3\"\n\"Protocol\"=\"serial\"\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\HighPort]\n\"HostName\"=\"db.example.com\"\n\"PortNumber\"=dword:00000a8c\n\"Protocol\"=\"ssh\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web1.example.com"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "HighPort"
+      ],
+      [
+       "host",
+       "db.example.com"
+      ],
+      [
+       "port",
+       {
+        "$int": "2700"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "crlf",
+   "input": "Windows Registry Editor Version 5.00\r\n\r\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Prod%20Web]\r\n\"HostName\"=\"web1.example.com\"\r\n\"PortNumber\"=dword:00000016\r\n\"UserName\"=\"admin\"\r\n\"Protocol\"=\"ssh\"\r\n\"PublicKeyFile\"=\"C:\\\\keys\\\\id.ppk\"\r\n\r\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\SerialThing]\r\n\"HostName\"=\"COM3\"\r\n\"Protocol\"=\"serial\"\r\n\r\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\HighPort]\r\n\"HostName\"=\"db.example.com\"\r\n\"PortNumber\"=dword:00000a8c\r\n\"Protocol\"=\"ssh\"\r\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web1.example.com"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "HighPort"
+      ],
+      [
+       "host",
+       "db.example.com"
+      ],
+      [
+       "port",
+       {
+        "$int": "2700"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "cr_only",
+   "input": "Windows Registry Editor Version 5.00\r\r[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Prod%20Web]\r\"HostName\"=\"web1.example.com\"\r\"PortNumber\"=dword:00000016\r\"UserName\"=\"admin\"\r\"Protocol\"=\"ssh\"\r\"PublicKeyFile\"=\"C:\\\\keys\\\\id.ppk\"\r\r[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\SerialThing]\r\"HostName\"=\"COM3\"\r\"Protocol\"=\"serial\"\r\r[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\HighPort]\r\"HostName\"=\"db.example.com\"\r\"PortNumber\"=dword:00000a8c\r\"Protocol\"=\"ssh\"\r",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web1.example.com"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "HighPort"
+      ],
+      [
+       "host",
+       "db.example.com"
+      ],
+      [
+       "port",
+       {
+        "$int": "2700"
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "bom_per_line",
+   "input": "Windows Registry Editor Version 5.00\n\n﻿[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n﻿\"HostName\"=\"h\"﻿\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "long_label",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL]\n\"HostName\"=\"h\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "polish",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Serwer%20%C5%82%C3%B3d%C5%BA]\n\"HostName\"=\"serwer.łódź\"\n\"UserName\"=\"żółw\"\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Serwer łódź"
+      ],
+      [
+       "host",
+       "serwer.łódź"
+      ],
+      [
+       "user",
+       "żółw"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "hex_value_ignored",
+   "input": "Windows Registry Editor Version 5.00\n\n[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\a]\n\"HostName\"=\"h\"\n\"Blob\"=hex:01,02,\\\n  03\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "empty",
+   "input": "",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "header_only",
+   "input": "Windows Registry Editor Version 5.00\n\n",
+   "user": "tester",
+   "expect": []
+  }
+ ]
+}

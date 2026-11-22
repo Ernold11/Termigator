@@ -1,0 +1,11 @@
+# Duplicate keys: the last value wins, the first position stays.
+dup: first
+other: x
+dup: second
+1: int one
+true: bool true replaces int one
+1.0: float one replaces again
+=: equals key
+? |
+  block key
+: block key value

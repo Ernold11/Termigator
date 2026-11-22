@@ -1,0 +1,20 @@
+# Gitleaks config for Termigator. Test oracles and fixtures contain fake hosts, passwords, and
+# base64 blobs by design — allowlist those trees; everything else uses the default ruleset.
+#
+# Usage: scripts/secret-audit.sh   (or: gitleaks detect --source . --config .gitleaks.toml)
+
+title = "termigator"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "golden oracles, test fixtures, smoke QML, example config"
+regexTarget = "match"
+paths = [
+  '''(?i)^compat/golden/''',
+  '''(?i)^crates/[^/]+/tests/''',
+  '''(?i)^crates/[^/]+/tests/fixtures/''',
+  '''(?i)^config/.*\.example\.yaml$''',
+  '''(?i)^crates/termigator/qml/.+Smoke\.qml$''',
+]

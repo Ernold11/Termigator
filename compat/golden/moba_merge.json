@@ -1,0 +1,1566 @@
+{
+ "cases": [
+  {
+   "name": "key:0",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "Web.Example"
+     ],
+     [
+      "user",
+      "ROOT"
+     ],
+     [
+      "port",
+      {
+       "$int": "22"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    "web.example",
+    "root",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:1",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      " h2 "
+     ],
+     [
+      "user",
+      " u "
+     ],
+     [
+      "port",
+      "2222"
+     ]
+    ]
+   },
+   "expect": [
+    "h2",
+    "u",
+    {
+     "$int": "2222"
+    }
+   ]
+  },
+  {
+   "name": "key:2",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h3"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "expect": [
+    "h3",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:3",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h4"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "ssh"
+     ]
+    ]
+   },
+   "expect": [
+    "h4",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:4",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h5"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    "h5",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:5",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h6"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      null
+     ]
+    ]
+   },
+   "expect": [
+    "h6",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:6",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h7"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      " 7 "
+     ]
+    ]
+   },
+   "expect": [
+    "h7",
+    "u",
+    {
+     "$int": "7"
+    }
+   ]
+  },
+  {
+   "name": "key:7",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h8"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$float": "22.0"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    "h8",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:8",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h9"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      true
+     ]
+    ]
+   },
+   "expect": [
+    "h9",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:9",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      null
+     ],
+     [
+      "user",
+      null
+     ]
+    ]
+   },
+   "expect": [
+    "",
+    "",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:10",
+   "kind": "key",
+   "conn": {
+    "$map": []
+   },
+   "expect": [
+    "",
+    "",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:11",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      {
+       "$int": "5"
+      }
+     ],
+     [
+      "user",
+      {
+       "$int": "6"
+      }
+     ],
+     [
+      "port",
+      {
+       "$int": "7"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    "5",
+    "6",
+    {
+     "$int": "7"
+    }
+   ]
+  },
+  {
+   "name": "key:12",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "İSTANBUL"
+     ],
+     [
+      "user",
+      "ΣΑΣ"
+     ]
+    ]
+   },
+   "expect": [
+    "i̇stanbul",
+    "σας",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:13",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h10"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "+22"
+     ]
+    ]
+   },
+   "expect": [
+    "h10",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:14",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h11"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      "1_0"
+     ]
+    ]
+   },
+   "expect": [
+    "h11",
+    "u",
+    {
+     "$int": "10"
+    }
+   ]
+  },
+  {
+   "name": "key:15",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h12"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      false
+     ]
+    ]
+   },
+   "expect": [
+    "h12",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "key:16",
+   "kind": "key",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "h13"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$float": "2.5"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    "h13",
+    "u",
+    {
+     "$int": "22"
+    }
+   ]
+  },
+  {
+   "name": "merge:dedup_and_terminal_default",
+   "kind": "merge",
+   "existing": [
+    {
+     "$map": [
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    }
+   ],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "group",
+       "Production"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Lab Box"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "ubuntu"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Lab/Internal"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "external",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Lab Box"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "ubuntu"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Lab/Internal"
+      ],
+      [
+       "terminal",
+       "external"
+      ]
+     ]
+    }
+   ],
+   "added": 1
+  },
+  {
+   "name": "merge:empty_existing",
+   "kind": "merge",
+   "existing": [],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "group",
+       "Production"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Lab Box"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "ubuntu"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Lab/Internal"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "group",
+       "Production"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Lab Box"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "ubuntu"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Lab/Internal"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 2
+  },
+  {
+   "name": "merge:existing_not_dicts_dropped",
+   "kind": "merge",
+   "existing": [
+    {
+     "$int": "1"
+    },
+    "x",
+    null,
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "b"
+      ]
+     ]
+    },
+    [
+     "l"
+    ]
+   ],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "b"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 1
+  },
+  {
+   "name": "merge:non_numeric_existing_port",
+   "kind": "merge",
+   "existing": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "ssh"
+      ]
+     ]
+    }
+   ],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       "ssh"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 1
+  },
+  {
+   "name": "merge:duplicates_within_parsed",
+   "kind": "merge",
+   "existing": [],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "A"
+      ],
+      [
+       "user",
+       "U"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 2
+  },
+  {
+   "name": "merge:existing_terminal_kept",
+   "kind": "merge",
+   "existing": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "konsole"
+      ]
+     ]
+    }
+   ],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "konsole"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "host",
+       "c"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 2
+  },
+  {
+   "name": "merge:terminal_none_kept",
+   "kind": "merge",
+   "existing": [],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       null
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "b"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       null
+      ]
+     ]
+    }
+   ],
+   "added": 1
+  },
+  {
+   "name": "merge:k2_rdp_vnc_telnet_share_key",
+   "kind": "merge",
+   "existing": [],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "label",
+       "r"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "v"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "t"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "s"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "r2"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "v2"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ],
+      [
+       "host",
+       "h2"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "label",
+       "r"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "r2"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 2
+  },
+  {
+   "name": "merge:export_rows",
+   "kind": "merge",
+   "existing": [],
+   "parsed": [
+    {
+     "$map": [
+      [
+       "label",
+       "Custom icon ssh"
+      ],
+      [
+       "host",
+       "10.1.1.1"
+      ],
+      [
+       "user",
+       "admin"
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Desk"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "win.example"
+      ],
+      [
+       "domain",
+       "CORP"
+      ],
+      [
+       "user",
+       "jdoe"
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Desk2"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "10.0.0.9"
+      ],
+      [
+       "port",
+       {
+        "$int": "3390"
+       }
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Screen"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ],
+      [
+       "host",
+       "vnc.example"
+      ],
+      [
+       "port",
+       {
+        "$int": "5901"
+       }
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Router"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ],
+      [
+       "host",
+       "192.168.1.1"
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    }
+   ],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "label",
+       "Custom icon ssh"
+      ],
+      [
+       "host",
+       "10.1.1.1"
+      ],
+      [
+       "user",
+       "admin"
+      ],
+      [
+       "group",
+       "Win"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Desk"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "win.example"
+      ],
+      [
+       "domain",
+       "CORP"
+      ],
+      [
+       "user",
+       "jdoe"
+      ],
+      [
+       "group",
+       "Win"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Desk2"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "10.0.0.9"
+      ],
+      [
+       "port",
+       {
+        "$int": "3390"
+       }
+      ],
+      [
+       "group",
+       "Win"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Screen"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ],
+      [
+       "host",
+       "vnc.example"
+      ],
+      [
+       "port",
+       {
+        "$int": "5901"
+       }
+      ],
+      [
+       "group",
+       "Win"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Router"
+      ],
+      [
+       "protocol",
+       "telnet"
+      ],
+      [
+       "host",
+       "192.168.1.1"
+      ],
+      [
+       "group",
+       "Win"
+      ],
+      [
+       "terminal",
+       "embedded"
+      ]
+     ]
+    }
+   ],
+   "added": 5
+  },
+  {
+   "name": "merge:existing_copy_independent",
+   "kind": "merge",
+   "existing": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra",
+       [
+        {
+         "$int": "1"
+        },
+        {
+         "$int": "2"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "parsed": [],
+   "default_terminal": "embedded",
+   "merged": [
+    {
+     "$map": [
+      [
+       "host",
+       "a"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "extra",
+       [
+        {
+         "$int": "1"
+        },
+        {
+         "$int": "2"
+        }
+       ]
+      ]
+     ]
+    }
+   ],
+   "added": 0
+  }
+ ]
+}

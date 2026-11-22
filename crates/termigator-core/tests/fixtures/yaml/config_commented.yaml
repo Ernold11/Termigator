@@ -1,0 +1,49 @@
+# Termigator config — synthetic fixture with hand-written comments.
+# Every comment here must survive a save that edits other values.
+
+window:
+  # Main window geometry
+  width: 1280        # pixels
+  height: 0          # 0 = automatic
+  list_width: 320
+  always_on_top: yes # YAML 1.1 bool, stays a bool
+  default_terminal: embedded
+
+  # Persisted state the app writes back
+  follow_poll_ms: 750
+  dialog_sizes:
+    SettingsDialog: [900, 640]   # flow list kept as written
+    ConnectionDialog:
+      - 720
+      - 560
+
+# Launch options
+launch:
+  template: konsole -e bash -lc {cmd_quoted}
+  shell: zsh          # my shell
+  editor: kate
+  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log
+  ssh_keepalive_seconds: 1:30   # sexagesimal: PyYAML reads 90
+  umask: 0777                    # octal: PyYAML reads 511
+  confirm_multiline_paste: on
+  embedded_pyte_history: 150_000
+  font_family: "Hack"
+  font_size: 11
+
+favorites:
+  # Quick commands shown in the sidebar
+  - label: htop
+    command: htop
+  - label: Logi systemowe   # Polish label
+    command: journalctl -f
+    terminal: external
+
+vault:
+  kdf: scrypt
+  n: 16384
+  r: 8
+  p: 1
+  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=
+  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==
+
+# trailing comment at the end of the file

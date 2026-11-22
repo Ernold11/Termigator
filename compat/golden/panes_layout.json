@@ -1,0 +1,2800 @@
+{
+ "cases": [
+  {
+   "name": "single_pane",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_window",
+   "ops": [],
+   "expect": {
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "split_right_moves_current_tab",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ],
+     [
+      "t2"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t2"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "split_single_tab_creates_empty_pane",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "only"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "only"
+     ],
+     []
+    ],
+    "current": [
+     0,
+     -1
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "only"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           []
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "split_down",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ],
+     [
+      "t2"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "v"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "13"
+        },
+        {
+         "$int": "13"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t2"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "cross_orientation_nests",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "t3"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ],
+     [
+      "t2"
+     ],
+     [
+      "t3"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0
+    ],
+    "active": 2,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "13"
+            },
+            {
+             "$int": "13"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "t2"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "t3"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "same_orientation_extends",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "t3"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ],
+     [
+      "t2"
+     ],
+     [
+      "t3"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0
+    ],
+    "active": 2,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "31"
+        },
+        {
+         "$int": "32"
+        },
+        {
+         "$int": "31"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t2"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t3"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "grid_2x2",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    },
+    {
+     "op": "focus",
+     "pane": 0
+    },
+    {
+     "op": "tab",
+     "title": "d"
+    },
+    {
+     "op": "tab",
+     "title": "e"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a",
+      "d"
+     ],
+     [
+      "e"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c"
+     ]
+    ],
+    "current": [
+     1,
+     0,
+     0,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "13"
+            },
+            {
+             "$int": "13"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "a"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                },
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "d"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "1"
+               }
+              ],
+              [
+               "main",
+               true
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "e"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "13"
+            },
+            {
+             "$int": "13"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "b"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "c"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "deep_nesting",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    },
+    {
+     "op": "tab",
+     "title": "d"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "e"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c"
+     ],
+     [
+      "d"
+     ],
+     [
+      "e"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "active": 4,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "13"
+            },
+            {
+             "$int": "13"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "b"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "split",
+               "h"
+              ],
+              [
+               "sizes",
+               [
+                {
+                 "$int": "22"
+                },
+                {
+                 "$int": "22"
+                }
+               ]
+              ],
+              [
+               "children",
+               [
+                {
+                 "$map": [
+                  [
+                   "tabs",
+                   [
+                    {
+                     "$map": [
+                      [
+                       "title",
+                       "c"
+                      ],
+                      [
+                       "inner",
+                       "exec bash --norc -i"
+                      ]
+                     ]
+                    }
+                   ]
+                  ],
+                  [
+                   "current",
+                   {
+                    "$int": "0"
+                   }
+                  ],
+                  [
+                   "main",
+                   false
+                  ]
+                 ]
+                },
+                {
+                 "$map": [
+                  [
+                   "split",
+                   "v"
+                  ],
+                  [
+                   "sizes",
+                   [
+                    {
+                     "$int": "5"
+                    },
+                    {
+                     "$int": "5"
+                    }
+                   ]
+                  ],
+                  [
+                   "children",
+                   [
+                    {
+                     "$map": [
+                      [
+                       "tabs",
+                       [
+                        {
+                         "$map": [
+                          [
+                           "title",
+                           "d"
+                          ],
+                          [
+                           "inner",
+                           "exec bash --norc -i"
+                          ]
+                         ]
+                        }
+                       ]
+                      ],
+                      [
+                       "current",
+                       {
+                        "$int": "0"
+                       }
+                      ],
+                      [
+                       "main",
+                       false
+                      ]
+                     ]
+                    },
+                    {
+                     "$map": [
+                      [
+                       "tabs",
+                       [
+                        {
+                         "$map": [
+                          [
+                           "title",
+                           "e"
+                          ],
+                          [
+                           "inner",
+                           "exec bash --norc -i"
+                          ]
+                         ]
+                        }
+                       ]
+                      ],
+                      [
+                       "current",
+                       {
+                        "$int": "0"
+                       }
+                      ],
+                      [
+                       "main",
+                       false
+                      ]
+                     ]
+                    }
+                   ]
+                  ]
+                 ]
+                }
+               ]
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_last_tab_removes_pane_and_unwraps",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "t3"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    },
+    {
+     "op": "close_tab",
+     "title": "t3"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ],
+     [
+      "t2"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t2"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_down_to_single_pane",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "t3"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    },
+    {
+     "op": "close_tab",
+     "title": "t3"
+    },
+    {
+     "op": "close_tab",
+     "title": "t2"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "t1"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_middle_of_three_columns",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "close_tab",
+     "title": "c"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "31"
+        },
+        {
+         "$int": "32"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "b"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_pane_action",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "close_pane"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "t1"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "t1"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "main_pane_never_removed",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "close_pane"
+    }
+   ],
+   "expect": {
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "main_pane_emptied_other_stays",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "t1"
+    },
+    {
+     "op": "tab",
+     "title": "t2"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "focus",
+     "pane": 0
+    },
+    {
+     "op": "close_pane"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [],
+     [
+      "t2"
+     ]
+    ],
+    "current": [
+     -1,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           []
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "t2"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_active_tab_picks_right_neighbour",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "tab",
+     "title": "d"
+    },
+    {
+     "op": "close_tab",
+     "title": "d"
+    },
+    {
+     "op": "close_tab",
+     "title": "b"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a",
+      "c"
+     ]
+    ],
+    "current": [
+     1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "c"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "detach_removes_emptied_pane",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "alpha"
+    },
+    {
+     "op": "tab",
+     "title": "beta"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "detach",
+     "title": "beta"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "alpha"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [
+     [
+      "beta"
+     ]
+    ],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "alpha"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ],
+      [
+       "detached",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "beta"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "detach_and_attach",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "alpha"
+    },
+    {
+     "op": "tab",
+     "title": "beta"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "detach",
+     "title": "beta"
+    },
+    {
+     "op": "attach",
+     "title": "beta"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "alpha",
+      "beta"
+     ]
+    ],
+    "current": [
+     1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "alpha"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "beta"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "detach_from_main_keeps_main",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "epsilon"
+    },
+    {
+     "op": "detach",
+     "title": "epsilon"
+    }
+   ],
+   "expect": {
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [
+     [
+      "epsilon"
+     ]
+    ],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ],
+      [
+       "detached",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "epsilon"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "two_detached",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "detach",
+     "title": "a"
+    },
+    {
+     "op": "detach",
+     "title": "c"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [
+     [
+      "a"
+     ],
+     [
+      "c"
+     ]
+    ],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "b"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ],
+      [
+       "detached",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "c"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "close_detached_tab_forgets_window",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "detach",
+     "title": "a"
+    },
+    {
+     "op": "close_tab",
+     "title": "a"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "b"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "connections_lose_password",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "db",
+     "conn": {
+      "label": "db",
+      "host": "10.0.0.5",
+      "user": "root",
+      "port": 22,
+      "password": "s3cret"
+     }
+    },
+    {
+     "op": "tab",
+     "title": "rdp-ish",
+     "conn": {
+      "label": "win",
+      "host": "10.0.0.9",
+      "user": "adm",
+      "protocol": "rdp"
+     }
+    },
+    {
+     "op": "tab",
+     "title": "plain"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "db",
+      "rdp-ish"
+     ],
+     [
+      "plain"
+     ]
+    ],
+    "current": [
+     1,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "db"
+              ],
+              [
+               "conn",
+               {
+                "$map": [
+                 [
+                  "host",
+                  "10.0.0.5"
+                 ],
+                 [
+                  "label",
+                  "db"
+                 ],
+                 [
+                  "port",
+                  {
+                   "$int": "22"
+                  }
+                 ],
+                 [
+                  "user",
+                  "root"
+                 ]
+                ]
+               }
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "title",
+               "rdp-ish"
+              ],
+              [
+               "conn",
+               {
+                "$map": [
+                 [
+                  "host",
+                  "10.0.0.9"
+                 ],
+                 [
+                  "label",
+                  "win"
+                 ],
+                 [
+                  "protocol",
+                  "rdp"
+                 ],
+                 [
+                  "user",
+                  "adm"
+                 ]
+                ]
+               }
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "1"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "plain"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "focus_changes_split_target",
+   "ops": [
+    {
+     "op": "tab",
+     "title": "a"
+    },
+    {
+     "op": "tab",
+     "title": "b"
+    },
+    {
+     "op": "split",
+     "o": "h"
+    },
+    {
+     "op": "focus",
+     "pane": 0
+    },
+    {
+     "op": "tab",
+     "title": "c"
+    },
+    {
+     "op": "tab",
+     "title": "d"
+    },
+    {
+     "op": "split",
+     "o": "v"
+    }
+   ],
+   "expect": {
+    "panes": [
+     [
+      "a",
+      "c"
+     ],
+     [
+      "d"
+     ],
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     1,
+     0,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "13"
+            },
+            {
+             "$int": "13"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "a"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                },
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "c"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "1"
+               }
+              ],
+              [
+               "main",
+               true
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "d"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "b"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

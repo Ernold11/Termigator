@@ -1,0 +1,45 @@
+# Build output (cargo; CARGO_TARGET_DIR elsewhere is not in the tree)
+target/
+# Local secrets for scripts
+.env
+# Leftovers of older checkouts (bytecode, virtualenvs)
+__pycache__/
+*.py[cod]
+compat/.venv*/
+
+# Agent worktrees (local tooling)
+/.claude/worktrees/
+# Hook state for session continuity (.claude/hooks/continuity.sh)
+/.claude/state/
+
+# Live config (the real one lives in ~/.config/termigator)
+/config/config.yaml
+/config/session.yaml
+
+# --- Not part of the project: AI-assistant working files and internal planning notes ---
+/.claude/
+/CLAUDE.md
+/SESSION_SNAPSHOT.md
+/MIGRATION_*.md
+/TAB_DOCKING_PLAN.md
+/WINDOWS_PLAN.md
+/BACKLOG.md
+/TERMINAL_SWAP_PLAN.md
+/docs/
+
+# Legacy root config of older versions (the app reads ~/.config/termigator)
+/config.yaml
+
+/WINDOWS_SNAPSHOT.md
+# Release audit reports (internal; THIRD_PARTY_NOTICES.md / RELEASE_NOTES_DRAFT.md are drafts too)
+/AUDIT_REPORT*.md
+/FINAL_RELEASE_AUDIT.md
+/RELEASE_READINESS_REPORT.md
+/RELEASE_CHECKLIST.md
+/RELEASE_NOTES_DRAFT.md
+/THIRD_PARTY_NOTICES.md
+# Build leftovers of old checkouts, editor backups
+/build/
+*_bak
+# Agent worktree merge helper (internal workflow)
+/compat/tools/

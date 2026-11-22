@@ -1,0 +1,244 @@
+{
+ "cases": [
+  {
+   "name": "real_start",
+   "input": "big.bin                                         0%    0     0.0KB/s   --:-- ETA",
+   "expect": {
+    "percent": 0,
+    "size": "0",
+    "rate": "0.0KB/s",
+    "eta": "--:--"
+   }
+  },
+  {
+   "name": "real_end",
+   "input": "big.bin                                       100%  381MB -2097151.-9KB/s   00:00",
+   "expect": {
+    "percent": 100,
+    "size": "381MB",
+    "rate": "",
+    "eta": "00:00"
+   }
+  },
+  {
+   "name": "mid_spaces_in_name",
+   "input": "my file (1).iso                 45%  171MB  12.3MB/s   00:05 ETA",
+   "expect": {
+    "percent": 45,
+    "size": "171MB",
+    "rate": "12.3MB/s",
+    "eta": "00:05"
+   }
+  },
+  {
+   "name": "not_meter_err",
+   "input": "scp: /x: No such file or directory",
+   "expect": null
+  },
+  {
+   "name": "not_meter_warn",
+   "input": "Warning: Permanently added",
+   "expect": null
+  },
+  {
+   "name": "empty",
+   "input": "",
+   "expect": null
+  },
+  {
+   "name": "only_spaces",
+   "input": "   ",
+   "expect": null
+  },
+  {
+   "name": "no_eta",
+   "input": "f 7%  1KB  1KB/s 00:01",
+   "expect": {
+    "percent": 7,
+    "size": "1KB",
+    "rate": "1KB/s",
+    "eta": "00:01"
+   }
+  },
+  {
+   "name": "trailing_ws",
+   "input": "f 50%  5MB  1MB/s   00:02 ETA \t ",
+   "expect": {
+    "percent": 50,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "trailing_cr",
+   "input": "f 50%  5MB  1MB/s   00:02 ETA\r",
+   "expect": {
+    "percent": 50,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "percent_over",
+   "input": "f 250%  5MB  1MB/s 00:02 ETA",
+   "expect": {
+    "percent": 100,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "percent_999",
+   "input": "f 999%  5MB  1MB/s 00:02 ETA",
+   "expect": {
+    "percent": 100,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "percent_1000",
+   "input": "f 1000%  5MB  1MB/s 00:02 ETA",
+   "expect": {
+    "percent": 0,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "percent_leading_zero",
+   "input": "f 007%  5MB  1MB/s 00:02 ETA",
+   "expect": {
+    "percent": 7,
+    "size": "5MB",
+    "rate": "1MB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "neg_rate",
+   "input": "f 10%  5MB  -5KB/s 00:02 ETA",
+   "expect": {
+    "percent": 10,
+    "size": "5MB",
+    "rate": "",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "rate_no_slash_s",
+   "input": "f 10%  5MB  5KB 00:02 ETA",
+   "expect": null
+  },
+  {
+   "name": "tabs",
+   "input": "f\t10%\t5MB\t5KB/s\t00:02\tETA",
+   "expect": {
+    "percent": 10,
+    "size": "5MB",
+    "rate": "5KB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "no_space_after_pct",
+   "input": "f 10%5MB 5KB/s 00:02",
+   "expect": null
+  },
+  {
+   "name": "two_pct",
+   "input": "a 10% b 20%  5MB  5KB/s 00:02 ETA",
+   "expect": {
+    "percent": 20,
+    "size": "5MB",
+    "rate": "5KB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "junk_prefix",
+   "input": "\u001b[K f 33%  3MB  3MB/s  00:03 ETA",
+   "expect": {
+    "percent": 33,
+    "size": "3MB",
+    "rate": "3MB/s",
+    "eta": "00:03"
+   }
+  },
+  {
+   "name": "junk_suffix",
+   "input": "f 33%  3MB  3MB/s  00:03 ETA extra",
+   "expect": null
+  },
+  {
+   "name": "unicode_name",
+   "input": "zażółć.txt  12%  1MB  1MB/s 00:09 ETA",
+   "expect": {
+    "percent": 12,
+    "size": "1MB",
+    "rate": "1MB/s",
+    "eta": "00:09"
+   }
+  },
+  {
+   "name": "eta_dashes",
+   "input": "f 0%  0  0.0KB/s --:-- ETA",
+   "expect": {
+    "percent": 0,
+    "size": "0",
+    "rate": "0.0KB/s",
+    "eta": "--:--"
+   }
+  },
+  {
+   "name": "eta_hours",
+   "input": "f 1%  1GB  1MB/s 12:34:56 ETA",
+   "expect": {
+    "percent": 1,
+    "size": "1GB",
+    "rate": "1MB/s",
+    "eta": "12:34:56"
+   }
+  },
+  {
+   "name": "nbsp",
+   "input": "f 10% 5MB 5KB/s 00:02 ETA",
+   "expect": {
+    "percent": 10,
+    "size": "5MB",
+    "rate": "5KB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "fs_sep",
+   "input": "f 10%\u001c5MB\u001c5KB/s\u001c00:02",
+   "expect": {
+    "percent": 10,
+    "size": "5MB",
+    "rate": "5KB/s",
+    "eta": "00:02"
+   }
+  },
+  {
+   "name": "pct_only",
+   "input": "100%",
+   "expect": null
+  },
+  {
+   "name": "gap_one",
+   "input": "x 5% 1 1/s 1",
+   "expect": {
+    "percent": 5,
+    "size": "1",
+    "rate": "1/s",
+    "eta": "1"
+   }
+  }
+ ]
+}

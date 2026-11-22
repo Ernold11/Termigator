@@ -1,0 +1,131 @@
+# CI: Rust workspace (fmt, clippy, QML lint, offscreen tests, release install), cargo-deny, and the
+# core on Windows. GitHub Actions; Gitea Actions reads .github/workflows too when .gitea/workflows is absent.
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+
+# Read-only token: no job writes to the repository.
+permissions:
+  contents: read
+
+jobs:
+  # Rust workspace (crates/*): system Qt 6 + KF6 from Arch, cargo-only build (no CMake).
+  rust:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+      CARGO_TERM_COLOR: always
+      TERMIGATOR_REQUIRE_LIVE: "1" # a live test whose binary is missing fails instead of skipping
+    steps:
+      # nodejs and git first: actions/checkout runs inside this container.
+      # lld: qt-build-utils refuses GNU ld.bfd and looks for lld, gold or mold.
+      - name: System packages (rustup, Qt 6, KF6)
+        run: |
+          pacman -Syu --noconfirm --needed \
+            nodejs git base-devel pkgconf lld rustup \
+            qt6-base qt6-declarative qt6-wayland \
+            kirigami kirigami-addons qqc2-desktop-style breeze ttf-dejavu \
+            openssh socat sshpass busybox inetutils screen picocom openbsd-netcat zsh freerdp xorg-server-xvfb
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      # The toolchain the packages are built with (RUST_TOOLCHAIN in scripts/make-deb.sh): a newer
+      # clippy must not turn CI red without a change here (Dependabot does not bump it).
+      - name: Rust toolchain (pinned)
+        run: |
+          rust=$(sed -n 's/^RUST_TOOLCHAIN=//p' scripts/make-deb.sh)
+          rustup toolchain install "$rust" --profile minimal -c clippy,rustfmt
+          rustup default "$rust"
+
+      # The terminal engine builds from a pinned libghostty-vt release + Zig; fetch it once so the
+      # build itself needs no network (the script verifies the sha256 from GHOSTTY.lock).
+      - name: Terminal engine (libghostty-vt release files, Zig)
+        run: |
+          pacman -S --noconfirm --needed zig
+          scripts/fetch-ghostty.sh
+          echo "GHOSTTY_RELEASE_DIR=$HOME/.cache/ghostty-vt-release" >> "$GITHUB_ENV"
+
+      - name: Format
+        run: cargo fmt --all --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      # Ratchet: errors fail, warnings may not exceed scripts/qmllint.baseline (see the script);
+      # after Clippy: it needs the app's QML module from the cxx-qt build.
+      - name: QML lint
+        run: scripts/qmllint.sh
+
+      - name: Tests (offscreen)
+        run: cargo test --workspace
+
+      # Release profile (LTO, --locked) and the installer, into throw-away dirs.
+      - name: Release install
+        run: |
+          git config --global --add safe.directory "$PWD"
+          export TERMIGATOR_HOME=$(mktemp -d) XDG_DATA_HOME=$(mktemp -d) TERMIGATOR_TARGET_DIR=$(mktemp -d)
+          ./install.sh
+          test -x "$TERMIGATOR_HOME/app/termigator"
+          test -f "$XDG_DATA_HOME/applications/termigator.desktop"
+
+  # The declared minimum Rust (rust-version in Cargo.toml) still builds everything.
+  msrv:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: System packages (rustup, Qt 6, KF6)
+        run: |
+          pacman -Syu --noconfirm --needed \
+            nodejs git base-devel pkgconf lld rustup zig \
+            qt6-base qt6-declarative qt6-wayland kirigami kirigami-addons qqc2-desktop-style breeze
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Terminal engine (libghostty-vt release files)
+        run: |
+          scripts/fetch-ghostty.sh
+          echo "GHOSTTY_RELEASE_DIR=$HOME/.cache/ghostty-vt-release" >> "$GITHUB_ENV"
+
+      - name: cargo check on rust-version
+        run: |
+          msrv=$(sed -n 's/^rust-version = "\(.*\)"/\1/p' Cargo.toml)
+          rustup toolchain install "$msrv" --profile minimal
+          cargo "+$msrv" check --workspace --all-targets --locked
+
+  # licenses / advisories / bans / sources of the crates.io dependencies (deny.toml).
+  deny:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: System packages (cargo-deny)
+        run: pacman -Syu --noconfirm --needed nodejs git cargo-deny
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: cargo deny
+        run: cargo deny check
+
+  # The core (no Qt) on Windows: what the GUI build there depends on. The full Windows app needs
+  # KDE Craft (scripts/make-windows-installer.ps1) and is built outside CI.
+  windows-core:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Rust toolchain (pinned, as in the rust job)
+        shell: bash
+        run: |
+          rust=$(sed -n 's/^RUST_TOOLCHAIN=//p' scripts/make-deb.sh)
+          rustup toolchain install "$rust" --profile minimal -c clippy
+          rustup default "$rust"
+
+      - name: Clippy (termigator-core)
+        run: cargo clippy -p termigator-core --all-targets -- -D warnings
+
+      - name: Tests (termigator-core)
+        run: cargo test -p termigator-core

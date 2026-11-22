@@ -1,0 +1,4765 @@
+{
+ "cases": [
+  {
+   "name": "bookmarks:sample",
+   "kind": "bookmarks",
+   "input": "[Misc]\nLastUsername=alice\n\n[Bookmarks]\nSubRep=Production\nImgNum=42\nProd Web=#109#0%web.example%22%root%%-1%-1%%%%%0%0%1%%%-1%0%0%0%%1080%%0#MobaFont%\n\n[Bookmarks_2]\nSubRep=Lab\\Internal\nImgNum=41\nLab Box=#109#0%10.0.0.5%2222%ubuntu%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Prod Web"
+      ],
+      [
+       "host",
+       "web.example"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "group",
+       "Production"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Lab Box"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "ubuntu"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "group",
+       "Lab/Internal"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:sample",
+   "kind": "export",
+   "input": "[Misc]\nLastUsername=alice\n\n[Bookmarks]\nSubRep=Production\nImgNum=42\nProd Web=#109#0%web.example%22%root%%-1%-1%%%%%0%0%1%%%-1%0%0%0%%1080%%0#MobaFont%\n\n[Bookmarks_2]\nSubRep=Lab\\Internal\nImgNum=41\nLab Box=#109#0%10.0.0.5%2222%ubuntu%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Prod Web"
+         ],
+         [
+          "host",
+          "web.example"
+         ],
+         [
+          "user",
+          "root"
+         ],
+         [
+          "group",
+          "Production"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Lab Box"
+         ],
+         [
+          "host",
+          "10.0.0.5"
+         ],
+         [
+          "user",
+          "ubuntu"
+         ],
+         [
+          "port",
+          {
+           "$int": "2222"
+          }
+         ],
+         [
+          "group",
+          "Lab/Internal"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:default_username",
+   "kind": "bookmarks",
+   "input": "[Misc]\nLastUsername=alice\n[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "NoUser"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "alice"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:default_username",
+   "kind": "export",
+   "input": "[Misc]\nLastUsername=alice\n[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "NoUser"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "alice"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:no_user_falls_back_to_local",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "NoUser"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "tester"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:no_user_falls_back_to_local",
+   "kind": "export",
+   "input": "[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "NoUser"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "tester"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:no_user_no_local_dropped",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "",
+   "expect": []
+  },
+  {
+   "name": "export:no_user_no_local_dropped",
+   "kind": "export",
+   "input": "[Bookmarks]\nNoUser=#109#0%h.example%22%\n",
+   "user": "",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:last_username_empty_first_wins",
+   "kind": "bookmarks",
+   "input": "[Misc]\nLastUsername=\nLastUsername=bob\n[Bookmarks]\nX=#109#0%h%22%\n",
+   "user": "me",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "me"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:last_username_empty_first_wins",
+   "kind": "export",
+   "input": "[Misc]\nLastUsername=\nLastUsername=bob\n[Bookmarks]\nX=#109#0%h%22%\n",
+   "user": "me",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "me"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:last_username_any_section",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nX=#109#0%h%22%\n[Other]\n  LastUsername = carol \n",
+   "user": "me",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "me"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:last_username_any_section",
+   "kind": "export",
+   "input": "[Bookmarks]\nX=#109#0%h%22%\n[Other]\n  LastUsername = carol \n",
+   "user": "me",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "me"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:last_username_bom_text",
+   "kind": "bookmarks",
+   "input": "﻿[Misc]\nLastUsername=dave\n[Bookmarks]\nX=#109#0%h%22%\n",
+   "user": "me",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "dave"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:last_username_bom_text",
+   "kind": "export",
+   "input": "﻿[Misc]\nLastUsername=dave\n[Bookmarks]\nX=#109#0%h%22%\n",
+   "user": "me",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "dave"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:bom_first_section",
+   "kind": "bookmarks",
+   "input": "﻿[Bookmarks]\nBox=#109#0%h.example%22%root%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Box"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:bom_first_section",
+   "kind": "export",
+   "input": "﻿[Bookmarks]\nBox=#109#0%h.example%22%root%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Box"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "root"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:bom_twice",
+   "kind": "bookmarks",
+   "input": "﻿﻿[Bookmarks]\nBox=#109#0%h.example%22%root%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Box"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:bom_twice",
+   "kind": "export",
+   "input": "﻿﻿[Bookmarks]\nBox=#109#0%h.example%22%root%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Box"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "root"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:polish_labels",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSerwer łódź=#109#0%h.example%22%root%\nZażółć=#109#0%h%22%root%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Serwer łódź"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "Zażółć"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:polish_labels",
+   "kind": "export",
+   "input": "[Bookmarks]\nSerwer łódź=#109#0%h.example%22%root%\nZażółć=#109#0%h%22%root%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Serwer łódź"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "root"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Zażółć"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "root"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:key_mapping_local_user",
+   "kind": "bookmarks",
+   "input": "[Misc]\nLastUsername=root\n[Bookmarks]\nK=#109#0%h%22%root%%-1%-1%%%%%0%0%1%Z:\\home\\tester\\.ssh\\id_rsa%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "K"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "identity_file",
+       "~/.ssh/id_rsa"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:key_mapping_local_user",
+   "kind": "export",
+   "input": "[Misc]\nLastUsername=root\n[Bookmarks]\nK=#109#0%h%22%root%%-1%-1%%%%%0%0%1%Z:\\home\\tester\\.ssh\\id_rsa%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "K"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "root"
+         ],
+         [
+          "identity_file",
+          "~/.ssh/id_rsa"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:key_mapping_other_user",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nK=#109#0%h%22%root%%-1%Z:\\home\\bob\\.ssh\\id_rsa%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "K"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "identity_file",
+       "/home/bob/.ssh/id_rsa"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:key_mapping_other_user",
+   "kind": "export",
+   "input": "[Bookmarks]\nK=#109#0%h%22%root%%-1%Z:\\home\\bob\\.ssh\\id_rsa%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "K"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "root"
+         ],
+         [
+          "identity_file",
+          "/home/bob/.ssh/id_rsa"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:custom_icon_ssh",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#151#0%10.1.1.1%22%admin%\nB=#5#0%10.1.1.2%22%admin%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "10.1.1.1"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "10.1.1.2"
+      ],
+      [
+       "user",
+       "admin"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:custom_icon_ssh",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#151#0%10.1.1.1%22%admin%\nB=#5#0%10.1.1.2%22%admin%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "10.1.1.1"
+         ],
+         [
+          "user",
+          "admin"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "10.1.1.2"
+         ],
+         [
+          "user",
+          "admin"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:user_at_host",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#0%joe@h.example%22%%\nB=#109#0%joe@h2%22%given%\nC=#109#0%@h3%22%x%\nD=#109#0%a@b@c%22%%\nE=#109#0% u @ h4 %22%%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h.example"
+      ],
+      [
+       "user",
+       "joe"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "joe@h2"
+      ],
+      [
+       "user",
+       "given"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "C"
+      ],
+      [
+       "host",
+       "@h3"
+      ],
+      [
+       "user",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "D"
+      ],
+      [
+       "host",
+       "b@c"
+      ],
+      [
+       "user",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "E"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:user_at_host",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#0%joe@h.example%22%%\nB=#109#0%joe@h2%22%given%\nC=#109#0%@h3%22%x%\nD=#109#0%a@b@c%22%%\nE=#109#0% u @ h4 %22%%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h.example"
+         ],
+         [
+          "user",
+          "joe"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "joe@h2"
+         ],
+         [
+          "user",
+          "given"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "@h3"
+         ],
+         [
+          "user",
+          "x"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "host",
+          "b@c"
+         ],
+         [
+          "user",
+          "a"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:empty_host_dropped",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#0%%22%root%\nB=#109#0%  %22%root%\nC=#109#0%h%22%root%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "C"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "root"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:empty_host_dropped",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#0%%22%root%\nB=#109#0%  %22%root%\nC=#109#0%h%22%root%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "root"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:too_few_parts_dropped",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#0%h%22\nB=#109#0%h\nC=#109#0%h%22%u\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "C"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:too_few_parts_dropped",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#0%h%22\nB=#109#0%h\nC=#109#0%h%22%u\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:ports",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#0%h1%%u%\nB=#109#0%h2%22%u%\nC=#109#0%h3% 2222 %u%\nD=#109#0%h4%+2223%u%\nE=#109#0%h5%x%u%\nF=#109#0%h6%0%u%\nG=#109#0%h7%-5%u%\nH=#109#0%h8%70000%u%\nI=#109#0%h9%2_2%u%\nJ=#109#0%h10%022%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "C"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "D"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "2223"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "E"
+      ],
+      [
+       "host",
+       "h5"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "F"
+      ],
+      [
+       "host",
+       "h6"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "G"
+      ],
+      [
+       "host",
+       "h7"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "-5"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "H"
+      ],
+      [
+       "host",
+       "h8"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "port",
+       {
+        "$int": "70000"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "I"
+      ],
+      [
+       "host",
+       "h9"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "J"
+      ],
+      [
+       "host",
+       "h10"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:ports",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#0%h1%%u%\nB=#109#0%h2%22%u%\nC=#109#0%h3% 2222 %u%\nD=#109#0%h4%+2223%u%\nE=#109#0%h5%x%u%\nF=#109#0%h6%0%u%\nG=#109#0%h7%-5%u%\nH=#109#0%h8%70000%u%\nI=#109#0%h9%2_2%u%\nJ=#109#0%h10%022%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "2222"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "2223"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "host",
+          "h5"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "F"
+         ],
+         [
+          "host",
+          "h6"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "0"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "G"
+         ],
+         [
+          "host",
+          "h7"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "-5"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "H"
+         ],
+         [
+          "host",
+          "h8"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "port",
+          {
+           "$int": "70000"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "I"
+         ],
+         [
+          "host",
+          "h9"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "J"
+         ],
+         [
+          "host",
+          "h10"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:identity_markers",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nK0=#109#0%h0%22%u%C:\\keys\\id_rsa%\nK1=#109#0%h1%22%u%_MyDocuments_\\MobaXterm\\home\\.ssh\\k%\nK2=#109#0%h2%22%u%_ProfileDir_\\Documents\\keys\\k%\nK3=#109#0%h3%22%u%/x/y/file.pem%\nK4=#109#0%h4%22%u%mykey.PRIV%\nK5=#109#0%h5%22%u%some.priv%\nK6=#109#0%h6%22%u%D:\\Backup\\Documents\\k.ppk%\nK7=#109#0%h7%22%u%D:\\other\\k.ppk%\nK8=#109#0%h8%22%u%Z:\\home\\bob\\.ssh\\id_ed25519%\nK9=#109#0%h9%22%u%ab.pem%\nK10=#109#0%h10%22%u%.ssh%\nK11=#109#0%h11%22%u%1234%\nK12=#109#0%h12%22%u%-1%\nK13=#109#0%h13%22%u%0%\nK14=#109#0%h14%22%u%1%\nK15=#109#0%h15%22%u%22%\nS=#109#0%hs%22%u%Interactive shell%C:\\k\\id_rsa%\nT=#109#0%ht%22%u%#MobaFont%C:\\k\\id_rsa%\nU=#109#0%hu%22%u%x.pem%MobaFont%y.pem%\nV=#109#0%hv%22%u% %%%C:\\k\\id_rsa%\nW=#109#0%hw%22%u%C:\\k\\id_rsa%D:\\k\\other.pem%\nX=#109#0%hx%22%u%short%Std_Colors%C:\\k\\id_rsa%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "K0"
+      ],
+      [
+       "host",
+       "h0"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/keys/id_rsa"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K1"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/.ssh/k"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K2"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/Documents/keys/k"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K3"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "/x/y/file.pem"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K4"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "mykey.PRIV"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K5"
+      ],
+      [
+       "host",
+       "h5"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "some.priv"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K6"
+      ],
+      [
+       "host",
+       "h6"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/Documents/k.ppk"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K7"
+      ],
+      [
+       "host",
+       "h7"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/other/k.ppk"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K8"
+      ],
+      [
+       "host",
+       "h8"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "/home/bob/.ssh/id_ed25519"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K9"
+      ],
+      [
+       "host",
+       "h9"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "ab.pem"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K10"
+      ],
+      [
+       "host",
+       "h10"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K11"
+      ],
+      [
+       "host",
+       "h11"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K12"
+      ],
+      [
+       "host",
+       "h12"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K13"
+      ],
+      [
+       "host",
+       "h13"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K14"
+      ],
+      [
+       "host",
+       "h14"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "K15"
+      ],
+      [
+       "host",
+       "h15"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "S"
+      ],
+      [
+       "host",
+       "hs"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/k/id_rsa"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "T"
+      ],
+      [
+       "host",
+       "ht"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "U"
+      ],
+      [
+       "host",
+       "hu"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "x.pem"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "V"
+      ],
+      [
+       "host",
+       "hv"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/k/id_rsa"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "W"
+      ],
+      [
+       "host",
+       "hw"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "identity_file",
+       "~/k/id_rsa"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "hx"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:identity_markers",
+   "kind": "export",
+   "input": "[Bookmarks]\nK0=#109#0%h0%22%u%C:\\keys\\id_rsa%\nK1=#109#0%h1%22%u%_MyDocuments_\\MobaXterm\\home\\.ssh\\k%\nK2=#109#0%h2%22%u%_ProfileDir_\\Documents\\keys\\k%\nK3=#109#0%h3%22%u%/x/y/file.pem%\nK4=#109#0%h4%22%u%mykey.PRIV%\nK5=#109#0%h5%22%u%some.priv%\nK6=#109#0%h6%22%u%D:\\Backup\\Documents\\k.ppk%\nK7=#109#0%h7%22%u%D:\\other\\k.ppk%\nK8=#109#0%h8%22%u%Z:\\home\\bob\\.ssh\\id_ed25519%\nK9=#109#0%h9%22%u%ab.pem%\nK10=#109#0%h10%22%u%.ssh%\nK11=#109#0%h11%22%u%1234%\nK12=#109#0%h12%22%u%-1%\nK13=#109#0%h13%22%u%0%\nK14=#109#0%h14%22%u%1%\nK15=#109#0%h15%22%u%22%\nS=#109#0%hs%22%u%Interactive shell%C:\\k\\id_rsa%\nT=#109#0%ht%22%u%#MobaFont%C:\\k\\id_rsa%\nU=#109#0%hu%22%u%x.pem%MobaFont%y.pem%\nV=#109#0%hv%22%u% %%%C:\\k\\id_rsa%\nW=#109#0%hw%22%u%C:\\k\\id_rsa%D:\\k\\other.pem%\nX=#109#0%hx%22%u%short%Std_Colors%C:\\k\\id_rsa%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "K0"
+         ],
+         [
+          "host",
+          "h0"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/keys/id_rsa"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K1"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/.ssh/k"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K2"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/Documents/keys/k"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K3"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "/x/y/file.pem"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K4"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "mykey.PRIV"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K5"
+         ],
+         [
+          "host",
+          "h5"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "some.priv"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K6"
+         ],
+         [
+          "host",
+          "h6"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/Documents/k.ppk"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K7"
+         ],
+         [
+          "host",
+          "h7"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/other/k.ppk"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K8"
+         ],
+         [
+          "host",
+          "h8"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "/home/bob/.ssh/id_ed25519"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K9"
+         ],
+         [
+          "host",
+          "h9"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "ab.pem"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K10"
+         ],
+         [
+          "host",
+          "h10"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K11"
+         ],
+         [
+          "host",
+          "h11"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K12"
+         ],
+         [
+          "host",
+          "h12"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K13"
+         ],
+         [
+          "host",
+          "h13"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K14"
+         ],
+         [
+          "host",
+          "h14"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "K15"
+         ],
+         [
+          "host",
+          "h15"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "S"
+         ],
+         [
+          "host",
+          "hs"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/k/id_rsa"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "T"
+         ],
+         [
+          "host",
+          "ht"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "U"
+         ],
+         [
+          "host",
+          "hu"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "x.pem"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "V"
+         ],
+         [
+          "host",
+          "hv"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/k/id_rsa"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "W"
+         ],
+         [
+          "host",
+          "hw"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "identity_file",
+          "~/k/id_rsa"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "hx"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:groups",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSubRep=A\\B/C\nX=#109#0%h1%22%u%\n[Bookmarks_3]\nX2=#109#0%h2%22%u%\n[Bookmarks_4]\nSubRep=/lead/trail/\nX3=#109#0%h3%22%u%\nSubRep=  spaced  \nX4=#109#0%h4%22%u%\nSubRep=\nX5=#109#0%h5%22%u%\nSUBREP=Upper\nX6=#109#0%h6%22%u%\nSubRep= / a//b /\nX7=#109#0%h7%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       "A/B/C"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X2"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X3"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       "lead/trail"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X4"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       "spaced"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X5"
+      ],
+      [
+       "host",
+       "h5"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X6"
+      ],
+      [
+       "host",
+       "h6"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       "Upper"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "X7"
+      ],
+      [
+       "host",
+       "h7"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       " a//b "
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:groups",
+   "kind": "export",
+   "input": "[Bookmarks]\nSubRep=A\\B/C\nX=#109#0%h1%22%u%\n[Bookmarks_3]\nX2=#109#0%h2%22%u%\n[Bookmarks_4]\nSubRep=/lead/trail/\nX3=#109#0%h3%22%u%\nSubRep=  spaced  \nX4=#109#0%h4%22%u%\nSubRep=\nX5=#109#0%h5%22%u%\nSUBREP=Upper\nX6=#109#0%h6%22%u%\nSubRep= / a//b /\nX7=#109#0%h7%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "A/B/C"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X2"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X3"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "lead/trail"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X4"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "spaced"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X5"
+         ],
+         [
+          "host",
+          "h5"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X6"
+         ],
+         [
+          "host",
+          "h6"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "Upper"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "X7"
+         ],
+         [
+          "host",
+          "h7"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          " a//b "
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:group_80_chars",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSubRep=GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG/x\nX=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "X"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ],
+      [
+       "group",
+       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:group_80_chars",
+   "kind": "export",
+   "input": "[Bookmarks]\nSubRep=GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG/x\nX=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "X"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:label_120_chars",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:label_120_chars",
+   "kind": "export",
+   "input": "[Bookmarks]\nLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:label_whitespace_unicode",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\n Name　=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Name"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:label_whitespace_unicode",
+   "kind": "export",
+   "input": "[Bookmarks]\n Name　=#109#0%h%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Name"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:label_with_equals_in_value",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#0%h%22%u%a=b%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:label_with_equals_in_value",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#0%h%22%u%a=b%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:not_bookmark_sections",
+   "kind": "bookmarks",
+   "input": "[Misc]\nX=#109#0%h%22%u%\n[Bookmarksx]\nY=#109#0%h2%22%u%\n[Bookmarks_]\nZ=#109#0%h3%22%u%\n[bookmarks]\nW=#109#0%h4%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Z"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:not_bookmark_sections",
+   "kind": "export",
+   "input": "[Misc]\nX=#109#0%h%22%u%\n[Bookmarksx]\nY=#109#0%h2%22%u%\n[Bookmarks_]\nZ=#109#0%h3%22%u%\n[bookmarks]\nW=#109#0%h4%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Z"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:section_edge_lines",
+   "kind": "bookmarks",
+   "input": "[\nX=#109#0%h%22%u%\n[Bookmarks]\n]\n  [Bookmarks]  \nA=#109#0%h2%22%u%\n[]\nB=#109#0%h3%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:section_edge_lines",
+   "kind": "export",
+   "input": "[\nX=#109#0%h%22%u%\n[Bookmarks]\n]\n  [Bookmarks]  \nA=#109#0%h2%22%u%\n[]\nB=#109#0%h3%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:crlf_and_exotic_line_breaks",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\r\nA=#109#0%h1%22%u%\r\nB=#109#0%h2%22%u%\rC=#109#0%h3%22%u%\u000bD=#109#0%h4%22%u%E=#109#0%h5%22%u% F=#109#0%h6%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h1"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "C"
+      ],
+      [
+       "host",
+       "h3"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "D"
+      ],
+      [
+       "host",
+       "h4"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "E"
+      ],
+      [
+       "host",
+       "h5"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "F"
+      ],
+      [
+       "host",
+       "h6"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:crlf_and_exotic_line_breaks",
+   "kind": "export",
+   "input": "[Bookmarks]\r\nA=#109#0%h1%22%u%\r\nB=#109#0%h2%22%u%\rC=#109#0%h3%22%u%\u000bD=#109#0%h4%22%u%E=#109#0%h5%22%u% F=#109#0%h6%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "host",
+          "h5"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "F"
+         ],
+         [
+          "host",
+          "h6"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:no_equals_and_blank_lines",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\n\nnonsense\n  \nA=#109#0%h%22%u%\n=#109#0%h2%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "A"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ],
+      [
+       "host",
+       "h2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:no_equals_and_blank_lines",
+   "kind": "export",
+   "input": "[Bookmarks]\n\nnonsense\n  \nA=#109#0%h%22%u%\n=#109#0%h2%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          ""
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:malformed_heads",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#109#x%h%22%u%\nB=109#0%h%22%u%\nC=#109#0h%22%u%\nD=#a#0%h%22%u%\nE=#109#%h%22%u%\nF=##0%h%22%u%\nG=#109#00%h%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "G"
+      ],
+      [
+       "host",
+       "h"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:malformed_heads",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#109#x%h%22%u%\nB=109#0%h%22%u%\nC=#109#0h%22%u%\nD=#a#0%h%22%u%\nE=#109#%h%22%u%\nF=##0%h%22%u%\nG=#109#00%h%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "G"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:mixed",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSubRep=Win\nImgNum=42\nCustom icon ssh=#151#0%10.1.1.1%22%admin%\nDesk=#91#4%win.example%3389%CORP\\jdoe%0%-1%-1%-1%-1%0%0%-1%%%%%0%0%%-1%%-1%-1%0%-1%0%-1%0%0%0%0%%#MobaFont%10%0#0# #-1\nDesk2=#91#4%10.0.0.9%3390%%0%-1#MobaFont%10#0# #-1\nScreen=#128#5%vnc.example%5901%%-1#MobaFont%10#0# #-1\nRouter=#98#1%192.168.1.1%23%%#MobaFont%10#0# #-1\nUbuntu=#151#14%Ubuntu-24.04%%#MobaFont%10#0# #-1\nConsole=#131#8%COM3%115200%#MobaFont%10#0# #-1\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "Custom icon ssh"
+      ],
+      [
+       "host",
+       "10.1.1.1"
+      ],
+      [
+       "user",
+       "admin"
+      ],
+      [
+       "group",
+       "Win"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:mixed",
+   "kind": "export",
+   "input": "[Bookmarks]\nSubRep=Win\nImgNum=42\nCustom icon ssh=#151#0%10.1.1.1%22%admin%\nDesk=#91#4%win.example%3389%CORP\\jdoe%0%-1%-1%-1%-1%0%0%-1%%%%%0%0%%-1%%-1%-1%0%-1%0%-1%0%0%0%0%%#MobaFont%10%0#0# #-1\nDesk2=#91#4%10.0.0.9%3390%%0%-1#MobaFont%10#0# #-1\nScreen=#128#5%vnc.example%5901%%-1#MobaFont%10#0# #-1\nRouter=#98#1%192.168.1.1%23%%#MobaFont%10#0# #-1\nUbuntu=#151#14%Ubuntu-24.04%%#MobaFont%10#0# #-1\nConsole=#131#8%COM3%115200%#MobaFont%10#0# #-1\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "Custom icon ssh"
+         ],
+         [
+          "host",
+          "10.1.1.1"
+         ],
+         [
+          "user",
+          "admin"
+         ],
+         [
+          "group",
+          "Win"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Desk"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "win.example"
+         ],
+         [
+          "domain",
+          "CORP"
+         ],
+         [
+          "user",
+          "jdoe"
+         ],
+         [
+          "group",
+          "Win"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Desk2"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "10.0.0.9"
+         ],
+         [
+          "port",
+          {
+           "$int": "3390"
+          }
+         ],
+         [
+          "group",
+          "Win"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Screen"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "host",
+          "vnc.example"
+         ],
+         [
+          "port",
+          {
+           "$int": "5901"
+          }
+         ],
+         [
+          "group",
+          "Win"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Router"
+         ],
+         [
+          "protocol",
+          "telnet"
+         ],
+         [
+          "host",
+          "192.168.1.1"
+         ],
+         [
+          "group",
+          "Win"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "WSL",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Serial",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:sftp",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSubRep=Files\nA=#140#7%files.example%22%bob%\nB=#140#7%files2.example%2022%%\nC=#140#7%files3.example%%\nD=#140#7%files4.example%x%carol%\nE=#140#7%files5.example%70000%carol%\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:sftp",
+   "kind": "export",
+   "input": "[Bookmarks]\nSubRep=Files\nA=#140#7%files.example%22%bob%\nB=#140#7%files2.example%2022%%\nC=#140#7%files3.example%%\nD=#140#7%files4.example%x%carol%\nE=#140#7%files5.example%70000%carol%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "files.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          "bob"
+         ],
+         [
+          "group",
+          "Files"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "files2.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "port",
+          {
+           "$int": "2022"
+          }
+         ],
+         [
+          "user",
+          "tester"
+         ],
+         [
+          "group",
+          "Files"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "host",
+          "files3.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          "tester"
+         ],
+         [
+          "group",
+          "Files"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "host",
+          "files4.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          "carol"
+         ],
+         [
+          "group",
+          "Files"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "host",
+          "files5.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          "carol"
+         ],
+         [
+          "group",
+          "Files"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:sftp_no_user_no_local",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#140#7%files.example%22%\n",
+   "user": "",
+   "expect": []
+  },
+  {
+   "name": "export:sftp_no_user_no_local",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#140#7%files.example%22%\n",
+   "user": "",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "files.example"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          ""
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:sftp_user_beyond_hash",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#140#7%h%22%dan%#MobaFont%10\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:sftp_user_beyond_hash",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#140#7%h%22%dan%#MobaFont%10\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "host",
+          "h"
+         ],
+         [
+          "files_only",
+          true
+         ],
+         [
+          "user",
+          "dan"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:rdp_variants",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#91#4%h1%3389%DOM\\\\u%0\nB=#91#4%h2%3389%DOM\\%0\nC=#91#4%h3%3389%\\u%0\nD=#91#4%h4%3389%plain%0\nE=#91#4%h5%0%u%0\nF=#91#4%h6%65536%u%0\nG=#91#4%h7%65535%u%0\nH=#91#4%h8%x%u%0\nI=#91#4%h9%%u%0\nJ=#91#4%h10%3389\nK=#91#4%h11\nL=#91#4%%3389%u\nM=#91#4%h12%-1%u\nN=#91#4%h13%3389% a\\b %0\nO=#91#4%h14%3389%a\\b\\c%0\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:rdp_variants",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#91#4%h1%3389%DOM\\\\u%0\nB=#91#4%h2%3389%DOM\\%0\nC=#91#4%h3%3389%\\u%0\nD=#91#4%h4%3389%plain%0\nE=#91#4%h5%0%u%0\nF=#91#4%h6%65536%u%0\nG=#91#4%h7%65535%u%0\nH=#91#4%h8%x%u%0\nI=#91#4%h9%%u%0\nJ=#91#4%h10%3389\nK=#91#4%h11\nL=#91#4%%3389%u\nM=#91#4%h12%-1%u\nN=#91#4%h13%3389% a\\b %0\nO=#91#4%h14%3389%a\\b\\c%0\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "domain",
+          "DOM"
+         ],
+         [
+          "user",
+          "\\u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "DOM\\"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "user",
+          "\\u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h4"
+         ],
+         [
+          "user",
+          "plain"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h5"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "F"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h6"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "G"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h7"
+         ],
+         [
+          "port",
+          {
+           "$int": "65535"
+          }
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "H"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h8"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "I"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h9"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "J"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h10"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "M"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h12"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "N"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h13"
+         ],
+         [
+          "domain",
+          "a"
+         ],
+         [
+          "user",
+          "b"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "O"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h14"
+         ],
+         [
+          "domain",
+          "a"
+         ],
+         [
+          "user",
+          "b\\c"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "RDP",
+         {
+          "$int": "2"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:vnc_telnet",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#1#5%v1%5900%\nB=#1#5%v2%5901%u\nC=#1#1%t1%23%root%x\nD=#1#1%t2%2323%\nE=#1#1%t3%\nF=#1#5%%5900\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:vnc_telnet",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#1#5%v1%5900%\nB=#1#5%v2%5901%u\nC=#1#1%t1%23%root%x\nD=#1#1%t2%2323%\nE=#1#1%t3%\nF=#1#5%%5900\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "host",
+          "v1"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "host",
+          "v2"
+         ],
+         [
+          "port",
+          {
+           "$int": "5901"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "protocol",
+          "telnet"
+         ],
+         [
+          "host",
+          "t1"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "protocol",
+          "telnet"
+         ],
+         [
+          "host",
+          "t2"
+         ],
+         [
+          "port",
+          {
+           "$int": "2323"
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "E"
+         ],
+         [
+          "protocol",
+          "telnet"
+         ],
+         [
+          "host",
+          "t3"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "VNC",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:skipped_types",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#1#2%h%22%u\nB=#1#3%h\nC=#1#6%h\nD=#1#8%COM1\nE=#1#9%h\nF=#1#10%h\nG=#1#11%h\nH=#1#12%h\nI=#1#13%h\nJ=#1#14%h\nK=#1#15%h\nL=#1#99%h\nM=#1#14%h\nN=#1#4%h\nO=#1#1%\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:skipped_types",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#1#2%h%22%u\nB=#1#3%h\nC=#1#6%h\nD=#1#8%COM1\nE=#1#9%h\nF=#1#10%h\nG=#1#11%h\nH=#1#12%h\nI=#1#13%h\nJ=#1#14%h\nK=#1#15%h\nL=#1#99%h\nM=#1#14%h\nN=#1#4%h\nO=#1#1%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": [
+        [
+         "Rsh",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "XDMCP",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "FTP",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Serial",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "File",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Shell",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Browser",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Mosh",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "S3",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "WSL",
+         {
+          "$int": "2"
+         }
+        ],
+        [
+         "type 15",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "type 99",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "RDP",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "Telnet",
+         {
+          "$int": "1"
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:subrep_resets_per_section_export",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nSubRep=One\nA=#1#4%h1%3389%u\n[Bookmarks_2]\nB=#1#4%h2%3389%u\nSubRep=Two\nC=#1#5%h3%5900%\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:subrep_resets_per_section_export",
+   "kind": "export",
+   "input": "[Bookmarks]\nSubRep=One\nA=#1#4%h1%3389%u\n[Bookmarks_2]\nB=#1#4%h2%3389%u\nSubRep=Two\nC=#1#5%h3%5900%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h1"
+         ],
+         [
+          "user",
+          "u"
+         ],
+         [
+          "group",
+          "One"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "h2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "host",
+          "h3"
+         ],
+         [
+          "group",
+          "Two"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:ssh_rows_before_other_rows",
+   "kind": "bookmarks",
+   "input": "[Bookmarks]\nA=#1#4%rdp%3389%u\nB=#109#0%ssh%22%u%\nC=#1#5%vnc%5900%\nD=#109#0%ssh2%22%u%\n",
+   "user": "tester",
+   "expect": [
+    {
+     "$map": [
+      [
+       "label",
+       "B"
+      ],
+      [
+       "host",
+       "ssh"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "D"
+      ],
+      [
+       "host",
+       "ssh2"
+      ],
+      [
+       "user",
+       "u"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "export:ssh_rows_before_other_rows",
+   "kind": "export",
+   "input": "[Bookmarks]\nA=#1#4%rdp%3389%u\nB=#109#0%ssh%22%u%\nC=#1#5%vnc%5900%\nD=#109#0%ssh2%22%u%\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "B"
+         ],
+         [
+          "host",
+          "ssh"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "D"
+         ],
+         [
+          "host",
+          "ssh2"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "A"
+         ],
+         [
+          "protocol",
+          "rdp"
+         ],
+         [
+          "host",
+          "rdp"
+         ],
+         [
+          "user",
+          "u"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "C"
+         ],
+         [
+          "protocol",
+          "vnc"
+         ],
+         [
+          "host",
+          "vnc"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:empty",
+   "kind": "bookmarks",
+   "input": "",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:empty",
+   "kind": "export",
+   "input": "",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "bookmarks:no_bookmarks",
+   "kind": "bookmarks",
+   "input": "[Misc]\nLastUsername=x\n",
+   "user": "tester",
+   "expect": []
+  },
+  {
+   "name": "export:no_bookmarks",
+   "kind": "export",
+   "input": "[Misc]\nLastUsername=x\n",
+   "user": "tester",
+   "expect": {
+    "$map": [
+     [
+      "rows",
+      []
+     ],
+     [
+      "skipped",
+      {
+       "$map": []
+      }
+     ]
+    ]
+   }
+  }
+ ]
+}

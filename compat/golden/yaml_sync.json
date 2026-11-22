@@ -1,0 +1,2638 @@
+{
+ "cases": [
+  {
+   "name": "g0_criterion_10",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1440"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "800"
+             },
+             {
+              "$int": "600"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "fish"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ],
+        [
+         "new_flag",
+         "yes"
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1440        # pixels\n  height: 0          # 0 = automatic\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 900\n    - 640\n    ConnectionDialog:\n    - 800\n    - 600\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: fish         # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\n  new_flag: yes\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n\n# trailing comment at the end of the file\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1440"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "800"
+             },
+             {
+              "$int": "600"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "fish"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ],
+        [
+         "new_flag",
+         true
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": false
+  },
+  {
+   "name": "new_yaml11_lookalike_strings",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ],
+        [
+         "new_strings",
+         {
+          "$map": [
+           [
+            "yes",
+            "yes"
+           ],
+           [
+            "1:30",
+            "1:30"
+           ],
+           [
+            "0777",
+            "0777"
+           ],
+           [
+            "1_000",
+            "1_000"
+           ],
+           [
+            "=",
+            "="
+           ],
+           [
+            "2026-01-02",
+            "2026-01-02"
+           ],
+           [
+            "",
+            ""
+           ],
+           [
+            " x",
+            " x"
+           ],
+           [
+            "a: b",
+            "a: b"
+           ],
+           [
+            "#c",
+            "#c"
+           ],
+           [
+            "multi\nline",
+            "multi\nline"
+           ],
+           [
+            "Zażółć",
+            "Zażółć"
+           ],
+           [
+            "1:30.5",
+            "1:30.5"
+           ],
+           [
+            "~",
+            "~"
+           ],
+           [
+            "<<",
+            "<<"
+           ],
+           [
+            "word word word word word word word word word word word word word word word word word word word word ",
+            "word word word word word word word word word word word word word word word word word word word word "
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1280        # pixels\n  height: 0          # 0 = automatic\n  list_width: 320\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 900\n    - 640\n    ConnectionDialog:\n    - 720\n    - 560\n  new_strings:\n    yes: yes\n    1:30: 1:30\n    '0777': '0777'\n    '1_000': '1_000'\n    '=': '='\n    '2026-01-02': '2026-01-02'\n    '': ''\n    ' x': ' x'\n    'a: b': 'a: b'\n    '#c': '#c'\n    ? \"multi\\nline\"\n    : \"multi\\nline\"\n    Zażółć: Zażółć\n    1:30.5: 1:30.5\n    '~': '~'\n    '<<': '<<'\n    'word word word word word word word word word word word word word word word word word word word word ': 'word\n      word word word word word word word word word word word word word word word word\n      word word word '\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: zsh          # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n\n# trailing comment at the end of the file\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ],
+        [
+         "new_strings",
+         {
+          "$map": [
+           [
+            true,
+            true
+           ],
+           [
+            {
+             "$int": "90"
+            },
+            {
+             "$int": "90"
+            }
+           ],
+           [
+            "0777",
+            "0777"
+           ],
+           [
+            "1_000",
+            "1_000"
+           ],
+           [
+            "=",
+            "="
+           ],
+           [
+            "2026-01-02",
+            "2026-01-02"
+           ],
+           [
+            "",
+            ""
+           ],
+           [
+            " x",
+            " x"
+           ],
+           [
+            "a: b",
+            "a: b"
+           ],
+           [
+            "#c",
+            "#c"
+           ],
+           [
+            "multi\nline",
+            "multi\nline"
+           ],
+           [
+            "Zażółć",
+            "Zażółć"
+           ],
+           [
+            {
+             "$float": "90.5"
+            },
+            {
+             "$float": "90.5"
+            }
+           ],
+           [
+            "~",
+            "~"
+           ],
+           [
+            "<<",
+            "<<"
+           ],
+           [
+            "word word word word word word word word word word word word word word word word word word word word ",
+            "word word word word word word word word word word word word word word word word word word word word "
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": false
+  },
+  {
+   "name": "replace_list_of_mappings",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Nowy ulubiony – ąę"
+         ],
+         [
+          "command",
+          "ssh -t a.example.test top"
+         ],
+         [
+          "terminal",
+          "embedded"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "third"
+         ],
+         [
+          "command",
+          "true"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [
+    "# Quick commands shown in the sidebar",
+    "# Polish label"
+   ],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1280        # pixels\n  height: 0          # 0 = automatic\n  list_width: 320\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 900\n    - 640\n    ConnectionDialog:\n    - 720\n    - 560\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: zsh          # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Nowy ulubiony – ąę\n  command: ssh -t a.example.test top\n  terminal: embedded\n- label: third\n  command: 'true'\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n\n# trailing comment at the end of the file\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Nowy ulubiony – ąę"
+         ],
+         [
+          "command",
+          "ssh -t a.example.test top"
+         ],
+         [
+          "terminal",
+          "embedded"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "third"
+         ],
+         [
+          "command",
+          "true"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": true
+  },
+  {
+   "name": "delete_and_add_sections",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "snippets",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "uptime"
+         ],
+         [
+          "command",
+          "uptime"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "last_session",
+      {
+       "$map": [
+        [
+         "split",
+         "h"
+        ],
+        [
+         "sizes",
+         [
+          {
+           "$int": "1"
+          },
+          {
+           "$int": "1"
+          }
+         ]
+        ],
+        [
+         "children",
+         [
+          {
+           "$map": [
+            [
+             "tabs",
+             []
+            ],
+            [
+             "current",
+             {
+              "$int": "0"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1280        # pixels\n  height: 0          # 0 = automatic\n  list_width: 320\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 900\n    - 640\n    ConnectionDialog:\n    - 720\n    - 560\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: zsh          # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nsnippets:\n- name: uptime\n  command: uptime\nlast_session:\n  split: h\n  sizes:\n  - 1\n  - 1\n  children:\n  - tabs: []\n    current: 0\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "snippets",
+      [
+       {
+        "$map": [
+         [
+          "name",
+          "uptime"
+         ],
+         [
+          "command",
+          "uptime"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "last_session",
+      {
+       "$map": [
+        [
+         "split",
+         "h"
+        ],
+        [
+         "sizes",
+         [
+          {
+           "$int": "1"
+          },
+          {
+           "$int": "1"
+          }
+         ]
+        ],
+        [
+         "children",
+         [
+          {
+           "$map": [
+            [
+             "tabs",
+             []
+            ],
+            [
+             "current",
+             {
+              "$int": "0"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": true
+  },
+  {
+   "name": "change_shapes",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "1000"
+             },
+             {
+              "$int": "700"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            "now a scalar"
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         {
+          "$map": [
+           [
+            "was",
+            "a scalar"
+           ]
+          ]
+         }
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1280        # pixels\n  height: 0          # 0 = automatic\n  list_width: 320\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 1000\n    - 700\n    ConnectionDialog: now a scalar\nlaunch:\n  template:\n    was: a scalar\n  shell: zsh          # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n\n# trailing comment at the end of the file\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "1000"
+             },
+             {
+              "$int": "700"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            "now a scalar"
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         {
+          "$map": [
+           [
+            "was",
+            "a scalar"
+           ]
+          ]
+         }
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": true
+  },
+  {
+   "name": "noop",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "dropped_comments": [],
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\nwindow:\n  # Main window geometry\n  width: 1280        # pixels\n  height: 0          # 0 = automatic\n  list_width: 320\n  always_on_top: true # YAML 1.1 bool, stays a bool\n  default_terminal: embedded\n\n  # Persisted state the app writes back\n  follow_poll_ms: 750\n  dialog_sizes:\n    SettingsDialog:              # flow list kept as written\n    - 900\n    - 640\n    ConnectionDialog:\n    - 720\n    - 560\nlaunch:\n  template: konsole -e bash -lc {cmd_quoted}\n  shell: zsh          # my shell\n  editor: kate\n  session_log_template: ~/termigator-logs/{label}/{date}_{time}.log\n  ssh_keepalive_seconds: 90     # sexagesimal: PyYAML reads 90\n  umask: 511                     # octal: PyYAML reads 511\n  confirm_multiline_paste: true\n  embedded_pyte_history: 150000\n  font_family: \"Hack\"\n  font_size: 11\n\nfavorites:\n  # Quick commands shown in the sidebar\n- label: htop\n  command: htop\n- label: Logi systemowe\n  command: journalctl -f\n  terminal: external\nvault:\n  kdf: scrypt\n  n: 16384\n  r: 8\n  p: 1\n  salt: c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk=\n  check: enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA==\n\n# trailing comment at the end of the file\n",
+   "ruamel_loaded": {
+    "$map": [
+     [
+      "window",
+      {
+       "$map": [
+        [
+         "width",
+         {
+          "$int": "1280"
+         }
+        ],
+        [
+         "height",
+         {
+          "$int": "0"
+         }
+        ],
+        [
+         "list_width",
+         {
+          "$int": "320"
+         }
+        ],
+        [
+         "always_on_top",
+         true
+        ],
+        [
+         "default_terminal",
+         "embedded"
+        ],
+        [
+         "follow_poll_ms",
+         {
+          "$int": "750"
+         }
+        ],
+        [
+         "dialog_sizes",
+         {
+          "$map": [
+           [
+            "SettingsDialog",
+            [
+             {
+              "$int": "900"
+             },
+             {
+              "$int": "640"
+             }
+            ]
+           ],
+           [
+            "ConnectionDialog",
+            [
+             {
+              "$int": "720"
+             },
+             {
+              "$int": "560"
+             }
+            ]
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "launch",
+      {
+       "$map": [
+        [
+         "template",
+         "konsole -e bash -lc {cmd_quoted}"
+        ],
+        [
+         "shell",
+         "zsh"
+        ],
+        [
+         "editor",
+         "kate"
+        ],
+        [
+         "session_log_template",
+         "~/termigator-logs/{label}/{date}_{time}.log"
+        ],
+        [
+         "ssh_keepalive_seconds",
+         {
+          "$int": "90"
+         }
+        ],
+        [
+         "umask",
+         {
+          "$int": "511"
+         }
+        ],
+        [
+         "confirm_multiline_paste",
+         true
+        ],
+        [
+         "embedded_pyte_history",
+         {
+          "$int": "150000"
+         }
+        ],
+        [
+         "font_family",
+         "Hack"
+        ],
+        [
+         "font_size",
+         {
+          "$int": "11"
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "favorites",
+      [
+       {
+        "$map": [
+         [
+          "label",
+          "htop"
+         ],
+         [
+          "command",
+          "htop"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "label",
+          "Logi systemowe"
+         ],
+         [
+          "command",
+          "journalctl -f"
+         ],
+         [
+          "terminal",
+          "external"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "vault",
+      {
+       "$map": [
+        [
+         "kdf",
+         "scrypt"
+        ],
+        [
+         "n",
+         {
+          "$int": "16384"
+         }
+        ],
+        [
+         "r",
+         {
+          "$int": "8"
+         }
+        ],
+        [
+         "p",
+         {
+          "$int": "1"
+         }
+        ],
+        [
+         "salt",
+         "c2FsdC1mb3ItYS1maXh0dXJlLW9ubHk="
+        ],
+        [
+         "check",
+         "enc:v1:Zml4dHVyZS1jaGVjay10b2tlbi1ub3QtcmVhbA=="
+        ]
+       ]
+      }
+     ]
+    ]
+   },
+   "ruamel_matches_target": true
+  },
+  {
+   "name": "empty_target",
+   "file": "crates/termigator-core/tests/fixtures/yaml/config_commented.yaml",
+   "target": {
+    "$map": []
+   },
+   "dropped_comments": null,
+   "ruamel_text": "# Termigator config — synthetic fixture with hand-written comments.\n# Every comment here must survive a save that edits other values.\n\n{}\n",
+   "ruamel_loaded": {
+    "$map": []
+   },
+   "ruamel_matches_target": true
+  }
+ ]
+}

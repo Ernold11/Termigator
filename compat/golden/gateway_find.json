@@ -1,0 +1,2988 @@
+{
+ "cases": [
+  {
+   "name": "find:basic:0",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "bastion",
+   "expect": {
+    "$int": "1"
+   }
+  },
+  {
+   "name": "find:basic:1",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "nope",
+   "expect": null
+  },
+  {
+   "name": "find:basic:2",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "a",
+   "expect": null
+  },
+  {
+   "name": "find:basic:3",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "b",
+   "expect": null
+  },
+  {
+   "name": "find:basic:4",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "c",
+   "expect": null
+  },
+  {
+   "name": "find:basic:5",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "d",
+   "expect": null
+  },
+  {
+   "name": "find:basic:6",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "e",
+   "expect": null
+  },
+  {
+   "name": "find:basic:7",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": " a ",
+   "expect": null
+  },
+  {
+   "name": "find:basic:8",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "A",
+   "expect": null
+  },
+  {
+   "name": "find:basic:9",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "",
+   "expect": null
+  },
+  {
+   "name": "find:basic:10",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": null,
+   "expect": null
+  },
+  {
+   "name": "find:basic:11",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "7"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:basic:12",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": " pad ",
+   "expect": null
+  },
+  {
+   "name": "find:basic:13",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "pad",
+   "expect": null
+  },
+  {
+   "name": "find:basic:14",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "0"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:basic:15",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ],
+      [
+       "host",
+       "x"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "bastion"
+      ],
+      [
+       "host",
+       "b"
+      ]
+     ]
+    }
+   ],
+   "label": "  ",
+   "expect": null
+  },
+  {
+   "name": "find:proto:0",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "bastion",
+   "expect": null
+  },
+  {
+   "name": "find:proto:1",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "nope",
+   "expect": null
+  },
+  {
+   "name": "find:proto:2",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "a",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "find:proto:3",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "b",
+   "expect": {
+    "$int": "3"
+   }
+  },
+  {
+   "name": "find:proto:4",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "c",
+   "expect": null
+  },
+  {
+   "name": "find:proto:5",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "d",
+   "expect": null
+  },
+  {
+   "name": "find:proto:6",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "e",
+   "expect": {
+    "$int": "6"
+   }
+  },
+  {
+   "name": "find:proto:7",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": " a ",
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "find:proto:8",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "A",
+   "expect": null
+  },
+  {
+   "name": "find:proto:9",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "",
+   "expect": null
+  },
+  {
+   "name": "find:proto:10",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": null,
+   "expect": null
+  },
+  {
+   "name": "find:proto:11",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "7"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:proto:12",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": " pad ",
+   "expect": null
+  },
+  {
+   "name": "find:proto:13",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "pad",
+   "expect": null
+  },
+  {
+   "name": "find:proto:14",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "0"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:proto:15",
+   "fn": "find",
+   "conns": [
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       "SSH"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "a"
+      ],
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "b"
+      ],
+      [
+       "protocol",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "c"
+      ],
+      [
+       "protocol",
+       "ssh "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "d"
+      ],
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "e"
+      ],
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "label": "  ",
+   "expect": null
+  },
+  {
+   "name": "find:weird:0",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "bastion",
+   "expect": null
+  },
+  {
+   "name": "find:weird:1",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "nope",
+   "expect": null
+  },
+  {
+   "name": "find:weird:2",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "a",
+   "expect": null
+  },
+  {
+   "name": "find:weird:3",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "b",
+   "expect": null
+  },
+  {
+   "name": "find:weird:4",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "c",
+   "expect": null
+  },
+  {
+   "name": "find:weird:5",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "d",
+   "expect": null
+  },
+  {
+   "name": "find:weird:6",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "e",
+   "expect": null
+  },
+  {
+   "name": "find:weird:7",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": " a ",
+   "expect": null
+  },
+  {
+   "name": "find:weird:8",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "A",
+   "expect": null
+  },
+  {
+   "name": "find:weird:9",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "",
+   "expect": {
+    "$int": "6"
+   }
+  },
+  {
+   "name": "find:weird:10",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": null,
+   "expect": {
+    "$int": "6"
+   }
+  },
+  {
+   "name": "find:weird:11",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "7"
+   },
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "find:weird:12",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": " pad ",
+   "expect": {
+    "$int": "4"
+   }
+  },
+  {
+   "name": "find:weird:13",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "pad",
+   "expect": {
+    "$int": "4"
+   }
+  },
+  {
+   "name": "find:weird:14",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": {
+    "$int": "0"
+   },
+   "expect": {
+    "$int": "6"
+   }
+  },
+  {
+   "name": "find:weird:15",
+   "fn": "find",
+   "conns": [
+    null,
+    {
+     "$int": "5"
+    },
+    "str",
+    [],
+    {
+     "$map": [
+      [
+       "label",
+       " pad "
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       {
+        "$int": "7"
+       }
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       null
+      ]
+     ]
+    },
+    {
+     "$map": []
+    },
+    {
+     "$map": [
+      [
+       "label",
+       ""
+      ]
+     ]
+    }
+   ],
+   "label": "  ",
+   "expect": {
+    "$int": "6"
+   }
+  },
+  {
+   "name": "find:empty:0",
+   "fn": "find",
+   "conns": [],
+   "label": "bastion",
+   "expect": null
+  },
+  {
+   "name": "find:empty:1",
+   "fn": "find",
+   "conns": [],
+   "label": "nope",
+   "expect": null
+  },
+  {
+   "name": "find:empty:2",
+   "fn": "find",
+   "conns": [],
+   "label": "a",
+   "expect": null
+  },
+  {
+   "name": "find:empty:3",
+   "fn": "find",
+   "conns": [],
+   "label": "b",
+   "expect": null
+  },
+  {
+   "name": "find:empty:4",
+   "fn": "find",
+   "conns": [],
+   "label": "c",
+   "expect": null
+  },
+  {
+   "name": "find:empty:5",
+   "fn": "find",
+   "conns": [],
+   "label": "d",
+   "expect": null
+  },
+  {
+   "name": "find:empty:6",
+   "fn": "find",
+   "conns": [],
+   "label": "e",
+   "expect": null
+  },
+  {
+   "name": "find:empty:7",
+   "fn": "find",
+   "conns": [],
+   "label": " a ",
+   "expect": null
+  },
+  {
+   "name": "find:empty:8",
+   "fn": "find",
+   "conns": [],
+   "label": "A",
+   "expect": null
+  },
+  {
+   "name": "find:empty:9",
+   "fn": "find",
+   "conns": [],
+   "label": "",
+   "expect": null
+  },
+  {
+   "name": "find:empty:10",
+   "fn": "find",
+   "conns": [],
+   "label": null,
+   "expect": null
+  },
+  {
+   "name": "find:empty:11",
+   "fn": "find",
+   "conns": [],
+   "label": {
+    "$int": "7"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:empty:12",
+   "fn": "find",
+   "conns": [],
+   "label": " pad ",
+   "expect": null
+  },
+  {
+   "name": "find:empty:13",
+   "fn": "find",
+   "conns": [],
+   "label": "pad",
+   "expect": null
+  },
+  {
+   "name": "find:empty:14",
+   "fn": "find",
+   "conns": [],
+   "label": {
+    "$int": "0"
+   },
+   "expect": null
+  },
+  {
+   "name": "find:empty:15",
+   "fn": "find",
+   "conns": [],
+   "label": "  ",
+   "expect": null
+  }
+ ]
+}

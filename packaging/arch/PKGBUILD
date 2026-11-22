@@ -1,0 +1,62 @@
+# Arch Linux package. Built by scripts/make-arch.sh from a `git archive` tarball of HEAD; that script
+# replaces @VERSION@ and @SHA256@. Standalone: put termigator-<ver>.tar.gz (prefix termigator-<ver>/)
+# next to this file, set pkgver, run updpkgsums (or set the first sha256sum) and makepkg.
+
+pkgname=termigator
+pkgver=@VERSION@
+pkgrel=1
+pkgdesc="SSH launcher with an embedded terminal"
+url="https://github.com/Ernold11/Termigator"
+arch=(x86_64)
+license=(MIT)
+depends=(
+  qt6-base qt6-declarative qt6-svg qt6-5compat
+  kirigami qqc2-desktop-style kdeclarative ksvg
+  kconfig kcoreaddons kguiaddons kwidgetsaddons kcolorscheme kiconthemes breeze-icons
+  knotifications kglobalaccel kwindowsystem
+  ttf-font  # nothing else pulls a font in: a bare system shows boxes instead of text
+)
+makedepends=(rust zig clang cmake git python)
+optdepends=(
+  'openssh: SSH, SFTP and tunnels'
+  'konsole: external terminal'
+  'breeze: Breeze widget style outside Plasma'
+  'freerdp: RDP'
+  'tigervnc: VNC'
+)
+# makepkg's LTO flags reach the C++ bridge (cc crate) and its debug split doubles the build time.
+options=(!lto !debug)
+# The pinned libghostty-vt release the terminal engine builds from (scripts/fetch-ghostty.sh,
+# GHOSTTY.lock of ghostty-vt-sys); makepkg downloads and checks it, build() needs no network.
+_ghostty=1.0.1
+source=("$pkgname-$pkgver.tar.gz"
+        "https://release.files.ghostty.org/libghostty-vt/$_ghostty/libghostty-vt-$_ghostty.tar.gz"
+        "https://release.files.ghostty.org/libghostty-vt/$_ghostty/libghostty-vt-$_ghostty-deps.tar.gz")
+noextract=("libghostty-vt-$_ghostty.tar.gz" "libghostty-vt-$_ghostty-deps.tar.gz")
+# The first sum is filled in by scripts/make-arch.sh (the archive of the commit being built).
+sha256sums=('@SHA256@'
+            '333dfce97641ef9b536bb9e08907ad86abaaada50e8f7417b70d9284adef37aa'
+            '91a4e10960a52bf5bf4b15aa2a2cddaff8a89d6cd903d3055bda4fd17de3356d')
+
+build() {
+  cd "$pkgname-$pkgver"
+  # The release files makepkg fetched and verified (source=): fetch-ghostty.sh finds them there.
+  export GHOSTTY_RELEASE_DIR="$srcdir"
+  scripts/fetch-ghostty.sh
+  # A reused target dir has served stale plugin.qmltypes to qmlcachegen (see make-deb.sh).
+  cargo clean --release -p termigator
+  cargo build --release --locked -p termigator
+  # Licences of the Rust crates and libghostty-vt linked into the binary.
+  python3 -I scripts/third-party-licenses.py rust THIRD-PARTY-RUST.txt
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 "${CARGO_TARGET_DIR:-target}/release/termigator" "$pkgdir/usr/bin/termigator"
+  sed '/^#!/d' termigator.desktop | install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/termigator.desktop"
+  for f in assets/icons/termigator-*.png; do
+    s=${f##*-}; s=${s%.png}
+    install -Dm644 "$f" "$pkgdir/usr/share/icons/hicolor/${s}x${s}/apps/termigator.png"
+  done
+  install -Dm644 LICENSE LICENSES/*.txt THIRD-PARTY-RUST.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

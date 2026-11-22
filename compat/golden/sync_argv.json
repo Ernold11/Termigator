@@ -1,0 +1,2898 @@
+{
+ "cases": [
+  {
+   "name": "plain:0",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv/data",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- /srv/data || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:1",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/tmp/my dir",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/tmp/my dir'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:2",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"''\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:3",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ".",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- . || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:4",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:5",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~/x y",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~/x y'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:6",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/r/é",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/r/é'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:7",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": {
+    "$bytes": "2f722f636166e9"
+   },
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    {
+     "$bytes": "65786563207368202d6320276364202d2d2027222722272f722f636166e92722272227207c7c206578697420313b2066696e64202e202d6d617864657074682030202d7072696e74662027222722272722272227203e2f6465762f6e756c6c20323e2631207c7c207b206563686f202722272227474e552066696e64206973206e6565646564206f6e20746865207365727665722722272227203e26323b206578697420333b207d3b206563686f2040405445524d494741544f522d53594e4340403b2066696e64202e202d6d696e64657074682031205c28202d747970652066202d6f202d747970652064205c29202d7072696e746620272227222725795c3025735c302554405c3025505c30272227222727"
+    }
+   ]
+  },
+  {
+   "name": "plain:8",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "it's",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'it'\"'\"'\"'\"'\"'\"'\"'\"'s'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:9",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "a\nb",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'a\nb'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:10",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "$HOME",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'$HOME'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:11",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ";rm -rf /",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"';rm -rf /'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:12",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "-rf",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- -rf || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "plain:13",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- / || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:0",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv/data",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- /srv/data || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:1",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/tmp/my dir",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/tmp/my dir'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:2",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"''\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:3",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ".",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- . || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:4",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:5",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~/x y",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~/x y'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:6",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/r/é",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/r/é'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:7",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": {
+    "$bytes": "2f722f636166e9"
+   },
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    {
+     "$bytes": "65786563207368202d6320276364202d2d2027222722272f722f636166e92722272227207c7c206578697420313b2066696e64202e202d6d617864657074682030202d7072696e74662027222722272722272227203e2f6465762f6e756c6c20323e2631207c7c207b206563686f202722272227474e552066696e64206973206e6565646564206f6e20746865207365727665722722272227203e26323b206578697420333b207d3b206563686f2040405445524d494741544f522d53594e4340403b2066696e64202e202d6d696e64657074682031205c28202d747970652066202d6f202d747970652064205c29202d7072696e746620272227222725795c3025735c302554405c3025505c30272227222727"
+    }
+   ]
+  },
+  {
+   "name": "password:8",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "it's",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'it'\"'\"'\"'\"'\"'\"'\"'\"'s'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:9",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "a\nb",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'a\nb'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:10",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "$HOME",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'$HOME'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:11",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ";rm -rf /",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"';rm -rf /'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:12",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "-rf",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- -rf || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "password:13",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/",
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- / || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:0",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv/data",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- /srv/data || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:1",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/tmp/my dir",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'/tmp/my dir'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:2",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"''\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:3",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ".",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- . || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:4",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'~'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:5",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~/x y",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'~/x y'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:6",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/r/é",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'/r/é'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:7",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": {
+    "$bytes": "2f722f636166e9"
+   },
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    {
+     "$bytes": "65786563207368202d6320276364202d2d2027222722272f722f636166e92722272227207c7c206578697420313b2066696e64202e202d6d617864657074682030202d7072696e74662027222722272722272227203e2f6465762f6e756c6c20323e2631207c7c207b206563686f202722272227474e552066696e64206973206e6565646564206f6e20746865207365727665722722272227203e26323b206578697420333b207d3b206563686f2040405445524d494741544f522d53594e4340403b2066696e64202e202d6d696e64657074682031205c28202d747970652066202d6f202d747970652064205c29202d7072696e746620272227222725795c3025735c302554405c3025505c30272227222727"
+    }
+   ]
+  },
+  {
+   "name": "port:8",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "it's",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'it'\"'\"'\"'\"'\"'\"'\"'\"'s'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:9",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "a\nb",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'a\nb'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:10",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "$HOME",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"'$HOME'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:11",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ";rm -rf /",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- '\"'\"';rm -rf /'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:12",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "-rf",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- -rf || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "port:13",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "u"
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-p",
+    "2222",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "u@srv",
+    "exec sh -c 'cd -- / || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "missing_host:0",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv/data",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:1",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/tmp/my dir",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:2",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:3",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ".",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:4",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:5",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~/x y",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:6",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/r/é",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:7",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": {
+    "$bytes": "2f722f636166e9"
+   },
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:8",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "it's",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:9",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "a\nb",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:10",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "$HOME",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:11",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ";rm -rf /",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:12",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "-rf",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "missing_host:13",
+   "conn": {
+    "$map": [
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/",
+   "error": "SyncError",
+   "message": "Host or user is missing."
+  },
+  {
+   "name": "extra:0",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv/data",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- /srv/data || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:1",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/tmp/my dir",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/tmp/my dir'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:2",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"''\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:3",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ".",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- . || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:4",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:5",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "~/x y",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'~/x y'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:6",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/r/é",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'/r/é'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:7",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": {
+    "$bytes": "2f722f636166e9"
+   },
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    {
+     "$bytes": "65786563207368202d6320276364202d2d2027222722272f722f636166e92722272227207c7c206578697420313b2066696e64202e202d6d617864657074682030202d7072696e74662027222722272722272227203e2f6465762f6e756c6c20323e2631207c7c207b206563686f202722272227474e552066696e64206973206e6565646564206f6e20746865207365727665722722272227203e26323b206578697420333b207d3b206563686f2040405445524d494741544f522d53594e4340403b2066696e64202e202d6d696e64657074682031205c28202d747970652066202d6f202d747970652064205c29202d7072696e746620272227222725795c3025735c302554405c3025505c30272227222727"
+    }
+   ]
+  },
+  {
+   "name": "extra:8",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "it's",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'it'\"'\"'\"'\"'\"'\"'\"'\"'s'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:9",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "a\nb",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'a\nb'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:10",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "$HOME",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"'$HOME'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:11",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": ";rm -rf /",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- '\"'\"';rm -rf /'\"'\"' || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:12",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "-rf",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- -rf || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "extra:13",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ],
+     [
+      "extra_ssh_args",
+      "-p 2222 -L 8080:x:80 -N"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-p",
+    "2222",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- / || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "launch:ka_off",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ControlMaster=auto",
+    "-o",
+    "ControlPath=/run/user/1000/termigator/cm-%C",
+    "-o",
+    "ControlPersist=60",
+    "root@srv",
+    "exec sh -c 'cd -- /srv || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "launch:cm_off",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_control_master",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": "/run/user/1000/termigator",
+   "root": "/srv",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "root@srv",
+    "exec sh -c 'cd -- /srv || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  },
+  {
+   "name": "no_control_dir",
+   "conn": {
+    "$map": [
+     [
+      "host",
+      "srv"
+     ],
+     [
+      "user",
+      "root"
+     ]
+    ]
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "control_dir": null,
+   "root": "/srv",
+   "expect": [
+    "ssh",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "root@srv",
+    "exec sh -c 'cd -- /srv || exit 1; find . -maxdepth 0 -printf '\"'\"''\"'\"' >/dev/null 2>&1 || { echo '\"'\"'GNU find is needed on the server'\"'\"' >&2; exit 3; }; echo @@TERMIGATOR-SYNC@@; find . -mindepth 1 \\( -type f -o -type d \\) -printf '\"'\"'%y\\0%s\\0%T@\\0%P\\0'\"'\"''"
+   ]
+  }
+ ]
+}

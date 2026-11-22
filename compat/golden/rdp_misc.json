@@ -1,0 +1,929 @@
+{
+ "cases": [
+  {
+   "name": "resolve:0:0",
+   "fn": "resolve",
+   "launch": null,
+   "which": [],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:0:1",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:0:2",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:0:3",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "xfreerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:0:4",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "sdl-freerdp3"
+   ],
+   "expect": "sdl-freerdp3"
+  },
+  {
+   "name": "resolve:0:5",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "sdl-freerdp"
+   ],
+   "expect": "sdl-freerdp"
+  },
+  {
+   "name": "resolve:0:6",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "wlfreerdp"
+   ],
+   "expect": "wlfreerdp"
+  },
+  {
+   "name": "resolve:0:7",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "wlfreerdp3"
+   ],
+   "expect": "wlfreerdp3"
+  },
+  {
+   "name": "resolve:0:8",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "wlfreerdp",
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:0:9",
+   "fn": "resolve",
+   "launch": null,
+   "which": [
+    "sdl-freerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:1:0",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:1:1",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:1:2",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:1:3",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "xfreerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:1:4",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "sdl-freerdp3"
+   ],
+   "expect": "sdl-freerdp3"
+  },
+  {
+   "name": "resolve:1:5",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "sdl-freerdp"
+   ],
+   "expect": "sdl-freerdp"
+  },
+  {
+   "name": "resolve:1:6",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "wlfreerdp"
+   ],
+   "expect": "wlfreerdp"
+  },
+  {
+   "name": "resolve:1:7",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "wlfreerdp3"
+   ],
+   "expect": "wlfreerdp3"
+  },
+  {
+   "name": "resolve:1:8",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "wlfreerdp",
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:1:9",
+   "fn": "resolve",
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "sdl-freerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:2:0",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:1",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:2",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp3"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:3",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp",
+    "xfreerdp3"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:4",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp3"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:5",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:6",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:7",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp3"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:8",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp",
+    "xfreerdp"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:2:9",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      "my-rdp"
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp",
+    "xfreerdp3"
+   ],
+   "expect": "my-rdp"
+  },
+  {
+   "name": "resolve:3:0",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:1",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:2",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp3"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:3",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp",
+    "xfreerdp3"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:4",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp3"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:5",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:6",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:7",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp3"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:8",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp",
+    "xfreerdp"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:3:9",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      " x "
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp",
+    "xfreerdp3"
+   ],
+   "expect": "x"
+  },
+  {
+   "name": "resolve:4:0",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:4:1",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:4:2",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:4:3",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "xfreerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "resolve:4:4",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp3"
+   ],
+   "expect": "sdl-freerdp3"
+  },
+  {
+   "name": "resolve:4:5",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp"
+   ],
+   "expect": "sdl-freerdp"
+  },
+  {
+   "name": "resolve:4:6",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp"
+   ],
+   "expect": "wlfreerdp"
+  },
+  {
+   "name": "resolve:4:7",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp3"
+   ],
+   "expect": "wlfreerdp3"
+  },
+  {
+   "name": "resolve:4:8",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "wlfreerdp",
+    "xfreerdp"
+   ],
+   "expect": "xfreerdp"
+  },
+  {
+   "name": "resolve:4:9",
+   "fn": "resolve",
+   "launch": {
+    "$map": [
+     [
+      "rdp_client",
+      ""
+     ]
+    ]
+   },
+   "which": [
+    "sdl-freerdp",
+    "xfreerdp3"
+   ],
+   "expect": "xfreerdp3"
+  },
+  {
+   "name": "env:0",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     "s3cret"
+    ]
+   ]
+  },
+  {
+   "name": "env:1",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "expect": []
+  },
+  {
+   "name": "env:2",
+   "fn": "env",
+   "conn": {
+    "$map": []
+   },
+   "expect": []
+  },
+  {
+   "name": "env:3",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      null
+     ]
+    ]
+   },
+   "expect": []
+  },
+  {
+   "name": "env:4",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "expect": []
+  },
+  {
+   "name": "env:5",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     " "
+    ]
+   ]
+  },
+  {
+   "name": "env:6",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:v1:AAAA"
+     ]
+    ]
+   },
+   "error": "VaultError",
+   "message": "Password is still encrypted — unlock the vault first."
+  },
+  {
+   "name": "env:7",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "enc:"
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     "enc:"
+    ]
+   ]
+  },
+  {
+   "name": "env:8",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "xenc:"
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     "xenc:"
+    ]
+   ]
+  },
+  {
+   "name": "env:9",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "12"
+      }
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     "12"
+    ]
+   ]
+  },
+  {
+   "name": "env:10",
+   "fn": "env",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "p'w \"x\""
+     ]
+    ]
+   },
+   "expect": [
+    [
+     "TERMIGATOR_RDP_PW",
+     "p'w \"x\""
+    ]
+   ]
+  },
+  {
+   "name": "clipboard:0",
+   "fn": "clipboard",
+   "cmd": "printf ... | xfreerdp /v:h",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      "s3cret"
+     ]
+    ]
+   },
+   "expect": "TERMIGATOR_RDP_PW='****' printf ... | xfreerdp /v:h"
+  },
+  {
+   "name": "clipboard:1",
+   "fn": "clipboard",
+   "cmd": "printf ... | xfreerdp /v:h",
+   "conn": {
+    "$map": []
+   },
+   "expect": "printf ... | xfreerdp /v:h"
+  },
+  {
+   "name": "clipboard:2",
+   "fn": "clipboard",
+   "cmd": "printf ... | xfreerdp /v:h",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "expect": "printf ... | xfreerdp /v:h"
+  },
+  {
+   "name": "clipboard:3",
+   "fn": "clipboard",
+   "cmd": "printf ... | xfreerdp /v:h",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "expect": "printf ... | xfreerdp /v:h"
+  },
+  {
+   "name": "clipboard:4",
+   "fn": "clipboard",
+   "cmd": "printf ... | xfreerdp /v:h",
+   "conn": {
+    "$map": [
+     [
+      "password",
+      " "
+     ]
+    ]
+   },
+   "expect": "TERMIGATOR_RDP_PW='****' printf ... | xfreerdp /v:h"
+  }
+ ]
+}

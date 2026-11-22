@@ -1,0 +1,1625 @@
+{
+ "cases": [
+  {
+   "name": "first:5",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "second:5",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$int": "5"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "first:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "second:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "first:-3",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$int": "-3"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-3"
+   }
+  },
+  {
+   "name": "second:-3",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$int": "-3"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-3"
+   }
+  },
+  {
+   "name": "first:'12'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "12"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "12"
+   }
+  },
+  {
+   "name": "second:'12'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "12"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "12"
+   }
+  },
+  {
+   "name": "first:' 7 '",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       " 7 "
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "second:' 7 '",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       " 7 "
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "first:'+5'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "+5"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "second:'+5'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "+5"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "first:'-8'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "-8"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-8"
+   }
+  },
+  {
+   "name": "second:'-8'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "-8"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-8"
+   }
+  },
+  {
+   "name": "first:'1_0'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "1_0"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "10"
+   }
+  },
+  {
+   "name": "second:'1_0'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "1_0"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "10"
+   }
+  },
+  {
+   "name": "first:'1__0'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "1__0"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'1__0'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "1__0"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'_1'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "_1"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'_1'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "_1"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'1_'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "1_"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'1_'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "1_"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'0x10'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "0x10"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'0x10'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "0x10"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'1e3'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "1e3"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'1e3'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "1e3"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'3.5'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "3.5"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'3.5'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "3.5"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:''",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       ""
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:''",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       ""
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'  '",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "  "
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'  '",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "  "
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'bad'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "bad"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'bad'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "bad"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'007'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "007"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "second:'007'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "007"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "first:'9223372036854775807'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "9223372036854775807"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "9223372036854775807"
+   }
+  },
+  {
+   "name": "second:'9223372036854775807'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "9223372036854775807"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "9223372036854775807"
+   }
+  },
+  {
+   "name": "first:True",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       true
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "1"
+   }
+  },
+  {
+   "name": "second:True",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       true
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "1"
+   }
+  },
+  {
+   "name": "first:False",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       false
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "second:False",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       false
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "first:3.9",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$float": "3.9"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "3"
+   }
+  },
+  {
+   "name": "second:3.9",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$float": "3.9"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "3"
+   }
+  },
+  {
+   "name": "first:-2.7",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$float": "-2.7"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-2"
+   }
+  },
+  {
+   "name": "second:-2.7",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$float": "-2.7"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "-2"
+   }
+  },
+  {
+   "name": "first:0.0",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$float": "0.0"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "second:0.0",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$float": "0.0"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "0"
+   }
+  },
+  {
+   "name": "first:nan",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$float": "nan"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:nan",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$float": "nan"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:None",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       null
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:None",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       null
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:[]",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       []
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:[]",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       []
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:[1]",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       [
+        {
+         "$int": "1"
+        }
+       ]
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:[1]",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       [
+        {
+         "$int": "1"
+        }
+       ]
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:{}",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$map": []
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:{}",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       {
+        "$map": []
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "first:'1 2'",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "1 2"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "second:'1 2'",
+   "input": [
+    {
+     "$map": [
+      [
+       "pyte_history",
+       "1 2"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "empty",
+   "input": [
+    {
+     "$map": []
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "both_first_wins",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       {
+        "$int": "5"
+       }
+      ],
+      [
+       "pyte_history",
+       {
+        "$int": "9"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "5"
+   }
+  },
+  {
+   "name": "first_bad_second_ok",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "bad"
+      ],
+      [
+       "pyte_history",
+       {
+        "$int": "9"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "9"
+   }
+  },
+  {
+   "name": "first_none_second_ok",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       null
+      ],
+      [
+       "pyte_history",
+       "9"
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "9"
+   }
+  },
+  {
+   "name": "both_bad",
+   "input": [
+    {
+     "$map": [
+      [
+       "embedded_pyte_history",
+       "x"
+      ],
+      [
+       "pyte_history",
+       []
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "unrelated",
+   "input": [
+    {
+     "$map": [
+      [
+       "other",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    [
+     "embedded_pyte_history",
+     "pyte_history"
+    ],
+    {
+     "$int": "42"
+    }
+   ],
+   "expect": {
+    "$int": "42"
+   }
+  },
+  {
+   "name": "single_key_bad",
+   "input": [
+    {
+     "$map": [
+      [
+       "a",
+       "bad"
+      ]
+     ]
+    },
+    [
+     "a"
+    ],
+    {
+     "$int": "7"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  },
+  {
+   "name": "no_keys",
+   "input": [
+    {
+     "$map": [
+      [
+       "a",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    },
+    [],
+    {
+     "$int": "7"
+    }
+   ],
+   "expect": {
+    "$int": "7"
+   }
+  }
+ ]
+}

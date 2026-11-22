@@ -1,0 +1,554 @@
+{
+ "cases": [
+  {
+   "name": "protocol:'rdp'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'freerdp'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "freerdp"
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'xfreerdp'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "xfreerdp"
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'rdesktop'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "rdesktop"
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'vnc'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "vnc"
+      ]
+     ]
+    }
+   ],
+   "expect": "vnc"
+  },
+  {
+   "name": "protocol:'vncviewer'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "vncviewer"
+      ]
+     ]
+    }
+   ],
+   "expect": "vnc"
+  },
+  {
+   "name": "protocol:'tigervnc'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "tigervnc"
+      ]
+     ]
+    }
+   ],
+   "expect": "vnc"
+  },
+  {
+   "name": "protocol:'telnet'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "telnet"
+      ]
+     ]
+    }
+   ],
+   "expect": "telnet"
+  },
+  {
+   "name": "protocol:'serial'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "serial"
+      ]
+     ]
+    }
+   ],
+   "expect": "serial"
+  },
+  {
+   "name": "protocol:'com'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "com"
+      ]
+     ]
+    }
+   ],
+   "expect": "serial"
+  },
+  {
+   "name": "protocol:'tty'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "tty"
+      ]
+     ]
+    }
+   ],
+   "expect": "serial"
+  },
+  {
+   "name": "protocol:'ssh'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "ssh"
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:'RDP'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "RDP"
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'  Vnc  '",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "  Vnc  "
+      ]
+     ]
+    }
+   ],
+   "expect": "vnc"
+  },
+  {
+   "name": "protocol:'TELNET'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "TELNET"
+      ]
+     ]
+    }
+   ],
+   "expect": "telnet"
+  },
+  {
+   "name": "protocol:'\\tcom\\n'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "\tcom\n"
+      ]
+     ]
+    }
+   ],
+   "expect": "serial"
+  },
+  {
+   "name": "protocol:'unknown'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "unknown"
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:''",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       ""
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:'   '",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "   "
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:'sftp'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "sftp"
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:'rdp '",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "rdp "
+      ]
+     ]
+    }
+   ],
+   "expect": "rdp"
+  },
+  {
+   "name": "protocol:'r d p'",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       "r d p"
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:0",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$int": "0"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:1",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$int": "1"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:42",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$int": "42"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:True",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       true
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:False",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       false
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:None",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       null
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:1.5",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$float": "1.5"
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:[]",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       []
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:['rdp']",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       [
+        "rdp"
+       ]
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:{}",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$map": []
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:{'protocol': 'rdp'}",
+   "input": [
+    {
+     "$map": [
+      [
+       "protocol",
+       {
+        "$map": [
+         [
+          "protocol",
+          "rdp"
+         ]
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "protocol:missing",
+   "input": [
+    {
+     "$map": [
+      [
+       "host",
+       "h"
+      ]
+     ]
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:0:None",
+   "input": [
+    null
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:1:'rdp'",
+   "input": [
+    "rdp"
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:2:['rdp']",
+   "input": [
+    [
+     "rdp"
+    ]
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:3:7",
+   "input": [
+    {
+     "$int": "7"
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:4:[]",
+   "input": [
+    []
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:5:{}",
+   "input": [
+    {
+     "$map": []
+    }
+   ],
+   "expect": "ssh"
+  },
+  {
+   "name": "entry:6:True",
+   "input": [
+    true
+   ],
+   "expect": "ssh"
+  }
+ ]
+}

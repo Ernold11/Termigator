@@ -1,0 +1,41 @@
+# Scalar styles and escapes.
+escapes: "tab\t nl\n cr\r bs\\ quote\" slash\/ nul\0 bell\a esc\e nel\N nbsp\_ ls\L ps\P x\x41 ué U\U0001F600 sp\ end"
+continued: "first \
+  second"
+literal_keep: |+
+  kept
+
+
+literal_strip: |-
+  stripped
+
+literal_indent: |2
+    two extra spaces
+  base
+folded: >
+  folded
+  lines
+
+  paragraph
+    more indented
+  back
+folded_strip: >-
+  a
+  b
+plain_hash: a#b
+plain_colon: a:b
+plain_url: http://example.test:8080/path?q=1#frag
+plain_comment: value # comment
+plain_dash: -dash
+plain_question: ?q
+plain_multi: first
+  second
+
+  third
+single_multi: 'one
+  two
+
+  three'
+empty_single: ''
+empty_double: ""
+spaces_double: "  "

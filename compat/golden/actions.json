@@ -1,0 +1,933 @@
+{
+ "cases": [
+  {
+   "name": "menus",
+   "expect": [
+    {
+     "text": "&File",
+     "items": [
+      {
+       "text": "New &tab",
+       "keys": [
+        "Ctrl+Shift+T"
+       ],
+       "checkable": false,
+       "tip": "Local shell in a new tab of the active pane",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&Quick connect…",
+       "keys": [
+        "Ctrl+Shift+O"
+       ],
+       "checkable": false,
+       "tip": "SSH to user@host[:port] without saving an entry",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&New connection",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "submenu",
+       "items": [
+        {
+         "text": "&SSH…",
+         "keys": [
+          "Ctrl+Shift+N"
+         ],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&RDP…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&VNC…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&Telnet…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "S&erial…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "kind": "separator"
+        },
+        {
+         "text": "&Favorite command…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "F&older…",
+         "keys": [],
+         "checkable": false,
+         "tip": "",
+         "display_only": false,
+         "kind": "action"
+        }
+       ]
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Import",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "submenu",
+       "items": [
+        {
+         "text": "&MobaXterm sessions…",
+         "keys": [],
+         "checkable": false,
+         "tip": "MobaXterm's own sessions (Windows) or a .mxtsessions / .ini export",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&PuTTY sessions…",
+         "keys": [],
+         "checkable": false,
+         "tip": "PuTTY's saved sessions (Windows: the registry; Linux: ~/.putty/sessions) or a .reg export",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "S&uperPuTTY sessions…",
+         "keys": [],
+         "checkable": false,
+         "tip": "SuperPuTTY's Sessions.xml (Documents\\SuperPuTTY) or another sessions .xml",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&Remmina profiles…",
+         "keys": [],
+         "checkable": false,
+         "tip": "SSH, SFTP, RDP and VNC profiles from ~/.local/share/remmina (no passwords)",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "~/.&ssh/config hosts…",
+         "keys": [],
+         "checkable": false,
+         "tip": "Every Host alias of your OpenSSH client config",
+         "display_only": false,
+         "kind": "action"
+        }
+       ]
+      },
+      {
+       "text": "&Export",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "submenu",
+       "items": [
+        {
+         "text": "SSH hosts as ssh_&config…",
+         "keys": [],
+         "checkable": false,
+         "tip": "A file you can Include from ~/.ssh/config (no passwords)",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "&Back up settings (zip)…",
+         "keys": [],
+         "checkable": false,
+         "tip": "config.yaml + session.yaml in one zip, to move Termigator to another machine",
+         "display_only": false,
+         "kind": "action"
+        }
+       ]
+      },
+      {
+       "text": "Open config &folder",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Quit",
+       "keys": [
+        "Ctrl+Shift+Q"
+       ],
+       "checkable": false,
+       "tip": "Close every session and tunnel and exit",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "&Edit",
+     "items": [
+      {
+       "text": "&Copy",
+       "keys": [
+        "Ctrl+Shift+C"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "text": "&Paste",
+       "keys": [
+        "Ctrl+Shift+V",
+        "Shift+Ins"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Find…",
+       "keys": [
+        "Ctrl+Shift+F"
+       ],
+       "checkable": false,
+       "tip": "Search in terminal output",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Snippets",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "submenu",
+       "items": []
+      },
+      {
+       "text": "Search &hosts",
+       "keys": [
+        "Ctrl+Shift+H"
+       ],
+       "checkable": false,
+       "tip": "Jump to the host list search (Ctrl+L there too, Ctrl+F on the list)",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Copy connection &command",
+       "keys": [],
+       "checkable": false,
+       "tip": "The ssh / xfreerdp line of the host selected in the list",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "&View",
+     "items": [
+      {
+       "text": "Show &toolbar",
+       "keys": [],
+       "checkable": true,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Show &sidebar",
+       "keys": [
+        "Ctrl+Shift+B"
+       ],
+       "checkable": true,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "F&ull screen",
+       "keys": [
+        "Ctrl+Shift+F11",
+        "F11"
+       ],
+       "checkable": true,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "Zoom &in",
+       "keys": [
+        "Ctrl++"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "text": "Zoom &out",
+       "keys": [
+        "Ctrl+-"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "text": "&Reset zoom",
+       "keys": [
+        "Ctrl+0"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": true,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "Split &right",
+       "keys": [
+        "Ctrl+(",
+        "Ctrl+Shift+E"
+       ],
+       "checkable": false,
+       "tip": "Split the active pane into left and right halves",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Split &down",
+       "keys": [
+        "Ctrl+)",
+        "Ctrl+Shift+D"
+       ],
+       "checkable": false,
+       "tip": "Split the active pane into top and bottom halves",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Close &pane",
+       "keys": [
+        "Ctrl+Shift+X"
+       ],
+       "checkable": false,
+       "tip": "Close every tab in the active pane and remove the pane",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Next tab",
+       "keys": [
+        "Ctrl+Tab",
+        "Ctrl+PgDown"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Pre&vious tab",
+       "keys": [
+        "Ctrl+Shift+Tab",
+        "Ctrl+PgUp"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "&Session",
+     "items": [
+      {
+       "text": "&Rename tab…",
+       "keys": [
+        "Ctrl+Alt+S"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "D&uplicate tab",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Rec&onnect",
+       "keys": [],
+       "checkable": false,
+       "tip": "Close the session and start it again",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Detac&h tab",
+       "keys": [
+        "Ctrl+Shift+L"
+       ],
+       "checkable": false,
+       "tip": "Move this tab into a window of its own (tab menu → Attach brings it back)",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Open &files (SFTP)",
+       "keys": [],
+       "checkable": false,
+       "tip": "This host's files in a tab of their own",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Log output to file",
+       "keys": [],
+       "checkable": true,
+       "tip": "Append this tab's output to a log file",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Re&cord (asciinema)",
+       "keys": [],
+       "checkable": true,
+       "tip": "Record this tab as an asciinema .cast — play it back with “asciinema play”",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&MultiExec — type into all remote sessions",
+       "keys": [
+        "Ctrl+Shift+M"
+       ],
+       "checkable": true,
+       "tip": "Every key typed in one remote session goes to all of them",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&Broadcast line…",
+       "keys": [],
+       "checkable": false,
+       "tip": "Send one line + Enter to every live remote session",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&Close tab",
+       "keys": [
+        "Ctrl+Shift+W",
+        "Ctrl+F4"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "&Tools",
+     "items": [
+      {
+       "text": "&Tunnels…",
+       "keys": [],
+       "checkable": false,
+       "tip": "SSH tunnels running in the background, without a terminal",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Test &connection…",
+       "keys": [],
+       "checkable": false,
+       "tip": "Does the selected host answer? No login is attempted",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&Network tools",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "submenu",
+       "items": [
+        {
+         "text": "Ping",
+         "keys": [],
+         "checkable": false,
+         "tip": "For the host selected in the list",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "Trace route",
+         "keys": [],
+         "checkable": false,
+         "tip": "For the host selected in the list",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "DNS lookup",
+         "keys": [],
+         "checkable": false,
+         "tip": "For the host selected in the list",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "Check port",
+         "keys": [],
+         "checkable": false,
+         "tip": "For the host selected in the list",
+         "display_only": false,
+         "kind": "action"
+        },
+        {
+         "text": "Scan common ports",
+         "keys": [],
+         "checkable": false,
+         "tip": "For the host selected in the list",
+         "display_only": false,
+         "kind": "action"
+        }
+       ]
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "SSH &keys…",
+       "keys": [],
+       "checkable": false,
+       "tip": "Your SSH key pairs: generate, add to the agent, install on a host",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "Cr&edentials…",
+       "keys": [],
+       "checkable": false,
+       "tip": "Named logins shared by many SSH / RDP entries",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&Master password…",
+       "keys": [],
+       "checkable": false,
+       "tip": "Encrypt saved passwords with a master password",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "Se&ttings",
+     "items": [
+      {
+       "text": "&Configure Termigator…",
+       "keys": [
+        "Ctrl+Shift+,",
+        "Ctrl+,"
+       ],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    },
+    {
+     "text": "&Help",
+     "items": [
+      {
+       "text": "&Keyboard shortcuts",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "&Host list tips",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "kind": "separator"
+      },
+      {
+       "text": "&About Termigator",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
+       "text": "About &Qt",
+       "keys": [],
+       "checkable": false,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "window_actions_outside_menus",
+   "expect": [
+    {
+     "text": "Tab 1",
+     "keys": [
+      "Alt+1"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 2",
+     "keys": [
+      "Alt+2"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 3",
+     "keys": [
+      "Alt+3"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 4",
+     "keys": [
+      "Alt+4"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 5",
+     "keys": [
+      "Alt+5"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 6",
+     "keys": [
+      "Alt+6"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 7",
+     "keys": [
+      "Alt+7"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Tab 8",
+     "keys": [
+      "Alt+8"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    },
+    {
+     "text": "Last tab",
+     "keys": [
+      "Alt+9"
+     ],
+     "checkable": false,
+     "tip": "",
+     "display_only": false,
+     "kind": "action"
+    }
+   ]
+  },
+  {
+   "name": "shortcut_rows",
+   "expect": [
+    [
+     "File",
+     "New tab",
+     "Ctrl+Shift+T"
+    ],
+    [
+     "File",
+     "Quick connect",
+     "Ctrl+Shift+O"
+    ],
+    [
+     "File › New connection",
+     "SSH",
+     "Ctrl+Shift+N"
+    ],
+    [
+     "File",
+     "Quit",
+     "Ctrl+Shift+Q"
+    ],
+    [
+     "Edit",
+     "Copy",
+     "Ctrl+Shift+C"
+    ],
+    [
+     "Edit",
+     "Paste",
+     "Ctrl+Shift+V, Shift+Ins"
+    ],
+    [
+     "Edit",
+     "Find",
+     "Ctrl+Shift+F"
+    ],
+    [
+     "Edit",
+     "Search hosts",
+     "Ctrl+Shift+H"
+    ],
+    [
+     "View",
+     "Show sidebar",
+     "Ctrl+Shift+B"
+    ],
+    [
+     "View",
+     "Full screen",
+     "Ctrl+Shift+F11, F11"
+    ],
+    [
+     "View",
+     "Zoom in",
+     "Ctrl++"
+    ],
+    [
+     "View",
+     "Zoom out",
+     "Ctrl+-"
+    ],
+    [
+     "View",
+     "Reset zoom",
+     "Ctrl+0"
+    ],
+    [
+     "View",
+     "Split right",
+     "Ctrl+(, Ctrl+Shift+E"
+    ],
+    [
+     "View",
+     "Split down",
+     "Ctrl+), Ctrl+Shift+D"
+    ],
+    [
+     "View",
+     "Close pane",
+     "Ctrl+Shift+X"
+    ],
+    [
+     "View",
+     "Next tab",
+     "Ctrl+Tab, Ctrl+PgDown"
+    ],
+    [
+     "View",
+     "Previous tab",
+     "Ctrl+Shift+Tab, Ctrl+PgUp"
+    ],
+    [
+     "Session",
+     "Rename tab",
+     "Ctrl+Alt+S"
+    ],
+    [
+     "Session",
+     "Detach tab",
+     "Ctrl+Shift+L"
+    ],
+    [
+     "Session",
+     "MultiExec — type into all remote sessions",
+     "Ctrl+Shift+M"
+    ],
+    [
+     "Session",
+     "Close tab",
+     "Ctrl+Shift+W, Ctrl+F4"
+    ],
+    [
+     "Settings",
+     "Configure Termigator",
+     "Ctrl+Shift+,, Ctrl+,"
+    ],
+    [
+     "Tabs",
+     "Tab 1",
+     "Alt+1"
+    ],
+    [
+     "Tabs",
+     "Tab 2",
+     "Alt+2"
+    ],
+    [
+     "Tabs",
+     "Tab 3",
+     "Alt+3"
+    ],
+    [
+     "Tabs",
+     "Tab 4",
+     "Alt+4"
+    ],
+    [
+     "Tabs",
+     "Tab 5",
+     "Alt+5"
+    ],
+    [
+     "Tabs",
+     "Tab 6",
+     "Alt+6"
+    ],
+    [
+     "Tabs",
+     "Tab 7",
+     "Alt+7"
+    ],
+    [
+     "Tabs",
+     "Tab 8",
+     "Alt+8"
+    ],
+    [
+     "Tabs",
+     "Last tab",
+     "Alt+9"
+    ],
+    [
+     "Host list",
+     "Connect",
+     "Enter"
+    ],
+    [
+     "Host list",
+     "Focus the search",
+     "Ctrl+L, Ctrl+F"
+    ],
+    [
+     "Host list",
+     "Move entry up / down",
+     "Alt+Up, Alt+Down"
+    ]
+   ]
+  }
+ ]
+}

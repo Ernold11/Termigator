@@ -1,0 +1,1448 @@
+{
+ "cases": [
+  {
+   "name": "quote:0:''",
+   "op": "quote",
+   "input": "",
+   "expect": "''"
+  },
+  {
+   "name": "split_quoted:0:''",
+   "op": "split",
+   "input": "''",
+   "expect": [
+    ""
+   ]
+  },
+  {
+   "name": "quote:1:' '",
+   "op": "quote",
+   "input": " ",
+   "expect": "' '"
+  },
+  {
+   "name": "split_quoted:1:' '",
+   "op": "split",
+   "input": "' '",
+   "expect": [
+    " "
+   ]
+  },
+  {
+   "name": "quote:2:'  '",
+   "op": "quote",
+   "input": "  ",
+   "expect": "'  '"
+  },
+  {
+   "name": "split_quoted:2:'  '",
+   "op": "split",
+   "input": "'  '",
+   "expect": [
+    "  "
+   ]
+  },
+  {
+   "name": "quote:3:'a b'",
+   "op": "quote",
+   "input": "a b",
+   "expect": "'a b'"
+  },
+  {
+   "name": "split_quoted:3:'a b'",
+   "op": "split",
+   "input": "'a b'",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "quote:4:'~'",
+   "op": "quote",
+   "input": "~",
+   "expect": "'~'"
+  },
+  {
+   "name": "split_quoted:4:'~'",
+   "op": "split",
+   "input": "'~'",
+   "expect": [
+    "~"
+   ]
+  },
+  {
+   "name": "quote:5:'~/x'",
+   "op": "quote",
+   "input": "~/x",
+   "expect": "'~/x'"
+  },
+  {
+   "name": "split_quoted:5:'~/x'",
+   "op": "split",
+   "input": "'~/x'",
+   "expect": [
+    "~/x"
+   ]
+  },
+  {
+   "name": "quote:6:\"'\"",
+   "op": "quote",
+   "input": "'",
+   "expect": "''\"'\"''"
+  },
+  {
+   "name": "split_quoted:6:\"'\"",
+   "op": "split",
+   "input": "''\"'\"''",
+   "expect": [
+    "'"
+   ]
+  },
+  {
+   "name": "quote:7:\"''\"",
+   "op": "quote",
+   "input": "''",
+   "expect": "''\"'\"''\"'\"''"
+  },
+  {
+   "name": "split_quoted:7:\"''\"",
+   "op": "split",
+   "input": "''\"'\"''\"'\"''",
+   "expect": [
+    "''"
+   ]
+  },
+  {
+   "name": "quote:8:'\"'",
+   "op": "quote",
+   "input": "\"",
+   "expect": "'\"'"
+  },
+  {
+   "name": "split_quoted:8:'\"'",
+   "op": "split",
+   "input": "'\"'",
+   "expect": [
+    "\""
+   ]
+  },
+  {
+   "name": "quote:9:'\"\"'",
+   "op": "quote",
+   "input": "\"\"",
+   "expect": "'\"\"'"
+  },
+  {
+   "name": "split_quoted:9:'\"\"'",
+   "op": "split",
+   "input": "'\"\"'",
+   "expect": [
+    "\"\""
+   ]
+  },
+  {
+   "name": "quote:10:'\\\\'",
+   "op": "quote",
+   "input": "\\",
+   "expect": "'\\'"
+  },
+  {
+   "name": "split_quoted:10:'\\\\'",
+   "op": "split",
+   "input": "'\\'",
+   "expect": [
+    "\\"
+   ]
+  },
+  {
+   "name": "quote:11:'\\\\\\\\'",
+   "op": "quote",
+   "input": "\\\\",
+   "expect": "'\\\\'"
+  },
+  {
+   "name": "split_quoted:11:'\\\\\\\\'",
+   "op": "split",
+   "input": "'\\\\'",
+   "expect": [
+    "\\\\"
+   ]
+  },
+  {
+   "name": "quote:12:'\\n'",
+   "op": "quote",
+   "input": "\n",
+   "expect": "'\n'"
+  },
+  {
+   "name": "split_quoted:12:'\\n'",
+   "op": "split",
+   "input": "'\n'",
+   "expect": [
+    "\n"
+   ]
+  },
+  {
+   "name": "quote:13:'\\t'",
+   "op": "quote",
+   "input": "\t",
+   "expect": "'\t'"
+  },
+  {
+   "name": "split_quoted:13:'\\t'",
+   "op": "split",
+   "input": "'\t'",
+   "expect": [
+    "\t"
+   ]
+  },
+  {
+   "name": "quote:14:'\\r'",
+   "op": "quote",
+   "input": "\r",
+   "expect": "'\r'"
+  },
+  {
+   "name": "split_quoted:14:'\\r'",
+   "op": "split",
+   "input": "'\r'",
+   "expect": [
+    "\r"
+   ]
+  },
+  {
+   "name": "quote:15:'a\\nb'",
+   "op": "quote",
+   "input": "a\nb",
+   "expect": "'a\nb'"
+  },
+  {
+   "name": "split_quoted:15:'a\\nb'",
+   "op": "split",
+   "input": "'a\nb'",
+   "expect": [
+    "a\nb"
+   ]
+  },
+  {
+   "name": "quote:16:'tab\\there'",
+   "op": "quote",
+   "input": "tab\there",
+   "expect": "'tab\there'"
+  },
+  {
+   "name": "split_quoted:16:'tab\\there'",
+   "op": "split",
+   "input": "'tab\there'",
+   "expect": [
+    "tab\there"
+   ]
+  },
+  {
+   "name": "quote:17:'zażółć gęślą jaźń'",
+   "op": "quote",
+   "input": "zażółć gęślą jaźń",
+   "expect": "'zażółć gęślą jaźń'"
+  },
+  {
+   "name": "split_quoted:17:'zażółć gęślą jaźń'",
+   "op": "split",
+   "input": "'zażółć gęślą jaźń'",
+   "expect": [
+    "zażółć gęślą jaźń"
+   ]
+  },
+  {
+   "name": "quote:18:'ł'",
+   "op": "quote",
+   "input": "ł",
+   "expect": "'ł'"
+  },
+  {
+   "name": "split_quoted:18:'ł'",
+   "op": "split",
+   "input": "'ł'",
+   "expect": [
+    "ł"
+   ]
+  },
+  {
+   "name": "quote:19:'é'",
+   "op": "quote",
+   "input": "é",
+   "expect": "'é'"
+  },
+  {
+   "name": "split_quoted:19:'é'",
+   "op": "split",
+   "input": "'é'",
+   "expect": [
+    "é"
+   ]
+  },
+  {
+   "name": "quote:20:'日本語'",
+   "op": "quote",
+   "input": "日本語",
+   "expect": "'日本語'"
+  },
+  {
+   "name": "split_quoted:20:'日本語'",
+   "op": "split",
+   "input": "'日本語'",
+   "expect": [
+    "日本語"
+   ]
+  },
+  {
+   "name": "quote:21:'a\\xa0b'",
+   "op": "quote",
+   "input": "a b",
+   "expect": "'a b'"
+  },
+  {
+   "name": "split_quoted:21:'a\\xa0b'",
+   "op": "split",
+   "input": "'a b'",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "quote:22:'\\u2003'",
+   "op": "quote",
+   "input": " ",
+   "expect": "' '"
+  },
+  {
+   "name": "split_quoted:22:'\\u2003'",
+   "op": "split",
+   "input": "' '",
+   "expect": [
+    " "
+   ]
+  },
+  {
+   "name": "quote:23:'#'",
+   "op": "quote",
+   "input": "#",
+   "expect": "'#'"
+  },
+  {
+   "name": "split_quoted:23:'#'",
+   "op": "split",
+   "input": "'#'",
+   "expect": [
+    "#"
+   ]
+  },
+  {
+   "name": "quote:24:'a#b'",
+   "op": "quote",
+   "input": "a#b",
+   "expect": "'a#b'"
+  },
+  {
+   "name": "split_quoted:24:'a#b'",
+   "op": "split",
+   "input": "'a#b'",
+   "expect": [
+    "a#b"
+   ]
+  },
+  {
+   "name": "quote:25:'$HOME'",
+   "op": "quote",
+   "input": "$HOME",
+   "expect": "'$HOME'"
+  },
+  {
+   "name": "split_quoted:25:'$HOME'",
+   "op": "split",
+   "input": "'$HOME'",
+   "expect": [
+    "$HOME"
+   ]
+  },
+  {
+   "name": "quote:26:'$(id)'",
+   "op": "quote",
+   "input": "$(id)",
+   "expect": "'$(id)'"
+  },
+  {
+   "name": "split_quoted:26:'$(id)'",
+   "op": "split",
+   "input": "'$(id)'",
+   "expect": [
+    "$(id)"
+   ]
+  },
+  {
+   "name": "quote:27:'`id`'",
+   "op": "quote",
+   "input": "`id`",
+   "expect": "'`id`'"
+  },
+  {
+   "name": "split_quoted:27:'`id`'",
+   "op": "split",
+   "input": "'`id`'",
+   "expect": [
+    "`id`"
+   ]
+  },
+  {
+   "name": "quote:28:'*.txt'",
+   "op": "quote",
+   "input": "*.txt",
+   "expect": "'*.txt'"
+  },
+  {
+   "name": "split_quoted:28:'*.txt'",
+   "op": "split",
+   "input": "'*.txt'",
+   "expect": [
+    "*.txt"
+   ]
+  },
+  {
+   "name": "quote:29:'a?b'",
+   "op": "quote",
+   "input": "a?b",
+   "expect": "'a?b'"
+  },
+  {
+   "name": "split_quoted:29:'a?b'",
+   "op": "split",
+   "input": "'a?b'",
+   "expect": [
+    "a?b"
+   ]
+  },
+  {
+   "name": "quote:30:'[a-z]'",
+   "op": "quote",
+   "input": "[a-z]",
+   "expect": "'[a-z]'"
+  },
+  {
+   "name": "split_quoted:30:'[a-z]'",
+   "op": "split",
+   "input": "'[a-z]'",
+   "expect": [
+    "[a-z]"
+   ]
+  },
+  {
+   "name": "quote:31:'{a,b}'",
+   "op": "quote",
+   "input": "{a,b}",
+   "expect": "'{a,b}'"
+  },
+  {
+   "name": "split_quoted:31:'{a,b}'",
+   "op": "split",
+   "input": "'{a,b}'",
+   "expect": [
+    "{a,b}"
+   ]
+  },
+  {
+   "name": "quote:32:'--opt=val'",
+   "op": "quote",
+   "input": "--opt=val",
+   "expect": "--opt=val"
+  },
+  {
+   "name": "split_quoted:32:'--opt=val'",
+   "op": "split",
+   "input": "--opt=val",
+   "expect": [
+    "--opt=val"
+   ]
+  },
+  {
+   "name": "quote:33:'--opt=a b'",
+   "op": "quote",
+   "input": "--opt=a b",
+   "expect": "'--opt=a b'"
+  },
+  {
+   "name": "split_quoted:33:'--opt=a b'",
+   "op": "split",
+   "input": "'--opt=a b'",
+   "expect": [
+    "--opt=a b"
+   ]
+  },
+  {
+   "name": "quote:34:'user@host:~/x'",
+   "op": "quote",
+   "input": "user@host:~/x",
+   "expect": "'user@host:~/x'"
+  },
+  {
+   "name": "split_quoted:34:'user@host:~/x'",
+   "op": "split",
+   "input": "'user@host:~/x'",
+   "expect": [
+    "user@host:~/x"
+   ]
+  },
+  {
+   "name": "quote:35:'user@host:/srv/a b'",
+   "op": "quote",
+   "input": "user@host:/srv/a b",
+   "expect": "'user@host:/srv/a b'"
+  },
+  {
+   "name": "split_quoted:35:'user@host:/srv/a b'",
+   "op": "split",
+   "input": "'user@host:/srv/a b'",
+   "expect": [
+    "user@host:/srv/a b"
+   ]
+  },
+  {
+   "name": "quote:36:\"a'b\"",
+   "op": "quote",
+   "input": "a'b",
+   "expect": "'a'\"'\"'b'"
+  },
+  {
+   "name": "split_quoted:36:\"a'b\"",
+   "op": "split",
+   "input": "'a'\"'\"'b'",
+   "expect": [
+    "a'b"
+   ]
+  },
+  {
+   "name": "quote:37:\"it's\"",
+   "op": "quote",
+   "input": "it's",
+   "expect": "'it'\"'\"'s'"
+  },
+  {
+   "name": "split_quoted:37:\"it's\"",
+   "op": "split",
+   "input": "'it'\"'\"'s'",
+   "expect": [
+    "it's"
+   ]
+  },
+  {
+   "name": "quote:38:\"'a'\"",
+   "op": "quote",
+   "input": "'a'",
+   "expect": "''\"'\"'a'\"'\"''"
+  },
+  {
+   "name": "split_quoted:38:\"'a'\"",
+   "op": "split",
+   "input": "''\"'\"'a'\"'\"''",
+   "expect": [
+    "'a'"
+   ]
+  },
+  {
+   "name": "quote:39:'a\\\\\\nb'",
+   "op": "quote",
+   "input": "a\\\nb",
+   "expect": "'a\\\nb'"
+  },
+  {
+   "name": "split_quoted:39:'a\\\\\\nb'",
+   "op": "split",
+   "input": "'a\\\nb'",
+   "expect": [
+    "a\\\nb"
+   ]
+  },
+  {
+   "name": "quote:40:'\\\\\\n'",
+   "op": "quote",
+   "input": "\\\n",
+   "expect": "'\\\n'"
+  },
+  {
+   "name": "split_quoted:40:'\\\\\\n'",
+   "op": "split",
+   "input": "'\\\n'",
+   "expect": [
+    "\\\n"
+   ]
+  },
+  {
+   "name": "quote:41:'!'",
+   "op": "quote",
+   "input": "!",
+   "expect": "'!'"
+  },
+  {
+   "name": "split_quoted:41:'!'",
+   "op": "split",
+   "input": "'!'",
+   "expect": [
+    "!"
+   ]
+  },
+  {
+   "name": "quote:42:'a&b'",
+   "op": "quote",
+   "input": "a&b",
+   "expect": "'a&b'"
+  },
+  {
+   "name": "split_quoted:42:'a&b'",
+   "op": "split",
+   "input": "'a&b'",
+   "expect": [
+    "a&b"
+   ]
+  },
+  {
+   "name": "quote:43:'a;b'",
+   "op": "quote",
+   "input": "a;b",
+   "expect": "'a;b'"
+  },
+  {
+   "name": "split_quoted:43:'a;b'",
+   "op": "split",
+   "input": "'a;b'",
+   "expect": [
+    "a;b"
+   ]
+  },
+  {
+   "name": "quote:44:'a|b'",
+   "op": "quote",
+   "input": "a|b",
+   "expect": "'a|b'"
+  },
+  {
+   "name": "split_quoted:44:'a|b'",
+   "op": "split",
+   "input": "'a|b'",
+   "expect": [
+    "a|b"
+   ]
+  },
+  {
+   "name": "quote:45:'a>b'",
+   "op": "quote",
+   "input": "a>b",
+   "expect": "'a>b'"
+  },
+  {
+   "name": "split_quoted:45:'a>b'",
+   "op": "split",
+   "input": "'a>b'",
+   "expect": [
+    "a>b"
+   ]
+  },
+  {
+   "name": "quote:46:'a<b'",
+   "op": "quote",
+   "input": "a<b",
+   "expect": "'a<b'"
+  },
+  {
+   "name": "split_quoted:46:'a<b'",
+   "op": "split",
+   "input": "'a<b'",
+   "expect": [
+    "a<b"
+   ]
+  },
+  {
+   "name": "quote:47:'(a)'",
+   "op": "quote",
+   "input": "(a)",
+   "expect": "'(a)'"
+  },
+  {
+   "name": "split_quoted:47:'(a)'",
+   "op": "split",
+   "input": "'(a)'",
+   "expect": [
+    "(a)"
+   ]
+  },
+  {
+   "name": "quote:48:'%s'",
+   "op": "quote",
+   "input": "%s",
+   "expect": "%s"
+  },
+  {
+   "name": "split_quoted:48:'%s'",
+   "op": "split",
+   "input": "%s",
+   "expect": [
+    "%s"
+   ]
+  },
+  {
+   "name": "quote:49:'+x'",
+   "op": "quote",
+   "input": "+x",
+   "expect": "+x"
+  },
+  {
+   "name": "split_quoted:49:'+x'",
+   "op": "split",
+   "input": "+x",
+   "expect": [
+    "+x"
+   ]
+  },
+  {
+   "name": "quote:50:'='",
+   "op": "quote",
+   "input": "=",
+   "expect": "="
+  },
+  {
+   "name": "split_quoted:50:'='",
+   "op": "split",
+   "input": "=",
+   "expect": [
+    "="
+   ]
+  },
+  {
+   "name": "quote:51:':'",
+   "op": "quote",
+   "input": ":",
+   "expect": ":"
+  },
+  {
+   "name": "split_quoted:51:':'",
+   "op": "split",
+   "input": ":",
+   "expect": [
+    ":"
+   ]
+  },
+  {
+   "name": "quote:52:','",
+   "op": "quote",
+   "input": ",",
+   "expect": ","
+  },
+  {
+   "name": "split_quoted:52:','",
+   "op": "split",
+   "input": ",",
+   "expect": [
+    ","
+   ]
+  },
+  {
+   "name": "quote:53:'.'",
+   "op": "quote",
+   "input": ".",
+   "expect": "."
+  },
+  {
+   "name": "split_quoted:53:'.'",
+   "op": "split",
+   "input": ".",
+   "expect": [
+    "."
+   ]
+  },
+  {
+   "name": "quote:54:'/'",
+   "op": "quote",
+   "input": "/",
+   "expect": "/"
+  },
+  {
+   "name": "split_quoted:54:'/'",
+   "op": "split",
+   "input": "/",
+   "expect": [
+    "/"
+   ]
+  },
+  {
+   "name": "quote:55:'-'",
+   "op": "quote",
+   "input": "-",
+   "expect": "-"
+  },
+  {
+   "name": "split_quoted:55:'-'",
+   "op": "split",
+   "input": "-",
+   "expect": [
+    "-"
+   ]
+  },
+  {
+   "name": "quote:56:'_'",
+   "op": "quote",
+   "input": "_",
+   "expect": "_"
+  },
+  {
+   "name": "split_quoted:56:'_'",
+   "op": "split",
+   "input": "_",
+   "expect": [
+    "_"
+   ]
+  },
+  {
+   "name": "quote:57:'azAZ09_@%+=:,./-'",
+   "op": "quote",
+   "input": "azAZ09_@%+=:,./-",
+   "expect": "azAZ09_@%+=:,./-"
+  },
+  {
+   "name": "split_quoted:57:'azAZ09_@%+=:,./-'",
+   "op": "split",
+   "input": "azAZ09_@%+=:,./-",
+   "expect": [
+    "azAZ09_@%+=:,./-"
+   ]
+  },
+  {
+   "name": "quote:58:'a-b.c/d'",
+   "op": "quote",
+   "input": "a-b.c/d",
+   "expect": "a-b.c/d"
+  },
+  {
+   "name": "split_quoted:58:'a-b.c/d'",
+   "op": "split",
+   "input": "a-b.c/d",
+   "expect": [
+    "a-b.c/d"
+   ]
+  },
+  {
+   "name": "quote:59:'a\\x00b'",
+   "op": "quote",
+   "input": "a\u0000b",
+   "expect": "'a\u0000b'"
+  },
+  {
+   "name": "split_quoted:59:'a\\x00b'",
+   "op": "split",
+   "input": "'a\u0000b'",
+   "expect": [
+    "a\u0000b"
+   ]
+  },
+  {
+   "name": "quote:60:'\\x7f'",
+   "op": "quote",
+   "input": "",
+   "expect": "''"
+  },
+  {
+   "name": "split_quoted:60:'\\x7f'",
+   "op": "split",
+   "input": "''",
+   "expect": [
+    ""
+   ]
+  },
+  {
+   "name": "quote:61:'\\x1b[0m'",
+   "op": "quote",
+   "input": "\u001b[0m",
+   "expect": "'\u001b[0m'"
+  },
+  {
+   "name": "split_quoted:61:'\\x1b[0m'",
+   "op": "split",
+   "input": "'\u001b[0m'",
+   "expect": [
+    "\u001b[0m"
+   ]
+  },
+  {
+   "name": "split:0:''",
+   "op": "split",
+   "input": "",
+   "expect": []
+  },
+  {
+   "name": "split:1:' '",
+   "op": "split",
+   "input": " ",
+   "expect": []
+  },
+  {
+   "name": "split:2:'\\n'",
+   "op": "split",
+   "input": "\n",
+   "expect": []
+  },
+  {
+   "name": "split:3:'a'",
+   "op": "split",
+   "input": "a",
+   "expect": [
+    "a"
+   ]
+  },
+  {
+   "name": "split:4:'a b'",
+   "op": "split",
+   "input": "a b",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "split:5:'  a   b  '",
+   "op": "split",
+   "input": "  a   b  ",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "split:6:'a\\tb\\nc\\rd'",
+   "op": "split",
+   "input": "a\tb\nc\rd",
+   "expect": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ]
+  },
+  {
+   "name": "split:7:\"'a b'\"",
+   "op": "split",
+   "input": "'a b'",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "split:8:'\"a b\"'",
+   "op": "split",
+   "input": "\"a b\"",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "split:9:\"''\"",
+   "op": "split",
+   "input": "''",
+   "expect": [
+    ""
+   ]
+  },
+  {
+   "name": "split:10:'\"\"'",
+   "op": "split",
+   "input": "\"\"",
+   "expect": [
+    ""
+   ]
+  },
+  {
+   "name": "split:11:\"a''b\"",
+   "op": "split",
+   "input": "a''b",
+   "expect": [
+    "ab"
+   ]
+  },
+  {
+   "name": "split:12:'a\"\"b c'",
+   "op": "split",
+   "input": "a\"\"b c",
+   "expect": [
+    "ab",
+    "c"
+   ]
+  },
+  {
+   "name": "split:13:\"''''\"",
+   "op": "split",
+   "input": "''''",
+   "expect": [
+    ""
+   ]
+  },
+  {
+   "name": "split:14:'\\'a\\'\"b\"c'",
+   "op": "split",
+   "input": "'a'\"b\"c",
+   "expect": [
+    "abc"
+   ]
+  },
+  {
+   "name": "split:15:'a\\\\ b'",
+   "op": "split",
+   "input": "a\\ b",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "split:16:'a\\\\\\\\b'",
+   "op": "split",
+   "input": "a\\\\b",
+   "expect": [
+    "a\\b"
+   ]
+  },
+  {
+   "name": "split:17:'\\\\'",
+   "op": "split",
+   "input": "\\",
+   "error": "ValueError",
+   "message": "No escaped character"
+  },
+  {
+   "name": "split:18:'a\\\\'",
+   "op": "split",
+   "input": "a\\",
+   "error": "ValueError",
+   "message": "No escaped character"
+  },
+  {
+   "name": "split:19:\"'a\"",
+   "op": "split",
+   "input": "'a",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:20:'\"a'",
+   "op": "split",
+   "input": "\"a",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:21:\"a'b\"",
+   "op": "split",
+   "input": "a'b",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:22:'a\"b'",
+   "op": "split",
+   "input": "a\"b",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:23:\"'a\\\\b'\"",
+   "op": "split",
+   "input": "'a\\b'",
+   "expect": [
+    "a\\b"
+   ]
+  },
+  {
+   "name": "split:24:'\"a\\\\b\"'",
+   "op": "split",
+   "input": "\"a\\b\"",
+   "expect": [
+    "a\\b"
+   ]
+  },
+  {
+   "name": "split:25:'\"a\\\\\\\\b\"'",
+   "op": "split",
+   "input": "\"a\\\\b\"",
+   "expect": [
+    "a\\b"
+   ]
+  },
+  {
+   "name": "split:26:'\"a\\\\\"b\"'",
+   "op": "split",
+   "input": "\"a\\\"b\"",
+   "expect": [
+    "a\"b"
+   ]
+  },
+  {
+   "name": "split:27:'\"a\\\\$b\"'",
+   "op": "split",
+   "input": "\"a\\$b\"",
+   "expect": [
+    "a\\$b"
+   ]
+  },
+  {
+   "name": "split:28:'\"a\\\\`b\"'",
+   "op": "split",
+   "input": "\"a\\`b\"",
+   "expect": [
+    "a\\`b"
+   ]
+  },
+  {
+   "name": "split:29:'\"a\\\\\\nb\"'",
+   "op": "split",
+   "input": "\"a\\\nb\"",
+   "expect": [
+    "a\\\nb"
+   ]
+  },
+  {
+   "name": "split:30:\"'a\\\\'b'\"",
+   "op": "split",
+   "input": "'a\\'b'",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:31:'a\\\\\\nb'",
+   "op": "split",
+   "input": "a\\\nb",
+   "expect": [
+    "a\nb"
+   ]
+  },
+  {
+   "name": "split:32:'a \\\\\\n b'",
+   "op": "split",
+   "input": "a \\\n b",
+   "expect": [
+    "a",
+    "\n",
+    "b"
+   ]
+  },
+  {
+   "name": "split:33:\"\\\\'\"",
+   "op": "split",
+   "input": "\\'",
+   "expect": [
+    "'"
+   ]
+  },
+  {
+   "name": "split:34:'\\\\\"'",
+   "op": "split",
+   "input": "\\\"",
+   "expect": [
+    "\""
+   ]
+  },
+  {
+   "name": "split:35:'\\\\ '",
+   "op": "split",
+   "input": "\\ ",
+   "expect": [
+    " "
+   ]
+  },
+  {
+   "name": "split:36:'\\\\\\n'",
+   "op": "split",
+   "input": "\\\n",
+   "expect": [
+    "\n"
+   ]
+  },
+  {
+   "name": "split:37:'a #b'",
+   "op": "split",
+   "input": "a #b",
+   "expect": [
+    "a",
+    "#b"
+   ]
+  },
+  {
+   "name": "split:38:'a#b'",
+   "op": "split",
+   "input": "a#b",
+   "expect": [
+    "a#b"
+   ]
+  },
+  {
+   "name": "split:39:'# c'",
+   "op": "split",
+   "input": "# c",
+   "expect": [
+    "#",
+    "c"
+   ]
+  },
+  {
+   "name": "split:40:'$HOME ~/x *.txt'",
+   "op": "split",
+   "input": "$HOME ~/x *.txt",
+   "expect": [
+    "$HOME",
+    "~/x",
+    "*.txt"
+   ]
+  },
+  {
+   "name": "split:41:\"--opt=val --x='a b'\"",
+   "op": "split",
+   "input": "--opt=val --x='a b'",
+   "expect": [
+    "--opt=val",
+    "--x=a b"
+   ]
+  },
+  {
+   "name": "split:42:'ssh user@host:~/x'",
+   "op": "split",
+   "input": "ssh user@host:~/x",
+   "expect": [
+    "ssh",
+    "user@host:~/x"
+   ]
+  },
+  {
+   "name": "split:43:'echo \\'it\\'\"\\'\"\\'s\\''",
+   "op": "split",
+   "input": "echo 'it'\"'\"'s'",
+   "expect": [
+    "echo",
+    "it's"
+   ]
+  },
+  {
+   "name": "split:44:'żółw \\'gęś gęś\\' \"jaźń\"'",
+   "op": "split",
+   "input": "żółw 'gęś gęś' \"jaźń\"",
+   "expect": [
+    "żółw",
+    "gęś gęś",
+    "jaźń"
+   ]
+  },
+  {
+   "name": "split:45:'a\\xa0b'",
+   "op": "split",
+   "input": "a b",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "split:46:'a\\u2003b'",
+   "op": "split",
+   "input": "a b",
+   "expect": [
+    "a b"
+   ]
+  },
+  {
+   "name": "split:47:'\"\\\\'",
+   "op": "split",
+   "input": "\"\\",
+   "error": "ValueError",
+   "message": "No escaped character"
+  },
+  {
+   "name": "split:48:\"'\\\\\"",
+   "op": "split",
+   "input": "'\\",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:49:\"x '' y\"",
+   "op": "split",
+   "input": "x '' y",
+   "expect": [
+    "x",
+    "",
+    "y"
+   ]
+  },
+  {
+   "name": "split:50:'x \"\" y'",
+   "op": "split",
+   "input": "x \"\" y",
+   "expect": [
+    "x",
+    "",
+    "y"
+   ]
+  },
+  {
+   "name": "split:51:'\\\\\\\\'",
+   "op": "split",
+   "input": "\\\\",
+   "expect": [
+    "\\"
+   ]
+  },
+  {
+   "name": "split:52:'\"\"\"'",
+   "op": "split",
+   "input": "\"\"\"",
+   "error": "ValueError",
+   "message": "No closing quotation"
+  },
+  {
+   "name": "split:53:'\\'\"\\''",
+   "op": "split",
+   "input": "'\"'",
+   "expect": [
+    "\""
+   ]
+  },
+  {
+   "name": "split:54:'\"\\'\"'",
+   "op": "split",
+   "input": "\"'\"",
+   "expect": [
+    "'"
+   ]
+  },
+  {
+   "name": "split:55:'a\\x00b'",
+   "op": "split",
+   "input": "a\u0000b",
+   "expect": [
+    "a\u0000b"
+   ]
+  },
+  {
+   "name": "split:56:\"'a'b'c'\"",
+   "op": "split",
+   "input": "'a'b'c'",
+   "expect": [
+    "abc"
+   ]
+  },
+  {
+   "name": "split:57:\"'a' 'b'\"",
+   "op": "split",
+   "input": "'a' 'b'",
+   "expect": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "join:0:[]",
+   "op": "join",
+   "input": [],
+   "expect": ""
+  },
+  {
+   "name": "join:1:['']",
+   "op": "join",
+   "input": [
+    ""
+   ],
+   "expect": "''"
+  },
+  {
+   "name": "join:2:['a']",
+   "op": "join",
+   "input": [
+    "a"
+   ],
+   "expect": "a"
+  },
+  {
+   "name": "join:3:['a', 'b']",
+   "op": "join",
+   "input": [
+    "a",
+    "b"
+   ],
+   "expect": "a b"
+  },
+  {
+   "name": "join:4:['a b', 'c']",
+   "op": "join",
+   "input": [
+    "a b",
+    "c"
+   ],
+   "expect": "'a b' c"
+  },
+  {
+   "name": "join:5:['', '']",
+   "op": "join",
+   "input": [
+    "",
+    ""
+   ],
+   "expect": "'' ''"
+  },
+  {
+   "name": "join:6:[\"it's\", 'x y']",
+   "op": "join",
+   "input": [
+    "it's",
+    "x y"
+   ],
+   "expect": "'it'\"'\"'s' 'x y'"
+  },
+  {
+   "name": "join:7:['~', '$HOME', '*']",
+   "op": "join",
+   "input": [
+    "~",
+    "$HOME",
+    "*"
+   ],
+   "expect": "'~' '$HOME' '*'"
+  },
+  {
+   "name": "join:8:['ssh', '-o', 'ProxyCommand=nc %h %p', 'user@host']",
+   "op": "join",
+   "input": [
+    "ssh",
+    "-o",
+    "ProxyCommand=nc %h %p",
+    "user@host"
+   ],
+   "expect": "ssh -o 'ProxyCommand=nc %h %p' user@host"
+  },
+  {
+   "name": "join:9:['żółć', 'ok']",
+   "op": "join",
+   "input": [
+    "żółć",
+    "ok"
+   ],
+   "expect": "'żółć' ok"
+  },
+  {
+   "name": "join:10:['a\\nb', '\\t']",
+   "op": "join",
+   "input": [
+    "a\nb",
+    "\t"
+   ],
+   "expect": "'a\nb' '\t'"
+  },
+  {
+   "name": "join:11:['--opt=val', 'user@host:~/x']",
+   "op": "join",
+   "input": [
+    "--opt=val",
+    "user@host:~/x"
+   ],
+   "expect": "--opt=val 'user@host:~/x'"
+  }
+ ]
+}

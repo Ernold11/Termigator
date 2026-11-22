@@ -1,0 +1,3295 @@
+{
+ "cases": [
+  {
+   "name": "basic",
+   "op": "feed",
+   "chunks": [
+    "hello \u001b]7;file://h/var/log\u0007 prompt$ ",
+    "\u001b]7;file://h/srv/my%20dir\u001b\\",
+    "out\u001b]7;file://h/ta",
+    "il/x\u0007",
+    "abc\u001b",
+    "]7;file://h/z\u0007",
+    "\u001b]7;relative\u0007"
+   ],
+   "expect": [
+    [
+     "/var/log"
+    ],
+    [
+     "/srv/my dir"
+    ],
+    [],
+    [
+     "/tail/x"
+    ],
+    [],
+    [
+     "/z"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:0",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a\u0007"
+   ],
+   "expect": [
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:0",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:0",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;fil",
+    "e://h/a\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:0",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:1",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:///a\u0007"
+   ],
+   "expect": [
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:1",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:1",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;fil",
+    "e:///a\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:1",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file:///a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:2",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:2",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:2",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;fi",
+    "le://h\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:2",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:3",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:3",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:3",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;fi",
+    "le://\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:3",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:4",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;/plain/path\u0007"
+   ],
+   "expect": [
+    [
+     "/plain/path"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:4",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "/",
+    "p",
+    "l",
+    "a",
+    "i",
+    "n",
+    "/",
+    "p",
+    "a",
+    "t",
+    "h",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/plain/path"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:4",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;/pla",
+    "in/path\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/plain/path"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:4",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;/plain/path\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/plain/path"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:5",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;relative\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:5",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "r",
+    "e",
+    "l",
+    "a",
+    "t",
+    "i",
+    "v",
+    "e",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:5",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;re",
+    "lative\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:5",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;relative\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:6",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:6",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:6",
+   "op": "feed",
+   "chunks": [
+    "\u001b]",
+    "7;\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:6",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:7",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a%20b%2Fc\u0007"
+   ],
+   "expect": [
+    [
+     "/a b/c"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:7",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "%",
+    "2",
+    "0",
+    "b",
+    "%",
+    "2",
+    "F",
+    "c",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a b/c"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:7",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://",
+    "h/a%20b%2Fc\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a b/c"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:7",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a%20b%2Fc\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a b/c"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:8",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/%C5%9B%C4%87\u001b\\"
+   ],
+   "expect": [
+    [
+     "/ść"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:8",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "%",
+    "C",
+    "5",
+    "%",
+    "9",
+    "B",
+    "%",
+    "C",
+    "4",
+    "%",
+    "8",
+    "7",
+    "\u001b",
+    "\\"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/ść"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:8",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/",
+    "%C5%9B%C4%87\u001b\\"
+   ],
+   "expect": [
+    [],
+    [
+     "/ść"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:8",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/%C5%9B%C4%87\u001b\\",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/ść"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:9",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/zażółć\u0007"
+   ],
+   "expect": [
+    [
+     "/zażółć"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:9",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "z",
+    "a",
+    "ż",
+    "ó",
+    "ł",
+    "ć",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/zażółć"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:9",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:/",
+    "/h/zażółć\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/zażółć"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:9",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/zażółć\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/zażółć"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:10",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/%zz%4\u0007"
+   ],
+   "expect": [
+    [
+     "/%zz%4"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:10",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "%",
+    "z",
+    "z",
+    "%",
+    "4",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/%zz%4"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:10",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:",
+    "//h/%zz%4\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/%zz%4"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:10",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/%zz%4\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/%zz%4"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:11",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/100%\u0007"
+   ],
+   "expect": [
+    [
+     "/100%"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:11",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "1",
+    "0",
+    "0",
+    "%",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/100%"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:11",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:",
+    "//h/100%\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/100%"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:11",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/100%\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/100%"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:12",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a\u001b\\tail\u0007"
+   ],
+   "expect": [
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:12",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u001b",
+    "\\",
+    "t",
+    "a",
+    "i",
+    "l",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a"
+    ],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:12",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:/",
+    "/h/a\u001b\\tail\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:12",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a\u001b\\tail\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:13",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a\u0007\\"
+   ],
+   "expect": [
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:13",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u0007",
+    "\\"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:13",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file",
+    "://h/a\u0007\\"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:13",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a\u0007\\",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:14",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a\u001b]7;file://h/b\u0007"
+   ],
+   "expect": [
+    [
+     "/a\u001b]7;file://h/b"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:14",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "b",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a\u001b]7;file://h/b"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:14",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a",
+    "\u001b]7;file://h/b\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a\u001b]7;file://h/b"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:14",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a\u001b]7;file://h/b\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a\u001b]7;file://h/b"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:15",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;FILE://h/a\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:15",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "F",
+    "I",
+    "L",
+    "E",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:15",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;FIL",
+    "E://h/a\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:15",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;FILE://h/a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:16",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a;b\u0007"
+   ],
+   "expect": [
+    [
+     "/a;b"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:16",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    ";",
+    "b",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a;b"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:16",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file",
+    "://h/a;b\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a;b"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:16",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a;b\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a;b"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:17",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;http://h/a\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:17",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "h",
+    "t",
+    "t",
+    "p",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:17",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;htt",
+    "p://h/a\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:17",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;http://h/a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:18",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file:/a\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:18",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:18",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;fi",
+    "le:/a\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:18",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file:/a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:19",
+   "op": "feed",
+   "chunks": [
+    "\u001b]70;x\u0007"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "split_every_char:19",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    "0",
+    ";",
+    "x",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "split_mid:19",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7",
+    "0;x\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "prefix_suffix:19",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]70;x\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "whole:20",
+   "op": "feed",
+   "chunks": [
+    "\u001b]0;title\u0007\u001b]7;file://h/t\u0007"
+   ],
+   "expect": [
+    [
+     "/t"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:20",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "0",
+    ";",
+    "t",
+    "i",
+    "t",
+    "l",
+    "e",
+    "\u0007",
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "t",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/t"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:20",
+   "op": "feed",
+   "chunks": [
+    "\u001b]0;title\u0007\u001b]",
+    "7;file://h/t\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/t"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:20",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]0;title\u0007\u001b]7;file://h/t\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/t"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:21",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://user@h:22/a\u0007"
+   ],
+   "expect": [
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:21",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "u",
+    "s",
+    "e",
+    "r",
+    "@",
+    "h",
+    ":",
+    "2",
+    "2",
+    "/",
+    "a",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:21",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://",
+    "user@h:22/a\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:21",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://user@h:22/a\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:22",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/a\nb\u0007"
+   ],
+   "expect": [
+    [
+     "/a\nb"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:22",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "a",
+    "\n",
+    "b",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/a\nb"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:22",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file",
+    "://h/a\nb\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/a\nb"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:22",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/a\nb\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/a\nb"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "whole:23",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/%0A\u0007"
+   ],
+   "expect": [
+    [
+     "/\n"
+    ]
+   ]
+  },
+  {
+   "name": "split_every_char:23",
+   "op": "feed",
+   "chunks": [
+    "\u001b",
+    "]",
+    "7",
+    ";",
+    "f",
+    "i",
+    "l",
+    "e",
+    ":",
+    "/",
+    "/",
+    "h",
+    "/",
+    "%",
+    "0",
+    "A",
+    "\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+     "/\n"
+    ]
+   ]
+  },
+  {
+   "name": "split_mid:23",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file",
+    "://h/%0A\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/\n"
+    ]
+   ]
+  },
+  {
+   "name": "prefix_suffix:23",
+   "op": "feed",
+   "chunks": [
+    "pre ESC ś ",
+    "\u001b]7;file://h/%0A\u0007",
+    " post\u001b"
+   ],
+   "expect": [
+    [],
+    [
+     "/\n"
+    ],
+    []
+   ]
+  },
+  {
+   "name": "partial_tail_kept",
+   "op": "feed",
+   "chunks": [
+    "x\u001b",
+    "]",
+    "7",
+    ";file://h/q\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [
+     "/q"
+    ]
+   ]
+  },
+  {
+   "name": "partial_tail_lost",
+   "op": "feed",
+   "chunks": [
+    "x\u001b]",
+    "8;file://h/q\u0007"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "esc_not_osc",
+   "op": "feed",
+   "chunks": [
+    "\u001b[31m",
+    "\u001b[0m"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "pending_cap",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "b\u0007",
+    "\u001b]7;file://h/ok\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+    ],
+    [
+     "/ok"
+    ]
+   ]
+  },
+  {
+   "name": "pending_cap_unicode",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/żżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżż",
+    "\u0007",
+    "\u001b]7;file://h/ok\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/żżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżżż"
+    ],
+    [
+     "/ok"
+    ]
+   ]
+  },
+  {
+   "name": "two_in_one",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/1\u0007\u001b]7;file://h/2\u001b\\\u001b]7;file://h/3\u0007"
+   ],
+   "expect": [
+    [
+     "/1",
+     "/2",
+     "/3"
+    ]
+   ]
+  },
+  {
+   "name": "unterminated_then_new",
+   "op": "feed",
+   "chunks": [
+    "\u001b]7;file://h/1",
+    "\u001b]7;file://h/2\u0007"
+   ],
+   "expect": [
+    [],
+    [
+     "/1\u001b]7;file://h/2"
+    ]
+   ]
+  },
+  {
+   "name": "fuzz:0",
+   "op": "feed",
+   "chunks": [
+    "fi",
+    "l",
+    "e://\\]7;\u0007]a",
+    " b/]7\n\n7dir",
+    "7\n];dir]"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:1",
+   "op": "feed",
+   "chunks": [
+    "file://%C5%9B\nfile:",
+    "//;%C5%9Bh;/\u0007;7]/%\nśxx\u0007%C5%9Bdirhdir7%C5%9B",
+    "a b%śx%C5%9B7;a b\nh"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:2",
+   "op": "feed",
+   "chunks": [
+    "]7śś\u0007%x77%20%7]",
+    "%C5%9Bx%C5%9B\\\u0007\u001bx\u0007h;%]/%C5%9B"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:3",
+   "op": "feed",
+   "chunks": [
+    "\\%7hx\\%20file://\n%20\n\u0007\\dir",
+    "file://7hfile://dirdir\u001b%h%20%C5%9B\u001b"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:4",
+   "op": "feed",
+   "chunks": [
+    "\u0007śfile:",
+    "//a b]x\\\\\\\\;%\\]/7/xh;ś];",
+    "\u001bfile://;\u0007\u001b7/\\file://%2",
+    "0\u0007\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:5",
+   "op": "feed",
+   "chunks": [
+    "%%%C5%9B7file://;ś%20%ha b\u001b/a b\u0007file://\u001ba b%C5%9B7%",
+    "20a b\u0007h\u0007dira bśdir/"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:6",
+   "op": "feed",
+   "chunks": [
+    "/a ",
+    "b%\u0007\u001b\u001b%20%%20/\u0007x\u0007\u00077"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:7",
+   "op": "feed",
+   "chunks": [
+    "%/",
+    "ś/%\u001b%\u00077;\\/",
+    "%h\n"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:8",
+   "op": "feed",
+   "chunks": [
+    "x\\7hhfile://\u001bfile://xfile://%\u0007",
+    "fil",
+    "e://file",
+    "://\u001b\u001b;a bfile://\n//\u001b%20/%C5%",
+    "9B"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:9",
+   "op": "feed",
+   "chunks": [
+    "file://]\u0007xa b\na bfile://",
+    "file://a ba b\u001bxh\u001bfile://hfile://%;]śa ba b%;]"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:10",
+   "op": "feed",
+   "chunks": [
+    "];a bx\u001b7xśa ",
+    "ba b/%20xa b%a b",
+    "dira b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:11",
+   "op": "feed",
+   "chunks": [
+    "\n;\\xś7dir\n",
+    "7"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:12",
+   "op": "feed",
+   "chunks": [
+    ";file",
+    "://\u0007file://%20f",
+    "ile://xdir;\\%hdirh\na b\\ś\n/"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:13",
+   "op": "feed",
+   "chunks": [
+    "\u001bśxx\u001b\\śa b%C5%9Ba b7;dir;7%20%20]h",
+    "%20file://\n%20\\"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:14",
+   "op": "feed",
+   "chunks": [
+    "%ś7%20]h\n7%20\u001b7%207dir7%20;x\u001bś\n%2",
+    "0file://]a bdir",
+    ";h%20]h/%C5%9B"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:15",
+   "op": "feed",
+   "chunks": [
+    "%C5%9Bx",
+    "a bh%20",
+    "\u0007\u001b%20]\u001b\u001ba b/a b",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:16",
+   "op": "feed",
+   "chunks": [
+    "\n%\\a",
+    " b",
+    "%C5%9B/dir"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:17",
+   "op": "feed",
+   "chunks": [
+    "\u0007]",
+    "file://\u001b7%20\nh]7\\a b%C5%9Bdir%C5%9B]xhh%20x\u001b%20\u0007śś"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:18",
+   "op": "feed",
+   "chunks": [
+    "/",
+    "\u0007h\u001bś\\7%%20a b",
+    "/dira",
+    " b\u001b7%207file://\\]"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:19",
+   "op": "feed",
+   "chunks": [
+    "a bf",
+    "ile://\\ś%file:/",
+    "/"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:20",
+   "op": "feed",
+   "chunks": [
+    "",
+    "a b\na b"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:21",
+   "op": "feed",
+   "chunks": [
+    "dir7\u001b]file://\u0007;\\x]\u001bdir%%20\u001bx7a b",
+    "7a b7%",
+    "%207%20dir/dirx%\\7%%C5%9B]/7file://"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:22",
+   "op": "feed",
+   "chunks": [
+    "file://\u001b%]%%20;/%%C5%9Ba b%C5",
+    "%9Bxxx;/%C5%9B7%\u001b%C5%9Bx7a bx%20\\/",
+    "/77file://a b%20\u0007file://a b%20;"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:23",
+   "op": "feed",
+   "chunks": [
+    "\\\u001bh\u001b%x\\%C5%9Bfile://\n\u0007\\ś;ś\u001bśś\\;/\u001b%C5%9B%20\u00077\\\\7\u0007\n%20"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:24",
+   "op": "feed",
+   "chunks": [
+    ";]%C5%9B",
+    "file://dir",
+    "%20\na bś/\u0007\n\u001b\\",
+    "/7]\n"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:25",
+   "op": "feed",
+   "chunks": [
+    "file",
+    "://h%\n",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:26",
+   "op": "feed",
+   "chunks": [
+    "%20\\",
+    "di",
+    "r%C5%9B%\\;h",
+    "h7/a b%dirxśx"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:27",
+   "op": "feed",
+   "chunks": [
+    "7",
+    "hś7śdir\u0007%",
+    "20/\u001b\n\\\na b/\\"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:28",
+   "op": "feed",
+   "chunks": [
+    "%20\u0007file://a ba b/7%20dir\\\\x\n%C5%9B\u001bfile://]\n%%\u001b7\\a bxxdir;dirfile://file://a b"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:29",
+   "op": "feed",
+   "chunks": [
+    "7]\u001b",
+    "file://dir]%C5%9Bfile://%20a",
+    " b\n;;7%C",
+    "5%9Ba b/\\%20d",
+    "ir\u001b\u001b%C5%9Bx%20śdir%a bdir"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:30",
+   "op": "feed",
+   "chunks": [
+    "\u001b/%\n"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:31",
+   "op": "feed",
+   "chunks": [
+    "dir\n\u0007dir%",
+    "]ś\n\u0007\\/\u001b%C5%9Ba b7/%"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:32",
+   "op": "feed",
+   "chunks": [
+    "d",
+    "ir",
+    "xdir%20%C5",
+    "%9B;%hdir%\n]file://"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:33",
+   "op": "feed",
+   "chunks": [
+    "file://\n]]h\\xś;7hś/ha b",
+    "x]%C5%9B\\\u0007śxh;\u001b7%207\u0007\n;/\\\u0007%C5%9B\n7]%"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:34",
+   "op": "feed",
+   "chunks": [
+    "x/ś\u0007%\u001b\ndir\\]\\]x7]%20/7ś\u0007%20",
+    "ś]%20ś%20%C5%9B\u001b7\u001bdir;%x\\",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:35",
+   "op": "feed",
+   "chunks": [
+    "file://%",
+    "h\u001b%",
+    "C5%",
+    "9Bfile://dirśśx\u00077a b/\\hdir\n7]%śh\n;7%207/;\n%"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:36",
+   "op": "feed",
+   "chunks": [
+    "xdir;%C5%9B%C5%9B%20%20\u0007%20%20/xdirhdirdirfile://%C5%9B/ś7\\%20dira ba bdir"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:37",
+   "op": "feed",
+   "chunks": [
+    "];",
+    "\u001b%dirx\u0007]%C5%9Bdir;]//7\u0007a bhx%20\u001b;\u0007/]",
+    "\u0007śfile://]/"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:38",
+   "op": "feed",
+   "chunks": [
+    "\u001bś\n\u0007",
+    "h%C5%9B7/]%%7",
+    "\n;",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:39",
+   "op": "feed",
+   "chunks": [
+    "h",
+    "\\%20\n%C5",
+    "%9",
+    "B%C5%9B"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:40",
+   "op": "feed",
+   "chunks": [
+    "\n\u001b\u0007/\\\\/\u001b\nh",
+    "\n;7\\\u0007xhf",
+    "ile://\u001b]file://\\7\u0007a bhfile://"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:41",
+   "op": "feed",
+   "chunks": [
+    "h7;\\%/%C5%9Bfile://]%ś]\\7hdir\\/%h/]\\a bh\\\u0007;file://dir/]]ś"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:42",
+   "op": "feed",
+   "chunks": [
+    "x%C5%9B\n%C5%9Bdir\n\\\u0007xa ",
+    "bxh\u001b",
+    "\u001b%xdirxxh%\\;7file://"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:43",
+   "op": "feed",
+   "chunks": [
+    "xa ba b]]file://"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:44",
+   "op": "feed",
+   "chunks": [
+    "a b7]a b\\",
+    "file://",
+    "\u001b7;/file://%%C5%",
+    "9Bhdir7\u0007%20hś%20"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:45",
+   "op": "feed",
+   "chunks": [
+    "/%20a",
+    " bdirś\u0007]/h\\h%20ś\\h%20;a b]\u0007xa b;%20\\\u0007%20\\\u0007f",
+    "ile://\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:46",
+   "op": "feed",
+   "chunks": [
+    "dirh]%C5%9Ba b%20%C5%9Bś\u001b]di",
+    "rfile://%C5%9B\n\na b\u0007]file://%dir]\u001b]\u001b\u0007%C5",
+    "%9B;a b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:47",
+   "op": "feed",
+   "chunks": [
+    "%C5%9Bfile:///\u0007%hfile://\u001bdirfile://x;7file://%20\\%20\u001b]\u0007xa b%dirh\u001b]"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:48",
+   "op": "feed",
+   "chunks": [
+    "\u001b\\hdir",
+    "h];\u001b/file://\n/a ba b\nha b%C",
+    "5%9B7%C5%9B]%\u001b\\\nx7xhdir;%20dir];"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:49",
+   "op": "feed",
+   "chunks": [
+    "\na b%20%C5%9B/7a b\u001bh%20dir/hś/",
+    "\\śd",
+    "i",
+    "r"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:50",
+   "op": "feed",
+   "chunks": [
+    "",
+    "\u001b",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:51",
+   "op": "feed",
+   "chunks": [
+    "\\7hfile://]\u001b;;h\u0007file:/",
+    "/\u001b\u001b]"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:52",
+   "op": "feed",
+   "chunks": [
+    "",
+    "7",
+    "]",
+    "7",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:53",
+   "op": "feed",
+   "chunks": [
+    "d",
+    "ir//;]",
+    "]7"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:54",
+   "op": "feed",
+   "chunks": [
+    ";",
+    "/%C5%9Bś",
+    "ś\n%20\u001b\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:55",
+   "op": "feed",
+   "chunks": [
+    "śa b%%",
+    "C5%9B\u001b\n\u001b\na b;\u0007%]/7%C5%9Bh",
+    "\n\u001ba b/%C5%9B]\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:56",
+   "op": "feed",
+   "chunks": [
+    "h%\u0007a b%2",
+    "0h%C5%9B/dir%h;7%;ś\u0007;\\\\7\n\u001b",
+    "\u0007/%C",
+    "5%9B%20\na bh\\dir"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:57",
+   "op": "feed",
+   "chunks": [
+    "]\u0007śa bfile://xśhxx%20dirfile://śxdi",
+    "ra b/%20%C5%9Bfile:/",
+    "/file://dirśa b\u0007hdirś/%20;h;/\\file://file://%C5%9B"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:58",
+   "op": "feed",
+   "chunks": [
+    "",
+    ";;%2",
+    "0/\\x",
+    "]\u001b\\\ndira b%C5%9B"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:59",
+   "op": "feed",
+   "chunks": [
+    "\\\u001bdir\n\ndirdir",
+    "h;x\nś%20;\ndir\\h%",
+    "20\n%x",
+    "\u001b\na bhś\u001b\\%;",
+    "]%20/h/a b\u0007;"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:60",
+   "op": "feed",
+   "chunks": [
+    "a b\u001b\u0007a bś\n",
+    "x/h",
+    "\\a b;\u0007]%20%20\\\\]",
+    "\u001b7\n\n\u0007%20;dir%C5%9B\\a bdir"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:61",
+   "op": "feed",
+   "chunks": [
+    "7/%d",
+    "irfile:",
+    "//\u0007\n",
+    "x%C5%",
+    "9B"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:62",
+   "op": "feed",
+   "chunks": [
+    "%2",
+    "0\\%20\nh%\u001b%20\u0007dir%C",
+    "5",
+    "%9Bś%%\n",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:63",
+   "op": "feed",
+   "chunks": [
+    "file://%C5%",
+    "9B\\]7śfile",
+    "://a",
+    " b\u0007\u001b\u001b/7%C5%9B",
+    "%20;file://dirhx\u0007file:///\\"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:64",
+   "op": "feed",
+   "chunks": [
+    "/a b7x;;%20\ndirfile://%%]%xfile://%dir%h",
+    "\u001b",
+    "hśx%%C5%9Bx\u0007\n\n7h"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:65",
+   "op": "feed",
+   "chunks": [
+    "",
+    "\u001b",
+    "]"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:66",
+   "op": "feed",
+   "chunks": [
+    "file://]/\nfile://ś;\u0007ś%a b/%C5%9B\nś\n%20]%",
+    "C5%9B%C5%9B\u0007%\\śa b%20a b\u0007/%;ś"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:67",
+   "op": "feed",
+   "chunks": [
+    "fi",
+    "le:/",
+    "/7]\\\\",
+    "]\\%C5%9B;\u001b]/%]a b\\file://7/]"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:68",
+   "op": "feed",
+   "chunks": [
+    ";\u001b\u0007fi",
+    "l",
+    "e://%C5%9B%20%C5%9Bh\n]ś\u001b",
+    "\n]%a b];\n\\x",
+    "7\u001b\\file://%\n"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:69",
+   "op": "feed",
+   "chunks": [
+    "file:",
+    "//\u001b\n\u001b\u001b;7/;file://%",
+    "\u001b%20di",
+    "r"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:70",
+   "op": "feed",
+   "chunks": [
+    "\u0007fil",
+    "e:/",
+    "/7%",
+    "C5%9B",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:71",
+   "op": "feed",
+   "chunks": [
+    "",
+    "]",
+    "\u001b",
+    "]",
+    "\u001b"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:72",
+   "op": "feed",
+   "chunks": [
+    "h%]ś\u0007",
+    "x%hfile://;\u0007h",
+    "\n%\\x%20ś%C5%9B%20]",
+    "ś\u001bfile://%C5%9B\ndir\\\\\\dirx%C5%9B\u001bś%20",
+    "%20\nh"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:73",
+   "op": "feed",
+   "chunks": [
+    "%20%\u00077",
+    "%\\",
+    "/dir%C",
+    "5%9B]"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:74",
+   "op": "feed",
+   "chunks": [
+    "\u001b\\",
+    "x7\u00077dir\\a b%20a bś%a b////7h%C5%9B\u0007\u0007\\a bfile://dir]%\u0007;\u0007x7file://",
+    "ś\u001b\u0007"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:75",
+   "op": "feed",
+   "chunks": [
+    "]/%/%20%20\n"
+   ],
+   "expect": [
+    []
+   ]
+  },
+  {
+   "name": "fuzz:76",
+   "op": "feed",
+   "chunks": [
+    "file://%20]",
+    "ś/h\\7\u001b]]\u0007x%7\\;7%20śdir7a b\\hxh\u0007dir"
+   ],
+   "expect": [
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:77",
+   "op": "feed",
+   "chunks": [
+    "",
+    "%2",
+    "0",
+    "\u0007]",
+    ""
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:78",
+   "op": "feed",
+   "chunks": [
+    "];file",
+    "://ś\u001b/%C5%9Bx;%ś\u0007%",
+    "20\\;\u0007%\\hxdirfile://\u001bx/]hdir7\u0007file:/",
+    "/"
+   ],
+   "expect": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "fuzz:79",
+   "op": "feed",
+   "chunks": [
+    "",
+    "7",
+    "x"
+   ],
+   "expect": [
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "snippet",
+   "op": "snippet",
+   "expect": "__termigator_osc7(){ printf '\\033]7;file://%s%s\\007' \"${HOSTNAME:-$HOST}\" \"$PWD\"; }; if [ -n \"$ZSH_VERSION\" ]; then precmd_functions+=(__termigator_osc7); else PROMPT_COMMAND=\"__termigator_osc7${PROMPT_COMMAND:+;$PROMPT_COMMAND}\"; fi; __termigator_osc7"
+  }
+ ]
+}

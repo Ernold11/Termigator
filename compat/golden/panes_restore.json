@@ -1,0 +1,4314 @@
+{
+ "cases": [
+  {
+   "name": "round_trip_two_panes_right_split_down",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "500"
+       },
+       {
+        "$int": "500"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "left-1"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "split",
+          "v"
+         ],
+         [
+          "sizes",
+          [
+           {
+            "$int": "250"
+           },
+           {
+            "$int": "250"
+           }
+          ]
+         ],
+         [
+          "children",
+          [
+           {
+            "$map": [
+             [
+              "tabs",
+              [
+               {
+                "$map": [
+                 [
+                  "title",
+                  "left-2"
+                 ],
+                 [
+                  "inner",
+                  "exec bash --norc -i"
+                 ]
+                ]
+               }
+              ]
+             ],
+             [
+              "current",
+              {
+               "$int": "0"
+              }
+             ],
+             [
+              "main",
+              false
+             ]
+            ]
+           },
+           {
+            "$map": [
+             [
+              "tabs",
+              [
+               {
+                "$map": [
+                 [
+                  "title",
+                  "db"
+                 ],
+                 [
+                  "conn",
+                  {
+                   "$map": [
+                    [
+                     "label",
+                     "db"
+                    ],
+                    [
+                     "host",
+                     "10.0.0.5"
+                    ],
+                    [
+                     "user",
+                     "root"
+                    ],
+                    [
+                     "port",
+                     {
+                      "$int": "22"
+                     }
+                    ]
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ]
+             ],
+             [
+              "current",
+              {
+               "$int": "0"
+              }
+             ],
+             [
+              "main",
+              false
+             ]
+            ]
+           }
+          ]
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "left-1",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "left-2",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "db",
+      "pane": 2,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "password",
+         "s3cret"
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "left-1"
+     ],
+     [
+      "left-2"
+     ],
+     [
+      "db"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "left-1"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "split",
+           "v"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "239"
+            },
+            {
+             "$int": "238"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "left-2"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "db"
+                  ],
+                  [
+                   "conn",
+                   {
+                    "$map": [
+                     [
+                      "host",
+                      "10.0.0.5"
+                     ],
+                     [
+                      "label",
+                      "db"
+                     ],
+                     [
+                      "port",
+                      {
+                       "$int": "22"
+                      }
+                     ],
+                     [
+                      "user",
+                      "root"
+                     ]
+                    ]
+                   }
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_main_pane",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "b"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "1"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a",
+      "b"
+     ]
+    ],
+    "current": [
+     1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "b"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "current_out_of_range",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "5"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "current_negative",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "b"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "-1"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a",
+      "b"
+     ]
+    ],
+    "current": [
+     1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "b"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "main_not_marked_goes_first",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "x"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "y"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "x",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "y",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [],
+     [
+      "x"
+     ],
+     [
+      "y"
+     ]
+    ],
+    "current": [
+     -1,
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "0"
+        },
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           []
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "x"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "y"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "second_main_flag_is_ordinary_pane",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "v"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "x"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "y"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "x",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "y",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "x"
+     ],
+     [
+      "y"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "v"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "13"
+        },
+        {
+         "$int": "13"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "x"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "y"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "main_in_the_second_slot",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "x"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "y"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "x",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "y",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "x"
+     ],
+     [
+      "y"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 1,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "x"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "y"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "saved_entry_replaces_snapshot_conn",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "db"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "db"
+            ],
+            [
+             "host",
+             "10.0.0.5"
+            ],
+            [
+             "user",
+             "root"
+            ],
+            [
+             "port",
+             {
+              "$int": "22"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "db",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "password",
+         "s3cret"
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "db"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "db"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.5"
+             ],
+             [
+              "label",
+              "db"
+             ],
+             [
+              "port",
+              {
+               "$int": "22"
+              }
+             ],
+             [
+              "user",
+              "root"
+             ]
+            ]
+           }
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "unmatched_conn_is_used_as_is",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "db"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "db"
+            ],
+            [
+             "host",
+             "10.0.0.5"
+            ],
+            [
+             "user",
+             "root"
+            ],
+            [
+             "port",
+             {
+              "$int": "22"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "other"
+      ],
+      [
+       "host",
+       "1.1.1.1"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "db",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "db"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "db"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.5"
+             ],
+             [
+              "label",
+              "db"
+             ],
+             [
+              "port",
+              {
+               "$int": "22"
+              }
+             ],
+             [
+              "user",
+              "root"
+             ]
+            ]
+           }
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "match_needs_port_and_label",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "db"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "db"
+            ],
+            [
+             "host",
+             "10.0.0.5"
+            ],
+            [
+             "user",
+             "root"
+            ],
+            [
+             "port",
+             {
+              "$int": "2222"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "db2"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    },
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "2222"
+       }
+      ],
+      [
+       "password",
+       "p2"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "db",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "2222"
+         }
+        ],
+        [
+         "password",
+         "p2"
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "db"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "db"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.5"
+             ],
+             [
+              "label",
+              "db"
+             ],
+             [
+              "port",
+              {
+               "$int": "2222"
+              }
+             ],
+             [
+              "user",
+              "root"
+             ]
+            ]
+           }
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "match_numeric_equality",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "db"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "db"
+            ],
+            [
+             "host",
+             "10.0.0.5"
+            ],
+            [
+             "user",
+             "root"
+            ],
+            [
+             "port",
+             {
+              "$float": "22.0"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "db",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "password",
+         "s3cret"
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "db"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "db"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.5"
+             ],
+             [
+              "label",
+              "db"
+             ],
+             [
+              "port",
+              {
+               "$int": "22"
+              }
+             ],
+             [
+              "user",
+              "root"
+             ]
+            ]
+           }
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "rdp_and_vnc_not_restored",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "win"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "win"
+            ],
+            [
+             "host",
+             "10.0.0.9"
+            ],
+            [
+             "user",
+             "adm"
+            ],
+            [
+             "protocol",
+             "rdp"
+            ]
+           ]
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "v"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "host",
+             "h"
+            ],
+            [
+             "protocol",
+             "vnc"
+            ]
+           ]
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "sw"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "sw"
+            ],
+            [
+             "host",
+             "10.0.0.2"
+            ],
+            [
+             "protocol",
+             "telnet"
+            ]
+           ]
+          }
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "ok"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "3"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "sw",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "sw"
+        ],
+        [
+         "host",
+         "10.0.0.2"
+        ],
+        [
+         "protocol",
+         "telnet"
+        ]
+       ]
+      }
+     },
+     {
+      "title": "ok",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "sw",
+      "ok"
+     ]
+    ],
+    "current": [
+     1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "sw"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.2"
+             ],
+             [
+              "label",
+              "sw"
+             ],
+             [
+              "protocol",
+              "telnet"
+             ]
+            ]
+           }
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "ok"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "1"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "saved_rdp_entry_wins_over_ssh_looking_record",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "w"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "win"
+            ],
+            [
+             "host",
+             "10.0.0.9"
+            ],
+            [
+             "user",
+             "adm"
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "win"
+      ],
+      [
+       "host",
+       "10.0.0.9"
+      ],
+      [
+       "user",
+       "adm"
+      ],
+      [
+       "protocol",
+       "rdp"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [],
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "blank_inner_is_skipped",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "   "
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "b"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "c"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "b",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "b"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "missing_title_is_session",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          ""
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "Session",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "Session",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "Session",
+      "Session"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "Session"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "Session"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "non_dict_records_are_ignored",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$int": "5"
+       },
+       "x",
+       null,
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "detached_tabs_reopen_in_windows",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ],
+     [
+      "detached",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "w1"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "w2"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "db"
+            ],
+            [
+             "host",
+             "10.0.0.5"
+            ],
+            [
+             "user",
+             "root"
+            ],
+            [
+             "port",
+             {
+              "$int": "22"
+             }
+            ]
+           ]
+          }
+         ]
+        ]
+       },
+       {
+        "$int": "7"
+       },
+       {
+        "$map": [
+         [
+          "title",
+          "w3"
+         ],
+         [
+          "conn",
+          {
+           "$map": [
+            [
+             "label",
+             "win"
+            ],
+            [
+             "host",
+             "10.0.0.9"
+            ],
+            [
+             "user",
+             "adm"
+            ],
+            [
+             "protocol",
+             "rdp"
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [
+    {
+     "$map": [
+      [
+       "label",
+       "db"
+      ],
+      [
+       "host",
+       "10.0.0.5"
+      ],
+      [
+       "user",
+       "root"
+      ],
+      [
+       "port",
+       {
+        "$int": "22"
+       }
+      ],
+      [
+       "password",
+       "s3cret"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "w1",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "w2",
+      "pane": 0,
+      "inner": null,
+      "conn": {
+       "$map": [
+        [
+         "label",
+         "db"
+        ],
+        [
+         "host",
+         "10.0.0.5"
+        ],
+        [
+         "user",
+         "root"
+        ],
+        [
+         "port",
+         {
+          "$int": "22"
+         }
+        ],
+        [
+         "password",
+         "s3cret"
+        ]
+       ]
+      }
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [
+     [
+      "w1"
+     ],
+     [
+      "w2"
+     ]
+    ],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ],
+      [
+       "detached",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "w1"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "title",
+           "w2"
+          ],
+          [
+           "conn",
+           {
+            "$map": [
+             [
+              "host",
+              "10.0.0.5"
+             ],
+             [
+              "label",
+              "db"
+             ],
+             [
+              "port",
+              {
+               "$int": "22"
+              }
+             ],
+             [
+              "user",
+              "root"
+             ]
+            ]
+           }
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "detached_only",
+   "snapshot": {
+    "$map": [
+     [
+      "tabs",
+      []
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ],
+     [
+      "detached",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "w1"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "w1",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [
+     [
+      "w1"
+     ]
+    ],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ],
+      [
+       "detached",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "w1"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "split_without_children_list_is_a_leaf",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      null
+     ],
+     [
+      "tabs",
+      [
+       {
+        "$map": [
+         [
+          "title",
+          "a"
+         ],
+         [
+          "inner",
+          "exec bash --norc -i"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "current",
+      {
+       "$int": "0"
+      }
+     ],
+     [
+      "main",
+      true
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ]
+    ],
+    "current": [
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       [
+        {
+         "$map": [
+          [
+           "title",
+           "a"
+          ],
+          [
+           "inner",
+           "exec bash --norc -i"
+          ]
+         ]
+        }
+       ]
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "sizes_of_wrong_length_ignored",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "10"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "a"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "b"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "0"
+        },
+        {
+         "$int": "0"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "b"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "three_columns",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "2"
+       },
+       {
+        "$int": "3"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "a"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "b"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "c"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "c",
+      "pane": 2,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "31"
+        },
+        {
+         "$int": "32"
+        },
+        {
+         "$int": "31"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "b"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "c"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "nested_same_orientation_is_kept",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "h"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "a"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "split",
+          "h"
+         ],
+         [
+          "sizes",
+          [
+           {
+            "$int": "1"
+           },
+           {
+            "$int": "1"
+           }
+          ]
+         ],
+         [
+          "children",
+          [
+           {
+            "$map": [
+             [
+              "tabs",
+              [
+               {
+                "$map": [
+                 [
+                  "title",
+                  "b"
+                 ],
+                 [
+                  "inner",
+                  "exec bash --norc -i"
+                 ]
+                ]
+               }
+              ]
+             ],
+             [
+              "current",
+              {
+               "$int": "0"
+              }
+             ],
+             [
+              "main",
+              false
+             ]
+            ]
+           },
+           {
+            "$map": [
+             [
+              "tabs",
+              [
+               {
+                "$map": [
+                 [
+                  "title",
+                  "c"
+                 ],
+                 [
+                  "inner",
+                  "exec bash --norc -i"
+                 ]
+                ]
+               }
+              ]
+             ],
+             [
+              "current",
+              {
+               "$int": "0"
+              }
+             ],
+             [
+              "main",
+              false
+             ]
+            ]
+           }
+          ]
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "c",
+      "pane": 2,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c"
+     ]
+    ],
+    "current": [
+     0,
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "h"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "48"
+        },
+        {
+         "$int": "48"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "split",
+           "h"
+          ],
+          [
+           "sizes",
+           [
+            {
+             "$int": "319"
+            },
+            {
+             "$int": "318"
+            }
+           ]
+          ],
+          [
+           "children",
+           [
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "b"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            },
+            {
+             "$map": [
+              [
+               "tabs",
+               [
+                {
+                 "$map": [
+                  [
+                   "title",
+                   "c"
+                  ],
+                  [
+                   "inner",
+                   "exec bash --norc -i"
+                  ]
+                 ]
+                }
+               ]
+              ],
+              [
+               "current",
+               {
+                "$int": "0"
+               }
+              ],
+              [
+               "main",
+               false
+              ]
+             ]
+            }
+           ]
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "unknown_split_letter_is_vertical",
+   "snapshot": {
+    "$map": [
+     [
+      "split",
+      "x"
+     ],
+     [
+      "sizes",
+      [
+       {
+        "$int": "1"
+       },
+       {
+        "$int": "1"
+       }
+      ]
+     ],
+     [
+      "children",
+      [
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "a"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          true
+         ]
+        ]
+       },
+       {
+        "$map": [
+         [
+          "tabs",
+          [
+           {
+            "$map": [
+             [
+              "title",
+              "b"
+             ],
+             [
+              "inner",
+              "exec bash --norc -i"
+             ]
+            ]
+           }
+          ]
+         ],
+         [
+          "current",
+          {
+           "$int": "0"
+          }
+         ],
+         [
+          "main",
+          false
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   },
+   "connections": [],
+   "expect": {
+    "opened": [
+     {
+      "title": "a",
+      "pane": 0,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     },
+     {
+      "title": "b",
+      "pane": 1,
+      "inner": "exec bash --norc -i",
+      "conn": null
+     }
+    ],
+    "panes": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ]
+    ],
+    "current": [
+     0,
+     0
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "split",
+       "v"
+      ],
+      [
+       "sizes",
+       [
+        {
+         "$int": "13"
+        },
+        {
+         "$int": "13"
+        }
+       ]
+      ],
+      [
+       "children",
+       [
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "a"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           true
+          ]
+         ]
+        },
+        {
+         "$map": [
+          [
+           "tabs",
+           [
+            {
+             "$map": [
+              [
+               "title",
+               "b"
+              ],
+              [
+               "inner",
+               "exec bash --norc -i"
+              ]
+             ]
+            }
+           ]
+          ],
+          [
+           "current",
+           {
+            "$int": "0"
+           }
+          ],
+          [
+           "main",
+           false
+          ]
+         ]
+        }
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "not_a_dict",
+   "snapshot": [
+    {
+     "$int": "1"
+    },
+    {
+     "$int": "2"
+    }
+   ],
+   "connections": [],
+   "expect": {
+    "opened": [],
+    "panes": [
+     []
+    ],
+    "current": [
+     -1
+    ],
+    "active": 0,
+    "windows": [],
+    "snapshot": {
+     "$map": [
+      [
+       "tabs",
+       []
+      ],
+      [
+       "current",
+       {
+        "$int": "0"
+       }
+      ],
+      [
+       "main",
+       true
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

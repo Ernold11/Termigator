@@ -1,0 +1,42 @@
+[package]
+name = "termigator-core"
+description = "Termigator logic without Qt: config, vault, command builders, parsers, processes"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+repository.workspace = true
+
+[dependencies]
+aes-gcm = "0.11"
+base64 = "0.23"
+encoding_rs = "0.8.44"
+filedescriptor = "0.8"
+getrandom = "0.4"
+libyaml-safer = "0.3.0"
+percent-encoding = "2"
+portable-pty = "0.9"
+quick-xml = "0.42"
+regex = "1"
+scrypt = "0.12"
+serde_json = { version = "1", features = ["float_roundtrip", "preserve_order"] }
+sha1 = "0.11.0"
+thiserror = "2"
+yaml-edit = { version = "0.3.6", default-features = false }
+zeroize = "1"
+zip = { version = "9", default-features = false, features = ["deflate"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.28", default-features = false, features = ["fs", "process", "signal", "user"] }
+rustix = { version = "1.1.6", features = ["fs", "process"] }
+
+[target.'cfg(windows)'.dependencies]
+# AF_UNIX sockets (Windows 10 1803+) with std's API: same path-based IPC as on Unix, no unsafe here.
+uds_windows = "1.2"
+# Installed WSL distributions (HKCU\...\Lxss); already in the tree through portable-pty.
+winreg = "0.10"
+
+[lints]
+workspace = true
+

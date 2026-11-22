@@ -1,0 +1,7490 @@
+{
+ "cases": [
+  {
+   "name": "path:0",
+   "op": "path",
+   "template": "~/logs/{label}/{host}-{user}-{date}_{time}.log",
+   "label": "prod db / main",
+   "host": "10.0.0.5",
+   "user": "root",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/home/me/logs/prod_db_main/10.0.0.5-root-2026-10-21_090507.log"
+  },
+  {
+   "name": "path:1",
+   "op": "path",
+   "template": "/x/{nope}/{label}.log",
+   "label": "a",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/x/{nope}/a.log"
+  },
+  {
+   "name": "path:2",
+   "op": "path",
+   "template": "/x/{label}.log",
+   "label": "../../etc",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/x/etc.log"
+  },
+  {
+   "name": "path:3",
+   "op": "path",
+   "template": "",
+   "label": "Zażółć gęślą",
+   "host": "host.example.com",
+   "user": "michał",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/home/me/termigator-logs/Zażółć_gęślą/2026-10-21_090507.log"
+  },
+  {
+   "name": "path:4",
+   "op": "path",
+   "template": "~",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/home/me"
+  },
+  {
+   "name": "path:5",
+   "op": "path",
+   "template": "~/",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/home/me/"
+  },
+  {
+   "name": "path:6",
+   "op": "path",
+   "template": "~/{label}",
+   "label": "   ",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/home/me/session"
+  },
+  {
+   "name": "path:7",
+   "op": "path",
+   "template": "{label}~",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "x~"
+  },
+  {
+   "name": "path:8",
+   "op": "path",
+   "template": "/l/{label}/{host}/{user}",
+   "label": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "host": "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+   "user": "u@d+x-y.z",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh/u@d+x-y.z"
+  },
+  {
+   "name": "path:9",
+   "op": "path",
+   "template": "/l/{label}",
+   "label": "...___...",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/session"
+  },
+  {
+   "name": "path:10",
+   "op": "path",
+   "template": "/l/{label}",
+   "label": "\t a b \n",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/a_b"
+  },
+  {
+   "name": "path:11",
+   "op": "path",
+   "template": "/l/{label}",
+   "label": "日本語 ログ",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/日本語_ログ"
+  },
+  {
+   "name": "path:12",
+   "op": "path",
+   "template": "/l/{Label}/{ label }/{}",
+   "label": "a",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/{Label}/{ label }/{}"
+  },
+  {
+   "name": "path:13",
+   "op": "path",
+   "template": "/l/{date}/{time}/{date}",
+   "label": "a",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/2026-10-21/090507/2026-10-21"
+  },
+  {
+   "name": "path:14",
+   "op": "path",
+   "template": "/l/{host}",
+   "label": "a",
+   "host": "ho st",
+   "user": "a\u001fb",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/ho_st"
+  },
+  {
+   "name": "path:15",
+   "op": "path",
+   "template": "/l/{label}",
+   "label": "a\u001fb\u001c",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/a_b"
+  },
+  {
+   "name": "path:16",
+   "op": "path",
+   "template": "/l/{label}",
+   "label": "\u001f x \u001c",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "/l/x"
+  },
+  {
+   "name": "path:17",
+   "op": "path",
+   "template": "{label}/{host}",
+   "label": "é",
+   "host": "ª²",
+   "user": "٣",
+   "now": [
+    2026,
+    10,
+    21,
+    9,
+    5,
+    7
+   ],
+   "home": "/home/me",
+   "expect": "e/ª²"
+  },
+  {
+   "name": "path_home:0",
+   "op": "path",
+   "template": "~/a/{label}",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "home": "/root/",
+   "expect": "/root/a/x"
+  },
+  {
+   "name": "path_home:1",
+   "op": "path",
+   "template": "~",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "home": "/",
+   "expect": "/"
+  },
+  {
+   "name": "path_home:2",
+   "op": "path",
+   "template": "~/a/{label}",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "home": "//",
+   "expect": "/a/x"
+  },
+  {
+   "name": "path_home:3",
+   "op": "path",
+   "template": "~/a/{label}",
+   "label": "x",
+   "host": "",
+   "user": "",
+   "now": [
+    2026,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "home": "/home/me///",
+   "expect": "/home/me/a/x"
+  },
+  {
+   "name": "fmt:passthrough:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5b33316d7265641b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "1b5b33316d7265641b5b306d0d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:passthrough:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5b33316d7265641b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7265640a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:passthrough:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5b33316d7265641b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d201b5b33316d7265641b5b306d0d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:passthrough:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5b33316d7265641b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207265640a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:colours_osc_cr:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a1b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "1b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a1b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:colours_osc_cr:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a1b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7573657240686f73743a7e24206c730a66696c652e7478740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:colours_osc_cr:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a1b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d201b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a5b323032362d31302d32312030393a30353a30385d201b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:colours_osc_cr:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5d303b7573657240686f73743a207e071b5b30313b33326d7573657240686f73741b5b30306d3a1b5b30313b33346d7e1b5b30306d24206c730d0a1b5b3f323030346c1b284266696c652e7478740d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207573657240686f73743a7e24206c730a5b323032362d31302d32312030393a30353a30385d2066696c652e7478740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:split_csi:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:split_csi:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "62"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:split_csi:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:split_csi:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5b33"
+    },
+    {
+     "$bytes": "316d621b"
+    },
+    {
+     "$bytes": "5d303b7469746c65"
+    },
+    {
+     "$bytes": "1b5c630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2061"
+    },
+    {
+     "$bytes": "62"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:stamps:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ]
+  },
+  {
+   "name": "fmt:stamps:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ]
+  },
+  {
+   "name": "fmt:stamps:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206f6e650a5b323032362d31302d32312030393a30353a30385d2070617274"
+    },
+    {
+     "$bytes": "69616c0a0a5b323032362d31302d32312030393a30353a30395d207468726565"
+    }
+   ]
+  },
+  {
+   "name": "fmt:stamps:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6f6e650a70617274"
+    },
+    {
+     "$bytes": "69616c0a0a7468726565"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206f6e650a5b323032362d31302d32312030393a30353a30385d2070617274"
+    },
+    {
+     "$bytes": "69616c0a0a5b323032362d31302d32312030393a30353a30395d207468726565"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_plain:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "1b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_plain:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7a61c5bcc3b3c582c48720e282ac0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_plain:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d201b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_plain:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b5b316d7a61c5bcc3b3c582c48720e282ac1b5b306d0d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207a61c5bcc3b3c582c48720e282ac0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_split:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_split:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c5c485206a61c5bac5840a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_split:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:utf8_split:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "7a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c59b6cc485206a61c5bac5840a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207a61c5"
+    },
+    {
+     "$bytes": "bcc3b3c582c4872067c499c5c485206a61c5bac5840a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_c1_csi:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c59b0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c59b0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_c1_csi:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c59b0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c5"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_c1_csi:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c59b0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c59b0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_c1_csi:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c59b0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c5"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_text_after:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c59b6c6164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c59b6c6164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_text_after:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c59b6c6164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c56164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_text_after:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c59b6c6164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c59b6c6164206e61206b6fc58463753a206f6b0a5b323032362d31302d32312030393a30353a30385d206e6578740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_text_after:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c59b6c6164206e61206b6fc58463753a206f6b0a6e6578740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c56164206e61206b6fc58463753a206f6b0a5b323032362d31302d32312030393a30353a30385d206e6578740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_raw_9b:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "619b33316d620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "619b33316d620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_raw_9b:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "619b33316d620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "61620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_raw_9b:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "619b33316d620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20619b33316d620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_raw_9b:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "619b33316d620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2061620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_split_9b:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_split_9b:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "20726573740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_split_9b:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2078c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:k1_split_9b:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "78c5"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "6d20726573740a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2078c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "20726573740a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:charset:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "1b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:charset:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6c716b78797a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:charset:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d201b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:charset:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b28306c716b1b2942781b2338791b25477a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206c716b78797a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:two_byte_esc:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b3d611b37621b4d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "1b3d611b37621b4d630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:two_byte_esc:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b3d611b37621b4d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6162630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:two_byte_esc:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b3d611b37621b4d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d201b3d611b37621b4d630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:two_byte_esc:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "1b3d611b37621b4d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206162630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:dcs_apc:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:dcs_apc:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "61626364650a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:dcs_apc:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:dcs_apc:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5071313b321b5c621b5f61706307631b58736f731b5c641b5e706d1b5c650a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2061626364650a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:string_esc_inside:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5d303b74691b746c651b5c620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "611b5d303b74691b746c651b5c620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:string_esc_inside:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5d303b74691b746c651b5c620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "61620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:string_esc_inside:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5d303b74691b746c651b5c620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20611b5d303b74691b746c651b5c620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:string_esc_inside:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5d303b74691b746c651b5c620a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2061620a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:controls:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6107620063086409650b660c677f680a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6107620063086409650b660c677f680a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:controls:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6107620063086409650b660c677f680a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6162630864096566677f680a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:controls:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6107620063086409650b660c677f680a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206107620063086409650b660c677f680a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:controls:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6107620063086409650b660c677f680a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206162630864096566677f680a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:csi_intermediate:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:csi_intermediate:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6162630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:csi_intermediate:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:csi_intermediate:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "611b5b3f3235681b5b313b32481b5b2071621b5b33383a323a3a313a323a336d630a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206162630a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:unterminated:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ]
+  },
+  {
+   "name": "fmt:unterminated:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "616263"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:unterminated:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d206162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ]
+  },
+  {
+   "name": "fmt:unterminated:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "6162631b5b3132"
+    },
+    {
+     "$bytes": "3334"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20616263"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:empty:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:empty:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:empty:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:empty:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fmt:blank_lines:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "0a0a0d0a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a0a0d0a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:blank_lines:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "0a0a0d0a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a0a0a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:blank_lines:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0a0a0d0a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a0a5b323032362d31302d32312030393a30353a30375d200d0a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:blank_lines:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0a0a0d0a0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a0a0a0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:bare_cr:s0t0",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "70726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "70726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:bare_cr:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "70726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "70726f6772657373203170726f67726573732032646f6e650a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:bare_cr:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "70726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2070726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ]
+  },
+  {
+   "name": "fmt:bare_cr:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "70726f677265737320310d70726f677265737320320d646f6e650d0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2070726f6772657373203170726f67726573732032646f6e650a"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:0:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "081b"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "23c582"
+    },
+    {
+     "$bytes": "0a3f2323"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "5b5c5c9b58"
+    },
+    {
+     "$bytes": "259b"
+    },
+    {
+     "$bytes": "c5c59b0950"
+    },
+    {
+     "$bytes": "3b3b9b5c"
+    },
+    {
+     "$bytes": "9b5c096dff1b"
+    },
+    {
+     "$bytes": "00"
+    },
+    {
+     "$bytes": "6137"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "23c582"
+    },
+    {
+     "$bytes": "0a3f2323"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5b5c5c"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "3b3b"
+    },
+    {
+     "$bytes": "096dff"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "6137"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:1:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "421b6de2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "615b"
+    },
+    {
+     "$bytes": "0709"
+    },
+    {
+     "$bytes": "370d"
+    },
+    {
+     "$bytes": "c58209c58250"
+    },
+    {
+     "$bytes": "5d3761099b"
+    },
+    {
+     "$bytes": "37000742"
+    },
+    {
+     "$bytes": "200a425c1b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20421b6de2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "615b"
+    },
+    {
+     "$bytes": "0709"
+    },
+    {
+     "$bytes": "370d"
+    },
+    {
+     "$bytes": "c58209c58250"
+    },
+    {
+     "$bytes": "5d3761099b"
+    },
+    {
+     "$bytes": "37000742"
+    },
+    {
+     "$bytes": "200a5b323032362d31302d32312030393a30353a30385d20425c1b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:2:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "50"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "5e0a3f"
+    },
+    {
+     "$bytes": "3d005f5c3b08"
+    },
+    {
+     "$bytes": "0d61203b005f"
+    },
+    {
+     "$bytes": "9b6158c5826d"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2050"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30385d203f"
+    },
+    {
+     "$bytes": "3d5f5c3b08"
+    },
+    {
+     "$bytes": "61203b5f"
+    },
+    {
+     "$bytes": "58c5826d"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:3:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "429b"
+    },
+    {
+     "$bytes": "615d3d070d"
+    },
+    {
+     "$bytes": "9bc5"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "c58208e282"
+    },
+    {
+     "$bytes": "ac3709"
+    },
+    {
+     "$bytes": "c582e282"
+    },
+    {
+     "$bytes": "ac9b5d09"
+    },
+    {
+     "$bytes": "5d08"
+    },
+    {
+     "$bytes": "287e200d1be2"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": "ac0807079b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "42"
+    },
+    {
+     "$bytes": "5d3d"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "5d08"
+    },
+    {
+     "$bytes": "287e20"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": "ac08"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:4:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5e0d5b6d585e"
+    },
+    {
+     "$bytes": "0a3b5f3f"
+    },
+    {
+     "$bytes": "0ae282"
+    },
+    {
+     "$bytes": "ac9b3b5e"
+    },
+    {
+     "$bytes": "c5829b58"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5e5b6d585e"
+    },
+    {
+     "$bytes": "0a3b5f3f"
+    },
+    {
+     "$bytes": "0ae282"
+    },
+    {
+     "$bytes": "ac"
+    },
+    {
+     "$bytes": "c582"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:5:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3b615ee282ac"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203b615ee282ac"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:6:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "209b3b5d08"
+    },
+    {
+     "$bytes": "09209b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "2008"
+    },
+    {
+     "$bytes": "0920"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:7:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "373d5b9b5e"
+    },
+    {
+     "$bytes": "30"
+    },
+    {
+     "$bytes": "615b"
+    },
+    {
+     "$bytes": "23009b58"
+    },
+    {
+     "$bytes": "61e2"
+    },
+    {
+     "$bytes": "82ac3d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20373d5b9b5e"
+    },
+    {
+     "$bytes": "30"
+    },
+    {
+     "$bytes": "615b"
+    },
+    {
+     "$bytes": "23009b58"
+    },
+    {
+     "$bytes": "61e2"
+    },
+    {
+     "$bytes": "82ac3d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:8:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "61077e"
+    },
+    {
+     "$bytes": "42c5"
+    },
+    {
+     "$bytes": "825f61"
+    },
+    {
+     "$bytes": "3d235061"
+    },
+    {
+     "$bytes": "25079b61"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "6dc5825c"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2061077e"
+    },
+    {
+     "$bytes": "42c5"
+    },
+    {
+     "$bytes": "825f61"
+    },
+    {
+     "$bytes": "3d235061"
+    },
+    {
+     "$bytes": "25079b61"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "6dc5825c"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:9:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "097e3b095b0d"
+    },
+    {
+     "$bytes": "3b1b"
+    },
+    {
+     "$bytes": "509b9b5d"
+    },
+    {
+     "$bytes": "c58258c59b"
+    },
+    {
+     "$bytes": "08ff7e9b"
+    },
+    {
+     "$bytes": "c530e282ac"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20097e3b095b"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:10:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "50"
+    },
+    {
+     "$bytes": "42ff09233b23"
+    },
+    {
+     "$bytes": "6158423b"
+    },
+    {
+     "$bytes": "37ff"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "3f9b07075e6d"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "0850089b"
+    },
+    {
+     "$bytes": "3fc5"
+    },
+    {
+     "$bytes": "6d07c5c5"
+    },
+    {
+     "$bytes": "9b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2050"
+    },
+    {
+     "$bytes": "42ff09233b23"
+    },
+    {
+     "$bytes": "6158423b"
+    },
+    {
+     "$bytes": "37ff"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "3f6d"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "085008"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5c5"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:11:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "091b5d"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "6d7e50200a"
+    },
+    {
+     "$bytes": "5f00585f"
+    },
+    {
+     "$bytes": "61097e"
+    },
+    {
+     "$bytes": "3d9b5cc5"
+    },
+    {
+     "$bytes": "820a3b9b"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "5d306d5b"
+    },
+    {
+     "$bytes": "5d"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "7e5e6137"
+    },
+    {
+     "$bytes": "3d20c5"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "6d09253b42"
+    },
+    {
+     "$bytes": "58"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "9b5009"
+    },
+    {
+     "$bytes": "3dc59b"
+    },
+    {
+     "$bytes": "5d4228"
+    },
+    {
+     "$bytes": "37"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20091b5d"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "6d7e50200a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d205f00585f"
+    },
+    {
+     "$bytes": "61097e"
+    },
+    {
+     "$bytes": "3d9b5cc5"
+    },
+    {
+     "$bytes": "820a5b323032362d31302d32312030393a30353a30395d203b9b"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "5d306d5b"
+    },
+    {
+     "$bytes": "5d"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "7e5e6137"
+    },
+    {
+     "$bytes": "3d20c5"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "6d09253b42"
+    },
+    {
+     "$bytes": "58"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "9b5009"
+    },
+    {
+     "$bytes": "3dc59b"
+    },
+    {
+     "$bytes": "5d4228"
+    },
+    {
+     "$bytes": "37"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:12:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "7e61"
+    },
+    {
+     "$bytes": "23422830"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "005b372530"
+    },
+    {
+     "$bytes": "3dc5"
+    },
+    {
+     "$bytes": "82501bff"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "3f07ff505b61"
+    },
+    {
+     "$bytes": "3b377e42"
+    },
+    {
+     "$bytes": "c582"
+    },
+    {
+     "$bytes": "5f585ec59b07"
+    },
+    {
+     "$bytes": "c5825f"
+    },
+    {
+     "$bytes": "50ff6d9b37"
+    },
+    {
+     "$bytes": "3f25423d6130"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7e61"
+    },
+    {
+     "$bytes": "23422830"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "5b372530"
+    },
+    {
+     "$bytes": "3dc5"
+    },
+    {
+     "$bytes": "8250"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "3fff505b61"
+    },
+    {
+     "$bytes": "3b377e42"
+    },
+    {
+     "$bytes": "c582"
+    },
+    {
+     "$bytes": "5f585ec5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "50ff6d"
+    },
+    {
+     "$bytes": "3d6130"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:13:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "083f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20083f"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:14:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "5b5b3020"
+    },
+    {
+     "$bytes": "0d5f1b"
+    },
+    {
+     "$bytes": "9b0d08"
+    },
+    {
+     "$bytes": "61429bc59b08"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "9b0d5c9b5f61"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "3d7e50"
+    },
+    {
+     "$bytes": "3d30"
+    },
+    {
+     "$bytes": "099b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d205b5b3020"
+    },
+    {
+     "$bytes": "0d5f1b"
+    },
+    {
+     "$bytes": "9b0d08"
+    },
+    {
+     "$bytes": "61429bc59b08"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "9b0d5c9b5f61"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "3d7e50"
+    },
+    {
+     "$bytes": "3d30"
+    },
+    {
+     "$bytes": "099b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:15:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3bc5"
+    },
+    {
+     "$bytes": "c59b50"
+    },
+    {
+     "$bytes": "ff"
+    },
+    {
+     "$bytes": "255b37255c"
+    },
+    {
+     "$bytes": "372008080730"
+    },
+    {
+     "$bytes": "095c5e07"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "615b3b0d"
+    },
+    {
+     "$bytes": "6123"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "9b42"
+    },
+    {
+     "$bytes": "9b07"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "5c28301b"
+    },
+    {
+     "$bytes": "09"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203bc5"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "ff"
+    },
+    {
+     "$bytes": "255b37255c"
+    },
+    {
+     "$bytes": "3720080830"
+    },
+    {
+     "$bytes": "095c5e"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "615b3b"
+    },
+    {
+     "$bytes": "6123"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5c2830"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:16:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "375b"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "5d0d5f616100"
+    },
+    {
+     "$bytes": "08c5825fc59b"
+    },
+    {
+     "$bytes": "3fe282acc582"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "4225"
+    },
+    {
+     "$bytes": "50076d"
+    },
+    {
+     "$bytes": "50c582"
+    },
+    {
+     "$bytes": "6d5be282acff"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "3737"
+    },
+    {
+     "$bytes": "1b3d"
+    },
+    {
+     "$bytes": "37095b"
+    },
+    {
+     "$bytes": "9b42ff423bc5"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": "0d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20375b"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "5d5f6161"
+    },
+    {
+     "$bytes": "08c5825fc5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "506d"
+    },
+    {
+     "$bytes": "50c582"
+    },
+    {
+     "$bytes": "6d5be282acff"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "3737"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "37095b"
+    },
+    {
+     "$bytes": "ff423bc5"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:17:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "259b5e092537"
+    },
+    {
+     "$bytes": "9b3bc53b"
+    },
+    {
+     "$bytes": "0d42c59bc5c5"
+    },
+    {
+     "$bytes": "8225"
+    },
+    {
+     "$bytes": "7ec59bc5"
+    },
+    {
+     "$bytes": "0a3f3d30095e"
+    },
+    {
+     "$bytes": "ff09ffc59b3d"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "9b5c4250"
+    },
+    {
+     "$bytes": "235c"
+    },
+    {
+     "$bytes": "e282ac3d7e"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "25092537"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "ff09ffc5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "4250"
+    },
+    {
+     "$bytes": "235c"
+    },
+    {
+     "$bytes": "e282ac3d7e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:18:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "58"
+    },
+    {
+     "$bytes": "5c231b42"
+    },
+    {
+     "$bytes": "239b"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "301b3b"
+    },
+    {
+     "$bytes": "9b0a5b20"
+    },
+    {
+     "$bytes": "009b00617e"
+    },
+    {
+     "$bytes": "3fc59b0d5f20"
+    },
+    {
+     "$bytes": "379b20c59b"
+    },
+    {
+     "$bytes": "30c5820a"
+    },
+    {
+     "$bytes": "61c582"
+    },
+    {
+     "$bytes": "5b585c"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2058"
+    },
+    {
+     "$bytes": "5c231b42"
+    },
+    {
+     "$bytes": "239b"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "301b3b"
+    },
+    {
+     "$bytes": "9b0a5b323032362d31302d32312030393a30353a30385d205b20"
+    },
+    {
+     "$bytes": "009b00617e"
+    },
+    {
+     "$bytes": "3fc59b0d5f20"
+    },
+    {
+     "$bytes": "379b20c59b"
+    },
+    {
+     "$bytes": "30c5820a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30395d2061c582"
+    },
+    {
+     "$bytes": "5b585c"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:19:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0009"
+    },
+    {
+     "$bytes": "7e"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d200009"
+    },
+    {
+     "$bytes": "7e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:20:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c5822837"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "ff23"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "0928c582"
+    },
+    {
+     "$bytes": "c58223286dff"
+    },
+    {
+     "$bytes": "2009"
+    },
+    {
+     "$bytes": "0a7e233f5e"
+    },
+    {
+     "$bytes": "ff280a58"
+    },
+    {
+     "$bytes": "5b083d507e"
+    },
+    {
+     "$bytes": "2500c56de282"
+    },
+    {
+     "$bytes": "ac0d"
+    },
+    {
+     "$bytes": "3058083d"
+    },
+    {
+     "$bytes": "61080808"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c5822837"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "ff23"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "0928c582"
+    },
+    {
+     "$bytes": "c58223286dff"
+    },
+    {
+     "$bytes": "2009"
+    },
+    {
+     "$bytes": "0a7e233f5e"
+    },
+    {
+     "$bytes": "ff280a58"
+    },
+    {
+     "$bytes": "5b083d507e"
+    },
+    {
+     "$bytes": "25c56de282"
+    },
+    {
+     "$bytes": "ac"
+    },
+    {
+     "$bytes": "3058083d"
+    },
+    {
+     "$bytes": "61080808"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:21:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "e282ac5cc5"
+    },
+    {
+     "$bytes": "829b9b7e23"
+    },
+    {
+     "$bytes": "2537585ee2"
+    },
+    {
+     "$bytes": "82ac7e"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "e282ac5cc5"
+    },
+    {
+     "$bytes": "8223"
+    },
+    {
+     "$bytes": "2537585ee2"
+    },
+    {
+     "$bytes": "82ac7e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:22:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "28"
+    },
+    {
+     "$bytes": "c59b9b50"
+    },
+    {
+     "$bytes": "5f5e7e1b"
+    },
+    {
+     "$bytes": "5c3f"
+    },
+    {
+     "$bytes": "28002820ff"
+    },
+    {
+     "$bytes": "0861"
+    },
+    {
+     "$bytes": "28c523ff5000"
+    },
+    {
+     "$bytes": "5e3f7e070a"
+    },
+    {
+     "$bytes": "c5c5"
+    },
+    {
+     "$bytes": "0a58c582"
+    },
+    {
+     "$bytes": "6d615b"
+    },
+    {
+     "$bytes": "3d9b5c6d23"
+    },
+    {
+     "$bytes": "09e282ac9b37"
+    },
+    {
+     "$bytes": "5f6d"
+    },
+    {
+     "$bytes": "09ff585b5e3f"
+    },
+    {
+     "$bytes": "28c5823b"
+    },
+    {
+     "$bytes": "42"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2028"
+    },
+    {
+     "$bytes": "c59b9b50"
+    },
+    {
+     "$bytes": "5f5e7e1b"
+    },
+    {
+     "$bytes": "5c3f"
+    },
+    {
+     "$bytes": "28002820ff"
+    },
+    {
+     "$bytes": "0861"
+    },
+    {
+     "$bytes": "28c523ff5000"
+    },
+    {
+     "$bytes": "5e3f7e070a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d20c5c5"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30395d2058c582"
+    },
+    {
+     "$bytes": "6d615b"
+    },
+    {
+     "$bytes": "3d9b5c6d23"
+    },
+    {
+     "$bytes": "09e282ac9b37"
+    },
+    {
+     "$bytes": "5f6d"
+    },
+    {
+     "$bytes": "09ff585b5e3f"
+    },
+    {
+     "$bytes": "28c5823b"
+    },
+    {
+     "$bytes": "42"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:23:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3d3d1b9b"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "0a6d0a0d1b"
+    },
+    {
+     "$bytes": "09"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203d3d1b9b"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30385d206d0a5b323032362d31302d32312030393a30353a30395d200d1b"
+    },
+    {
+     "$bytes": "09"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:24:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0008"
+    },
+    {
+     "$bytes": "9b0a0aff5d"
+    },
+    {
+     "$bytes": "3700"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "5f0d7e"
+    },
+    {
+     "$bytes": "58"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "583f233b"
+    },
+    {
+     "$bytes": "6d50ff203007"
+    },
+    {
+     "$bytes": "3f0d5f3728"
+    },
+    {
+     "$bytes": "3f5b239bc525"
+    },
+    {
+     "$bytes": "28"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d200008"
+    },
+    {
+     "$bytes": "9b0a0a5b323032362d31302d32312030393a30353a30385d20ff5d"
+    },
+    {
+     "$bytes": "3700"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "5f0d7e"
+    },
+    {
+     "$bytes": "58"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "583f233b"
+    },
+    {
+     "$bytes": "6d50ff203007"
+    },
+    {
+     "$bytes": "3f0d5f3728"
+    },
+    {
+     "$bytes": "3f5b239bc525"
+    },
+    {
+     "$bytes": "28"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:25:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "205f"
+    },
+    {
+     "$bytes": "5d201b6d"
+    },
+    {
+     "$bytes": "9b4207"
+    },
+    {
+     "$bytes": "9b280d9b095d"
+    },
+    {
+     "$bytes": "073d5b"
+    },
+    {
+     "$bytes": "9b28"
+    },
+    {
+     "$bytes": "0023255b2000"
+    },
+    {
+     "$bytes": "3d4209089b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20205f"
+    },
+    {
+     "$bytes": "5d201b6d"
+    },
+    {
+     "$bytes": "9b4207"
+    },
+    {
+     "$bytes": "9b280d9b095d"
+    },
+    {
+     "$bytes": "073d5b"
+    },
+    {
+     "$bytes": "9b28"
+    },
+    {
+     "$bytes": "0023255b2000"
+    },
+    {
+     "$bytes": "3d4209089b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:26:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "426d5b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20426d5b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:27:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5f6107425c"
+    },
+    {
+     "$bytes": "230925ff"
+    },
+    {
+     "$bytes": "3f25375f37"
+    },
+    {
+     "$bytes": "251b61c5"
+    },
+    {
+     "$bytes": "5f25e282ac5b"
+    },
+    {
+     "$bytes": "3b0d6d61"
+    },
+    {
+     "$bytes": "5f9b9b3bc5"
+    },
+    {
+     "$bytes": "9b5b23e2"
+    },
+    {
+     "$bytes": "82ac25e2"
+    },
+    {
+     "$bytes": "82ac085f5f"
+    },
+    {
+     "$bytes": "5cff5b2325"
+    },
+    {
+     "$bytes": "c582303f"
+    },
+    {
+     "$bytes": "c59b5d6d"
+    },
+    {
+     "$bytes": "4228c5"
+    },
+    {
+     "$bytes": "205e5d0d58"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5f61425c"
+    },
+    {
+     "$bytes": "230925ff"
+    },
+    {
+     "$bytes": "3f25375f37"
+    },
+    {
+     "$bytes": "25c5"
+    },
+    {
+     "$bytes": "5f25e282ac5b"
+    },
+    {
+     "$bytes": "3b6d61"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "23e2"
+    },
+    {
+     "$bytes": "82ac25e2"
+    },
+    {
+     "$bytes": "82ac085f5f"
+    },
+    {
+     "$bytes": "5cff5b2325"
+    },
+    {
+     "$bytes": "c582303f"
+    },
+    {
+     "$bytes": "c56d"
+    },
+    {
+     "$bytes": "4228c5"
+    },
+    {
+     "$bytes": "205e5d58"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:28:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5c6d50"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5c6d50"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:29:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "37e282ac509b"
+    },
+    {
+     "$bytes": "c5829b003f0d"
+    },
+    {
+     "$bytes": "7e280a9b50"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "58305e42e2"
+    },
+    {
+     "$bytes": "82ac1b3d"
+    },
+    {
+     "$bytes": "095b3f"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "20309b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2037e282ac509b"
+    },
+    {
+     "$bytes": "c5829b003f0d"
+    },
+    {
+     "$bytes": "7e280a5b323032362d31302d32312030393a30353a30385d209b50"
+    },
+    {
+     "$bytes": "0d"
+    },
+    {
+     "$bytes": "58305e42e2"
+    },
+    {
+     "$bytes": "82ac1b3d"
+    },
+    {
+     "$bytes": "095b3f"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "20309b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:30:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "5f0a2309"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": "5eff"
+    },
+    {
+     "$bytes": "7e420a5e"
+    },
+    {
+     "$bytes": "6d0a07c5ff"
+    },
+    {
+     "$bytes": "5e230a1b1b"
+    },
+    {
+     "$bytes": "c5825b080820"
+    },
+    {
+     "$bytes": "3d371b"
+    },
+    {
+     "$bytes": "5f3d5dc57e6d"
+    },
+    {
+     "$bytes": "0d9bc5ff"
+    },
+    {
+     "$bytes": "30"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d205f0a5b323032362d31302d32312030393a30353a30385d202309"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": "5eff"
+    },
+    {
+     "$bytes": "7e420a5b323032362d31302d32312030393a30353a30395d205e"
+    },
+    {
+     "$bytes": "6d0a5b323032362d31302d32312030393a30353a31305d20c5ff"
+    },
+    {
+     "$bytes": "5e230a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a31315d20c5825b080820"
+    },
+    {
+     "$bytes": "3d37"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:31:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "250007c5"
+    },
+    {
+     "$bytes": "829bc59b"
+    },
+    {
+     "$bytes": "5d20"
+    },
+    {
+     "$bytes": "37096d00e2"
+    },
+    {
+     "$bytes": "82ac375f"
+    },
+    {
+     "$bytes": "9be282"
+    },
+    {
+     "$bytes": "ac23c5"
+    },
+    {
+     "$bytes": "9bc5ff2525"
+    },
+    {
+     "$bytes": "090d0d239b9b"
+    },
+    {
+     "$bytes": "3f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2009"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "250007c5"
+    },
+    {
+     "$bytes": "829bc59b"
+    },
+    {
+     "$bytes": "5d20"
+    },
+    {
+     "$bytes": "37096d00e2"
+    },
+    {
+     "$bytes": "82ac375f"
+    },
+    {
+     "$bytes": "9be282"
+    },
+    {
+     "$bytes": "ac23c5"
+    },
+    {
+     "$bytes": "9bc5ff2525"
+    },
+    {
+     "$bytes": "090d0d239b9b"
+    },
+    {
+     "$bytes": "3f"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:32:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "7e610a"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "583b205f"
+    },
+    {
+     "$bytes": "3d3b"
+    },
+    {
+     "$bytes": "ff506d6de2"
+    },
+    {
+     "$bytes": "82ac2558"
+    },
+    {
+     "$bytes": "3b7e585b"
+    },
+    {
+     "$bytes": "25c5"
+    },
+    {
+     "$bytes": "3d6d9b5d"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "005b"
+    },
+    {
+     "$bytes": "3fff501b"
+    },
+    {
+     "$bytes": "5d007e"
+    },
+    {
+     "$bytes": "003b082823"
+    },
+    {
+     "$bytes": "3b5ec5825e42"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "3de282"
+    },
+    {
+     "$bytes": "acff6130"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac5d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207e610a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d203b"
+    },
+    {
+     "$bytes": "583b205f"
+    },
+    {
+     "$bytes": "3d3b"
+    },
+    {
+     "$bytes": "ff506d6de2"
+    },
+    {
+     "$bytes": "82ac2558"
+    },
+    {
+     "$bytes": "3b7e585b"
+    },
+    {
+     "$bytes": "25c5"
+    },
+    {
+     "$bytes": "3d6d9b5d"
+    },
+    {
+     "$bytes": "5f"
+    },
+    {
+     "$bytes": "005b"
+    },
+    {
+     "$bytes": "3fff501b"
+    },
+    {
+     "$bytes": "5d007e"
+    },
+    {
+     "$bytes": "003b082823"
+    },
+    {
+     "$bytes": "3b5ec5825e42"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "3de282"
+    },
+    {
+     "$bytes": "acff6130"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac5d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:33:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3de282ac5e"
+    },
+    {
+     "$bytes": "309b"
+    },
+    {
+     "$bytes": "42613d9b08"
+    },
+    {
+     "$bytes": "00373b"
+    },
+    {
+     "$bytes": "0930ff5c"
+    },
+    {
+     "$bytes": "2561610d"
+    },
+    {
+     "$bytes": "c5c59b095b"
+    },
+    {
+     "$bytes": "e282ac5c5d"
+    },
+    {
+     "$bytes": "ff3b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203de282ac5e"
+    },
+    {
+     "$bytes": "30"
+    },
+    {
+     "$bytes": "613d"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "256161"
+    },
+    {
+     "$bytes": "c5c5"
+    },
+    {
+     "$bytes": "e282ac5c5d"
+    },
+    {
+     "$bytes": "ff3b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:34:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "257e5e"
+    },
+    {
+     "$bytes": "5c1b1b"
+    },
+    {
+     "$bytes": "5d42205d"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "28c59b5d"
+    },
+    {
+     "$bytes": "5b37091b5f"
+    },
+    {
+     "$bytes": "30ff2028"
+    },
+    {
+     "$bytes": "3d090a205c5d"
+    },
+    {
+     "$bytes": "0a5c"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "50"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "257e5e"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "5d42205d"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "28c5"
+    },
+    {
+     "$bytes": "5b3709"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:35:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "42"
+    },
+    {
+     "$bytes": "009b0a1b"
+    },
+    {
+     "$bytes": "585dc59b08"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "3f7e"
+    },
+    {
+     "$bytes": "250a5008"
+    },
+    {
+     "$bytes": "255b5c"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "25255f7e5d"
+    },
+    {
+     "$bytes": "6d58"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "42"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5dc5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "250a5008"
+    },
+    {
+     "$bytes": "255b5c"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "25255f7e5d"
+    },
+    {
+     "$bytes": "6d58"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:36:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0aff30"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": "acc59b"
+    },
+    {
+     "$bytes": "3750587e509b"
+    },
+    {
+     "$bytes": "421b"
+    },
+    {
+     "$bytes": "0d9b5f6d5ce2"
+    },
+    {
+     "$bytes": "82ac3f3b50"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30375d20ff30"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82"
+    },
+    {
+     "$bytes": "acc5"
+    },
+    {
+     "$bytes": "587e50"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "6d5ce2"
+    },
+    {
+     "$bytes": "82ac3f3b50"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:37:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c59b9b5f20"
+    },
+    {
+     "$bytes": "2509"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c520"
+    },
+    {
+     "$bytes": "2509"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:38:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "203f00"
+    },
+    {
+     "$bytes": "7e3b7e9b30"
+    },
+    {
+     "$bytes": "0d6d08"
+    },
+    {
+     "$bytes": "c582379b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20203f"
+    },
+    {
+     "$bytes": "7e3b7e"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "c58237"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:39:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5f5b9b"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "37300a3fc582"
+    },
+    {
+     "$bytes": "5f5f37"
+    },
+    {
+     "$bytes": "0720"
+    },
+    {
+     "$bytes": "5030423725c5"
+    },
+    {
+     "$bytes": "583d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5f5b"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5f37"
+    },
+    {
+     "$bytes": "20"
+    },
+    {
+     "$bytes": "5030423725c5"
+    },
+    {
+     "$bytes": "583d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:40:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "205c"
+    },
+    {
+     "$bytes": "3058"
+    },
+    {
+     "$bytes": "5ec5"
+    },
+    {
+     "$bytes": "9b5c"
+    },
+    {
+     "$bytes": "1b7e287e285f"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": "9bc54200"
+    },
+    {
+     "$bytes": "280d093b"
+    },
+    {
+     "$bytes": "5e3f3f50c59b"
+    },
+    {
+     "$bytes": "615d6d61c582"
+    },
+    {
+     "$bytes": "5c0a3dc55b0a"
+    },
+    {
+     "$bytes": "0aff"
+    },
+    {
+     "$bytes": "5c5d6d7e505f"
+    },
+    {
+     "$bytes": "6d209b5d"
+    },
+    {
+     "$bytes": "081be282ac0d"
+    },
+    {
+     "$bytes": "507e"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20205c"
+    },
+    {
+     "$bytes": "3058"
+    },
+    {
+     "$bytes": "5ec5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "287e285f"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "28093b"
+    },
+    {
+     "$bytes": "5e3f3f50c5"
+    },
+    {
+     "$bytes": "5d6d61c582"
+    },
+    {
+     "$bytes": "5c0a5b323032362d31302d32312030393a30353a30385d203dc55b0a"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30395d20ff"
+    },
+    {
+     "$bytes": "5c5d6d7e505f"
+    },
+    {
+     "$bytes": "6d20"
+    },
+    {
+     "$bytes": "0882ac"
+    },
+    {
+     "$bytes": "507e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:41:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "5dc55f"
+    },
+    {
+     "$bytes": "3dc58207"
+    },
+    {
+     "$bytes": "e282ac203b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d205dc55f"
+    },
+    {
+     "$bytes": "3dc582"
+    },
+    {
+     "$bytes": "e282ac203b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:42:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "3d42613bff"
+    },
+    {
+     "$bytes": "503f6d"
+    },
+    {
+     "$bytes": "5e6d25"
+    },
+    {
+     "$bytes": "c582613b"
+    },
+    {
+     "$bytes": "6d500d"
+    },
+    {
+     "$bytes": "3d503dff23ff"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "5c42"
+    },
+    {
+     "$bytes": "5800375e"
+    },
+    {
+     "$bytes": "9b58c5507eff"
+    },
+    {
+     "$bytes": "9be2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "285d37005b9b"
+    },
+    {
+     "$bytes": "239b1b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "3d42613bff"
+    },
+    {
+     "$bytes": "503f6d"
+    },
+    {
+     "$bytes": "5e6d25"
+    },
+    {
+     "$bytes": "c582613b"
+    },
+    {
+     "$bytes": "6d50"
+    },
+    {
+     "$bytes": "3d503dff23ff"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "5c42"
+    },
+    {
+     "$bytes": "58375e"
+    },
+    {
+     "$bytes": "c5507eff"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "375b"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:43:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "093f"
+    },
+    {
+     "$bytes": "3d303d"
+    },
+    {
+     "$bytes": "3d205d25"
+    },
+    {
+     "$bytes": "423b2550"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "093f"
+    },
+    {
+     "$bytes": "3d303d"
+    },
+    {
+     "$bytes": "3d205d25"
+    },
+    {
+     "$bytes": "423b2550"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:44:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "58c55d23"
+    },
+    {
+     "$bytes": "5e30"
+    },
+    {
+     "$bytes": "285c00"
+    },
+    {
+     "$bytes": "259b422008"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "61e2"
+    },
+    {
+     "$bytes": "82ace2"
+    },
+    {
+     "$bytes": "82ac3d9b"
+    },
+    {
+     "$bytes": "c58228"
+    },
+    {
+     "$bytes": "235e5c"
+    },
+    {
+     "$bytes": "ff619b610d5d"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "07203b5be282"
+    },
+    {
+     "$bytes": "ac420d1b5f"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "82075b379b1b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "58c55d23"
+    },
+    {
+     "$bytes": "5e30"
+    },
+    {
+     "$bytes": "285c"
+    },
+    {
+     "$bytes": "252008"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82ace2"
+    },
+    {
+     "$bytes": "82ac3d"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "ff615d"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "203b5be282"
+    },
+    {
+     "$bytes": "ac42"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5b37"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:45:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "5f25"
+    },
+    {
+     "$bytes": "235d5b25"
+    },
+    {
+     "$bytes": "61309b07"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d205f25"
+    },
+    {
+     "$bytes": "235d5b25"
+    },
+    {
+     "$bytes": "6130"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:46:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "305f425c"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "c5820030"
+    },
+    {
+     "$bytes": "374223"
+    },
+    {
+     "$bytes": "209b23"
+    },
+    {
+     "$bytes": "9b09583f"
+    },
+    {
+     "$bytes": "0958"
+    },
+    {
+     "$bytes": "7e5dff5b2842"
+    },
+    {
+     "$bytes": "c5e2"
+    },
+    {
+     "$bytes": "82ac7e"
+    },
+    {
+     "$bytes": "c59b201b6d"
+    },
+    {
+     "$bytes": "30c582082350"
+    },
+    {
+     "$bytes": "205c305c9b"
+    },
+    {
+     "$bytes": "287e6d"
+    },
+    {
+     "$bytes": "00"
+    },
+    {
+     "$bytes": "5c3f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20305f425c"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "c5820030"
+    },
+    {
+     "$bytes": "374223"
+    },
+    {
+     "$bytes": "209b23"
+    },
+    {
+     "$bytes": "9b09583f"
+    },
+    {
+     "$bytes": "0958"
+    },
+    {
+     "$bytes": "7e5dff5b2842"
+    },
+    {
+     "$bytes": "c5e2"
+    },
+    {
+     "$bytes": "82ac7e"
+    },
+    {
+     "$bytes": "c59b201b6d"
+    },
+    {
+     "$bytes": "30c582082350"
+    },
+    {
+     "$bytes": "205c305c9b"
+    },
+    {
+     "$bytes": "287e6d"
+    },
+    {
+     "$bytes": "00"
+    },
+    {
+     "$bytes": "5c3f"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:47:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "7e0a"
+    },
+    {
+     "$bytes": "09"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7e0a"
+    },
+    {
+     "$bytes": "09"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:48:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "5f205f"
+    },
+    {
+     "$bytes": "0a070ac59b"
+    },
+    {
+     "$bytes": "089bc59b9b"
+    },
+    {
+     "$bytes": "3fc5c59b585d"
+    },
+    {
+     "$bytes": "5c427e25"
+    },
+    {
+     "$bytes": "20e282ac7e08"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "6d37"
+    },
+    {
+     "$bytes": "500d610d50"
+    },
+    {
+     "$bytes": "617e7e"
+    },
+    {
+     "$bytes": "9b5f005b"
+    },
+    {
+     "$bytes": "42e282ac"
+    },
+    {
+     "$bytes": "3bc51b"
+    },
+    {
+     "$bytes": "1b08285c3f7e"
+    },
+    {
+     "$bytes": "09"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5f205f"
+    },
+    {
+     "$bytes": "0a0ac5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5d"
+    },
+    {
+     "$bytes": "5c427e25"
+    },
+    {
+     "$bytes": "20e282ac7e08"
+    },
+    {
+     "$bytes": "25"
+    },
+    {
+     "$bytes": "6d37"
+    },
+    {
+     "$bytes": "506150"
+    },
+    {
+     "$bytes": "617e7e"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "42e282ac"
+    },
+    {
+     "$bytes": "3bc5"
+    },
+    {
+     "$bytes": "08285c3f7e"
+    },
+    {
+     "$bytes": "09"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:49:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "6d2523c5"
+    },
+    {
+     "$bytes": "9b5fc59b"
+    },
+    {
+     "$bytes": "c58258379b"
+    },
+    {
+     "$bytes": "42c59b"
+    },
+    {
+     "$bytes": "6d3f5e372828"
+    },
+    {
+     "$bytes": "0061"
+    },
+    {
+     "$bytes": "097e5b000a"
+    },
+    {
+     "$bytes": "9b30"
+    },
+    {
+     "$bytes": "08e282ac"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "9b08"
+    },
+    {
+     "$bytes": "c520"
+    },
+    {
+     "$bytes": "ff30c59b07"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac6d3b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "6d2523c5"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "3f5e372828"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "097e5b0a"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac6d3b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:50:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "3f076d5007c5"
+    },
+    {
+     "$bytes": "82"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "3f6d50c5"
+    },
+    {
+     "$bytes": "82"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:51:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5b1b"
+    },
+    {
+     "$bytes": "9b3f099b"
+    },
+    {
+     "$bytes": "509b5cc53f"
+    },
+    {
+     "$bytes": "5f7e071b25"
+    },
+    {
+     "$bytes": "3f5e42"
+    },
+    {
+     "$bytes": "0a07ff"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "085f08086d08"
+    },
+    {
+     "$bytes": "42c582c5"
+    },
+    {
+     "$bytes": "9b0dc5"
+    },
+    {
+     "$bytes": "3f5dc59b5c00"
+    },
+    {
+     "$bytes": "5c6d5d3f"
+    },
+    {
+     "$bytes": "9b3d500a1b61"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "253d0d"
+    },
+    {
+     "$bytes": "9b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "3f09"
+    },
+    {
+     "$bytes": "c53f"
+    },
+    {
+     "$bytes": "5f7e"
+    },
+    {
+     "$bytes": "5e42"
+    },
+    {
+     "$bytes": "0aff"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "085f08086d08"
+    },
+    {
+     "$bytes": "42c582c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "5c6d5d3f"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "09"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "253d"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:52:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "233d"
+    },
+    {
+     "$bytes": "3b303bffc59b"
+    },
+    {
+     "$bytes": "2828ff305f23"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "421b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "233d"
+    },
+    {
+     "$bytes": "3b303bffc5"
+    },
+    {
+     "$bytes": "23"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "42"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:53:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "50"
+    },
+    {
+     "$bytes": "5b58"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "285d256d"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "e282ac6d"
+    },
+    {
+     "$bytes": "586d3f"
+    },
+    {
+     "$bytes": "615d9b3d25"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "50"
+    },
+    {
+     "$bytes": "5b58"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "285d256d"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "e282ac6d"
+    },
+    {
+     "$bytes": "586d3f"
+    },
+    {
+     "$bytes": "615d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:54:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "423b08c50d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20423b08c50d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:55:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "3f9b20"
+    },
+    {
+     "$bytes": "206d3025c5"
+    },
+    {
+     "$bytes": "9b005d23e282"
+    },
+    {
+     "$bytes": "ac305e3d3f"
+    },
+    {
+     "$bytes": "0d07"
+    },
+    {
+     "$bytes": "5bc59b5023"
+    },
+    {
+     "$bytes": "23284220"
+    },
+    {
+     "$bytes": "5e07302020"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": "6d005d5c9b"
+    },
+    {
+     "$bytes": "42093bc550"
+    },
+    {
+     "$bytes": "0a5e"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "3f"
+    },
+    {
+     "$bytes": "3025c5"
+    },
+    {
+     "$bytes": "23e282"
+    },
+    {
+     "$bytes": "ac305e3d3f"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5bc523"
+    },
+    {
+     "$bytes": "23284220"
+    },
+    {
+     "$bytes": "5e302020"
+    },
+    {
+     "$bytes": "e282ac"
+    },
+    {
+     "$bytes": "6d5d5c"
+    },
+    {
+     "$bytes": "093bc550"
+    },
+    {
+     "$bytes": "0a5e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:56:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "c56d5bff3f"
+    },
+    {
+     "$bytes": "c5823b3d505d"
+    },
+    {
+     "$bytes": "2023613b"
+    },
+    {
+     "$bytes": "9b0a5d00"
+    },
+    {
+     "$bytes": "09075c"
+    },
+    {
+     "$bytes": "23c5"
+    },
+    {
+     "$bytes": "82c59b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "c56d5bff3f"
+    },
+    {
+     "$bytes": "c5823b3d505d"
+    },
+    {
+     "$bytes": "2023613b"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "095c"
+    },
+    {
+     "$bytes": "23c5"
+    },
+    {
+     "$bytes": "82c5"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:57:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "253d"
+    },
+    {
+     "$bytes": "0a5c9b08c5"
+    },
+    {
+     "$bytes": "6d425d0a"
+    },
+    {
+     "$bytes": "250d5ec5"
+    },
+    {
+     "$bytes": "50c5"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20253d"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30385d205c9b08c5"
+    },
+    {
+     "$bytes": "6d425d0a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30395d20250d5ec5"
+    },
+    {
+     "$bytes": "50c5"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:58:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "585d285ec523"
+    },
+    {
+     "$bytes": "3f00c5"
+    },
+    {
+     "$bytes": "7e613b0837"
+    },
+    {
+     "$bytes": "28"
+    },
+    {
+     "$bytes": "580725"
+    },
+    {
+     "$bytes": "c59b"
+    },
+    {
+     "$bytes": "3f"
+    },
+    {
+     "$bytes": "7e37c59b285b"
+    },
+    {
+     "$bytes": "1bc5"
+    },
+    {
+     "$bytes": "5de282ac7e"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "073d615e5f3d"
+    },
+    {
+     "$bytes": "613d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20585d285ec523"
+    },
+    {
+     "$bytes": "3fc5"
+    },
+    {
+     "$bytes": "7e613b0837"
+    },
+    {
+     "$bytes": "28"
+    },
+    {
+     "$bytes": "5825"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "37c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5de282ac7e"
+    },
+    {
+     "$bytes": "08"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "3d615e5f3d"
+    },
+    {
+     "$bytes": "613d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:59:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "c520ff0037"
+    },
+    {
+     "$bytes": "3f09c5823d50"
+    },
+    {
+     "$bytes": "09c59b3050"
+    },
+    {
+     "$bytes": "c57e300a6d"
+    },
+    {
+     "$bytes": "3d425c9b"
+    },
+    {
+     "$bytes": "0a7e23285ec5"
+    },
+    {
+     "$bytes": "3d5b5c5ec5"
+    },
+    {
+     "$bytes": "826d505b"
+    },
+    {
+     "$bytes": "235830"
+    },
+    {
+     "$bytes": "283f"
+    },
+    {
+     "$bytes": "3be282ac"
+    },
+    {
+     "$bytes": "28"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20c520ff37"
+    },
+    {
+     "$bytes": "3f09c5823d50"
+    },
+    {
+     "$bytes": "09c5"
+    },
+    {
+     "$bytes": "c57e300a5b323032362d31302d32312030393a30353a30385d206d"
+    },
+    {
+     "$bytes": "3d425c"
+    },
+    {
+     "$bytes": "23285ec5"
+    },
+    {
+     "$bytes": "3d5b5c5ec5"
+    },
+    {
+     "$bytes": "826d505b"
+    },
+    {
+     "$bytes": "235830"
+    },
+    {
+     "$bytes": "283f"
+    },
+    {
+     "$bytes": "3be282ac"
+    },
+    {
+     "$bytes": "28"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:60:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3bff"
+    },
+    {
+     "$bytes": "5de282ac"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203bff"
+    },
+    {
+     "$bytes": "5de282ac"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:61:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "42619b5837"
+    },
+    {
+     "$bytes": "085e3b25"
+    },
+    {
+     "$bytes": "20"
+    },
+    {
+     "$bytes": "9b005d"
+    },
+    {
+     "$bytes": "7eff"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "235f28"
+    },
+    {
+     "$bytes": "9b9bc59b3d"
+    },
+    {
+     "$bytes": "25c582080d37"
+    },
+    {
+     "$bytes": "09"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d2042619b5837"
+    },
+    {
+     "$bytes": "085e3b25"
+    },
+    {
+     "$bytes": "20"
+    },
+    {
+     "$bytes": "9b005d"
+    },
+    {
+     "$bytes": "7eff"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "235f28"
+    },
+    {
+     "$bytes": "9b9bc59b3d"
+    },
+    {
+     "$bytes": "25c582080d37"
+    },
+    {
+     "$bytes": "09"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:62:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "371b25"
+    },
+    {
+     "$bytes": "5c255d28c582"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "58c5"
+    },
+    {
+     "$bytes": "9b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20371b25"
+    },
+    {
+     "$bytes": "5c255d28c582"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "58c5"
+    },
+    {
+     "$bytes": "9b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:63:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac20"
+    },
+    {
+     "$bytes": "5c9b3fff"
+    },
+    {
+     "$bytes": "9b7e"
+    },
+    {
+     "$bytes": "070a0d"
+    },
+    {
+     "$bytes": "200d"
+    },
+    {
+     "$bytes": "0d3f6108"
+    },
+    {
+     "$bytes": "5fff09"
+    },
+    {
+     "$bytes": "5b285c3d"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "c54250"
+    },
+    {
+     "$bytes": "5820"
+    },
+    {
+     "$bytes": "429bff375e3f"
+    },
+    {
+     "$bytes": "0d5c2009c582"
+    },
+    {
+     "$bytes": "9b"
+    },
+    {
+     "$bytes": "5cc582073b"
+    },
+    {
+     "$bytes": "3f5b0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac20"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "20"
+    },
+    {
+     "$bytes": "3f6108"
+    },
+    {
+     "$bytes": "5fff09"
+    },
+    {
+     "$bytes": "5b285c3d"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "c54250"
+    },
+    {
+     "$bytes": "5820"
+    },
+    {
+     "$bytes": "423f"
+    },
+    {
+     "$bytes": "5c2009c582"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5823b"
+    },
+    {
+     "$bytes": "3f5b0a"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:64:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "096d23"
+    },
+    {
+     "$bytes": "0a9b3707"
+    },
+    {
+     "$bytes": "c5c50007"
+    },
+    {
+     "$bytes": "42205c5d58"
+    },
+    {
+     "$bytes": "3b9b075d"
+    },
+    {
+     "$bytes": "23081be2"
+    },
+    {
+     "$bytes": "82ac9b"
+    },
+    {
+     "$bytes": "615e"
+    },
+    {
+     "$bytes": "0d5e"
+    },
+    {
+     "$bytes": "07"
+    },
+    {
+     "$bytes": "c523"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "285f58"
+    },
+    {
+     "$bytes": "25e282ac"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "42"
+    },
+    {
+     "$bytes": "099b3007"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20096d23"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d20205c5d58"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "2308"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "5e"
+    },
+    {
+     "$bytes": "5e"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c523"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "285f58"
+    },
+    {
+     "$bytes": "25e282ac"
+    },
+    {
+     "$bytes": "5b"
+    },
+    {
+     "$bytes": "42"
+    },
+    {
+     "$bytes": "09"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:65:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "20370d305d3b"
+    },
+    {
+     "$bytes": "3f1b"
+    },
+    {
+     "$bytes": "5e425ce282ac"
+    },
+    {
+     "$bytes": "30c5"
+    },
+    {
+     "$bytes": "82505f"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "42ff"
+    },
+    {
+     "$bytes": "307e9b58"
+    },
+    {
+     "$bytes": "61203037c582"
+    },
+    {
+     "$bytes": "c52828"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "2037305d3b"
+    },
+    {
+     "$bytes": "3f"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:66:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "9b58"
+    },
+    {
+     "$bytes": "1b50090d5c"
+    },
+    {
+     "$bytes": "00"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "5e"
+    },
+    {
+     "$bytes": "3042"
+    },
+    {
+     "$bytes": "1b"
+    },
+    {
+     "$bytes": "090d1b255050"
+    },
+    {
+     "$bytes": "20235023286d"
+    },
+    {
+     "$bytes": "3f50c59b07ff"
+    },
+    {
+     "$bytes": "c59b5e0a1b58"
+    },
+    {
+     "$bytes": "5f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20ff"
+    },
+    {
+     "$bytes": "c50a"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:67:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "ff"
+    },
+    {
+     "$bytes": "615f"
+    },
+    {
+     "$bytes": "1b00c59bff3b"
+    },
+    {
+     "$bytes": "c5825dc59b42"
+    },
+    {
+     "$bytes": "5e2820c5c582"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "2520585cc561"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "233f42c582"
+    },
+    {
+     "$bytes": "08c59b5f"
+    },
+    {
+     "$bytes": "3707"
+    },
+    {
+     "$bytes": "5e0dc59b1b"
+    },
+    {
+     "$bytes": "c5820d3725"
+    },
+    {
+     "$bytes": "30001b"
+    },
+    {
+     "$bytes": "7e7ec5"
+    },
+    {
+     "$bytes": "9b2308"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20ff"
+    },
+    {
+     "$bytes": "615f"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "5e2820c5c582"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "2520585cc561"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "233f42c582"
+    },
+    {
+     "$bytes": "08c5"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "5ec5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "7ec5"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:68:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "ff427e093f09"
+    },
+    {
+     "$bytes": "30070d"
+    },
+    {
+     "$bytes": "00c59b58"
+    },
+    {
+     "$bytes": "615e"
+    },
+    {
+     "$bytes": "9b5fc59b37"
+    },
+    {
+     "$bytes": "ff25c5820800"
+    },
+    {
+     "$bytes": "5c7e3d"
+    },
+    {
+     "$bytes": "2800"
+    },
+    {
+     "$bytes": "9b5f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20ff427e093f09"
+    },
+    {
+     "$bytes": "30"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "615e"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "7e3d"
+    },
+    {
+     "$bytes": "28"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:69:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "5b7e"
+    },
+    {
+     "$bytes": "5f3d253d5e50"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "c59b5b23"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "5b5f5fc59b"
+    },
+    {
+     "$bytes": "30c52542"
+    },
+    {
+     "$bytes": "c59bc59b"
+    },
+    {
+     "$bytes": "7e28093bc5"
+    },
+    {
+     "$bytes": "ff07ff"
+    },
+    {
+     "$bytes": "42"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b7e"
+    },
+    {
+     "$bytes": "5f3d253d5e50"
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": "7e"
+    },
+    {
+     "$bytes": "c523"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "5b5f5fc5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "28093bc5"
+    },
+    {
+     "$bytes": "ffff"
+    },
+    {
+     "$bytes": "42"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:70:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "3009c59b"
+    },
+    {
+     "$bytes": "7e61"
+    },
+    {
+     "$bytes": "5e0d1b"
+    },
+    {
+     "$bytes": "372361"
+    },
+    {
+     "$bytes": "075e5b42"
+    },
+    {
+     "$bytes": "c59b7e"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac586d"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "3f6d5c372823"
+    },
+    {
+     "$bytes": "c5823d9b"
+    },
+    {
+     "$bytes": "0a9b5c090a5d"
+    },
+    {
+     "$bytes": "09c59b5c5b3d"
+    },
+    {
+     "$bytes": "287e9b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "3009c5"
+    },
+    {
+     "$bytes": "61"
+    },
+    {
+     "$bytes": "5e"
+    },
+    {
+     "$bytes": "2361"
+    },
+    {
+     "$bytes": "5e5b42"
+    },
+    {
+     "$bytes": "c5"
+    },
+    {
+     "$bytes": "e282"
+    },
+    {
+     "$bytes": "ac586d"
+    },
+    {
+     "$bytes": "6d"
+    },
+    {
+     "$bytes": "3f6d5c372823"
+    },
+    {
+     "$bytes": "c5823d"
+    },
+    {
+     "$bytes": "090a5d"
+    },
+    {
+     "$bytes": "09c55b3d"
+    },
+    {
+     "$bytes": "287e"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:71:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "e282acc5"
+    },
+    {
+     "$bytes": "826125"
+    },
+    {
+     "$bytes": "0d0d08090a23"
+    },
+    {
+     "$bytes": "3d1b"
+    },
+    {
+     "$bytes": "c5375e6dc5"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "2842c5"
+    },
+    {
+     "$bytes": "9b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "e282acc5"
+    },
+    {
+     "$bytes": "826125"
+    },
+    {
+     "$bytes": "08090a23"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "375e6dc5"
+    },
+    {
+     "$bytes": "e2"
+    },
+    {
+     "$bytes": "82ac"
+    },
+    {
+     "$bytes": "2842c5"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  },
+  {
+   "name": "fuzz:72:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "7e9b9b"
+    },
+    {
+     "$bytes": "6d255c079b58"
+    },
+    {
+     "$bytes": "3d4242"
+    },
+    {
+     "$bytes": "9b0d"
+    },
+    {
+     "$bytes": "5d3b5b08"
+    },
+    {
+     "$bytes": "9b07"
+    },
+    {
+     "$bytes": "5830"
+    },
+    {
+     "$bytes": "7e611b3d"
+    },
+    {
+     "$bytes": "5b3d"
+    },
+    {
+     "$bytes": "0a42c5827e7e"
+    },
+    {
+     "$bytes": "c55e"
+    },
+    {
+     "$bytes": "9bc59b0d5c"
+    },
+    {
+     "$bytes": "c561"
+    },
+    {
+     "$bytes": "259b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d207e"
+    },
+    {
+     "$bytes": "255c"
+    },
+    {
+     "$bytes": "3d4242"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "3b5b08"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "30"
+    },
+    {
+     "$bytes": "7e61"
+    },
+    {
+     "$bytes": "5b3d"
+    },
+    {
+     "$bytes": "0a5b323032362d31302d32312030393a30353a30385d2042c5827e7e"
+    },
+    {
+     "$bytes": "c55e"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "c561"
+    },
+    {
+     "$bytes": "25"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:73:s1t0",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": false,
+   "chunks": [
+    {
+     "$bytes": "7e08"
+    },
+    {
+     "$bytes": "61289b205f7e"
+    },
+    {
+     "$bytes": "5842"
+    },
+    {
+     "$bytes": "c59bc5616d25"
+    },
+    {
+     "$bytes": "3f"
+    },
+    {
+     "$bytes": "07505b0ac5"
+    },
+    {
+     "$bytes": "0d9b"
+    },
+    {
+     "$bytes": "1b9b5e5bc520"
+    },
+    {
+     "$bytes": "6d423f"
+    },
+    {
+     "$bytes": "1b090d"
+    },
+    {
+     "$bytes": "5e08e282"
+    },
+    {
+     "$bytes": "ac5b"
+    },
+    {
+     "$bytes": "e282acc59b"
+    },
+    {
+     "$bytes": "5e0928c55f"
+    },
+    {
+     "$bytes": "0ae2"
+    },
+    {
+     "$bytes": "82ac7e"
+    },
+    {
+     "$bytes": "c582"
+    },
+    {
+     "$bytes": "c59b5b2361"
+    },
+    {
+     "$bytes": "61"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "7e08"
+    },
+    {
+     "$bytes": "61287e"
+    },
+    {
+     "$bytes": "5842"
+    },
+    {
+     "$bytes": "c56d25"
+    },
+    {
+     "$bytes": "3f"
+    },
+    {
+     "$bytes": "505b0ac5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5bc520"
+    },
+    {
+     "$bytes": "6d423f"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "5e08e282"
+    },
+    {
+     "$bytes": "ac5b"
+    },
+    {
+     "$bytes": "e282acc5"
+    },
+    {
+     "$bytes": "0928c55f"
+    },
+    {
+     "$bytes": "0ae2"
+    },
+    {
+     "$bytes": "82ac7e"
+    },
+    {
+     "$bytes": "c582"
+    },
+    {
+     "$bytes": "c52361"
+    },
+    {
+     "$bytes": "61"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:74:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0842"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "ff"
+    },
+    {
+     "$bytes": "5b009b5b7e"
+    },
+    {
+     "$bytes": "3700"
+    },
+    {
+     "$bytes": "9be282ac"
+    },
+    {
+     "$bytes": "259b236d"
+    },
+    {
+     "$bytes": "e282ac3d5c61"
+    },
+    {
+     "$bytes": "6d0a5b5f5800"
+    },
+    {
+     "$bytes": "c582c5"
+    },
+    {
+     "$bytes": "3dff615f58"
+    },
+    {
+     "$bytes": "20427e287e"
+    },
+    {
+     "$bytes": "5f5f"
+    },
+    {
+     "$bytes": "3fc582370a3b"
+    },
+    {
+     "$bytes": "0828005c5b23"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d200842"
+    },
+    {
+     "$bytes": "0a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d20ff"
+    },
+    {
+     "$bytes": "5b7e"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "e282ac3d5c61"
+    },
+    {
+     "$bytes": "6d0a5b323032362d31302d32312030393a30353a30395d205b5f58"
+    },
+    {
+     "$bytes": "c582c5"
+    },
+    {
+     "$bytes": "3dff615f58"
+    },
+    {
+     "$bytes": "20427e287e"
+    },
+    {
+     "$bytes": "5f5f"
+    },
+    {
+     "$bytes": "3fc582370a5b323032362d31302d32312030393a30353a31305d203b"
+    },
+    {
+     "$bytes": "08285c5b23"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:75:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "3d37"
+    },
+    {
+     "$bytes": "3b0d2808"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "005d5f"
+    },
+    {
+     "$bytes": "5e6d7e0a"
+    },
+    {
+     "$bytes": "5d25255c3d"
+    },
+    {
+     "$bytes": "580937"
+    },
+    {
+     "$bytes": "083f"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d203d37"
+    },
+    {
+     "$bytes": "3b0d2808"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "005d5f"
+    },
+    {
+     "$bytes": "5e6d7e0a"
+    },
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30385d205d25255c3d"
+    },
+    {
+     "$bytes": "580937"
+    },
+    {
+     "$bytes": "083f"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:76:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "0825"
+    },
+    {
+     "$bytes": "c582ff301b"
+    },
+    {
+     "$bytes": "6d505f08"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "071b5020"
+    },
+    {
+     "$bytes": "5f5e58"
+    },
+    {
+     "$bytes": "252058"
+    },
+    {
+     "$bytes": "6dc5"
+    },
+    {
+     "$bytes": "823f"
+    },
+    {
+     "$bytes": "1b3f"
+    },
+    {
+     "$bytes": "086d3f"
+    },
+    {
+     "$bytes": "3b203028c582"
+    },
+    {
+     "$bytes": "1b7ec582"
+    },
+    {
+     "$bytes": "6d9b425861"
+    },
+    {
+     "$bytes": "5c5d0830"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d200825"
+    },
+    {
+     "$bytes": "c582ff301b"
+    },
+    {
+     "$bytes": "6d505f08"
+    },
+    {
+     "$bytes": "5c"
+    },
+    {
+     "$bytes": "071b5020"
+    },
+    {
+     "$bytes": "5f5e58"
+    },
+    {
+     "$bytes": "252058"
+    },
+    {
+     "$bytes": "6dc5"
+    },
+    {
+     "$bytes": "823f"
+    },
+    {
+     "$bytes": "1b3f"
+    },
+    {
+     "$bytes": "086d3f"
+    },
+    {
+     "$bytes": "3b203028c582"
+    },
+    {
+     "$bytes": "1b7ec582"
+    },
+    {
+     "$bytes": "6d9b425861"
+    },
+    {
+     "$bytes": "5c5d0830"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:77:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "373025"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "209b23"
+    },
+    {
+     "$bytes": "23e282ac9b50"
+    },
+    {
+     "$bytes": "5c3d373d"
+    },
+    {
+     "$bytes": "58092330283b"
+    },
+    {
+     "$bytes": "42e282"
+    },
+    {
+     "$bytes": "ac507e3750"
+    },
+    {
+     "$bytes": "303008"
+    },
+    {
+     "$bytes": "c5820a505f"
+    },
+    {
+     "$bytes": "5d"
+    },
+    {
+     "$bytes": "5b255d25205c"
+    },
+    {
+     "$bytes": "e282acff9b"
+    },
+    {
+     "$bytes": "250d"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20373025"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "37"
+    },
+    {
+     "$bytes": "209b23"
+    },
+    {
+     "$bytes": "23e282ac9b50"
+    },
+    {
+     "$bytes": "5c3d373d"
+    },
+    {
+     "$bytes": "58092330283b"
+    },
+    {
+     "$bytes": "42e282"
+    },
+    {
+     "$bytes": "ac507e3750"
+    },
+    {
+     "$bytes": "303008"
+    },
+    {
+     "$bytes": "c5820a5b323032362d31302d32312030393a30353a30385d20505f"
+    },
+    {
+     "$bytes": "5d"
+    },
+    {
+     "$bytes": "5b255d25205c"
+    },
+    {
+     "$bytes": "e282acff9b"
+    },
+    {
+     "$bytes": "250d"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:78:s0t1",
+   "op": "format",
+   "strip_ansi": false,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "5d2537"
+    },
+    {
+     "$bytes": "585ce282"
+    },
+    {
+     "$bytes": "ac090709"
+    },
+    {
+     "$bytes": "005b"
+    },
+    {
+     "$bytes": "61237e"
+    },
+    {
+     "$bytes": "1b58"
+    },
+    {
+     "$bytes": "1b"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d205d2537"
+    },
+    {
+     "$bytes": "585ce282"
+    },
+    {
+     "$bytes": "ac090709"
+    },
+    {
+     "$bytes": "005b"
+    },
+    {
+     "$bytes": "61237e"
+    },
+    {
+     "$bytes": "1b58"
+    },
+    {
+     "$bytes": "1b"
+    }
+   ]
+  },
+  {
+   "name": "fuzz:79:s1t1",
+   "op": "format",
+   "strip_ansi": true,
+   "timestamps": true,
+   "chunks": [
+    {
+     "$bytes": "ffc5"
+    },
+    {
+     "$bytes": "82255c2328"
+    },
+    {
+     "$bytes": "37c56d005b"
+    },
+    {
+     "$bytes": "50c59b506d5c"
+    },
+    {
+     "$bytes": "25e2"
+    },
+    {
+     "$bytes": "82ac6150c5"
+    },
+    {
+     "$bytes": "9bc59bc59b"
+    },
+    {
+     "$bytes": "3d"
+    },
+    {
+     "$bytes": "3d005c3b9b0a"
+    },
+    {
+     "$bytes": "0a"
+    }
+   ],
+   "expect": [
+    {
+     "$bytes": "5b323032362d31302d32312030393a30353a30375d20ffc5"
+    },
+    {
+     "$bytes": "82255c2328"
+    },
+    {
+     "$bytes": "37c56d5b"
+    },
+    {
+     "$bytes": "50c56d5c"
+    },
+    {
+     "$bytes": "25e2"
+    },
+    {
+     "$bytes": "82ac6150c5"
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": ""
+    },
+    {
+     "$bytes": "3b"
+    },
+    {
+     "$bytes": ""
+    }
+   ]
+  }
+ ]
+}

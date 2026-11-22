@@ -1,0 +1,2036 @@
+{
+ "cases": [
+  {
+   "name": "t:0:basic",
+   "fn": "tunnel",
+   "host": "10.0.0.5",
+   "port": {
+    "$int": "3389"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:10.0.0.5:3389",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:1:launch_none",
+   "fn": "tunnel",
+   "host": "10.0.0.5",
+   "port": {
+    "$int": "3389"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": null,
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "127.0.0.1:40000:10.0.0.5:3389",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:2:keepalive",
+   "fn": "tunnel",
+   "host": "10.0.0.5",
+   "port": {
+    "$int": "3389"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": []
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "127.0.0.1:40000:10.0.0.5:3389",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:3:control_master_forced_off",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_control_master",
+      true
+     ],
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:4:password",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "sshpass",
+    "-e",
+    "ssh",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:5:password_no_sshpass",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      "x"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [],
+   "error": "GatewayError",
+   "message": "SSH gateway: Password is set but sshpass is not in PATH (e.g. sudo apt install sshpass). Use an SSH key instead."
+  },
+  {
+   "name": "t:6:password_empty",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      ""
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:7:password_zero",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "password",
+      {
+       "$int": "0"
+      }
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:8:port",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "port",
+      {
+       "$int": "2222"
+      }
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-p",
+    "2222",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:9:port_bad",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "port",
+      "x"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Invalid port."
+  },
+  {
+   "name": "t:10:no_user",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "host",
+      "b"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Host or user is missing."
+  },
+  {
+   "name": "t:11:no_host",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Host or user is missing."
+  },
+  {
+   "name": "t:12:bad_host",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "host",
+      "-x"
+     ],
+     [
+      "user",
+      "u"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: host '-x': must not start with '-' (pass options via Extra ssh arguments if needed)"
+  },
+  {
+   "name": "t:13:identity",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "identity_file",
+      "@FIX@/id_ok"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-i",
+    "@FIX@/id_ok",
+    "-o",
+    "IdentitiesOnly=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:14:identity_tilde",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "identity_file",
+      "~/id_ok"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-i",
+    "@FIX@/id_ok",
+    "-o",
+    "IdentitiesOnly=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:15:extra_args",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "extra_ssh_args",
+      "-o Foo=bar -v"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "Foo=bar",
+    "-v",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:16:extra_args_list",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "extra_ssh_args",
+      [
+       "-o",
+       "A=b"
+      ]
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "A=b",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:17:extra_args_bad",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "extra_ssh_args",
+      "'"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: Could not parse extra_ssh_args."
+  },
+  {
+   "name": "t:18:proxy_jump",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "proxy_jump",
+      "j1,j2"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-J",
+    "j1,j2",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:19:proxy_jump_list",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "proxy_jump",
+      [
+       "u@j1:22",
+       "j2"
+      ]
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-J",
+    "u@j1:22,j2",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:20:jumphost",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "jumphost",
+      "j1"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-J",
+    "j1",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:21:jump_host",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "jump_host",
+      "j1"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-J",
+    "j1",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:22:strict",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "strict_host_key_checking",
+      "accept-new"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "-o",
+    "StrictHostKeyChecking=accept-new",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:23:strict_bad",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "strict_host_key_checking",
+      "maybe"
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "error": "GatewayError",
+   "message": "SSH gateway: strict_host_key_checking: use one of accept-new, ask, no, off, yes (got 'maybe')."
+  },
+  {
+   "name": "t:24:compression",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "compression",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "-o",
+    "Compression=yes",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:25:dropped_keys",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ],
+     [
+      "use_mosh",
+      true
+     ],
+     [
+      "request_tty",
+      true
+     ],
+     [
+      "remote_locale",
+      "C"
+     ],
+     [
+      "dynamic_forwards",
+      [
+       "1080"
+      ]
+     ],
+     [
+      "remote_forwards",
+      [
+       "1:h:1"
+      ]
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:26:v6_target",
+   "fn": "tunnel",
+   "host": "2001:db8::1",
+   "port": {
+    "$int": "3389"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:2001:db8::1:3389",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:27:target_weird",
+   "fn": "tunnel",
+   "host": "ho st",
+   "port": {
+    "$int": "5900"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:ho st:5900",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:28:target_dash",
+   "fn": "tunnel",
+   "host": "-x",
+   "port": {
+    "$int": "5900"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:-x:5900",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:29:port_zero",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "0"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:h:0",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:30:port_neg",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "-5"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "40000"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      false
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-L",
+    "127.0.0.1:40000:h:-5",
+    "jump@bastion.example"
+   ]
+  },
+  {
+   "name": "t:31:launch_extra",
+   "fn": "tunnel",
+   "host": "h",
+   "port": {
+    "$int": "1"
+   },
+   "gw": {
+    "$map": [
+     [
+      "label",
+      "bastion"
+     ],
+     [
+      "host",
+      "bastion.example"
+     ],
+     [
+      "user",
+      "jump"
+     ],
+     [
+      "local_forwards",
+      [
+       "1:x:1"
+      ]
+     ],
+     [
+      "remote_command",
+      "tmux"
+     ],
+     [
+      "x11_forwarding",
+      true
+     ]
+    ]
+   },
+   "local_port": {
+    "$int": "1"
+   },
+   "launch": {
+    "$map": [
+     [
+      "ssh_keepalive",
+      true
+     ],
+     [
+      "ssh_keepalive_interval",
+      {
+       "$int": "5"
+      }
+     ]
+    ]
+   },
+   "which": [
+    "sshpass"
+   ],
+   "expect": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-N",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-L",
+    "127.0.0.1:1:h:1",
+    "jump@bastion.example"
+   ]
+  }
+ ]
+}
