@@ -21,6 +21,10 @@ jobs:
       QT_QPA_PLATFORM: offscreen
       CARGO_TERM_COLOR: always
       TERMIGATOR_REQUIRE_LIVE: "1" # a live test whose binary is missing fails instead of skipping
+      # Smaller debug builds: full debug info for ~40 Qt test binaries filled the runner and
+      # rust-lld died with SIGBUS while linking. Line tables keep backtraces readable.
+      CARGO_PROFILE_DEV_DEBUG: line-tables-only
+      CARGO_INCREMENTAL: "0"
     steps:
       # nodejs and git first: actions/checkout runs inside this container.
       # lld: qt-build-utils refuses GNU ld.bfd and looks for lld, gold or mold.
