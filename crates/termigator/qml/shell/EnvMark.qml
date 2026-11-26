@@ -15,6 +15,10 @@ Rectangle {
     property color envColor: "transparent"
     // window.environment_frame; a frame mark draws nothing while it is off.
     property bool frameEnabled: false
+    // The frame's line width; the terminal keeps its text inside it.
+    readonly property int frameWidth: 2
+    // Drawn (apart from the visibility of the items around it): a colour, and for a frame, the setting.
+    readonly property bool shown: envColor.a > 0 && (!frame || frameEnabled)
 
     function appController() {
         const w = Window.window;
@@ -50,8 +54,8 @@ Rectangle {
         }
     }
 
-    visible: envColor.a > 0 && (!frame || frameEnabled)
+    visible: shown
     color: frame ? "transparent" : envColor
     border.color: frame ? envColor : "transparent"
-    border.width: frame ? 2 : 0
+    border.width: frame ? frameWidth : 0
 }

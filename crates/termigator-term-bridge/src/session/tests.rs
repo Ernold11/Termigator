@@ -173,3 +173,24 @@ fn qt_keymapper_handles_text_modifiers_and_special_keys() {
     assert_eq!(engine.encode_qt_key(0x0100_0001, 0, "\t"), b"\t");
     assert_eq!(engine.encode_qt_key(0x0100_0000, 0, "\x1b"), b"\x1b");
 }
+
+#[test]
+fn screen_selection_spans_rows_scrolled_out_of_view() {
+    let mut engine = SessionEngine::new(10, 3, Some(100)).expect("engine");
+    for i in 0..20 {
+        engine.feed(format!("row{i:02}\r\n").as_bytes());
+    }
+    // The drag starts at the end of the top visible row, then the view scrolls up by five rows
+    // and the pointer reaches the start of the new top row.
+    let top = engine.scrollbar_offset();
+    engine.scroll(-5);
+    assert_eq!(engine.scrollbar_offset(), top - 5);
+    engine.select_screen(4, top, 0, engine.scrollbar_offset(), false);
+    let text = engine.selected_text();
+    let rows: Vec<&str> = text.lines().map(str::trim_end).collect();
+    let first = format!("row{:02}", top - 5);
+    let last = format!("row{top:02}");
+    assert_eq!(rows.first().copied(), Some(first.as_str()), "{text:?}");
+    assert_eq!(rows.last().copied(), Some(last.as_str()), "{text:?}");
+    assert_eq!(rows.len(), 6, "{text:?}");
+}

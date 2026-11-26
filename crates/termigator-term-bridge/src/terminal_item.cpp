@@ -34,6 +34,13 @@ QString &lastSelection()
 
 constexpr quint32 SNAPSHOT_MAGIC = 0x47535031; // "GSP1"
 
+// Auto-scroll while a selection is dragged above or below the rows: a tick per frame, and a
+// speed in rows per second that grows with the pointer's distance from the edge (in cells).
+constexpr int AUTO_SCROLL_INTERVAL_MS = 16;
+constexpr qreal AUTO_SCROLL_MIN_ROWS_PER_SEC = 8;
+constexpr qreal AUTO_SCROLL_ROWS_PER_SEC_PER_CELL = 12;
+constexpr qreal AUTO_SCROLL_MAX_ROWS_PER_SEC = 400;
+
 // Powerline/Nerd Font icons and emoji are not guaranteed to advance exactly one cell in the
 // configured font (the non-Mono Nerd Font variants are proportional for private-use glyphs).
 // Drawing them inside their own cell keeps the following runs aligned; Konsole does the same by
@@ -84,6 +91,10 @@ GhosttyTerminalItem::GhosttyTerminalItem(QQuickItem *parent)
     m_refreshTimer->setSingleShot(true);
     m_refreshTimer->setInterval(0);
     connect(m_refreshTimer, &QTimer::timeout, this, &GhosttyTerminalItem::refresh);
+    m_autoScrollTimer = new QTimer(this);
+    m_autoScrollTimer->setTimerType(Qt::PreciseTimer);
+    m_autoScrollTimer->setInterval(AUTO_SCROLL_INTERVAL_MS);
+    connect(m_autoScrollTimer, &QTimer::timeout, this, &GhosttyTerminalItem::autoScrollStep);
 }
 
 GhosttyTerminalItem::~GhosttyTerminalItem() = default;
@@ -92,6 +103,9 @@ void GhosttyTerminalItem::setSession(GhosttySession *session)
 {
     if (session == m_session)
         return;
+    // The anchor belongs to the old session's screen.
+    m_selecting = false;
+    m_autoScrollTimer->stop();
     if (m_session != nullptr)
         disconnect(m_session, nullptr, this, nullptr);
     m_session = session;
@@ -582,10 +596,10 @@ void GhosttyTerminalItem::mousePressEvent(QMouseEvent *event)
     }
     if (button == 1) {
         m_selecting = true;
-        m_anchor = cell;
-        m_session->select(cell.x(), cell.y(), cell.x(), cell.y(),
-                          event->modifiers() & Qt::AltModifier);
-        update();
+        m_anchor = QPoint(cell.x(), cell.y() + m_session->scrollbarOffset());
+        m_dragPos = event->position();
+        m_dragRectangle = event->modifiers() & Qt::AltModifier;
+        updateDragSelection();
     }
     event->accept();
 }
@@ -606,9 +620,10 @@ void GhosttyTerminalItem::mouseMoveEvent(QMouseEvent *event)
         return;
     }
     if (m_selecting) {
-        m_session->select(m_anchor.x(), m_anchor.y(), cell.x(), cell.y(),
-                          event->modifiers() & Qt::AltModifier);
-        update();
+        m_dragPos = event->position();
+        m_dragRectangle = event->modifiers() & Qt::AltModifier;
+        updateDragSelection();
+        updateAutoScroll();
     }
     event->accept();
 }
@@ -632,11 +647,79 @@ void GhosttyTerminalItem::mouseReleaseEvent(QMouseEvent *event)
         event->accept();
         return;
     }
-    if (m_selecting) {
-        m_selecting = false;
-        finishSelection();
-    }
+    if (m_selecting)
+        stopSelecting();
     event->accept();
+}
+
+void GhosttyTerminalItem::mouseUngrabEvent()
+{
+    // Another item took the pointer (a popup, a drag): the selection ends where it got to.
+    if (m_selecting && m_session != nullptr)
+        stopSelecting();
+    QQuickPaintedItem::mouseUngrabEvent();
+}
+
+void GhosttyTerminalItem::stopSelecting()
+{
+    m_selecting = false;
+    m_autoScrollTimer->stop();
+    finishSelection();
+}
+
+void GhosttyTerminalItem::updateDragSelection()
+{
+    if (m_session == nullptr)
+        return;
+    const QPoint cell = cellAt(m_dragPos);
+    m_session->selectScreen(m_anchor.x(), m_anchor.y(), cell.x(),
+                            cell.y() + m_session->scrollbarOffset(), m_dragRectangle);
+    update();
+}
+
+void GhosttyTerminalItem::updateAutoScroll()
+{
+    const bool outside =
+        m_rows > 0 && (m_dragPos.y() < 0 || m_dragPos.y() >= m_rows * m_cellHeight);
+    if (!m_selecting || !outside) {
+        m_autoScrollTimer->stop();
+        return;
+    }
+    if (m_autoScrollTimer->isActive())
+        return;
+    m_autoScrollRows = 0;
+    m_autoScrollClock.start();
+    m_autoScrollTimer->start();
+}
+
+void GhosttyTerminalItem::autoScrollStep()
+{
+    if (!m_selecting || m_session == nullptr) {
+        m_autoScrollTimer->stop();
+        return;
+    }
+    const qreal bottom = m_rows * m_cellHeight;
+    const qreal distance = m_dragPos.y() < 0 ? -m_dragPos.y() : m_dragPos.y() - bottom;
+    if (distance < 0) {
+        m_autoScrollTimer->stop();
+        return;
+    }
+    const qreal cells = distance / m_cellHeight;
+    const qreal speed =
+        qMin(AUTO_SCROLL_MAX_ROWS_PER_SEC,
+             AUTO_SCROLL_MIN_ROWS_PER_SEC + AUTO_SCROLL_ROWS_PER_SEC_PER_CELL * cells);
+    // Elapsed time rather than ticks: a late timer scrolls further instead of slowing down.
+    m_autoScrollRows += speed * m_autoScrollClock.restart() / 1000.0;
+    const int rows = static_cast<int>(m_autoScrollRows);
+    if (rows == 0)
+        return;
+    m_autoScrollRows -= rows;
+    const int before = m_session->scrollbarOffset();
+    m_session->scrollBy(m_dragPos.y() < 0 ? -rows : rows);
+    if (m_session->scrollbarOffset() == before)
+        return; // already at the top or the bottom of the scrollback
+    updateScrollbar();
+    updateDragSelection();
 }
 
 void GhosttyTerminalItem::mouseDoubleClickEvent(QMouseEvent *event)
@@ -669,6 +752,8 @@ void GhosttyTerminalItem::wheelEvent(QWheelEvent *event)
         const int rows = qMax(1, event->angleDelta().y() / 120) * 3;
         m_session->scrollBy(up ? -rows : rows);
         updateScrollbar();
+        if (m_selecting)
+            updateDragSelection();
     }
     event->accept();
 }

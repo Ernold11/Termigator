@@ -266,6 +266,22 @@ impl SessionEngine {
             .select((start_col, start_row), (end_col, end_row), rectangle);
     }
 
+    /// Selects between two screen rows (0 = the oldest scrollback row, as the scrollbar offset
+    /// counts them), so a selection keeps its anchor while the view scrolls.
+    #[allow(clippy::too_many_arguments, reason = "flat cxx bridge signature")]
+    pub fn select_screen(
+        &mut self,
+        start_col: u16,
+        start_row: u32,
+        end_col: u16,
+        end_row: u32,
+        rectangle: bool,
+    ) {
+        let _ = self
+            .engine
+            .select_screen((start_col, start_row), (end_col, end_row), rectangle);
+    }
+
     pub fn select_word(&mut self, col: u16, row: u16) {
         let _ = self.engine.select_word((col, row));
     }

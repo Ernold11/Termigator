@@ -442,6 +442,16 @@ void GhosttySession::select(int startCol, int startRow, int endCol, int endRow, 
     emit updated();
 }
 
+void GhosttySession::selectScreen(int startCol, int startRow, int endCol, int endRow,
+                                  bool rectangle)
+{
+    m_engine->select_screen(static_cast<std::uint16_t>(qMax(0, startCol)),
+                            static_cast<std::uint32_t>(qMax(0, startRow)),
+                            static_cast<std::uint16_t>(qMax(0, endCol)),
+                            static_cast<std::uint32_t>(qMax(0, endRow)), rectangle);
+    emit updated();
+}
+
 void GhosttySession::selectWord(int col, int row)
 {
     m_engine->select_word(static_cast<std::uint16_t>(qMax(0, col)),

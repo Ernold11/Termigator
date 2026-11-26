@@ -56,21 +56,37 @@ void Probe::drag(QWindow *window, qreal x1, qreal y1, qreal x2, qreal y2, int bu
 {
     if (!window)
         return;
+    hold(window, x1, y1, x2, y2, button, modifiers);
+    release(window, x2, y2, button, modifiers);
+}
+
+void Probe::hold(QWindow *window, qreal x1, qreal y1, qreal x2, qreal y2, int button,
+                 int modifiers) const
+{
+    if (!window)
+        return;
     const auto mods = Qt::KeyboardModifiers::fromInt(modifiers);
     const auto pressed = Qt::MouseButtons(Qt::MouseButton(button));
-    const auto deliver = [&](qreal x, qreal y, QEvent::Type type, Qt::MouseButtons state,
-                             Qt::MouseButton which) {
+    const auto deliver = [&](qreal x, qreal y, QEvent::Type type, Qt::MouseButton which) {
         const QPointF local(x, y);
-        qt_handleMouseEvent(window, local, window->mapToGlobal(local), state, which, type, mods,
+        qt_handleMouseEvent(window, local, window->mapToGlobal(local), pressed, which, type, mods,
                             0);
     };
-    deliver(x1, y1, QEvent::MouseButtonPress, pressed, Qt::MouseButton(button));
+    deliver(x1, y1, QEvent::MouseButtonPress, Qt::MouseButton(button));
     for (int i = 1; i <= 5; ++i) {
         const qreal t = i / 5.0;
-        deliver(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, QEvent::MouseMove, pressed,
-                Qt::NoButton);
+        deliver(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, QEvent::MouseMove, Qt::NoButton);
     }
-    deliver(x2, y2, QEvent::MouseButtonRelease, Qt::NoButton, Qt::MouseButton(button));
+}
+
+void Probe::release(QWindow *window, qreal x, qreal y, int button, int modifiers) const
+{
+    if (!window)
+        return;
+    const QPointF local(x, y);
+    qt_handleMouseEvent(window, local, window->mapToGlobal(local), Qt::NoButton,
+                        Qt::MouseButton(button), QEvent::MouseButtonRelease,
+                        Qt::KeyboardModifiers::fromInt(modifiers), 0);
 }
 
 void Probe::move(QWindow *window, qreal x1, qreal y1, qreal x2, qreal y2, int steps) const

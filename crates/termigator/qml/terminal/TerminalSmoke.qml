@@ -606,6 +606,11 @@ Item {
                 expect(host.multiexecTargets().indexOf(held.osc) < 0 && host.multiexecTargets().indexOf(held.mx2) >= 0, "target rules");
                 expect(held.mx2.multiexecTarget && !held.osc.multiexecTarget, "tab markers");
                 expect(shell.multiexecNames.indexOf("mx2 (m2)") >= 0, "banner names: " + shell.multiexecNames);
+                // The text sits inside the frame with a padding, not under it (mx1 is shown now).
+                const v1 = view(held.mx1);
+                const frame = v1.children.find(c => c.objectName === "envFrame");
+                const at = v1.term.mapToItem(v1, 0, 0);
+                expect(frame.visible && at.x >= frame.frameWidth + 2 && at.y >= frame.frameWidth, "text under the frame: " + at.x + "," + at.y);
                 held.targets = n;
                 type("mxkey");
                 view(held.mx1).term.pasteText("mxpaste", false); // A paste goes to the targets too
@@ -680,11 +685,12 @@ Item {
             "fn": () => {
                 const v = view(held.scroll);
                 const thumb = v ? find("termScrollThumb", v) : null;
-                if (!v || !v.term || !thumb)
+                if (!v || !v.term || !thumb || v.term.lines <= 0) // not laid out yet
                     return false;
                 expect(thumb.visible && thumb.size > 0.99, "no full-length bar without scrollback: " + thumb.visible + " " + thumb.size);
                 held.scrollWidth = v.term.width;
-                expect(Math.abs(v.term.width + thumb.width - thumb.parent.width) < 1, "no room kept for the bar: " + v.term.width + " + " + thumb.width + " != " + thumb.parent.width);
+                const left = v.term.mapToItem(thumb.parent, 0, 0).x; // the text's left padding
+                expect(Math.abs(left + v.term.width + thumb.width - thumb.parent.width) < 1, "no room kept for the bar: " + left + " + " + v.term.width + " + " + thumb.width + " != " + thumb.parent.width);
             }
         },
         {
@@ -749,6 +755,62 @@ Item {
                 expect(v.term.scrollbarCurrentValue < held.beforeWheel, "the wheel stopped scrolling: " + held.beforeWheel + " -> " + v.term.scrollbarCurrentValue);
                 v.scrollToValue(v.term.scrollbarMaximum);
                 expect(v.term.scrollbarCurrentValue === v.term.scrollbarMaximum, "not back at the end");
+            }
+        },
+        // Dragging a selection above the rows scrolls the scrollback under it until the button
+        // goes up; the selection keeps its anchor, so it covers every row scrolled through.
+        {
+            "name": "autoscroll up",
+            "fn": () => {
+                const v = view(held.scroll);
+                held.autoFrom = v.term.scrollbarCurrentValue;
+                const a = v.term.mapToItem(null, 30, 2);
+                held.autoAt = v.term.mapToItem(null, 30, -48);
+                Probe.hold(shell, a.x, a.y, held.autoAt.x, held.autoAt.y, Qt.LeftButton, Qt.NoModifier);
+            }
+        },
+        {
+            "name": "autoscroll up scrolled",
+            "fn": () => {
+                const v = view(held.scroll);
+                if (v.term.scrollbarCurrentValue > held.autoFrom - 30)
+                    return false;
+                Probe.release(shell, held.autoAt.x, held.autoAt.y, Qt.LeftButton, Qt.NoModifier);
+                held.autoStop = v.term.scrollbarCurrentValue;
+                held.autoText = v.term.selectedText();
+                const lines = held.autoText.trim().split("\n");
+                expect(lines.length >= held.autoFrom - held.autoStop, "the selection lost rows: " + lines.length + " for " + (held.autoFrom - held.autoStop) + " scrolled");
+                for (let i = 1; i + 2 < lines.length; ++i)
+                    expect(parseInt(lines[i + 1]) === parseInt(lines[i]) + 1, "the selection is not contiguous at '" + lines[i] + "', '" + lines[i + 1] + "'");
+                held.autoTicks = 0;
+            }
+        },
+        {
+            "name": "autoscroll up stopped",
+            "fn": () => {
+                const v = view(held.scroll);
+                if (++held.autoTicks < 4)
+                    return false;
+                expect(v.term.scrollbarCurrentValue === held.autoStop, "kept scrolling after the release: " + held.autoStop + " -> " + v.term.scrollbarCurrentValue);
+                expect(v.term.selectedText() === held.autoText, "the release changed the selection");
+                // The other way: from the last row down past the bottom edge.
+                const a = v.term.mapToItem(null, 30, v.term.height - 4);
+                held.autoAt = v.term.mapToItem(null, 30, v.term.height + 48);
+                Probe.hold(shell, a.x, a.y, held.autoAt.x, held.autoAt.y, Qt.LeftButton, Qt.NoModifier);
+            }
+        },
+        {
+            "name": "autoscroll down scrolled",
+            "fn": () => {
+                const v = view(held.scroll);
+                if (v.term.scrollbarCurrentValue < held.autoStop + 20)
+                    return false;
+                Probe.release(shell, held.autoAt.x, held.autoAt.y, Qt.LeftButton, Qt.NoModifier);
+                const lines = v.term.selectedText().trim().split("\n");
+                expect(lines.length >= 20, "the downward selection has " + lines.length + " rows");
+                for (let i = 1; i + 2 < lines.length; ++i)
+                    expect(parseInt(lines[i + 1]) === parseInt(lines[i]) + 1, "the selection is not contiguous at '" + lines[i] + "', '" + lines[i + 1] + "'");
+                v.scrollToValue(v.term.scrollbarMaximum);
             }
         },
         // A double-click selects a word, a middle-click pastes it and leaves the clipboard alone

@@ -124,6 +124,14 @@ mod ffi {
             end_row: u16,
             rectangle: bool,
         );
+        fn select_screen(
+            self: &mut SessionEngine,
+            start_col: u16,
+            start_row: u32,
+            end_col: u16,
+            end_row: u32,
+            rectangle: bool,
+        );
         fn select_word(self: &mut SessionEngine, col: u16, row: u16);
         fn select_line(self: &mut SessionEngine, col: u16, row: u16);
         fn clear_selection(self: &mut SessionEngine);

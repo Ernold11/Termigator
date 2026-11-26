@@ -75,6 +75,9 @@ public:
     Q_INVOKABLE void scrollBy(int rows);
     Q_INVOKABLE void scrollToRow(int row);
     Q_INVOKABLE void select(int startCol, int startRow, int endCol, int endRow, bool rectangle);
+    // Rows count from the oldest scrollback row (the scrollbar offset is the top visible one).
+    Q_INVOKABLE void selectScreen(int startCol, int startRow, int endCol, int endRow,
+                                  bool rectangle);
     Q_INVOKABLE void selectWord(int col, int row);
     Q_INVOKABLE void selectLine(int col, int row);
     Q_INVOKABLE void clearSelection();

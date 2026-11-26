@@ -6,7 +6,9 @@
 // prototype ("spike"); a packed buffer with partial updates would be the next step if painting
 // ever shows up in profiles.
 
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QPoint>
+#include <QtCore/QPointF>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -117,6 +119,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void mouseUngrabEvent() override;
     void wheelEvent(QWheelEvent *event) override;
 
 signals:
@@ -166,6 +169,12 @@ private:
     void updateScrollbar();
     QPoint cellAt(const QPointF &pos) const;
     void finishSelection();
+    // Extends the drag selection from the anchor to the pointer's cell in the current view.
+    void updateDragSelection();
+    // Starts or stops the auto-scroll timer as the pointer leaves or re-enters the rows.
+    void updateAutoScroll();
+    void autoScrollStep();
+    void stopSelecting();
 
     // The tab owns the session and may destroy it before this view (closing a tab, quitting);
     // a pending refresh must then see null instead of a freed session.
@@ -200,7 +209,14 @@ private:
     bool m_pasteOnMiddleClick = true;
     QString m_preedit;
     bool m_selecting = false;
+    // The cell a drag selection started at; y is a screen row (0 = the oldest scrollback row),
+    // so the anchor stays put while the view scrolls under the drag.
     QPoint m_anchor;
+    QPointF m_dragPos;
+    bool m_dragRectangle = false;
+    QTimer *m_autoScrollTimer = nullptr;
+    QElapsedTimer m_autoScrollClock;
+    qreal m_autoScrollRows = 0;
     qreal m_basePointSize = 10.5;
     QTimer *m_blinkTimer = nullptr;
     QTimer *m_refreshTimer = nullptr;

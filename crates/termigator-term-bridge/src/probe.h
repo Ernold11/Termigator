@@ -34,6 +34,12 @@ public:
     Q_INVOKABLE void drag(QWindow *window, qreal x1, qreal y1, qreal x2, qreal y2, int button,
                           int modifiers) const;
 
+    // Like drag, but the button stays down at (x2, y2) (an auto-scrolling selection, say);
+    // release() lets it go.
+    Q_INVOKABLE void hold(QWindow *window, qreal x1, qreal y1, qreal x2, qreal y2, int button,
+                          int modifiers) const;
+    Q_INVOKABLE void release(QWindow *window, qreal x, qreal y, int button, int modifiers) const;
+
     // Clicks `button` at (x, y) in `window` `count` times in a row (2 = a double click): each
     // click is a press and a release, 50 ms apart, so Qt detects the double click itself.
     Q_INVOKABLE void click(QWindow *window, qreal x, qreal y, int button, int count,

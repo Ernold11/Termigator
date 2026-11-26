@@ -261,21 +261,33 @@ FocusScope {
         }
     }
 
+    // Inside the environment frame, not under it: the frame would cover the first column and row.
     ColumnLayout {
         anchors.fill: parent
+        anchors.margins: envFrame.shown ? envFrame.frameWidth : 0
         spacing: 0
 
         Item {
             id: screen
 
+            // The text's distance from the left edge; the scroll bar keeps it from the right one.
+            readonly property int textPad: Kirigami.Units.smallSpacing
+
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            // The padding shows the terminal's own background, in every colour scheme.
+            Rectangle {
+                anchors.fill: parent
+                color: view.term ? view.term.fillColor : "transparent"
+            }
 
             Loader {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
+                anchors.leftMargin: screen.textPad
                 // The bar sits beside the terminal, not over its text, and is always there (like Konsole:
                 // a full-length handle with nothing to scroll), so the terminal's width never changes with it.
                 anchors.rightMargin: thumb.width
@@ -285,12 +297,7 @@ FocusScope {
             }
 
             // The scroll bar is the style's own: always shown, and it highlights on hover like
-            // the file lists'.
-            Rectangle {
-                anchors.fill: thumb
-                color: view.term ? view.term.fillColor : "transparent" // the terminal's own background
-            }
-
+            // the file lists' (on the terminal's background above).
             QQC2.ScrollBar {
                 id: thumb
 
@@ -377,6 +384,8 @@ FocusScope {
 
     // A marked session is framed in its environment's colour.
     EnvMark {
+        id: envFrame
+
         objectName: "envFrame"
         width: view.width
         height: view.height
