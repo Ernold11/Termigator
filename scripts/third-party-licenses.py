@@ -281,6 +281,11 @@ def craft_sources(stage: Path, outdir: Path, craft: Path, share_sources: Path | 
     import sqlite3
     import urllib.request
 
+    # Some download.kde.org mirrors answer Python's default User-Agent with 403.
+    opener = urllib.request.build_opener()
+    opener.addheaders = [("User-Agent", "termigator-release-build")]
+    urllib.request.install_opener(opener)
+
     db = sqlite3.connect(craft / "etc" / "blueprints" / "install.db")
     known: dict[str, tuple[str, str]] = {}  # craft-relative path (lower, "/") -> package, version
     by_hash: dict[str, set[tuple[str, str, str]]] = {}  # hash -> package, version, file name
