@@ -137,3 +137,80 @@ fn working_directory_and_errors() {
         Err(PtyError::Spawn { .. })
     ));
 }
+
+/// Fields 2.. of `/proc/<pid>/stat` once the child has exec'd `sleep`.
+fn exec_stat(pid: u32) -> Vec<String> {
+    for _ in 0..200 {
+        let cmdline = std::fs::read(format!("/proc/{pid}/cmdline")).unwrap();
+        if cmdline.starts_with(b"sleep\0") {
+            let stat = std::fs::read_to_string(format!("/proc/{pid}/stat")).unwrap();
+            let (_, rest) = stat.rsplit_once(") ").unwrap();
+            return rest.split(' ').map(str::to_owned).collect();
+        }
+        std::thread::sleep(Duration::from_millis(10));
+    }
+    panic!("child never exec'd");
+}
+
+/// `SigIgn:` or `SigBlk:` of `/proc/<pid>/status` as a mask.
+fn sig_mask(pid: u32, field: &str) -> u64 {
+    let status = std::fs::read_to_string(format!("/proc/{pid}/status")).unwrap();
+    let line = status.lines().find_map(|l| l.strip_prefix(field)).unwrap();
+    u64::from_str_radix(line.trim(), 16).unwrap()
+}
+
+/// The child starts as a session leader on the pty and inherits neither our descriptors (even
+/// without CLOEXEC) nor ignored or blocked signals: a shell started from a launcher that ignores
+/// SIGHUP must still die when its tab closes. The setup is process-wide, so it runs in a child.
+#[test]
+fn child_starts_clean() {
+    use nix::sys::signal::{SigHandler, SigSet, SigmaskHow, Signal, sigprocmask};
+    const CHILD: &str = "TERMIGATOR_TEST_PTY_CLEAN_CHILD";
+    // Not SIGCHLD: a parent that ignores it cannot wait for the child at all.
+    const RESET: [Signal; 5] = [
+        Signal::SIGHUP,
+        Signal::SIGINT,
+        Signal::SIGQUIT,
+        Signal::SIGTERM,
+        Signal::SIGALRM,
+    ];
+    if std::env::var_os(CHILD).is_none() {
+        let out = std::process::Command::new(std::env::current_exe().unwrap())
+            .args(["--exact", "child_starts_clean", "--nocapture"])
+            .env(CHILD, "1")
+            .output()
+            .unwrap();
+        let log = String::from_utf8_lossy(&out.stdout);
+        assert!(out.status.success() && log.contains("child clean"), "{log}");
+        return;
+    }
+    for sig in RESET {
+        // SAFETY: SIG_IGN installs no handler code; this child process does nothing else.
+        unsafe { nix::sys::signal::signal(sig, SigHandler::SigIgn) }.unwrap();
+    }
+    let mut blocked = SigSet::empty();
+    blocked.add(Signal::SIGUSR1);
+    sigprocmask(SigmaskHow::SIG_BLOCK, Some(&blocked), None).unwrap();
+    let inheritable = std::fs::File::open("/dev/null").unwrap();
+    rustix::io::fcntl_setfd(&inheritable, rustix::io::FdFlags::empty()).unwrap();
+
+    let mut pty = Pty::spawn(&spec(&["sleep", "30"])).unwrap();
+    let pid = pty.pid();
+    let stat = exec_stat(pid);
+    // state ppid pgrp session tty_nr
+    assert_eq!(stat[2], pid.to_string(), "process group");
+    assert_eq!(stat[3], pid.to_string(), "session");
+    assert_ne!(stat[4], "0", "controlling terminal");
+    let mut fds: Vec<String> = std::fs::read_dir(format!("/proc/{pid}/fd"))
+        .unwrap()
+        .map(|e| e.unwrap().file_name().into_string().unwrap())
+        .collect();
+    fds.sort_unstable();
+    assert_eq!(fds, ["0", "1", "2"]);
+    let reset = RESET.iter().fold(0u64, |m, s| m | 1 << (*s as i32 - 1));
+    assert_eq!(sig_mask(pid, "SigIgn:") & reset, 0, "ignored signals");
+    assert_eq!(sig_mask(pid, "SigBlk:"), 0, "blocked signals");
+    pty.close().unwrap();
+    drop(inheritable);
+    println!("child clean");
+}
