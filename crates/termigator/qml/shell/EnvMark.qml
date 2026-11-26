@@ -20,8 +20,11 @@ Rectangle {
     // Drawn (apart from the visibility of the items around it): a colour, and for a frame, the setting.
     readonly property bool shown: envColor.a > 0 && (!frame || frameEnabled)
 
+    // Any of the app's windows (main, detached, dialogs): untyped, each offers what it has.
+    readonly property var hostWindow: Window.window
+
     function appController() {
-        const w = Window.window;
+        const w = hostWindow;
         if (!w)
             return null;
         if (w.controller)

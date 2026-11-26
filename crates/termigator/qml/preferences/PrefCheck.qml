@@ -8,12 +8,14 @@ QQC2.CheckBox {
     id: box
 
     required property string key
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
     property string tip
-    readonly property var draft: Window.window ? Window.window.draft : ({})
+    readonly property var draft: prefsWindow ? prefsWindow.draft : ({})
 
     objectName: key
     checked: draft[key] === true
-    onToggled: Window.window.edit(key, checked)
+    onToggled: prefsWindow.edit(key, checked)
     QQC2.ToolTip.text: tip
     QQC2.ToolTip.visible: tip !== "" && hovered
     QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay

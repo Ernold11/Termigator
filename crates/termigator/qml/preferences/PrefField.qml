@@ -9,8 +9,10 @@ QQC2.TextField {
     id: field
 
     required property string key
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
     property string tip
-    readonly property var draft: Window.window ? Window.window.draft : ({})
+    readonly property var draft: prefsWindow ? prefsWindow.draft : ({})
 
     objectName: key
     placeholderTextColor: Qt.alpha(Kirigami.Theme.textColor, 0.65)
@@ -20,8 +22,8 @@ QQC2.TextField {
     implicitWidth: Kirigami.Units.gridUnit * 14
     Layout.fillWidth: true
     text: draft[key] ?? ""
-    onTextEdited: Window.window.edit(key, text)
-    onAccepted: Window.window.ok()
+    onTextEdited: prefsWindow.edit(key, text)
+    onAccepted: prefsWindow.ok()
     Accessible.name: Kirigami.FormData.label
     QQC2.ToolTip.text: tip
     QQC2.ToolTip.visible: tip !== "" && hovered

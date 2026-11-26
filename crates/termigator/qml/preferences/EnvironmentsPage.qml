@@ -10,7 +10,9 @@ import org.kde.kirigami as Kirigami
 Item {
     id: page
 
-    property var draft: Window.window ? Window.window.draft : ({})
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
+    property var draft: prefsWindow ? prefsWindow.draft : ({})
     readonly property var environments: draft.environments || []
     property int colorIndex: -1
     readonly property alias rowList: rows
@@ -47,10 +49,10 @@ Item {
     }
 
     function commit() {
-        if (!Window.window)
+        if (!prefsWindow)
             return;
         selfEdit = true;
-        Window.window.edit("environments", snapshot());
+        prefsWindow.edit("environments", snapshot());
         selfEdit = false;
     }
 

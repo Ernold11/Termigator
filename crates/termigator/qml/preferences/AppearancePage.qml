@@ -9,6 +9,8 @@ PrefPage {
     title: qsTr("Appearance")
 
     // Windows has no Konsole profile: an empty font / size / scheme means Termigator's own defaults.
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
     readonly property bool windows: Qt.platform.os === "windows"
 
     // Fixed-pitch families and colour scheme names, listed by the dialog.
@@ -20,7 +22,7 @@ PrefPage {
     required property string runningTheme
     // The PreferencesDialog (Restart now applies and closes it).
     required property var dialog
-    readonly property string chosenStyle: Window.window?.draft?.quick_style ?? ""
+    readonly property string chosenStyle: prefsWindow?.draft?.quick_style ?? ""
     // An installed style other than the running one (a configured one that is not offered any
     // more falls back to org.kde.desktop at start: nothing to restart for).
     readonly property bool styleChanged: page.styles.indexOf(page.chosenStyle) >= 0 && page.chosenStyle.toLowerCase() !== page.runningStyle.toLowerCase()

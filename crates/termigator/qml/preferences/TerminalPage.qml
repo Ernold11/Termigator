@@ -6,9 +6,11 @@ import org.kde.kirigami as Kirigami
 PrefPage {
     id: page
 
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
     readonly property bool windows: Qt.platform.os === "windows"
     // Detected once the page has its window (the dialog), not on every draft change.
-    readonly property var shells: windows && Window.window ? JSON.parse(Window.window.controller.localShells()) : []
+    readonly property var shells: windows && prefsWindow ? JSON.parse(prefsWindow.controller.localShells()) : []
 
     function windowsShellChoices(current) {
         const out = [{

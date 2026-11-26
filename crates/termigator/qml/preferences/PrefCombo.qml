@@ -11,9 +11,11 @@ QQC2.ComboBox {
     id: combo
 
     required property string key
+    // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
+    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
     property bool freeText: false
     property string placeholder
-    readonly property var draft: Window.window ? Window.window.draft : ({})
+    readonly property var draft: prefsWindow ? prefsWindow.draft : ({})
     readonly property string current: draft[key] ?? ""
 
     // Not while typing: resetting the text would move the cursor.
@@ -45,15 +47,15 @@ QQC2.ComboBox {
     // Qt picks item 0 when the model arrives, after this signal: look again once it has settled.
     onCountChanged: Qt.callLater(sync)
     onCurrentIndexChanged: if (freeText) Qt.callLater(sync)
-    onActivated: index => Window.window.edit(key, freeText ? textAt(index) : valueAt(index))
-    onAccepted: Window.window.ok()
+    onActivated: index => prefsWindow.edit(key, freeText ? textAt(index) : valueAt(index))
+    onAccepted: prefsWindow.ok()
     Accessible.name: Kirigami.FormData.label
 
     Connections {
         target: combo.freeText ? combo.contentItem : null
 
         function onTextEdited() {
-            Window.window.edit(combo.key, combo.contentItem.text);
+            combo.prefsWindow.edit(combo.key, combo.editText);
         }
     }
 
