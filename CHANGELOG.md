@@ -3,6 +3,58 @@
 All notable changes to Termigator. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] - 2026-11-26
+
+### Hosts
+
+- Folders are managed fully from the tree: rename only renames, **Move folder to…** picks a target, and
+  **Delete folder…** asks where the entries and subfolders go (the parent, another folder, or deleted
+  with it). An emptied folder stays.
+- Keyboard in the tree: `F2` renames in place, `Delete` asks first, `Ctrl+C` / `Ctrl+X` / `Ctrl+V` copy
+  and move hosts and folders (an in-memory clipboard, passwords never reach the system clipboard),
+  `Ctrl+N` makes a folder, `Space` / `Left` / `Right` fold and move, `Esc` cancels. The menus show the keys.
+- **Add to Hosts…** in a tab's context menu saves an open connection (without its secrets), or updates the
+  entry it matches.
+
+### Embedded terminal
+
+- The multiline paste question fits its text instead of the window; `Enter` answers **Yes**, `Tab` moves
+  between Yes and No.
+- Dragging a selection past the top or bottom edge scrolls the terminal.
+- The mouse wheel reaches programs on the alternate screen (vim, less, htop, k9s), as mouse reports or as
+  arrow keys; `Shift` keeps it in the scrollback.
+- Programs that track mouse buttons (vim `mouse=a`, tmux, mc) get drags; motions are reported once per
+  cell; programs are told the real cell size in pixels (image tools such as chafa draw at the right size).
+- The zoom stays with the tab through split, drag, move and detach.
+- The text no longer touches the left edge or hides under the environment frame.
+- A tab that ended after a bell or activity mark keeps its disconnect icon and tooltip.
+
+### Connections
+
+- The quick-connect field keeps a history (opens on click, `Down` or the dropdown button; `Shift+Delete`
+  forgets an entry; length in Settings → Application, 0 = off). `user:password@host` is refused, so a
+  password never reaches ssh's arguments or the history.
+- A tunnel can have its own private key, and the jump host of an SSH entry its own key (**Jump host key**
+  on the Forwarding tab); keys with a passphrase get **Add to agent…**. The SSH dialog tabs scroll.
+
+### Files
+
+- Both panes work from the keyboard: `Enter`, `Backspace` / `Alt+Up`, `Delete`, `F2`, `Ctrl+N`, `F5`,
+  `Shift+F10`, and in the local pane the arrows, `Home` / `End`, `Page Up` / `Down` and `Ctrl+A`.
+
+### Desktop
+
+- With the tray icon on, closing the window asks: **Hide in Tray**, **Exit** or Cancel, with "Remember my
+  choice" (Settings → Application → Close behavior). File → Quit and the tray's Exit always exit; a logout
+  closes without asking. The tray menu has Show / Hide / Exit, and a double click restores the window.
+
+### Fixes
+
+- Windows: the tray shows Termigator's icon instead of a generic terminal prompt.
+- With Qt 6.12.1, dragging the terminal's scroll handle no longer jumps towards the top.
+- An incremental build could compile the QML against an older build's QObjects and crash; every build now
+  compiles the QML like a clean one.
+
 ## [0.2.0] - 2026-11-22
 
 First public release.

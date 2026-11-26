@@ -1572,7 +1572,7 @@ dependencies = [
 
 [[package]]
 name = "termigator"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "cxx",
  "cxx-qt",
@@ -1589,7 +1589,7 @@ dependencies = [
 
 [[package]]
 name = "termigator-core"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "aes-gcm",
  "base64",
@@ -1616,7 +1616,7 @@ dependencies = [
 
 [[package]]
 name = "termigator-term-bridge"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "cxx",
  "cxx-build",
