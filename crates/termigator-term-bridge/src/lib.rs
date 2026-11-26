@@ -13,10 +13,11 @@
 //! Views are disposable, sessions are not: to move a terminal (split, detach, attach), create the
 //! new `QMLTermWidget` with `session` set at creation, then destroy the old view; never reassign
 //! `session` on a live view (it stays connected to the old session). Destroy every view of a
-//! session before the session. MultiExec: [`set_multiexec_targets`].
+//! session before the session. MultiExec: [`set_multiexec_targets`]. The view has no zoom of its
+//! own: it draws `font` as set, so a zoom kept by the view's owner survives a new view.
 //!
 //! The view's QML API: `findNext()` + `searchResult`, `selectedText()`,
-//! `zoomIn/zoomOut/resetZoom()`, `hotspotUrlAt()` + `linkActivated` (Ctrl+click, scheme allowlist),
+//! `hotspotUrlAt()` + `linkActivated` (Ctrl+click, scheme allowlist),
 //! `confirmMultilinePaste` + `multilinePasteRequested` + `pasteText()`, `copyOnSelect`,
 //! `pasteOnRightClick`, `pasteOnMiddleClick` (the mouse selection, or the app's own copy of it where
 //! the platform has no primary selection; Shift overrides a program's mouse reporting),

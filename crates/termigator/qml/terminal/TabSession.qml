@@ -9,7 +9,7 @@ import Termigator.Terminal
 //
 // `core` (TerminalCore, terminal_qobj.rs) runs the process and the state machine; this file
 // carries out the machine's effects on the tab, the overlay and the neighbouring tabs, and applies
-// the settings. Views read: ext (the ExternalSession they draw), look and fontFamily / fontSize /
+// the settings. Views read: ext (the ExternalSession they draw), look and fontFamily / pointSize /
 // scheme, overlayText, finished. The Files area reads remoteCwd (OSC 7).
 Item {
     id: s
@@ -38,6 +38,9 @@ Item {
         })
     property string fontFamily: look.family
     property int fontSize: look.size
+    // What views draw with: the configured size and the tab's zoom (tab.zoom), so a new view (split,
+    // drag, a new place in the tab bar) starts at the size the old one had.
+    readonly property int pointSize: Math.max(1, fontSize + tab.zoom)
     property string scheme: look.scheme
     property bool finished: false
     property string overlayText: ""
@@ -48,7 +51,6 @@ Item {
     // The directory the shell reported with OSC 7 ("" until it does).
     property string remoteCwd: ""
     readonly property bool overlayActive: overlayText !== ""
-    // The text of the terminal's colour scheme / zoom is per view; this is what a new view starts with.
     readonly property string connJson: tab.conn !== null && typeof tab.conn === "object" ? JSON.stringify(tab.conn) : ""
 
     signal remoteDirectoryChanged(string path)
@@ -65,12 +67,28 @@ Item {
     }
 
     // Applies settings to an open tab: font / scheme / scrollback only when they changed (a
-    // tab zoomed by hand keeps its zoom otherwise); the options at once.
+    // tab zoomed by hand keeps its zoom otherwise, a new font size starts unzoomed); the options at once.
     function reapply() {
         const n = readLook();
         ext.historySize = n.history;
         ext.monitorActivity = n.attention;
+        if (n.size !== look.size)
+            tab.zoom = 0;
         look = n;
+    }
+
+    // Ctrl+= / Ctrl+- / Ctrl+0 (ADR-11), one point a step, not below 6 points.
+    function zoomIn() {
+        tab.zoom += 1;
+    }
+
+    function zoomOut() {
+        if (pointSize > 6)
+            tab.zoom -= 1;
+    }
+
+    function resetZoom() {
+        tab.zoom = 0;
     }
 
     function startRecording(path, title) {

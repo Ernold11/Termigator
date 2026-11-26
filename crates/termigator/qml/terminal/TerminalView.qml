@@ -37,19 +37,20 @@ FocusScope {
             term.pasteClipboard();
     }
 
+    // The zoom belongs to the tab (tab.zoom), not to this view: the view is made anew on every move.
     function zoomIn() {
-        if (term)
-            term.zoomIn();
+        if (session)
+            session.zoomIn();
     }
 
     function zoomOut() {
-        if (term)
-            term.zoomOut();
+        if (session)
+            session.zoomOut();
     }
 
     function resetZoom() {
-        if (term)
-            term.resetZoom();
+        if (session)
+            session.resetZoom();
     }
 
     // The draggable scroll indicator: moves the scrollback to `value` (bounded). The wheel and
@@ -403,7 +404,7 @@ FocusScope {
             // Set at creation and never again: a view stays on the session it was made for.
             session: view.session.ext
             font.family: view.session.fontFamily
-            font.pointSize: view.session.fontSize
+            font.pointSize: view.session.pointSize
             colorScheme: view.session.scheme
             blinkingCursor: view.session.look.blinking_cursor
             bracketedPasteDisabled: !view.session.look.bracketed_paste

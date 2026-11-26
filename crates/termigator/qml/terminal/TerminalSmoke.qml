@@ -1180,7 +1180,93 @@ Item {
                 const v = view(held.one);
                 expect(v.term.font.pointSize === 15 && held.one.session.fontSize === 15, "font " + v.term.font.pointSize);
                 expect(v.term.copyOnSelect && v.term.blinkingCursor, "options");
+                focusTab(held.one);
+                action("view.zoom_in");
+                expect(v.term.font.pointSize === 16, "zoomed " + v.term.font.pointSize);
                 area.split(false);
+            }
+        },
+        // The zoom belongs to the tab, not to its view: a split, a drag to another pane, a new
+        // place in the tab bar and Duplicate make a new view at the same size.
+        {
+            "name": "zoom kept by split",
+            "fn": () => {
+                const v = view(held.one);
+                if (area.paneCount !== 2 || !v || !v.term)
+                    return false;
+                expect(v.term.font.pointSize === 16, "after split " + v.term.font.pointSize);
+                held.splitPane = area.viewOf(held.one).paneId;
+                const other = Object.keys(area.paneViews).map(id => area.paneViews[id]).filter(pv => pv.paneId !== held.splitPane)[0];
+                area.syncSizes();
+                expect(area.controller.moveTab(held.one.tabId, false, other.paneId, "center", 0, 0), "drag to the other pane");
+                area.sync();
+            }
+        },
+        {
+            "name": "zoom kept by drag",
+            "fn": () => {
+                const pv = area.viewOf(held.one);
+                const v = view(held.one);
+                if (!pv || pv.paneId === held.splitPane || !v || !v.term)
+                    return false;
+                expect(v.term.font.pointSize === 16, "after drag " + v.term.font.pointSize);
+                expect(pv.tabIds.length >= 2 && pv.tabIds[0] === held.one.tabId, "dragged to the front " + pv.tabIds);
+                area.controller.moveTab(held.one.tabId, false, pv.paneId, "center", -1, 0);
+                area.sync();
+            }
+        },
+        {
+            "name": "zoom kept by reorder",
+            "fn": () => {
+                const pv = area.viewOf(held.one);
+                const v = view(held.one);
+                if (pv.tabIds[pv.tabIds.length - 1] !== held.one.tabId || !v || !v.term)
+                    return false;
+                expect(v.term.font.pointSize === 16, "after reorder " + v.term.font.pointSize);
+                held.dup = area.duplicateTab(held.one);
+            }
+        },
+        {
+            "name": "zoom kept by duplicate",
+            "fn": () => {
+                const v = view(held.dup);
+                if (!v || !v.term || !has(held.dup, "READY_ONE"))
+                    return false;
+                expect(v.term.font.pointSize === 16 && held.one.session.fontSize === 15, "duplicate " + v.term.font.pointSize);
+                area.closeTab(held.dup, false, true);
+                focusTab(held.one);
+                action("view.zoom_reset");
+                expect(view(held.one).term.font.pointSize === 15, "reset " + view(held.one).term.font.pointSize);
+                if (area.paneCount < 2)
+                    area.split(false);
+                held.hostTab = open("zoomhost", "printf 'ZH_READY\\n'; exec cat", {
+                    "name": "zoomhost",
+                    "host": "zh",
+                    "font_size": 13
+                });
+            }
+        },
+        // A Hosts entry with its own font size: zoomed over that size, kept in a detached window.
+        {
+            "name": "host zoom",
+            "fn": () => {
+                const t = held.hostTab, v = view(t);
+                if (!v || !v.term || !has(t, "ZH_READY"))
+                    return false;
+                expect(t.session.fontSize === 13 && v.term.font.pointSize === 13, "entry font " + v.term.font.pointSize);
+                focusTab(t);
+                action("view.zoom_in");
+                area.detachTab(t);
+            }
+        },
+        {
+            "name": "host zoom detached",
+            "fn": () => {
+                const t = held.hostTab, v = view(t);
+                if (area.tabLoc[t.tabId].window === undefined || !v || !v.term)
+                    return false;
+                expect(v.term.font.pointSize === 14 && t.session.fontSize === 13, "detached " + v.term.font.pointSize);
+                area.closeTab(t, false, true);
             }
         },
         // Terminal features on the Ghostty engine through the app's own view: search (plain / regex / case / invalid),
@@ -1190,7 +1276,8 @@ Item {
             "fn": () => {
                 const t = held.one;
                 const v = view(t);
-                if (!v || !v.term)
+                // The view the split just made: laid out first (before, its grid is one column wide).
+                if (!v || !v.term || v.term.width < 100)
                     return false;
                 const ext = t.session.ext;
                 for (const lines of [1000, -1, 150000]) {

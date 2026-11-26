@@ -104,9 +104,6 @@ public:
     Q_INVOKABLE QString hotspotUrlAt(int x, int y);
     Q_INVOKABLE void pasteSelection();
     Q_INVOKABLE void setScrollbarValue(int value);
-    Q_INVOKABLE void zoomIn();
-    Q_INVOKABLE void zoomOut();
-    Q_INVOKABLE void resetZoom();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -219,7 +216,6 @@ private:
     qreal m_autoScrollRows = 0;
     // Wheel turn (eighths of a degree) not yet a whole step: touchpads send small deltas.
     int m_wheelDelta = 0;
-    qreal m_basePointSize = 10.5;
     QTimer *m_blinkTimer = nullptr;
     QTimer *m_refreshTimer = nullptr;
     QVector<int> m_dirtyRows;

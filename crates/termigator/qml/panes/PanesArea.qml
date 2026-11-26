@@ -455,7 +455,8 @@ FocusScope {
             "inner": tab.inner,
             "conn": tab.conn,
             "extraEnv": tab.extraEnv,
-            "content": tab.content
+            "content": tab.content,
+            "zoom": tab.zoom
         };
     }
 

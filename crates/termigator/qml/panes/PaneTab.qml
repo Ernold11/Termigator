@@ -16,6 +16,7 @@ QtObject {
     property bool embedded: true   // an embedded terminal: counted, snapshotted, Duplicate/Reconnect
     property Component content: null // this tab's view instead of PanesArea.tabContent (the Files tab)
     property bool detectDistro: false // watch for the distro (SSH entries opened from the list)
+    property int zoom: 0           // font zoom steps (points) over the configured size; restart / duplicate copy it
 
     // Set by the view's owner (the terminal, the Files tab).
     property bool live: embedded   // the session still runs (close questions, liveSessions)

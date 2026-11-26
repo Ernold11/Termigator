@@ -206,7 +206,6 @@ void GhosttyTerminalItem::setFont(const QFont &font)
                         QStringLiteral("JetBrainsMono Nerd Font Mono"),
                         QStringLiteral("Noto Sans Mono CJK JP"),
                         QStringLiteral("Noto Color Emoji")});
-    m_basePointSize = font.pointSizeF() > 0 ? font.pointSizeF() : 10.5;
     const QFontMetricsF metrics(m_font);
     m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
     m_cellHeight = metrics.height();
@@ -421,38 +420,6 @@ void GhosttyTerminalItem::setScrollbarValue(int value)
         return;
     m_session->scrollToRow(qBound(0, value, m_scrollMaximum));
     updateScrollbar();
-}
-
-void GhosttyTerminalItem::zoomIn()
-{
-    m_font.setPointSizeF(m_font.pointSizeF() + 1.0);
-    const QFontMetricsF metrics(m_font);
-    m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
-    m_cellHeight = metrics.height();
-    updateGrid();
-    update();
-}
-
-void GhosttyTerminalItem::zoomOut()
-{
-    if (m_font.pointSizeF() <= 6.0)
-        return;
-    m_font.setPointSizeF(m_font.pointSizeF() - 1.0);
-    const QFontMetricsF metrics(m_font);
-    m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
-    m_cellHeight = metrics.height();
-    updateGrid();
-    update();
-}
-
-void GhosttyTerminalItem::resetZoom()
-{
-    m_font.setPointSizeF(m_basePointSize);
-    const QFontMetricsF metrics(m_font);
-    m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
-    m_cellHeight = metrics.height();
-    updateGrid();
-    update();
 }
 
 void GhosttyTerminalItem::finishSelection()
