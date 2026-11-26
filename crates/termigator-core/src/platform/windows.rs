@@ -139,6 +139,11 @@ fn restrict_to_user(p: &Path, rights: &str) -> io::Result<()> {
     }
 }
 
+/// The system-wide OpenSSH client configuration (Win32-OpenSSH: `%ProgramData%\ssh\ssh_config`).
+pub fn ssh_system_config() -> Option<PathBuf> {
+    std::env::var_os("ProgramData").map(|d| PathBuf::from(d).join("ssh").join("ssh_config"))
+}
+
 /// OpenSSH refuses this private key as "UNPROTECTED PRIVATE KEY FILE" (its ACL grants someone
 /// besides the owner, SYSTEM and Administrators). Asked of `ssh-keygen -y`, which runs the same
 /// check, so localized group names and inherited ACLs need no parsing here; `false` without it.

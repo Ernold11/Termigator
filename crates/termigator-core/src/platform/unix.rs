@@ -90,6 +90,11 @@ pub fn set_private_file(p: &Path) -> io::Result<()> {
 
 /// OpenSSH refuses this private key as "UNPROTECTED PRIVATE KEY FILE": our own file with group or
 /// other bits set (`sshkey_perm_ok`).
+/// The system-wide OpenSSH client configuration.
+pub fn ssh_system_config() -> Option<PathBuf> {
+    Some(PathBuf::from("/etc/ssh/ssh_config"))
+}
+
 pub fn key_too_open(p: &Path) -> bool {
     fs::metadata(p).is_ok_and(|m| m.uid() == current_uid() && m.mode() & 0o077 != 0)
 }

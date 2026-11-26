@@ -48,6 +48,56 @@ fn ssh_clearing_password_and_key_removes_them() {
 }
 
 #[test]
+fn ssh_jump_host_key_is_loaded_saved_and_cleared() {
+    let initial = json!({"label": "x", "host": "h", "user": "u", "proxy_jump": "bastion",
+                         "jump_identity_file": "~/.ssh/jump"});
+    let entry = parse_entry("test", &initial.to_string());
+    let form = prepare(&cfg("{}"), Kind::Ssh, entry.as_ref(), "", &[])["form"].clone();
+    assert_eq!(form["jumpIdentityFile"], "~/.ssh/jump");
+    assert_eq!(
+        save(Kind::Ssh, &initial, |_| {})["jump_identity_file"],
+        "~/.ssh/jump"
+    );
+    let out = save(Kind::Ssh, &initial, |f| {
+        f["jumpIdentityFile"] = json!("  /k/other ")
+    });
+    assert_eq!(out["jump_identity_file"], "/k/other");
+    let out = save(Kind::Ssh, &initial, |f| f["jumpIdentityFile"] = json!(""));
+    assert!(out.get("jump_identity_file").is_none());
+    // An entry saved before the field existed is stored without it.
+    let old = json!({"label": "x", "host": "h", "user": "u", "proxy_jump": "bastion"});
+    assert!(
+        save(Kind::Ssh, &old, |_| {})
+            .get("jump_identity_file")
+            .is_none()
+    );
+}
+
+#[test]
+fn key_file_hints_for_the_jump_host_and_tunnel_keys() {
+    let dir = std::env::temp_dir().join(format!("termigator-key-hint-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    let public = dir.join("id.pub");
+    std::fs::write(&public, "ssh-ed25519 AAAAC3Nza me@host\n").expect("write");
+    let locked = dir.join("locked");
+    std::fs::write(
+        &locked,
+        "-----BEGIN ENCRYPTED PRIVATE KEY-----\nMIIE\n-----END ENCRYPTED PRIVATE KEY-----\n",
+    )
+    .expect("write");
+    let path = |p: &std::path::Path| p.to_string_lossy().into_owned();
+    assert_eq!(key_file_problem("  "), "");
+    assert!(key_file_problem(&path(&public)).contains("public key"));
+    let missing = path(&dir.join("missing"));
+    assert!(key_file_problem(&missing).contains("not found"));
+    assert!(key_locked(&path(&locked)));
+    assert!(!key_locked(&path(&public)));
+    assert!(!key_locked(""));
+    assert_eq!(key_path(" "), "");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn ssh_untouched_fields_keep_values() {
     let initial = json!({"label": "x", "host": "h", "user": "u", "password": "pw", "identity_file": "~/.ssh/k"});
     let out = save(Kind::Ssh, &initial, |_| {});

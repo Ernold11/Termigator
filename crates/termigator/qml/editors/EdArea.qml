@@ -15,11 +15,16 @@ QQC2.ScrollView {
 
     Kirigami.FormData.buddyFor: area
     Layout.fillWidth: true
-    Layout.preferredHeight: lines * area.font.pixelSize * 1.5 + Kirigami.Units.largeSpacing * 2
+    Layout.preferredHeight: area.linesHeight + area.topPadding + area.bottomPadding
 
     QQC2.TextArea {
         id: area
 
+        readonly property real linesHeight: view.lines * lineMetrics.lineSpacing
+
+        // The frame is `lines` lines high even with fewer typed (not just the text's height, which
+        // left an empty strip below it); more text scrolls.
+        implicitHeight: Math.max(contentHeight, linesHeight) + topPadding + bottomPadding
         wrapMode: TextEdit.NoWrap
         placeholderTextColor: Qt.alpha(Kirigami.Theme.textColor, 0.65)
         Keys.onTabPressed: nextItemInFocusChain().forceActiveFocus(Qt.TabFocusReason)
@@ -27,6 +32,12 @@ QQC2.ScrollView {
         QQC2.ToolTip.visible: hovered && view.tip !== ""
         QQC2.ToolTip.text: view.tip
         QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+
+        FontMetrics {
+            id: lineMetrics
+
+            font: area.font
+        }
 
         Kirigami.WheelHandler {
             target: view.contentItem

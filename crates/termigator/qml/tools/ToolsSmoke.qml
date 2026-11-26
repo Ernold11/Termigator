@@ -126,7 +126,7 @@ Item {
             expect(win.modality === Qt.NonModal, "tunnels window is modal");
             shell.shellActions.actions["tools.tunnels"].trigger();
             expect(tools.tunnelsWindow === win, "a second Tunnels window");
-            same(win.rows.map(r => r.name + ":" + r.statusText + ":" + r.summary), ["auto:Running:L 18081:127.0.0.1:9", "bad:Stopped:L 18083:fail:1"], "rows");
+            same(win.rows.map(r => r.name + ":" + r.statusText + ":" + r.summary), ["auto:Running:L 18081:127.0.0.1:9", "bad:Stopped:L 18083:fail:1", "keyed:Stopped:D 127.0.0.1:18086"], "rows");
             expect(win.selected === null, "a row is selected at start");
         },
         // A forward the server refuses: the status is Failed with ssh's last line, shown in full.
@@ -221,7 +221,33 @@ Item {
         },
         () => {
             expect(row("web") === undefined, "web not deleted");
-            same(win.rows.map(r => r.name), ["auto", "bad"], "rows after delete");
+            same(win.rows.map(r => r.name), ["auto", "bad", "keyed"], "rows after delete");
+            // A tunnel with its own key: shown in the editor, with the passphrase hint, and kept.
+            win.select("keyed");
+            win.edit();
+            dlg = win.lastEdit;
+            const key = row("keyed").identityFile;
+            expect(key !== "" && dlg.identityField.text === key, "tunnel key in the editor: " + dlg.identityField.text);
+            expect(dlg.keyLocked, "no passphrase hint for " + key);
+            same(dlg.backend.keyFileProblem(key), "", "key problem");
+            expect(button(dlg, "Browse…") !== undefined && button(dlg, "From SSH keys…") !== undefined, "key buttons");
+            const keyField = field(dlg, "optional — empty: the key of the SSH entry");
+            expect(keyField !== undefined && keyField.text === key, "key field: " + (keyField ? keyField.text : "none"));
+            dlg.accept();
+        },
+        () => {
+            same(row("keyed").identityFile.length > 0, true, "key kept after edit");
+            win.select("keyed");
+            win.startSelected();
+        },
+        () => {
+            if (status("keyed") !== "running")
+                return false;
+            win.stopSelected();
+        },
+        () => {
+            if (status("keyed") !== "stopped")
+                return false;
             win.close();
             expect(!win.visible, "tunnels window stays open");
         },

@@ -1,7 +1,8 @@
 //! Tunnels, snippets, bulk edit and the disconnect notice in the real binary, offscreen
 //! (`qml/tools/ToolsSmoke.qml`). `ssh` is a stub first in `PATH`: it stays up like a working
 //! tunnel, or exits with ssh's own words when the forward is `fail:1`. Afterwards: what ended up
-//! in `config.yaml`, and that no stub process outlived the application.
+//! in `config.yaml`, which keys the stub was given, and that no stub process outlived the
+//! application.
 
 mod common;
 
@@ -13,6 +14,7 @@ use termigator as _;
 use termigator_core::config::doc;
 use termigator_core::config::model::value_str;
 
+/// `{entry_key}` and `{tunnel_key}`: the key of the `keyhost` entry and the tunnel `keyed`'s own.
 const CONFIG: &str = "\
 window:
   width: 900
@@ -22,36 +24,77 @@ window:
 connections:
 - {label: bastion, host: 127.0.0.1, user: u}
 - {label: web, host: 10.0.0.5, user: admin}
+- {label: keyhost, host: 127.0.0.1, user: k, identity_file: '{entry_key}'}
 credentials:
 - {name: ops, user: root, password: x}
 tunnels:
 - {name: auto, via: bastion, forwards: ['L 18081:127.0.0.1:9'], autostart: true}
 - {name: bad, via: bastion, forwards: ['L 18083:fail:1']}
+- {name: keyed, via: keyhost, forwards: ['D 18086'], identity_file: '{tunnel_key}'}
 snippets:
 - {name: uptime, command: uptime}
 - {name: logs, command: 'journalctl -u {?Service} -f on {host}', enter: false}
 ";
 
-fn stub_ssh(dir: &Path, pids: &Path) {
+fn stub_ssh(dir: &Path, pids: &Path, args: &Path) {
     fs::create_dir_all(dir).expect("stub dir");
     fs::create_dir_all(pids).expect("pid dir");
+    fs::create_dir_all(args).expect("args dir");
     let script = format!(
         "#!/bin/sh\n\
          echo $$ > '{pids}'/$$\n\
+         printf '%s\\n' \"$@\" > '{args}'/$$\n\
          case \"$*\" in *fail:1*) echo 'Could not request local forwarding.' >&2; exit 255;; esac\n\
          exec sleep 60\n",
-        pids = pids.display()
+        pids = pids.display(),
+        args = args.display()
     );
     let path = dir.join("ssh");
     common::write_executable(&path, &script);
+}
+
+/// A private key file (owner only, so ssh is given the file itself) whose header says it has a
+/// passphrase; the stub ssh never reads it.
+fn locked_key(path: &Path) {
+    use std::os::unix::fs::PermissionsExt;
+    fs::write(
+        path,
+        "-----BEGIN ENCRYPTED PRIVATE KEY-----\nMIIE\n-----END ENCRYPTED PRIVATE KEY-----\n",
+    )
+    .expect("key");
+    fs::set_permissions(path, fs::Permissions::from_mode(0o600)).expect("chmod");
+}
+
+/// The `-i` arguments of every stub ssh started with `forward`.
+fn keys_given(args: &Path, forward: &str) -> Vec<Vec<String>> {
+    fs::read_dir(args)
+        .expect("args")
+        .flatten()
+        .filter_map(|e| fs::read_to_string(e.path()).ok())
+        .filter(|a| a.lines().any(|l| l == forward))
+        .map(|a| {
+            let lines: Vec<&str> = a.lines().collect();
+            lines
+                .windows(2)
+                .filter(|w| w[0] == "-i")
+                .map(|w| w[1].to_owned())
+                .collect()
+        })
+        .collect()
 }
 
 #[test]
 fn tools_run_offscreen() {
     let base = PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join("termigator-u8-stub");
     let _ = fs::remove_dir_all(&base);
-    let (bin, pids) = (base.join("bin"), base.join("pids"));
-    stub_ssh(&bin, &pids);
+    let (bin, pids, args) = (base.join("bin"), base.join("pids"), base.join("args"));
+    stub_ssh(&bin, &pids, &args);
+    let (entry_key, tunnel_key) = (base.join("entry_key"), base.join("tunnel_key"));
+    locked_key(&entry_key);
+    locked_key(&tunnel_key);
+    let config = CONFIG
+        .replace("{entry_key}", &entry_key.to_string_lossy())
+        .replace("{tunnel_key}", &tunnel_key.to_string_lossy());
     let path = format!(
         "{}:{}",
         bin.display(),
@@ -60,7 +103,7 @@ fn tools_run_offscreen() {
 
     let mut run = common::launch_env(
         "u8-tools",
-        CONFIG,
+        &config,
         &["--smoke-check=tools/ToolsSmoke.qml"],
         &[("PATH", path.as_str())],
     );
@@ -90,6 +133,8 @@ fn tools_run_offscreen() {
         serde_json::json!([
             {"name": "auto", "via": "bastion", "forwards": ["L 18081:127.0.0.1:9"], "autostart": true},
             {"name": "bad", "via": "bastion", "forwards": ["L 18083:fail:1"], "autostart": true},
+            {"name": "keyed", "via": "keyhost", "forwards": ["D 18086"], "autostart": false,
+             "identity_file": tunnel_key.to_string_lossy()},
         ]),
         "{saved}"
     );
@@ -109,6 +154,15 @@ fn tools_run_offscreen() {
             .get("notify_on_disconnect")
             .is_none_or(|v| value_str(v) == "False"),
         "{saved}"
+    );
+
+    // The tunnel's own key, not its entry's; a tunnel without one has none of its own either.
+    let tunnel_key = tunnel_key.to_string_lossy().into_owned();
+    assert_eq!(keys_given(&args, "127.0.0.1:18086"), [vec![tunnel_key]]);
+    let plain = keys_given(&args, "18081:127.0.0.1:9");
+    assert!(
+        !plain.is_empty() && plain.iter().all(Vec::is_empty),
+        "{plain:?}"
     );
 
     // Quitting stopped every tunnel: no stub is left running.

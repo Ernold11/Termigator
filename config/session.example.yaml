@@ -17,6 +17,9 @@
   # Bastion / jump host (comma = multiple hops, like ssh -J hop1,hop2):
   # proxy_jump: bastion.example
   # Legacy aliases also read by the app: jumphost, jump_host
+  # jump_identity_file: ~/.ssh/bastion_key   # the jump host(s)' own key; the target keeps identity_file.
+  # Passed through a private ssh config (-F) that includes ~/.ssh/config; not combinable with -F
+  # in extra_ssh_args. With a passphrase: asked in an SSH tab; tunnels / Files need ssh-agent.
   # forward_agent: true          # -o ForwardAgent=yes
   # x11_forwarding: true         # -X
   # local_forwards:              # ssh -L (list or one string per line)

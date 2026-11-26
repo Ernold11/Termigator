@@ -6,7 +6,10 @@
 //! [`tunnel_argv`] builds `[sshpass -e] ssh -N -o ExitOnForwardFailure=yes [-o BatchMode=yes] -D …
 //! -L … -R … user@host` on top of [`build_ssh_command_with`] from the referenced SSH entry;
 //! the entry's own forwards, remote command, mosh and TTY settings are dropped, the ControlMaster
-//! is off. Spawning and supervising the process is done elsewhere.
+//! is off. A tunnel's own `identity_file` replaces the entry's key (blank: the entry's key, else
+//! ssh's default keys); it goes to ssh like the entry's (`-i … -o IdentitiesOnly=yes`), since
+//! OpenSSH takes a key file only on the command line or in a config file. Spawning and
+//! supervising the process is done elsewhere.
 //!
 //! Limits (none occur with sane input): `D` ports are recognised with
 //! ASCII digits only; a non-list, non-string `forwards` value counts as "no forwards".
@@ -21,7 +24,7 @@ use crate::proto::vnc::{is_space, text, text_stripped};
 use crate::shell;
 
 /// The keys of the SSH entry a tunnel borrows (everything else is dropped).
-const HOP_KEYS: [&str; 11] = [
+const HOP_KEYS: [&str; 12] = [
     "host",
     "user",
     "port",
@@ -30,6 +33,7 @@ const HOP_KEYS: [&str; 11] = [
     "proxy_jump",
     "jumphost",
     "jump_host",
+    "jump_identity_file",
     "strict_host_key_checking",
     "password",
     "compression",
@@ -43,6 +47,8 @@ pub struct Tunnel {
     pub via: String,
     pub forwards: Vec<String>,
     pub autostart: bool,
+    /// The tunnel's own private key; "" = the key of the SSH entry (or ssh's defaults).
+    pub identity_file: String,
 }
 
 /// Splits at any line separator, like `str.splitlines`.
@@ -163,6 +169,7 @@ pub fn normalize_tunnels(raw: &Value) -> Vec<Tunnel> {
                 .filter(|x| !x.is_empty())
                 .collect(),
             autostart: t.get("autostart") == Some(&Value::Bool(true)),
+            identity_file: text_stripped(t.get("identity_file")),
         });
     }
     out
@@ -173,7 +180,8 @@ fn strs(items: impl IntoIterator<Item = String>) -> Value {
 }
 
 /// `[sshpass -e] ssh -N -o ExitOnForwardFailure=yes [-o BatchMode=yes] -L ... user@host` for
-/// `tunnel` (a mapping with `via` and `forwards`) through the SSH entry `via`.
+/// `tunnel` (a mapping with `via`, `forwards` and optionally `identity_file`) through the SSH
+/// entry `via`.
 ///
 /// ExitOnForwardFailure makes a busy local port a visible failure; BatchMode stops a key prompt
 /// from hanging (there is no terminal to answer it). `launch` is the `launch` config section.
@@ -198,6 +206,11 @@ pub fn tunnel_argv(
         .iter()
         .filter_map(|k| via.get(k).map(|v| (Value::Str((*k).to_owned()), v.clone())))
         .collect();
+    let own_key = text_stripped(tunnel.get("identity_file"));
+    if !own_key.is_empty() {
+        hop.retain(|(k, _)| !matches!(k, Value::Str(s) if s == "identity_file"));
+        hop.push((Value::Str("identity_file".to_owned()), Value::Str(own_key)));
+    }
     for (key, kind) in [("local_forwards", 'L'), ("remote_forwards", 'R')] {
         let specs = fwds
             .iter()

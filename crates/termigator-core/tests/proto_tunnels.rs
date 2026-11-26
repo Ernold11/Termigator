@@ -226,3 +226,92 @@ fn normalize_drops_unnamed_and_repeated() {
     assert_eq!(got[0].forwards, ["L 1:h:2", "D 3"]);
     assert!(got[0].autostart && got[0].via == "b");
 }
+
+/// A key file of `body` in a fresh directory (not a recognised private key, so ssh gets the path
+/// itself rather than a private copy).
+fn key_file(name: &str) -> String {
+    let dir = std::env::temp_dir().join(format!("termigator-tunnel-key-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    let p = dir.join(name);
+    std::fs::write(&p, "key\n").expect("write");
+    p.to_string_lossy().into_owned()
+}
+
+fn identities(argv: &[String]) -> Vec<&str> {
+    argv.iter()
+        .enumerate()
+        .filter(|(_, a)| *a == "-i")
+        .filter_map(|(i, _)| argv.get(i + 1).map(String::as_str))
+        .collect()
+}
+
+#[test]
+fn a_tunnel_key_replaces_the_key_of_the_ssh_entry() {
+    let entry_key = key_file("entry_key");
+    let tunnel_key = key_file("tunnel_key");
+    let via = map(&[
+        ("host", s("bastion.example")),
+        ("user", s("jump")),
+        ("identity_file", s(&entry_key)),
+    ]);
+    let env = Env {
+        which: Box::new(|_| None),
+        control_dir: None,
+        home: None,
+    };
+    let mut t = map(&[
+        ("name", s("db")),
+        ("via", s("bastion")),
+        ("forwards", seq(&["L 15432:db:5432"])),
+    ]);
+    // Without its own key the tunnel logs in like the entry (existing tunnels keep working).
+    let argv = tunnel_argv(&t, Some(&via), &Value::Null, &env).expect("argv");
+    assert_eq!(identities(&argv), [entry_key.as_str()]);
+    // A blank key is the same as none.
+    if let Value::Map(pairs) = &mut t {
+        pairs.push((s("identity_file"), s("  ")));
+    }
+    let argv = tunnel_argv(&t, Some(&via), &Value::Null, &env).expect("argv");
+    assert_eq!(identities(&argv), [entry_key.as_str()]);
+    // Its own key is the only one ssh is given.
+    if let Value::Map(pairs) = &mut t {
+        pairs.last_mut().expect("key").1 = s(&tunnel_key);
+    }
+    let argv = tunnel_argv(&t, Some(&via), &Value::Null, &env).expect("argv");
+    assert_eq!(identities(&argv), [tunnel_key.as_str()]);
+    assert!(argv.iter().any(|a| a == "IdentitiesOnly=yes"));
+    // Also through an entry without a key (otherwise ssh's default keys).
+    let bare = map(&[("host", s("bastion.example")), ("user", s("jump"))]);
+    let argv = tunnel_argv(&t, Some(&bare), &Value::Null, &env).expect("argv");
+    assert_eq!(identities(&argv), [tunnel_key.as_str()]);
+    let argv = tunnel_argv(
+        &map(&[("via", s("b")), ("forwards", seq(&["D 1080"]))]),
+        Some(&bare),
+        &Value::Null,
+        &env,
+    )
+    .expect("argv");
+    assert!(identities(&argv).is_empty());
+    // A missing tunnel key is an error, not a silent fallback to another key.
+    if let Value::Map(pairs) = &mut t {
+        pairs.last_mut().expect("key").1 = s(&format!("{tunnel_key}-missing"));
+    }
+    let err = tunnel_argv(&t, Some(&via), &Value::Null, &env).expect_err("missing key");
+    assert!(err.contains("not found"), "{err}");
+}
+
+#[test]
+fn normalize_keeps_the_tunnel_key() {
+    let raw = Value::Seq(vec![
+        map(&[
+            ("name", s("a")),
+            ("via", s("b")),
+            ("forwards", s("D 3")),
+            ("identity_file", s(" ~/.ssh/tunnel ")),
+        ]),
+        map(&[("name", s("old")), ("via", s("b")), ("forwards", s("D 4"))]),
+    ]);
+    let got = normalize_tunnels(&raw);
+    assert_eq!(got[0].identity_file, "~/.ssh/tunnel");
+    assert_eq!(got[1].identity_file, "");
+}

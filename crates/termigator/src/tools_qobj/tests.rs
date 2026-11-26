@@ -89,12 +89,32 @@ fn saving_keeps_the_four_keys_and_an_empty_list_removes_the_key() {
 }
 
 #[test]
+fn a_tunnel_key_is_saved_and_a_tunnel_without_one_is_written_as_before() {
+    let mut c = cfg(
+        "tunnels:\n- {name: a, via: b, forwards: ['L 1:h:2']}\n- {name: k, via: b, forwards: ['D 1'], identity_file: ~/.ssh/tunnel}\n",
+    );
+    let all = saved_tunnels(&c);
+    assert_eq!(all[1].identity_file, "~/.ssh/tunnel");
+    store_tunnels(&mut c, &all);
+    let j = c.to_json();
+    assert!(j["tunnels"][0].get("identity_file").is_none());
+    assert_eq!(j["tunnels"][1]["identity_file"], "~/.ssh/tunnel");
+    let form = json!({"name": "x", "via": "b", "forwards": "D 1080", "identityFile": " /k/id "});
+    assert_eq!(form_tunnel(&form).identity_file, "/k/id");
+    assert_eq!(form_tunnel(&json!({"name": "x"})).identity_file, "");
+    let rows = tunnels_view(&all, &Runs::default());
+    assert_eq!(rows[0]["identityFile"], "");
+    assert_eq!(rows[1]["identityFile"], "~/.ssh/tunnel");
+}
+
+#[test]
 fn resolving_needs_an_ssh_entry_and_asks_for_a_locked_vault() {
     let tunnel = tunnel_value(&SavedTunnel {
         name: "t".to_owned(),
         via: "bastion".to_owned(),
         forwards: vec!["L 1:h:2".to_owned()],
         autostart: false,
+        identity_file: String::new(),
     });
     let c = cfg("connections: []\n");
     match resolve_tunnel(&c, &tunnel, None) {

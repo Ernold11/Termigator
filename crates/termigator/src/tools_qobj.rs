@@ -7,6 +7,7 @@
 //!   the SSH entry named by `via` with its credential, the password
 //!   revealed with the vault's session key. A locked vault answers "locked" from `start_tunnel`;
 //!   the dialog asks for the master password through `panes.unlockVault` and tries again.
+//!   A tunnel's own `identity_file` (optional) replaces the entry's key.
 //! * Snippets: the list, the questions and the text
 //!   typed for one session (`text::snippets`).
 //! * The probe of "Test connection…" from a tab and of the disconnect notice,
@@ -36,7 +37,7 @@ use termigator_core::text::snippets::{
 };
 use termigator_core::vault::{self, Secret};
 
-use crate::editors_qobj::{report_json, ssh_entry_labels};
+use crate::editors_qobj::{key_file_problem, key_locked, key_path, report_json, ssh_entry_labels};
 use crate::shell_qobj::{set_in, with_app};
 use crate::sidebar_qobj::probe_timeout;
 
@@ -106,6 +107,20 @@ pub mod qobject {
         /// Stops a tunnel and drops its state (edit, delete).
         #[qinvokable]
         fn forget_tunnel(self: Pin<&mut ToolsBackend>, name: &QString);
+
+        /// The warning under the tunnel's key field ("" = none): not found, a public key, a
+        /// `.ppk`, readable by others.
+        #[qinvokable]
+        fn key_file_problem(self: &ToolsBackend, path: &QString) -> QString;
+
+        /// Whether the tunnel's key file is protected by a passphrase (the tunnel has no terminal
+        /// to ask for it, so the key has to be in the SSH agent).
+        #[qinvokable]
+        fn key_needs_passphrase(self: &ToolsBackend, path: &QString) -> bool;
+
+        /// The tunnel's key path with `~` expanded, as ssh-add and the key list name it.
+        #[qinvokable]
+        fn key_path(self: &ToolsBackend, path: &QString) -> QString;
 
         /// Ends every tunnel and waits until the processes are gone (quitting).
         #[qinvokable]
@@ -284,6 +299,18 @@ impl qobject::ToolsBackend {
         self.tunnel_changed(name.clone());
     }
 
+    fn key_file_problem(&self, path: &QString) -> QString {
+        qs(&key_file_problem(&path.to_string()))
+    }
+
+    fn key_needs_passphrase(&self, path: &QString) -> bool {
+        key_locked(&path.to_string())
+    }
+
+    fn key_path(&self, path: &QString) -> QString {
+        qs(&key_path(&path.to_string()))
+    }
+
     fn stop_all(mut self: Pin<&mut Self>) {
         let names = self.as_mut().rust_mut().runs.stop_all();
         for n in names {
@@ -409,7 +436,7 @@ fn saved_tunnels(cfg: &Value) -> Vec<SavedTunnel> {
 /// A tunnel as the mapping the config and `tunnel_argv` use.
 fn tunnel_value(t: &SavedTunnel) -> Value {
     let s = |text: &str| Value::Str(text.to_owned());
-    Value::Map(vec![
+    let mut pairs = vec![
         (s("name"), s(&t.name)),
         (s("via"), s(&t.via)),
         (
@@ -417,7 +444,12 @@ fn tunnel_value(t: &SavedTunnel) -> Value {
             Value::Seq(t.forwards.iter().map(|f| s(f)).collect()),
         ),
         (s("autostart"), Value::Bool(t.autostart)),
-    ])
+    ];
+    // Only when set, so the tunnels saved before the field existed are written unchanged.
+    if !t.identity_file.is_empty() {
+        pairs.push((s("identity_file"), s(&t.identity_file)));
+    }
+    Value::Map(pairs)
 }
 
 /// An empty list removes the key.
@@ -446,6 +478,7 @@ fn form_tunnel(form: &J) -> SavedTunnel {
             .filter(|l| !l.is_empty())
             .collect(),
         autostart: form["autostart"].as_bool() == Some(true),
+        identity_file: text("identityFile"),
     }
 }
 
@@ -515,6 +548,7 @@ fn tunnels_view(saved: &[SavedTunnel], runs: &Runs) -> J {
                 .unwrap_or(("", status, "#7f8c8d"));
             json!({
                 "name": t.name, "via": t.via, "forwards": t.forwards, "autostart": t.autostart,
+                "identityFile": t.identity_file,
                 "summary": forwards_summary(&tunnel_value(t)),
                 "status": status, "statusText": text, "color": color, "detail": detail,
             })

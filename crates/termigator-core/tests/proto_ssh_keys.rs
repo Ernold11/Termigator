@@ -10,8 +10,8 @@ use std::sync::atomic::{AtomicU32, Ordering};
 use serde_json::Value as J;
 use termigator_core::config::doc::Value;
 use termigator_core::proto::ssh_keys::{
-    KEY_TYPES, add_to_agent_argv, copy_id_argv, keygen_argv, list_keys_with, parse_agent_list,
-    parse_keygen_line,
+    KEY_TYPES, add_to_agent_argv, copy_id_argv, key_needs_passphrase, keygen_argv, list_keys_with,
+    parse_agent_list, parse_keygen_line,
 };
 
 fn from_golden(v: &J) -> Value {
@@ -350,4 +350,71 @@ fn parsers() {
         ids.into_iter().collect::<Vec<_>>(),
         ["MD5:bb", "SHA256:aaa"]
     );
+}
+
+#[test]
+fn passphrase_protected_keys_are_recognised() {
+    use base64::Engine as _;
+    let dir = std::env::temp_dir().join(format!("termigator-passphrase-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let put = |name: &str, body: &str| {
+        let p = dir.join(name);
+        std::fs::write(&p, body).unwrap();
+        p
+    };
+    // The OpenSSH format names its cipher right after the magic: "none" = no passphrase.
+    let openssh = |cipher: &str| {
+        let mut raw = b"openssh-key-v1\0".to_vec();
+        raw.extend(u32::try_from(cipher.len()).unwrap().to_be_bytes());
+        raw.extend(cipher.as_bytes());
+        raw.extend([0u8; 64]);
+        let b64 = base64::engine::general_purpose::STANDARD.encode(raw);
+        let lines: Vec<&str> = b64
+            .as_bytes()
+            .chunks(70)
+            .map(|c| std::str::from_utf8(c).unwrap())
+            .collect();
+        format!(
+            "-----BEGIN OPENSSH PRIVATE KEY-----\n{}\n-----END OPENSSH PRIVATE KEY-----\n",
+            lines.join("\n")
+        )
+    };
+    let cases = [
+        ("plain", openssh("none"), false),
+        ("ctr", openssh("aes256-ctr"), true),
+        ("gcm", openssh("aes256-gcm@openssh.com"), true),
+        (
+            "pem",
+            "-----BEGIN RSA PRIVATE KEY-----\nMIIE\n-----END RSA PRIVATE KEY-----\n".to_owned(),
+            false,
+        ),
+        (
+            "pem-enc",
+            "-----BEGIN RSA PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC,00\n\nMIIE\n-----END RSA PRIVATE KEY-----\n".to_owned(),
+            true,
+        ),
+        (
+            "pkcs8-enc",
+            "-----BEGIN ENCRYPTED PRIVATE KEY-----\nMIIE\n-----END ENCRYPTED PRIVATE KEY-----\n"
+                .to_owned(),
+            true,
+        ),
+        (
+            "ppk",
+            "PuTTY-User-Key-File-3: ssh-ed25519\nEncryption: none\n".to_owned(),
+            false,
+        ),
+        (
+            "ppk-enc",
+            "PuTTY-User-Key-File-3: ssh-ed25519\nEncryption: aes256-cbc\n".to_owned(),
+            true,
+        ),
+        ("public", "ssh-ed25519 AAAAC3Nza me@host\n".to_owned(), false),
+        ("junk", "-----BEGIN OPENSSH PRIVATE KEY-----\n!!!\n".to_owned(), false),
+    ];
+    for (name, body, want) in cases {
+        assert_eq!(key_needs_passphrase(&put(name, &body)), want, "{name}");
+    }
+    assert!(!key_needs_passphrase(&dir.join("missing")));
+    let _ = std::fs::remove_dir_all(&dir);
 }

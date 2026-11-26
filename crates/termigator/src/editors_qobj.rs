@@ -90,6 +90,18 @@ pub mod qobject {
         /// Probes the entry in `conn_json` off the GUI thread; answers with `test_finished`.
         #[qinvokable]
         fn start_test(self: &EditorBackend, token: &QString, conn_json: &QString);
+
+        /// The warning under the jump host key field: [`key_problem`] plus "not found".
+        #[qinvokable]
+        fn key_file_problem(self: &EditorBackend, path: &QString) -> QString;
+
+        /// Whether the key file is protected by a passphrase.
+        #[qinvokable]
+        fn key_needs_passphrase(self: &EditorBackend, path: &QString) -> bool;
+
+        /// The key path with `~` expanded, as ssh-add and the key list name it.
+        #[qinvokable]
+        fn key_path(self: &EditorBackend, path: &QString) -> QString;
     }
 
     impl cxx_qt::Threading for EditorBackend {}
@@ -137,6 +149,18 @@ impl qobject::EditorBackend {
 
     fn key_problem(&self, path: &QString) -> QString {
         QString::from(key_problem(&path.to_string()).as_str())
+    }
+
+    fn key_file_problem(&self, path: &QString) -> QString {
+        QString::from(key_file_problem(&path.to_string()).as_str())
+    }
+
+    fn key_needs_passphrase(&self, path: &QString) -> bool {
+        key_locked(&path.to_string())
+    }
+
+    fn key_path(&self, path: &QString) -> QString {
+        QString::from(key_path(&path.to_string()).as_str())
     }
 
     fn start_test(&self, token: &QString, conn_json: &QString) {
@@ -236,6 +260,38 @@ pub fn key_problem(path: &str) -> String {
     )]);
     let home = termigator_core::proto::ssh::Env::system().home;
     termigator_core::proto::ssh::identity_warning(&conn, home.as_deref()).unwrap_or_default()
+}
+
+/// A key path with `~` expanded ("" when blank).
+pub fn key_path(path: &str) -> String {
+    let path = path.trim();
+    if path.is_empty() {
+        return String::new();
+    }
+    termigator_core::proto::ssh::expand_user(
+        path,
+        termigator_core::proto::ssh::Env::system().home.as_deref(),
+    )
+}
+
+/// [`key_problem`] plus "not found", for the keys used without a terminal to read ssh's own
+/// error in (the jump host key, a tunnel's key).
+pub fn key_file_problem(path: &str) -> String {
+    let full = key_path(path);
+    if full.is_empty() {
+        return String::new();
+    }
+    if !std::path::Path::new(&full).is_file() {
+        return format!("SSH key file not found: {full}");
+    }
+    key_problem(path.trim())
+}
+
+/// Whether the key file is protected by a passphrase.
+pub fn key_locked(path: &str) -> bool {
+    let full = key_path(path);
+    !full.is_empty()
+        && termigator_core::proto::ssh_keys::key_needs_passphrase(std::path::Path::new(&full))
 }
 
 /// `serial_access_problem` for a device path (`SerialConnectionDialog._update_hint`).
@@ -427,6 +483,7 @@ pub fn prepare(
                     "tags": tags_text(e), "useMosh": is_true(e, "use_mosh"),
                     "autoReconnect": is_true(e, "auto_reconnect"),
                     "proxyJump": e.map(format_proxy_jump_for_ui).unwrap_or_default(),
+                    "jumpIdentityFile": sx(e, "jump_identity_file"),
                     "forwardAgent": is_true(e, "forward_agent"),
                     "x11": if is_true(e, "x11_forwarding") {
                         if is_true(e, "x11_trusted") { "y" } else { "x" }
@@ -871,6 +928,9 @@ fn build_ssh(out: &mut Dict, initial: Option<&Value>, form: &J) {
     }
     if !ft(form, "proxyJump").is_empty() {
         out.set_str("proxy_jump", &ft(form, "proxyJump"));
+    }
+    if !ft(form, "jumpIdentityFile").is_empty() {
+        out.set_str("jump_identity_file", &ft(form, "jumpIdentityFile"));
     }
     if fb(form, "forwardAgent") {
         out.set("forward_agent", Value::Bool(true));

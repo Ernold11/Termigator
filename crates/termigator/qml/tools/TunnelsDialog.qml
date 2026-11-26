@@ -56,6 +56,7 @@ ToolDialog {
         lastEdit = editComponent.createObject(dlg, {
             "controller": controller,
             "backend": backend,
+            "keys": host.shell.vaultHost || null,
             "original": original,
             "tunnel": tunnel,
             "transientParent": dlg

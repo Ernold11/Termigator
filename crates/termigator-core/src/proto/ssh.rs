@@ -42,6 +42,7 @@ pub const SSH_DIALOG_MANAGED_KEYS: &[&str] = &[
     "terminal",
     "group",
     "proxy_jump",
+    "jump_identity_file",
     "jumphost",
     "jump_host",
     "forward_agent",
@@ -396,11 +397,8 @@ fn valid_locale(s: &str) -> bool {
         && chars.all(|c| c.is_ascii_alphanumeric() || matches!(c, '_' | '.' | '@' | '-'))
 }
 
-fn append_devops_flags(conn: &Value, cmd: &mut Vec<String>) -> Result<(), String> {
-    let hops = normalize_proxy_jump_hops(conn)?;
-    if !hops.is_empty() {
-        cmd.extend(["-J".to_owned(), hops.join(",")]);
-    }
+fn append_devops_flags(conn: &Value, cmd: &mut Vec<String>, env: &Env) -> Result<(), String> {
+    cmd.extend(jump_flags(conn, env.home.as_deref())?);
     for (key, flag) in [("local_forwards", "-L"), ("remote_forwards", "-R")] {
         for spec in forward_specs_from_yaml(conn.get(key)) {
             if let Some(e) = ssh_arg_injection_guard(&spec) {
@@ -655,26 +653,7 @@ pub fn identity_flags(conn: &Value, home: Option<&str>) -> Result<Vec<String>, S
     if identity.is_empty() {
         return Ok(Vec::new());
     }
-    let key_path = expand_user(&identity, home);
-    let path = Path::new(&key_path);
-    if !path.is_file() {
-        return Err(format!(
-            "SSH key file not found (not a regular file): {} → {}. \
-             Use an absolute path or ~/.ssh/… and the private key, not .pub.",
-            quote_repr(&identity),
-            quote_repr(&key_path)
-        ));
-    }
-    if !crate::platform::can_read(path) {
-        return Err(format!(
-            "SSH key file is not readable: {}",
-            quote_repr(&key_path)
-        ));
-    }
-    if path.metadata().is_ok_and(|m| m.len() == 0) {
-        return Err(format!("SSH key file is empty: {}", quote_repr(&key_path)));
-    }
-    let key_path = private_key_copy(path).unwrap_or(key_path);
+    let key_path = usable_key_path("SSH key", &identity, home)?;
     // Only this identity, so ssh does not try many agent keys first ("Too many failures").
     Ok(vec![
         "-i".to_owned(),
@@ -682,6 +661,128 @@ pub fn identity_flags(conn: &Value, home: Option<&str>) -> Result<Vec<String>, S
         "-o".to_owned(),
         "IdentitiesOnly=yes".to_owned(),
     ])
+}
+
+/// The path ssh is given for the key file `identity` (`what` names it in the errors): `~`
+/// expanded, checked to be a readable non-empty file, a private copy when it is too open.
+fn usable_key_path(what: &str, identity: &str, home: Option<&str>) -> Result<String, String> {
+    let key_path = expand_user(identity, home);
+    let path = Path::new(&key_path);
+    if !path.is_file() {
+        return Err(format!(
+            "{what} file not found (not a regular file): {} → {}. \
+             Use an absolute path or ~/.ssh/… and the private key, not .pub.",
+            quote_repr(identity),
+            quote_repr(&key_path)
+        ));
+    }
+    if !crate::platform::can_read(path) {
+        return Err(format!(
+            "{what} file is not readable: {}",
+            quote_repr(&key_path)
+        ));
+    }
+    if path.metadata().is_ok_and(|m| m.len() == 0) {
+        return Err(format!("{what} file is empty: {}", quote_repr(&key_path)));
+    }
+    Ok(private_key_copy(path).unwrap_or(key_path))
+}
+
+/// The host part of a jump hop `[user@]host[:port]` (`[v6]:port` too), as ssh matches `Host`.
+fn hop_host(hop: &str) -> &str {
+    let host = hop.rsplit_once('@').map_or(hop, |(_, h)| h);
+    if let Some(rest) = host.strip_prefix('[') {
+        return rest.split_once(']').map_or(rest, |(h, _)| h);
+    }
+    match host.split_once(':') {
+        Some((h, port)) if !port.contains(':') => h,
+        _ => host,
+    }
+}
+
+/// A double-quoted ssh_config argument; `"` and line breaks cannot be written in one.
+fn config_quoted(value: &str) -> Result<String, String> {
+    if value.chars().any(|c| matches!(c, '"' | '\n' | '\r')) {
+        return Err(format!(
+            "{} cannot be written to an ssh config file (quote or line break).",
+            quote_repr(value)
+        ));
+    }
+    Ok(format!("\"{}\"", value.replace('\\', "\\\\")))
+}
+
+/// The ssh config the jump hosts read their key from: a `Host` block for the hops (`%` in the
+/// key path escaped, as ssh expands tokens there), then — for every host — `includes` (the
+/// user's and the system's config, which `-F` would otherwise skip).
+pub fn jump_config_text(hops: &[String], key: &str, includes: &[String]) -> Result<String, String> {
+    let hosts = hops
+        .iter()
+        .map(|h| config_quoted(hop_host(h)))
+        .collect::<Result<Vec<_>, _>>()?;
+    let mut text = format!(
+        "Host {}\n  IdentityFile {}\n  IdentitiesOnly yes\nMatch all\n",
+        hosts.join(" "),
+        config_quoted(&key.replace('%', "%%"))?
+    );
+    for inc in includes {
+        text.push_str(&format!("Include {}\n", config_quoted(inc)?));
+    }
+    Ok(text)
+}
+
+/// `-J hops`, preceded by `-F <file>` when the entry has a `jump_identity_file`: ssh hands the
+/// same `-F` to the ssh it runs for every hop, so each jump host logs in with that key while the
+/// target keeps its own `-i`. The key path stays out of the command line. The file (owner only,
+/// named after its content) lives with the private key copies and goes when the app quits.
+pub fn jump_flags(conn: &Value, home: Option<&str>) -> Result<Vec<String>, String> {
+    let hops = normalize_proxy_jump_hops(conn)?;
+    if hops.is_empty() {
+        return Ok(Vec::new());
+    }
+    let jump = vec!["-J".to_owned(), hops.join(",")];
+    let identity = stripped(conn.get("jump_identity_file"));
+    if identity.is_empty() {
+        return Ok(jump);
+    }
+    // The user's own -F would replace ours (or ours theirs): refused instead of guessed.
+    let extra = match conn.get("extra_ssh_args") {
+        Some(Value::Seq(items)) => items.iter().map(value_str).collect(),
+        Some(v) if truthy(v) => split(&value_str(v)).unwrap_or_default(),
+        _ => Vec::new(),
+    };
+    if extra.iter().any(|a| a.starts_with("-F")) {
+        return Err(
+            "The jump host key cannot be combined with -F in the extra ssh arguments — \
+             set the key in that ssh config file instead."
+                .to_owned(),
+        );
+    }
+    let key = usable_key_path("Jump host key", &identity, home)?;
+    let mut includes: Vec<String> = home
+        .map(|h| Path::new(h).join(".ssh").join("config"))
+        .into_iter()
+        .chain(crate::platform::ssh_system_config())
+        .map(|p| p.to_string_lossy().into_owned())
+        .collect();
+    includes.dedup();
+    let text = jump_config_text(&hops, &key, &includes)?;
+    let file = jump_config_file(&text).ok_or_else(|| {
+        "Cannot write the jump host's ssh config (no private directory).".to_owned()
+    })?;
+    let mut out = vec!["-F".to_owned(), file];
+    out.extend(jump);
+    Ok(out)
+}
+
+/// `text` in an owner-only file in the private runtime directory; its path.
+fn jump_config_file(text: &str) -> Option<String> {
+    use std::hash::{Hash, Hasher};
+    let dir = private_runtime_dir(&["keys"])?;
+    let mut h = std::collections::hash_map::DefaultHasher::new();
+    text.hash(&mut h);
+    let file = dir.join(format!("jump-{:016x}.conf", h.finish()));
+    write_private_copy(&file, text.as_bytes()).ok()?;
+    Some(file.to_string_lossy().into_owned())
 }
 
 fn requests_tty_already(cmd: &[String]) -> bool {
@@ -738,7 +839,7 @@ pub fn build_ssh_command_with(conn: &Value, launch: &Value, env: &Env) -> Result
         }
     }
 
-    append_devops_flags(conn, &mut cmd)?;
+    append_devops_flags(conn, &mut cmd, env)?;
 
     let target = format!("{user}@{host}");
     let mut rc = stripped(conn.get("remote_command"));

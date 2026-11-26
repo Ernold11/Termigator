@@ -22,7 +22,7 @@ use crate::proto::vnc::{text, text_stripped};
 use crate::shell;
 
 /// What the gateway hop keeps from its SSH entry.
-pub const GATEWAY_KEYS: [&str; 11] = [
+pub const GATEWAY_KEYS: [&str; 12] = [
     "host",
     "user",
     "port",
@@ -31,6 +31,7 @@ pub const GATEWAY_KEYS: [&str; 11] = [
     "proxy_jump",
     "jumphost",
     "jump_host",
+    "jump_identity_file",
     "strict_host_key_checking",
     "password",
     "compression",

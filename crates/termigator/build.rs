@@ -68,6 +68,7 @@ const QML_FILES: &[&str] = &[
     "qml/editors/EnvironmentCombo.qml",
     "qml/editors/GatewayCombo.qml",
     "qml/editors/PortSpin.qml",
+    "qml/editors/KeyPathField.qml",
     "qml/editors/CredentialSync.qml",
     "qml/editors/SshDialog.qml",
     "qml/editors/RdpDialog.qml",

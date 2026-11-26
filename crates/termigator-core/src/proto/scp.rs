@@ -23,7 +23,7 @@ use std::path::Path;
 use crate::config::doc::Value;
 use crate::config::model::{strip_space, truthy, value_int, value_str};
 use crate::proto::ssh::{
-    Env, conn_port, expand_user, identity_flags, keepalive_ssh_opts, normalize_proxy_jump_hops,
+    Env, conn_port, expand_user, identity_flags, jump_flags, keepalive_ssh_opts,
     password_via_askpass, quote_repr, ssh_control_opts, ssh_target_guard,
 };
 use crate::shell::{join, split};
@@ -110,10 +110,8 @@ pub fn build_scp_command_with(
         cmd.extend(["-P".to_owned(), p.to_string()]);
     }
     cmd.extend(identity_flags(conn, env.home.as_deref())?);
-    let hops = normalize_proxy_jump_hops(conn)?;
-    if !hops.is_empty() {
-        cmd.extend(["-J".to_owned(), hops.join(",")]);
-    }
+    // `-F` for the jump host's own key: scp hands it to ssh, which hands it to every hop.
+    cmd.extend(jump_flags(conn, env.home.as_deref())?);
     if let Some(shk) = conn.get("strict_host_key_checking") {
         let raw = value_str(shk);
         let val = strip_space(&raw);

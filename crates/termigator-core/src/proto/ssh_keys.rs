@@ -2,7 +2,7 @@
 //!
 //! [`list_keys`] lists the key pairs of `~/.ssh` (`x` + `x.pub`, through `ssh-keygen -l -f`,
 //! parsed by [`parse_keygen_line`]); [`agent_fingerprints`] asks `ssh-add -l` which are loaded
-//! ([`parse_agent_list`]). [`keygen_argv`] never overwrites a file and refuses a name starting
+//! ([`parse_agent_list`]); [`key_needs_passphrase`] reads a key file's header. [`keygen_argv`] never overwrites a file and refuses a name starting
 //! with `-` (guard 14); [`copy_id_argv`] applies the same `user@host` guards as ssh and scp
 //! (guards 1 and 2) and sends a saved password through `sshpass -e`, never through argv.
 //! Every step that asks for a passphrase or password runs in a terminal tab, so Termigator never
@@ -144,6 +144,67 @@ pub fn list_keys_with(ssh_dir: &Path, fp: &dyn Fn(&Path) -> Option<KeyLine>) -> 
         });
     }
     out
+}
+
+/// Whether the private key in `path` is protected by a passphrase, read from its header without
+/// decrypting anything: the cipher of the OpenSSH format, `Proc-Type: 4,ENCRYPTED` of the old PEM
+/// format, PKCS#8 `ENCRYPTED PRIVATE KEY`, a PuTTY `.ppk` with an `Encryption:` other than
+/// `none`. `false` for anything unreadable or unrecognised.
+pub fn key_needs_passphrase(path: &Path) -> bool {
+    use base64::Engine as _;
+    use std::io::Read;
+    let mut head = Vec::new();
+    if std::fs::File::open(path)
+        .and_then(|f| f.take(4096).read_to_end(&mut head))
+        .is_err()
+    {
+        return false;
+    }
+    let text = String::from_utf8_lossy(&head);
+    let mut lines = text
+        .trim_start_matches('\u{feff}')
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty());
+    let Some(first) = lines.next() else {
+        return false;
+    };
+    if first.starts_with("PuTTY-User-Key-File-") {
+        return lines
+            .find_map(|l| l.strip_prefix("Encryption:"))
+            .is_some_and(|e| e.trim() != "none");
+    }
+    // The headers are matched in parts, so no PEM header literal is in the source (secret audit).
+    let pem = |kind: &str| {
+        first
+            .strip_prefix("-----BEGIN ")
+            .is_some_and(|r| r.starts_with(kind))
+    };
+    if pem("ENCRYPTED ") && first.contains("PRIVATE KEY") {
+        return true;
+    }
+    if pem("OPENSSH ") && first.contains("PRIVATE KEY") {
+        // "openssh-key-v1\0", a u32 length, the cipher name: within the first 48 bytes.
+        let b64: String = lines.take_while(|l| !l.starts_with("-----")).collect();
+        let n = b64.len().min(64) / 4 * 4;
+        let Ok(raw) = base64::engine::general_purpose::STANDARD.decode(&b64[..n]) else {
+            return false;
+        };
+        let Some(rest) = raw.strip_prefix(b"openssh-key-v1\0") else {
+            return false;
+        };
+        let Some((len, rest)) = rest.split_first_chunk::<4>() else {
+            return false;
+        };
+        let len = usize::try_from(u32::from_be_bytes(*len)).unwrap_or(usize::MAX);
+        return rest.get(..len).is_some_and(|cipher| cipher != b"none");
+    }
+    if first.starts_with("-----BEGIN") && first.contains("PRIVATE KEY") {
+        return lines
+            .take_while(|l| !l.starts_with("-----"))
+            .any(|l| l.starts_with("Proc-Type:") && l.contains("ENCRYPTED"));
+    }
+    false
 }
 
 /// Fingerprints of the `ssh-add -l` output; `None` when no agent is reachable (exit code 2),

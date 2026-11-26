@@ -173,6 +173,68 @@ Item {
                 "a": 1
             }, "unknown key");
         },
+        // The jump host's own key: shown on the Forwarding tab, checked, kept and cleared.
+        () => {
+            const key = shell.controller.smokeTestShot.replace(/[^/]*\/[^/]*$/, "termigator-u5-editors-keys/jump_key");
+            open("ssh", JSON.stringify({
+                "label": "x",
+                "host": "h",
+                "user": "u",
+                "proxy_jump": "ops@bastion",
+                "jump_identity_file": key
+            }), "");
+            const jk = all(dlg.contentItem, i => i.objectName === "jumpKey")[0];
+            if (jk === undefined) {
+                fail("no jump key field");
+                return;
+            }
+            same(jk.text, key, "jump key shown");
+            expect(jk.enabled, "jump key field disabled with a jump host");
+            expect(jk.locked, "passphrase not recognised");
+            // The Forwarding tab keeps its labels beside the fields (wide mode) at the default size.
+            dlg.tabBar.currentIndex = 1;
+        },
+        // A step later: the passphrase message has finished opening.
+        () => {
+            return shot("ssh-forwarding");
+        },
+        () => {
+            const form = all(dlg.contentItem, i => "wideMode" in i && i.visible)[0];
+            expect(form !== undefined && form.wideMode, "Forwarding form in narrow mode at width " + dlg.width);
+            // Lower than its form: the tab scrolls instead of cutting the form off.
+            dlg.height = 360;
+        },
+        () => {
+            const view = all(dlg.contentItem, i => "contentHeight" in i && "availableHeight" in i && i.visible && all(i, j => j.objectName === "jumpKey").length > 0)[0];
+            expect(view !== undefined && view.contentHeight > view.availableHeight, "nothing to scroll");
+            return shot("ssh-forwarding-low");
+        },
+        () => {
+            const key = shell.controller.smokeTestShot.replace(/[^/]*\/[^/]*$/, "termigator-u5-editors-keys/jump_key");
+            const jk = all(dlg.contentItem, i => i.objectName === "jumpKey")[0];
+            const problem = all(jk, i => i.objectName === "keyProblem")[0];
+            same(problem.text, "", "jump key warning");
+            expect(button(dlg, "Browse…") !== undefined && button(dlg, "From SSH keys…") !== undefined, "jump key buttons");
+            jk.text = key + "-missing";
+            expect(problem.text.startsWith("SSH key file not found"), "missing key: " + problem.text);
+            jk.text = key;
+            dlg.accept();
+        },
+        () => {
+            same([got.proxy_jump, got.jump_identity_file !== undefined], ["ops@bastion", true], "jump key saved");
+            open("ssh", JSON.stringify({
+                "label": "x",
+                "host": "h",
+                "user": "u",
+                "proxy_jump": "ops@bastion",
+                "jump_identity_file": "/k/jump"
+            }), "");
+            all(dlg.contentItem, i => i.objectName === "jumpKey")[0].text = "";
+            dlg.accept();
+        },
+        () => {
+            expect(!("jump_identity_file" in got), "cleared jump key kept");
+        },
         // An encrypted password is never shown; "Remove the saved password" drops it.
         () => {
             open("ssh", JSON.stringify({
