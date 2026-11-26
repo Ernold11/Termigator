@@ -12,6 +12,7 @@ const QML_FILES: &[&str] = &[
     "qml/panes/TabDrag.qml",
     "qml/panes/PanesSmoke.qml",
     "qml/shell/FollowSmoke.qml",
+    "qml/shell/QuickConnectSmoke.qml",
     "qml/shell/LocalShellCheck.qml",
     "qml/shell/SshCheck.qml",
     "qml/shell/ShellMenuCheck.qml",

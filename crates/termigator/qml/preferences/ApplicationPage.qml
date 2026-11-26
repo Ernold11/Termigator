@@ -1,4 +1,7 @@
 import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
 
 // The Application preferences page.
 PrefPage {
@@ -11,6 +14,26 @@ PrefPage {
     PrefCheck {
         key: "show_recent"
         text: qsTr("Show Recent connections above the host list")
+    }
+    // No form label: the spin box and its text sit in the check boxes' column, like they do.
+    RowLayout {
+        spacing: Kirigami.Units.smallSpacing
+
+        PrefSpin {
+            key: "quick_history_limit"
+            from: 0
+            to: 200
+            special: qsTr("Off")
+            Layout.maximumWidth: 160
+            tip: qsTr("How many targets the toolbar's Quick connect field remembers (newest first).\nPasswords are never stored; 0 keeps none.")
+            Accessible.name: historyLabel.text
+        }
+        QQC2.Label {
+            id: historyLabel
+
+            objectName: "quick_history_label"
+            text: qsTr("Quick connect history (targets remembered)")
+        }
     }
     PrefCheck {
         key: "confirm_close"

@@ -748,6 +748,24 @@
     "FE80::1",
     null
    ]
+  },
+  {
+   "name": "quick:94:'u:secret@h'",
+   "input": "u:secret@h",
+   "error": "SshError",
+   "message": "Leave the password out: use user@host (ssh asks for it)."
+  },
+  {
+   "name": "quick:95:'u:@h:22'",
+   "input": "u:@h:22",
+   "error": "SshError",
+   "message": "Leave the password out: use user@host (ssh asks for it)."
+  },
+  {
+   "name": "quick:96:':p@h'",
+   "input": ":p@h",
+   "error": "SshError",
+   "message": "Leave the password out: use user@host (ssh asks for it)."
   }
  ]
 }

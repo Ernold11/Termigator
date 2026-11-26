@@ -650,6 +650,7 @@ FocusScope {
     function quickConnect(text) {
         const p = JSON.parse(controller.quickPlan(text));
         if (p.entry) {
+            shell.controller.persist(); // the plan put the name first in the history
             openConnection(JSON.stringify(p.entry));
             return "";
         }

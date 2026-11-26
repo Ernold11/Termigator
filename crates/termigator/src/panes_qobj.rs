@@ -36,10 +36,11 @@ use termigator_core::proto::ssh::{
     build_ssh_command, parse_quick_ssh_target, ssh_password_env, ssh_session_env, which,
     x11_display_warning,
 };
+use termigator_core::quick_history;
 use termigator_core::shell::quote;
 use termigator_core::vault::{self, Revealed, Secret, VaultError};
 
-use crate::shell_qobj::{remember_quick_target, window_bool, with_app};
+use crate::shell_qobj::{window_bool, with_app};
 use crate::sidebar_qobj::build_conn_command;
 
 #[cxx_qt::bridge]
@@ -185,7 +186,7 @@ pub mod qobject {
         fn reopen_plan(self: &PanesController, entry_json: &QString) -> QString;
 
         /// `_quick_connect` ([`super::quick_plan`]): `{entry}`, `{error}` or `{inner, title,
-        /// mode, conn}` (then the target is first in `quick_history`, not saved yet).
+        /// mode, conn}`; an entry or a session puts the target first in `quick_history` (not saved yet).
         #[qinvokable]
         fn quick_plan(self: &PanesController, text: &QString) -> QString;
     }
@@ -421,7 +422,10 @@ impl qobject::PanesController {
     fn quick_plan(&self, text: &QString) -> QString {
         let target = text.to_string();
         let out = with_app(|app| match quick_plan(&app.cfg, &target) {
-            Quick::Entry(e) => json!({"entry": e.to_json()}),
+            Quick::Entry(e) => {
+                quick_history::remember(&mut app.cfg, &entry_label(&e));
+                json!({"entry": e.to_json()})
+            }
             Quick::Error(e) => json!({"error": e}),
             Quick::Open {
                 inner,
@@ -429,7 +433,7 @@ impl qobject::PanesController {
                 mode,
                 conn,
             } => {
-                remember_quick_target(&mut app.cfg, strip_space(&target));
+                quick_history::remember(&mut app.cfg, &target);
                 json!({"inner": inner, "title": title, "mode": mode, "conn": conn.to_json()})
             }
         });

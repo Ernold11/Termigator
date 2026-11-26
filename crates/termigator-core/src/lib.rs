@@ -19,6 +19,7 @@ pub mod paths;
 pub mod platform;
 pub mod proc;
 pub mod proto;
+pub mod quick_history;
 pub mod remote;
 pub mod session_state;
 pub mod shell;

@@ -19,6 +19,9 @@ window:
   # Once a day at startup ask GitHub for the latest release and show a banner when it is newer
   # (nothing is downloaded). Also in Settings > Configure Termigator > Application.
   check_updates: true
+  # How many targets the toolbar's Quick connect field remembers (newest first, kept in
+  # quick_history; passwords are never stored). 0 keeps none. Also in Settings > Application.
+  # quick_history_limit: 20
 
 launch:
   shell: bash

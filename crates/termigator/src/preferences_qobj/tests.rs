@@ -227,3 +227,19 @@ fn scheme_list_merges_directories_once_sorted_ignoring_case() {
     assert_eq!(names, ["Breeze", "Solarized", "zeta"]);
     let _ = std::fs::remove_dir_all(&dir);
 }
+
+#[test]
+fn quick_history_limit_is_shown_and_stored_only_when_changed() {
+    let mut c = cfg("{}");
+    let shown = page_values(&c);
+    assert_eq!(shown["quick_history_limit"], 20);
+    apply_values(&mut c, &shown);
+    assert_eq!(section(&c, "window").get("quick_history_limit"), None);
+    let mut draft = page_values(&c);
+    draft["quick_history_limit"] = json!(5);
+    apply_values(&mut c, &draft);
+    assert_eq!(page_values(&c)["quick_history_limit"], 5);
+    draft["quick_history_limit"] = json!(9999);
+    apply_values(&mut c, &draft);
+    assert_eq!(page_values(&c)["quick_history_limit"], 200);
+}

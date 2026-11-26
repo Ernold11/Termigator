@@ -127,7 +127,7 @@ fn build_matches_golden() {
 #[test]
 fn quick_target_matches_golden() {
     let cases = common::golden("ssh_quick");
-    assert!(cases.len() > 90);
+    assert!(cases.len() > 95);
     for case in &cases {
         let n = common::name(case);
         let got = parse_quick_ssh_target(case["input"].as_str().expect("input"));

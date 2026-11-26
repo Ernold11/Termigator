@@ -23,6 +23,7 @@ use termigator_core::hosttree::entry_label;
 use termigator_core::paths::{Layout, Paths, ProcessEnv};
 use termigator_core::proc::external::follow_window;
 use termigator_core::proto::ssh::which;
+use termigator_core::quick_history;
 use termigator_core::single_instance::{ControlServer, control_socket_path};
 use termigator_core::update_check;
 use termigator_core::vault;
@@ -190,9 +191,17 @@ pub mod qobject {
         #[qinvokable]
         fn quick_completions(self: &AppController) -> QStringList;
 
-        /// Puts a quick-connect target first in `quick_history` (10 kept; not saved).
+        /// The quick-connect history, newest first (`termigator_core::quick_history`).
         #[qinvokable]
-        fn remember_quick_target(self: &AppController, target: &QString);
+        fn quick_history(self: &AppController) -> QStringList;
+
+        /// Removes one quick-connect history entry (not saved; QML calls `persist()`).
+        #[qinvokable]
+        fn forget_quick_target(self: &AppController, target: &QString);
+
+        /// Empties the quick-connect history (not saved; QML calls `persist()`).
+        #[qinvokable]
+        fn clear_quick_history(self: &AppController);
 
         /// `window.dialog_sizes.<name>`; an empty size when none is stored (ADR-13).
         #[qinvokable]
@@ -531,14 +540,19 @@ impl qobject::AppController {
     }
 
     fn quick_completions(&self) -> QStringList {
-        with_app(|app| quick_completions(&app.cfg))
-            .iter()
-            .map(|s| QString::from(s.as_str()))
-            .collect()
+        string_list(&with_app(|app| quick_completions(&app.cfg)))
     }
 
-    fn remember_quick_target(&self, target: &QString) {
-        with_app(|app| remember_quick_target(&mut app.cfg, &target.to_string()));
+    fn quick_history(&self) -> QStringList {
+        string_list(&with_app(|app| quick_history::entries(&app.cfg)))
+    }
+
+    fn forget_quick_target(&self, target: &QString) {
+        with_app(|app| quick_history::forget(&mut app.cfg, &target.to_string()));
+    }
+
+    fn clear_quick_history(&self) {
+        with_app(|app| quick_history::clear(&mut app.cfg));
     }
 
     fn dialog_size(&self, name: &QString) -> QSize {
@@ -726,17 +740,8 @@ pub fn close_question(cfg: &Value, sessions: i32, transfers: i32, tunnels: i32) 
     Some(what.join("\n") + ".\nClose the window and end them?")
 }
 
-fn quick_history(cfg: &Value) -> Vec<String> {
-    match cfg.get("quick_history") {
-        Some(Value::Seq(items)) => items
-            .iter()
-            .filter_map(|v| match v {
-                Value::Str(s) => Some(s.clone()),
-                _ => None,
-            })
-            .collect(),
-        _ => Vec::new(),
-    }
+fn string_list(items: &[String]) -> QStringList {
+    items.iter().map(|s| QString::from(s.as_str())).collect()
 }
 
 /// Quick-connect completions: history then labels, without duplicates.
@@ -750,24 +755,12 @@ pub fn quick_completions(cfg: &Value) -> Vec<String> {
         _ => Vec::new(),
     };
     let mut out: Vec<String> = Vec::new();
-    for s in quick_history(cfg).into_iter().chain(labels) {
+    for s in quick_history::entries(cfg).into_iter().chain(labels) {
         if !out.contains(&s) {
             out.push(s);
         }
     }
     out
-}
-
-/// Puts `target` first in the quick-connect history, keeping at most 10 entries.
-pub fn remember_quick_target(cfg: &mut Value, target: &str) {
-    let mut hist = vec![target.to_owned()];
-    hist.extend(quick_history(cfg).into_iter().filter(|h| h != target));
-    hist.truncate(10);
-    set_in(
-        cfg,
-        &["quick_history"],
-        Value::Seq(hist.into_iter().map(Value::Str).collect()),
-    );
 }
 
 pub fn dialog_size(cfg: &Value, name: &str) -> Option<(i32, i32)> {

@@ -256,6 +256,15 @@ Item {
             shell.shellActions.actions["settings.configure"].trigger();
         },
         () => {
+            dlg.pageList.currentIndex = 6;
+        },
+        // Application: the history spin box sits in the check boxes' column, its text after it.
+        () => {
+            const spin = find("quick_history_limit");
+            const label = find("quick_history_label");
+            const box = find("confirm_close");
+            const x = item => item.mapToItem(dlg.contentItem, 0, 0).x;
+            expect(label !== null && Math.abs(x(spin) - x(box)) <= 1 && x(label) > x(spin), "history row " + x(spin) + " " + (label ? x(label) : "no label") + " " + x(box));
             dlg.pageList.currentIndex = 0;
         },
         () => {

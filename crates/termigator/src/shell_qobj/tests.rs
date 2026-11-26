@@ -120,18 +120,10 @@ fn window_placement_position_only_when_asked() {
 
 #[test]
 fn quick_completer_has_history_then_labels_once() {
-    let mut c = cfg(
+    let c = cfg(
         "quick_history: [root@a, 7, db]\nconnections:\n- {label: db}\n- {user: u, host: h}\n- x\n",
     );
     assert_eq!(quick_completions(&c), ["root@a", "db", "u@h"]);
-    for i in 0..12 {
-        remember_quick_target(&mut c, &format!("t{i}"));
-    }
-    remember_quick_target(&mut c, "t5");
-    let hist = quick_history(&c);
-    assert_eq!(hist.len(), 10);
-    assert_eq!(hist[..3], ["t5", "t11", "t10"]);
-    assert_eq!(hist.iter().filter(|h| *h == "t5").count(), 1);
 }
 
 #[test]

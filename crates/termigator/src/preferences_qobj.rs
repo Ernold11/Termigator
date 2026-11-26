@@ -19,6 +19,7 @@ use termigator_core::config::model::{
 };
 use termigator_core::konsole::{XdgDirs, scheme_dirs};
 use termigator_core::proto::rdp;
+use termigator_core::quick_history;
 
 use crate::shell_qobj::with_app;
 
@@ -315,6 +316,7 @@ pub fn page_values(cfg: &Value) -> serde_json::Value {
     put("editor", json!(text_of(l, "editor")));
     put("tray_icon", json!(flag_of(w, "tray_icon", true)));
     put("show_recent", json!(flag_of(w, "show_recent", true)));
+    put(quick_history::LIMIT_KEY, json!(quick_history::limit(cfg)));
     put(
         "host_list_detailed",
         json!(flag_of(w, "host_list_detailed", false)),
@@ -404,6 +406,16 @@ pub fn apply_values(cfg: &mut Value, draft: &serde_json::Value) {
     let ui_theme = stripped("ui_theme");
     if !ui_theme.is_empty() && ui_theme != configured_ui_theme(cfg) {
         store(cfg, "window", "ui_theme", Value::Str(ui_theme));
+    }
+    // Not in the defaults table: stored only when changed, like the style.
+    let history_limit = num(quick_history::LIMIT_KEY, 0, quick_history::MAX_LIMIT as i64);
+    if usize::try_from(history_limit).ok() != Some(quick_history::limit(cfg)) {
+        store(
+            cfg,
+            "window",
+            quick_history::LIMIT_KEY,
+            Value::Int(history_limit),
+        );
     }
     let mut win = |name: &str, value: Value| store(cfg, "window", name, value);
     win(

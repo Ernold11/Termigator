@@ -997,6 +997,11 @@ pub fn parse_quick_ssh_target(line: &str) -> Result<QuickTarget, String> {
     let Some((user, rest)) = s.split_once('@') else {
         return Err("Use user@host (e.g. root@server or ubuntu@10.0.0.5:2222).".to_owned());
     };
+    // `user:password@host`: a user name cannot hold `:`, and the password would end up in argv
+    // and the quick-connect history.
+    if user.contains(':') {
+        return Err("Leave the password out: use user@host (ssh asks for it).".to_owned());
+    }
     let invalid = || {
         "Invalid format. Examples: root@192.168.1.5, admin@bastion.example:2222, \
          root@[2001:db8::1]:2222"
