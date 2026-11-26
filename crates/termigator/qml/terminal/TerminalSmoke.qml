@@ -82,6 +82,13 @@ Item {
         view(tab).term.forceActiveFocus();
     }
 
+    function altWheel(tab) {
+        focusTab(tab);
+        const v = view(tab);
+        const c = v.term.mapToItem(null, 40, v.term.height / 2);
+        Probe.wheel(shell, c.x, c.y, 0, 120, Qt.NoModifier);
+    }
+
     function action(id) {
         shell.shellActions.actions[id].trigger();
     }
@@ -755,6 +762,50 @@ Item {
                 expect(v.term.scrollbarCurrentValue < held.beforeWheel, "the wheel stopped scrolling: " + held.beforeWheel + " -> " + v.term.scrollbarCurrentValue);
                 v.scrollToValue(v.term.scrollbarMaximum);
                 expect(v.term.scrollbarCurrentValue === v.term.scrollbarMaximum, "not back at the end");
+            }
+        },
+        // On the alternate screen (less, vim, k9s) there is no scrollback: without mouse tracking
+        // a notch is three Up keys (alternate scroll, DECSET 1007); with tracking it is one SGR
+        // report. `cat -v` shows what the program got, and that it got it once.
+        {
+            "name": "alternate wheel",
+            "fn": () => {
+                const raw = "stty -icanon -echo; printf '\\033[?1049h";
+                held.altKeys = open("altkeys", raw + "ready'; exec cat -v");
+                held.altMouse = open("altmouse", raw + "\\033[?1000h\\033[?1006hready'; exec cat -v");
+            }
+        },
+        {
+            "name": "alternate wheel keys",
+            "fn": () => {
+                for (const t of [held.altKeys, held.altMouse]) {
+                    const v = view(t);
+                    if (!v || !v.term || v.term.lines <= 0 || !has(t, "ready"))
+                        return false;
+                }
+                altWheel(held.altKeys);
+            }
+        },
+        // Wheel events are queued: the tab changes only after the first one arrived.
+        {
+            "name": "alternate wheel mouse",
+            "fn": () => {
+                if (!has(held.altKeys, "^[[A"))
+                    return false;
+                altWheel(held.altMouse);
+            }
+        },
+        {
+            "name": "alternate wheel received",
+            "fn": () => {
+                const keys = held.altKeys.session.ext.history;
+                const mouse = held.altMouse.session.ext.history;
+                if (keys.indexOf("^[[A^[[A^[[A") < 0 || mouse.indexOf("^[[<64;") < 0)
+                    return false;
+                expect(keys.split("^[[A").length - 1 === 3, "a notch is not three Up keys: " + keys);
+                expect(mouse.split("^[[<64;").length - 1 === 1, "a notch is not one report: " + mouse);
+                expect(keys.indexOf("^[[<") < 0 && mouse.indexOf("^[[A") < 0, "the wheel went both ways");
+                focusTab(held.scroll); // the autoscroll steps drag over it
             }
         },
         // Dragging a selection above the rows scrolls the scrollback under it until the button

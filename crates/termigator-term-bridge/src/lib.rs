@@ -163,6 +163,15 @@ mod ffi {
             modifiers: u32,
             cell_size: u32,
         ) -> Vec<u8>;
+        fn wheel_target(self: &SessionEngine, modifiers: u32) -> u8;
+        fn encode_wheel(
+            self: &mut SessionEngine,
+            x: u16,
+            y: u16,
+            steps: i32,
+            modifiers: u32,
+            cell_size: u32,
+        ) -> Vec<u8>;
         fn encode_qt_key(self: &mut SessionEngine, key: i32, modifiers: u32, text: &str)
         -> Vec<u8>;
     }

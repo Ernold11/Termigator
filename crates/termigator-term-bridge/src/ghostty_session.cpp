@@ -504,6 +504,23 @@ QByteArray GhosttySession::encodeMouse(int x, int y, int button, int action, int
                       static_cast<qsizetype>(bytes.size()));
 }
 
+int GhosttySession::wheelTarget(int modifiers)
+{
+    return m_engine->wheel_target(static_cast<std::uint32_t>(modifiers));
+}
+
+QByteArray GhosttySession::encodeWheel(int x, int y, int steps, int modifiers, int cellWidth,
+                                       int cellHeight)
+{
+    const rust::Vec<std::uint8_t> bytes = m_engine->encode_wheel(
+        static_cast<std::uint16_t>(qMax(0, x)), static_cast<std::uint16_t>(qMax(0, y)), steps,
+        static_cast<std::uint32_t>(modifiers),
+        (static_cast<std::uint32_t>(qMax(1, cellWidth)) << 16)
+            | static_cast<std::uint32_t>(qMax(1, cellHeight)));
+    return QByteArray(reinterpret_cast<const char *>(bytes.data()),
+                      static_cast<qsizetype>(bytes.size()));
+}
+
 QString GhosttySession::snapshotJson()
 {
     return QString::fromStdString(std::string(m_engine->snapshot_json()));

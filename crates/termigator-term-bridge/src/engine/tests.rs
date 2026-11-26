@@ -4,6 +4,8 @@ fn engine() -> Engine {
     Engine::new(20, 5, None, (8, 16)).expect("engine")
 }
 
+const CELL: (u16, u16) = (8, 16);
+
 fn text_at(snapshot: &Snapshot, row: usize) -> String {
     snapshot.row_data[row]
         .cells
@@ -163,4 +165,105 @@ fn input_does_not_grow_scrollback_without_output() {
     engine.feed(b"\x1b[999;999H");
     let bar = engine.scrollbar().expect("scrollbar");
     assert_eq!(bar.total, usize::from(engine.size().1));
+}
+
+#[test]
+fn wheel_scrolls_the_scrollback_on_the_primary_screen() {
+    let mut engine = engine();
+    assert_eq!(engine.wheel_target(false), WheelTarget::Scrollback);
+    assert!(
+        engine
+            .encode_wheel(5, 2, -3, Mods::default(), CELL)
+            .is_empty()
+    );
+    // Mouse tracking on the primary screen (a shell with mouse support) still gets the wheel.
+    engine.feed(b"\x1b[?1000h");
+    assert_eq!(engine.wheel_target(false), WheelTarget::Report);
+}
+
+#[test]
+fn wheel_on_the_alternate_screen_without_tracking_sends_cursor_keys() {
+    // less, man, vim without 'mouse', k9s with the mouse off: the alternate screen has no
+    // scrollback, so the wheel becomes Up/Down keys (xterm's alternateScroll, DECSET 1007).
+    for enter in [&b"\x1b[?1049h"[..], b"\x1b[?1047h", b"\x1b[?47h"] {
+        let mut engine = engine();
+        engine.feed(enter);
+        assert_eq!(engine.wheel_target(false), WheelTarget::Arrows, "{enter:?}");
+        assert_eq!(
+            engine.encode_wheel(0, 0, -2, Mods::default(), CELL),
+            b"\x1b[A\x1b[A"
+        );
+        assert_eq!(
+            engine.encode_wheel(0, 0, 3, Mods::default(), CELL),
+            b"\x1b[B\x1b[B\x1b[B"
+        );
+        // Application cursor keys (DECCKM), as vim and less set them.
+        engine.feed(b"\x1b[?1h");
+        assert_eq!(
+            engine.encode_wheel(0, 0, -1, Mods::default(), CELL),
+            b"\x1bOA"
+        );
+    }
+}
+
+#[test]
+fn alternate_scroll_off_keeps_the_wheel_local() {
+    let mut engine = engine();
+    engine.feed(b"\x1b[?1049h\x1b[?1007l");
+    assert_eq!(engine.wheel_target(false), WheelTarget::Scrollback);
+    assert!(
+        engine
+            .encode_wheel(0, 0, -1, Mods::default(), CELL)
+            .is_empty()
+    );
+}
+
+#[test]
+fn wheel_is_reported_in_the_format_the_program_chose() {
+    let mut engine = engine();
+    // k9s (tcell) and neovim with 'mouse=a': tracking plus SGR coordinates.
+    for tracking in [&b"\x1b[?1000h"[..], b"\x1b[?1002h", b"\x1b[?1003h"] {
+        engine.feed(b"\x1b[?1049h\x1b[?1006h");
+        engine.feed(tracking);
+        assert_eq!(
+            engine.wheel_target(false),
+            WheelTarget::Report,
+            "{tracking:?}"
+        );
+        // One report per notch, a press only (buttons 4 and 5 have no release), 1-based cells.
+        assert_eq!(
+            engine.encode_wheel(4, 2, -1, Mods::default(), CELL),
+            b"\x1b[<64;5;3M"
+        );
+        assert_eq!(
+            engine.encode_wheel(4, 2, 2, Mods::default(), CELL),
+            b"\x1b[<65;5;3M\x1b[<65;5;3M"
+        );
+        engine.feed(b"\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l\x1b[?1049l");
+    }
+    // The X11 format without 1006: button 64 + 32, column and row + 33.
+    engine.feed(b"\x1b[?1000h");
+    assert_eq!(
+        engine.encode_wheel(4, 2, -1, Mods::default(), CELL),
+        b"\x1b[M`%#"
+    );
+    // Ctrl is part of the button code (16).
+    engine.feed(b"\x1b[?1006h");
+    let ctrl = Mods {
+        ctrl: true,
+        ..Mods::default()
+    };
+    assert_eq!(engine.encode_wheel(0, 0, 1, ctrl, CELL), b"\x1b[<81;1;1M");
+}
+
+#[test]
+fn shift_wheel_bypasses_the_program() {
+    let mut engine = engine();
+    engine.feed(b"\x1b[?1049h\x1b[?1000h\x1b[?1006h");
+    assert_eq!(engine.wheel_target(true), WheelTarget::Scrollback);
+    let shift = Mods {
+        shift: true,
+        ..Mods::default()
+    };
+    assert!(engine.encode_wheel(0, 0, -1, shift, CELL).is_empty());
 }

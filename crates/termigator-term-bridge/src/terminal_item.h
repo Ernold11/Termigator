@@ -217,6 +217,8 @@ private:
     QTimer *m_autoScrollTimer = nullptr;
     QElapsedTimer m_autoScrollClock;
     qreal m_autoScrollRows = 0;
+    // Wheel turn (eighths of a degree) not yet a whole step: touchpads send small deltas.
+    int m_wheelDelta = 0;
     qreal m_basePointSize = 10.5;
     QTimer *m_blinkTimer = nullptr;
     QTimer *m_refreshTimer = nullptr;

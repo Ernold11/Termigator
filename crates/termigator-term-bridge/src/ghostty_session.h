@@ -87,6 +87,13 @@ public:
     Q_INVOKABLE int scrollbarLen();
     Q_INVOKABLE QByteArray encodeMouse(int x, int y, int button, int action, int modifiers,
                                        int cellWidth, int cellHeight);
+    // Where a wheel turn goes: WheelScrollback, WheelReport (a step is a notch) or WheelArrows
+    // (a step is a line). Shift keeps it in the view.
+    enum WheelTarget { WheelScrollback = 0, WheelReport = 1, WheelArrows = 2 };
+    Q_INVOKABLE int wheelTarget(int modifiers);
+    // The bytes for `steps` wheel steps (negative is up) at a cell; empty for the scrollback.
+    Q_INVOKABLE QByteArray encodeWheel(int x, int y, int steps, int modifiers, int cellWidth,
+                                       int cellHeight);
     Q_INVOKABLE QString snapshotJson();
     Q_INVOKABLE QByteArray snapshotBinary();
     Q_INVOKABLE QString historyText();

@@ -15,7 +15,7 @@ use ghostty_vt::{
     fmt::{Format, Formatter, FormatterOptions},
     key, mouse, paste,
     render::{self, CursorVisualStyle, Dirty},
-    screen::GridRef,
+    screen::{GridRef, Screen},
     selection::{FormatOptions, SelectLineOptions, SelectWordOptions, Selection},
     style, terminal,
     terminal::{Point, PointCoordinate, ScrollViewport, Terminal},
@@ -480,6 +480,19 @@ pub enum MouseButton {
     Other(u8),
 }
 
+/// Where a wheel turn goes, from the program's modes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum WheelTarget {
+    /// The view scrolls its own scrollback.
+    Scrollback,
+    /// The program tracks the mouse (DECSET 9/1000/1002/1003): button 4/5 reports, one per
+    /// notch, in the format it chose (X11, UTF-8 1005, SGR 1006, urxvt 1015, SGR pixels 1016).
+    Report,
+    /// The alternate screen (DECSET 47/1047/1049) without mouse tracking: it has no scrollback,
+    /// so the wheel sends cursor Up/Down, one per line, like xterm's alternateScroll (DECSET 1007).
+    Arrows,
+}
+
 /// Scrollbar geometry in rows: `total` is the whole buffer, `offset` the first visible row,
 /// `len` the viewport height.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -809,6 +822,60 @@ impl Engine {
         let mut out = Vec::new();
         self.mouse.encode_to_vec(&event, &mut out)?;
         Ok(out)
+    }
+
+    /// Where a wheel turn goes now. Shift keeps it in the view (the way Shift+drag selects in a
+    /// program that tracks the mouse).
+    pub fn wheel_target(&self, shift: bool) -> WheelTarget {
+        if shift {
+            return WheelTarget::Scrollback;
+        }
+        if self.term.is_mouse_tracking().unwrap_or(false) {
+            return WheelTarget::Report;
+        }
+        let alternate = matches!(self.term.active_screen(), Ok(Screen::Alternate));
+        if alternate && self.term.mode(terminal::Mode::ALT_SCROLL).unwrap_or(false) {
+            WheelTarget::Arrows
+        } else {
+            WheelTarget::Scrollback
+        }
+    }
+
+    /// The bytes for `steps` wheel steps at a viewport cell (negative is up): reports (a step is a
+    /// notch) or cursor keys (a step is a line). Empty when the view scrolls the scrollback.
+    pub fn encode_wheel(
+        &mut self,
+        x: u16,
+        y: u16,
+        steps: i32,
+        mods: Mods,
+        cell_px: (u16, u16),
+    ) -> Vec<u8> {
+        let up = steps < 0;
+        let count = steps.unsigned_abs() as usize;
+        let one = match self.wheel_target(mods.shift) {
+            WheelTarget::Scrollback => return Vec::new(),
+            // A press only: xterm sends no release for buttons 4 and 5.
+            WheelTarget::Report => self.encode_mouse(
+                MouseInput {
+                    action: MouseAction::Press,
+                    button: Some(if up {
+                        MouseButton::WheelUp
+                    } else {
+                        MouseButton::WheelDown
+                    }),
+                    x,
+                    y,
+                    mods,
+                },
+                cell_px,
+            ),
+            WheelTarget::Arrows => self.encode_key(&KeyInput {
+                key: if up { Key::ArrowUp } else { Key::ArrowDown },
+                ..KeyInput::default()
+            }),
+        };
+        one.map(|bytes| bytes.repeat(count)).unwrap_or_default()
     }
 
     /// The whole scrollback plus the screen as plain text ("Save terminal output", `history`).

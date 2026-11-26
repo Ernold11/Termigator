@@ -333,7 +333,7 @@ impl SessionEngine {
         modifiers: u32,
         cell_size: u32,
     ) -> Vec<u8> {
-        use crate::engine::{Mods, MouseAction, MouseButton, MouseInput};
+        use crate::engine::{MouseAction, MouseButton, MouseInput};
         let button = match button {
             1 => Some(MouseButton::Left),
             2 => Some(MouseButton::Right),
@@ -347,13 +347,7 @@ impl SessionEngine {
             2 => MouseAction::Motion,
             _ => MouseAction::Press,
         };
-        let mods = Mods {
-            shift: modifiers & 0x0200_0000 != 0,
-            ctrl: modifiers & 0x0400_0000 != 0,
-            alt: modifiers & 0x0800_0000 != 0,
-            super_key: modifiers & 0x1000_0000 != 0,
-            ..Mods::default()
-        };
+        let mods = qt_mods(modifiers);
         self.engine
             .encode_mouse(
                 MouseInput {
@@ -368,17 +362,41 @@ impl SessionEngine {
             .unwrap_or_default()
     }
 
+    /// Where a wheel turn goes with these Qt modifiers: 0 the scrollback, 1 mouse reports (a step
+    /// is a notch), 2 cursor keys (a step is a line). See [`crate::engine::WheelTarget`].
+    pub fn wheel_target(&self, modifiers: u32) -> u8 {
+        use crate::engine::WheelTarget;
+        match self.engine.wheel_target(qt_mods(modifiers).shift) {
+            WheelTarget::Scrollback => 0,
+            WheelTarget::Report => 1,
+            WheelTarget::Arrows => 2,
+        }
+    }
+
+    /// The bytes for `steps` wheel steps (negative is up) at a viewport cell; empty when the view
+    /// scrolls its scrollback.
+    pub fn encode_wheel(
+        &mut self,
+        x: u16,
+        y: u16,
+        steps: i32,
+        modifiers: u32,
+        cell_size: u32,
+    ) -> Vec<u8> {
+        self.engine.encode_wheel(
+            x,
+            y,
+            steps,
+            qt_mods(modifiers),
+            ((cell_size >> 16) as u16, (cell_size & 0xffff) as u16),
+        )
+    }
+
     /// Encodes a Qt key event (`QKeyEvent::key()` and `modifiers()`) with the engine's current
     /// modes. `text` is the already-translated UTF-8 text; empty when the key only produces a
     /// control sequence.
     pub fn encode_qt_key(&mut self, key: i32, modifiers: u32, text: &str) -> Vec<u8> {
-        let mods = crate::engine::Mods {
-            shift: modifiers & 0x0200_0000 != 0,
-            ctrl: modifiers & 0x0400_0000 != 0,
-            alt: modifiers & 0x0800_0000 != 0,
-            super_key: modifiers & 0x1000_0000 != 0,
-            ..crate::engine::Mods::default()
-        };
+        let mods = qt_mods(modifiers);
         // `text` is the unmodified character. With Ctrl Qt reports the control byte itself
         // ("\x03" for Ctrl+C); passing that on makes the encoder emit `CSI 3;5u` instead of the
         // byte, and the shell never sees SIGINT. A control character is no text: the key and the
@@ -606,6 +624,17 @@ fn color(rgb: Rgb) -> Value {
 }
 
 /// `Qt::Key` -> neutral key. Qt constants are stable and this is the only place that knows them;
+/// Qt's `KeyboardModifiers` bits as engine modifiers.
+fn qt_mods(modifiers: u32) -> crate::engine::Mods {
+    crate::engine::Mods {
+        shift: modifiers & 0x0200_0000 != 0,
+        ctrl: modifiers & 0x0400_0000 != 0,
+        alt: modifiers & 0x0800_0000 != 0,
+        super_key: modifiers & 0x1000_0000 != 0,
+        ..crate::engine::Mods::default()
+    }
+}
+
 fn qt_key(key: i32) -> crate::engine::Key {
     use crate::engine::Key;
     match key {

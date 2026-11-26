@@ -740,22 +740,34 @@ void GhosttyTerminalItem::wheelEvent(QWheelEvent *event)
         QQuickPaintedItem::wheelEvent(event);
         return;
     }
-    const QPoint cell = cellAt(event->position());
-    const bool up = event->angleDelta().y() > 0;
-    const QByteArray encoded =
-        m_session->encodeMouse(cell.x(), cell.y(), up ? 8 : 16, 0,
-                               static_cast<int>(event->modifiers()),
-                               static_cast<int>(m_cellWidth), static_cast<int>(m_cellHeight));
-    if (!encoded.isEmpty()) {
-        m_session->sendBytes(encoded);
-    } else {
-        const int rows = qMax(1, event->angleDelta().y() / 120) * 3;
-        m_session->scrollBy(up ? -rows : rows);
+    // Qt's positive delta is a turn away from the user, up. A horizontal turn has no meaning here
+    // (it used to scroll down).
+    const int delta = event->angleDelta().y();
+    event->accept();
+    if (delta == 0)
+        return;
+    if ((delta > 0) != (m_wheelDelta > 0))
+        m_wheelDelta = 0; // a reversal does not first use up the other direction's remainder
+    m_wheelDelta += delta;
+    const int modifiers = static_cast<int>(event->modifiers());
+    const int target = m_session->wheelTarget(modifiers);
+    // A notch (120) is one report to a program that tracks the mouse, three lines otherwise.
+    const int unit = target == GhosttySession::WheelReport ? 120 : 40;
+    const int steps = m_wheelDelta / unit;
+    if (steps == 0)
+        return;
+    m_wheelDelta -= steps * unit;
+    if (target == GhosttySession::WheelScrollback) {
+        m_session->scrollBy(-steps);
         updateScrollbar();
         if (m_selecting)
             updateDragSelection();
+        return;
     }
-    event->accept();
+    const QPoint cell = cellAt(event->position());
+    m_session->sendBytes(m_session->encodeWheel(cell.x(), cell.y(), -steps, modifiers,
+                                                static_cast<int>(m_cellWidth),
+                                                static_cast<int>(m_cellHeight)));
 }
 
 void GhosttyTerminalItem::requestFrame()
