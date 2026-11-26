@@ -15,9 +15,15 @@ QtObject {
     id: box
 
     property string text
+    // Smaller details under `text` (empty: none).
+    property string informativeText
     property string title: "Termigator"
     // QtQuick.Dialogs StandardButton flags (same values as DialogButtonBox and QMessageBox).
     property int buttons: MessageDialog.Ok
+    // System dialog only: own texts for standard buttons ({ [MessageDialog.Ok]: "…" }; the roles,
+    // order and Esc stay theirs) and the button Enter presses (0: QMessageBox's choice).
+    property var buttonTexts: ({})
+    property int defaultButton: 0
     // "auto" (a question for Yes / No, else information), "none", "information", "warning",
     // "critical" or "question".
     property string icon: "auto"
@@ -46,7 +52,10 @@ QtObject {
         current = systemDialog ? systemComponent.createObject(box, {
             "title": box.title,
             "text": box.text,
+            "informativeText": box.informativeText,
             "buttons": box.buttons,
+            "buttonTexts": box.buttonTexts,
+            "defaultButton": box.defaultButton,
             "icon": box.iconName(),
             "richText": box.richText,
             "checkBoxText": box.checkBoxText,
@@ -118,6 +127,13 @@ QtObject {
                     text: box.text
                     wrapMode: Text.Wrap
                     textFormat: box.richText ? Text.RichText : Text.PlainText
+                    color: Kirigami.Theme.textColor
+                }
+                QQC2.Label {
+                    width: parent.width
+                    visible: box.informativeText !== ""
+                    text: box.informativeText
+                    wrapMode: Text.Wrap
                     color: Kirigami.Theme.textColor
                 }
                 QQC2.CheckBox {

@@ -91,6 +91,16 @@ fn close_question_lists_what_runs() {
 }
 
 #[test]
+fn close_choice_details_tell_what_exit_ends() {
+    assert_eq!(close_choice_details(0, 0, 0), "");
+    assert_eq!(
+        close_choice_details(1, 0, 2),
+        "1 embedded session(s) are still running\n2 tunnel(s) will be stopped.\nExit ends them; \
+         in the tray they keep running."
+    );
+}
+
+#[test]
 fn window_state_is_saved_and_last_session_follows_session_restore() {
     let mut c = cfg("last_session: {tabs: []}\n");
     save_window_state(&mut c, 1000, 700, 0);

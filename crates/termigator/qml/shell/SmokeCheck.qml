@@ -12,6 +12,7 @@ Item {
     required property var shell
     property int step: 0
     property bool quitting: false
+    property bool wasMaximized: false
     property int splitHits: 0
     property var dialog: null
     property var sizedWindow: null
@@ -185,6 +186,53 @@ Item {
         () => {
             expect(!check.quitting && !shell.visible, "Cancel in the tray's Quit: quitting " + check.quitting + ", visible " + shell.visible);
             shell.show();
+        },
+        // window.close_to_tray without a tray icon: the close button still asks to quit (the
+        // window cannot be stranded hidden).
+        () => {
+            shell.trayReady = false;
+            shell.controller.setWindowBool("close_to_tray", true);
+            shell.close();
+        },
+        () => {
+            expect(shell.visible && shell.closeBox.visible, "close to tray without a tray did not ask");
+            shell.closeBox.buttonClicked(MessageDialog.No, MessageDialog.NoRole);
+            shell.closeBox.close();
+        },
+        // With the tray: the close button hides the window, nothing asks or shuts down; the
+        // tray menu's Show / Restore brings it back maximized as it was.
+        () => {
+            shell.trayReady = true;
+            shell.showMaximized();
+        },
+        () => {
+            check.wasMaximized = shell.visibility === Window.Maximized;
+            expect(shell.trayHideItem.enabled && !shell.trayShowItem.enabled, "tray items while shown");
+            shell.close();
+        },
+        () => {
+            expect(!shell.visible && !shell.closeBox.visible && !check.quitting, "close to tray: visible " + shell.visible + ", asked " + shell.closeBox.visible + ", quitting " + check.quitting);
+            expect(shell.trayShowItem.enabled && !shell.trayHideItem.enabled, "tray items while hidden");
+            shell.trayShowItem.triggered();
+        },
+        () => {
+            expect(shell.visible, "Show / Restore did not bring the window back");
+            if (check.wasMaximized)
+                expect(shell.visibility === Window.Maximized, "not maximized again: " + shell.visibility);
+            shell.trayHideItem.triggered();
+        },
+        () => {
+            expect(!shell.visible && !check.quitting, "the tray's Hide");
+            shell.restoreWindow();
+            shell.showNormal();
+        },
+        () => {
+            const g = Qt.rect(shell.x, shell.y, shell.width, shell.height);
+            shell.close();
+            shell.restoreWindow();
+            expect(shell.visible && shell.width === g.width && shell.height === g.height, "size after the tray: " + shell.width + "x" + shell.height + " for " + g.width + "x" + g.height);
+            shell.controller.setWindowBool("close_to_tray", false);
+            shell.trayReady = false;
         },
         () => {
             expect(shell.visible, "the window did not come back");

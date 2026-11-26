@@ -16,6 +16,13 @@ window:
   # logout, failed connect). Off by default: the dead tab itself shows a
   # "Session stopped" prompt (R = restart, Enter = close tab, S = save output).
   notify_on_disconnect: false
+  # What the window's close button (and Alt+F4) does with the tray icon on (tray_icon): ask
+  # (default: Hide in Tray / Exit / Cancel), tray (hide it in the tray: sessions,
+  # transfers and tunnels keep running) or exit. "Remember my choice" in that dialog sets it.
+  # Exit in the tray menu (or File > Quit) always ends everything. Without the tray icon the close
+  # button exits. Older configs' close_to_tray: true still means tray.
+  # Also in Settings > Configure Termigator > Application > Close behavior.
+  # close_action: ask
   # Once a day at startup ask GitHub for the latest release and show a banner when it is newer
   # (nothing is downloaded). Also in Settings > Configure Termigator > Application.
   check_updates: true

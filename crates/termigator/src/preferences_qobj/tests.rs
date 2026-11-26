@@ -243,3 +243,44 @@ fn quick_history_limit_is_shown_and_stored_only_when_changed() {
     apply_values(&mut c, &draft);
     assert_eq!(page_values(&c)["quick_history_limit"], 200);
 }
+
+#[test]
+fn close_action_asks_and_is_stored_only_when_changed() {
+    let mut c = cfg("{}");
+    let shown = page_values(&c);
+    assert_eq!(shown["close_action"], "ask");
+    apply_values(&mut c, &shown);
+    assert_eq!(section(&c, "window").get("close_action"), None);
+    let mut draft = page_values(&c);
+    draft["close_action"] = json!("tray");
+    apply_values(&mut c, &draft);
+    assert_eq!(
+        section(&c, "window").get("close_action"),
+        Some(&Value::Str("tray".to_owned()))
+    );
+    assert_eq!(page_values(&c)["close_action"], "tray");
+    // Back to "Always ask" once stored: written as ask, not left on tray.
+    draft["close_action"] = json!("ask");
+    apply_values(&mut c, &draft);
+    assert_eq!(page_values(&c)["close_action"], "ask");
+    // Junk in the draft changes nothing.
+    draft["close_action"] = json!("bogus");
+    apply_values(&mut c, &draft);
+    assert_eq!(page_values(&c)["close_action"], "ask");
+}
+
+#[test]
+fn an_old_close_to_tray_shows_as_tray_and_is_replaced_once_changed() {
+    let mut c = cfg("window: {close_to_tray: true}\n");
+    let mut draft = page_values(&c);
+    assert_eq!(draft["close_action"], "tray");
+    apply_values(&mut c, &draft);
+    assert_eq!(
+        section(&c, "window").get("close_to_tray"),
+        Some(&Value::Bool(true))
+    );
+    draft["close_action"] = json!("exit");
+    apply_values(&mut c, &draft);
+    assert_eq!(section(&c, "window").get("close_to_tray"), None);
+    assert_eq!(page_values(&c)["close_action"], "exit");
+}

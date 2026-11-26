@@ -50,8 +50,12 @@ QQC2.ApplicationWindow {
     readonly property alias shellActions: appActions
     readonly property alias followTimer: followTimer
     readonly property alias closeBox: closeMessageBox
+    readonly property alias closeChoiceBox: closeChoiceBox
+    readonly property alias sessionEnd: sessionEnd
     readonly property alias contentArea: split
     readonly property alias trayQuitItem: trayQuit
+    readonly property alias trayShowItem: trayShow
+    readonly property alias trayHideItem: trayHide
     readonly property alias tools: tools
     readonly property alias sideTabBar: sideTabs
     readonly property alias filesHost: filesHost
@@ -115,13 +119,52 @@ QQC2.ApplicationWindow {
     }
 
     function toggleVisible() {
-        if (visible) {
-            hide();
-        } else {
+        if (visible)
+            hideWindow();
+        else
+            restoreWindow();
+    }
+
+    // window.close_action (termigator_core::close_action): what the close button, Alt+F4 and any
+    // other window-manager close do — "ask" (closeChoiceBox), "tray" (hide) or "exit" (requestQuit).
+    // Without a tray icon to bring the window back it is always "exit". Read at each close, so a
+    // change in Settings works at once. The smoke checks set trayReady (no tray offscreen).
+    property bool trayReady: tray.visible
+    function closeAction() {
+        return trayReady ? appController.closeAction() : "exit";
+    }
+    // Set by finishClose(): the window is closing for good, later close requests do nothing.
+    property bool closedForGood: false
+    // Whether the window was maximized when it was hidden: showNormal() would drop that.
+    property bool hiddenMaximized: false
+    property bool trayHintShown: false
+
+    function hideWindow() {
+        if (!visible)
+            return;
+        hiddenMaximized = visibility === Window.Maximized;
+        hide();
+    }
+
+    // Back from the tray (or from minimized) as it was: maximized, or at its last normal geometry.
+    function restoreWindow() {
+        if (!visible) {
+            if (hiddenMaximized) {
+                showMaximized();
+            } else {
+                if (normalGeometry.width > 0) {
+                    x = normalGeometry.x;
+                    y = normalGeometry.y;
+                    width = normalGeometry.width;
+                    height = normalGeometry.height;
+                }
+                showNormal();
+            }
+        } else if (visibility === Window.Minimized) {
             showNormal();
-            raise();
-            requestActivate();
         }
+        raise();
+        requestActivate();
     }
 
     // File → Quit, the tray's Quit and the close button: the confirmation, then finishClose().
@@ -144,7 +187,53 @@ QQC2.ApplicationWindow {
         requestQuit();
     }
 
+    // The one way in for a close request on the window (onClosing). A request while one of the
+    // close questions is open only brings the window forward: never a second dialog.
+    function requestClose() {
+        if (closedForGood)
+            return;
+        // Logout / shutdown: no question the session manager would have to wait for.
+        if (sessionEnd.ending) {
+            finishClose();
+            return;
+        }
+        if (closeChoiceBox.visible || closeMessageBox.visible) {
+            raise();
+            requestActivate();
+            return;
+        }
+        const action = closeAction();
+        if (action === "tray") {
+            hideToTray();
+        } else if (action === "exit") {
+            requestQuit();
+        } else {
+            closeChoiceBox.informativeText = appController.closeChoiceDetails(liveSessions, activeTransfers, runningTunnels);
+            closeChoiceBox.checked = false;
+            closeChoiceBox.open();
+        }
+    }
+
+    // The close dialog's "Remember my choice": window.close_action, saved at once.
+    function rememberCloseAction(action) {
+        appController.setCloseAction(action);
+        appController.persist();
+    }
+
+    // Hidden in the tray: sessions, transfers, tunnels and the tabs' layout stay as they are.
+    function hideToTray() {
+        hideWindow();
+        if (!trayHintShown) {
+            trayHintShown = true;
+            if (tray.visible && tray.supportsMessages)
+                tray.showMessage("Termigator", qsTr("Termigator keeps running in the system tray. Exit from the tray menu ends it."), Platform.SystemTrayIcon.Information, 4000);
+        }
+    }
+
     function requestQuit() {
+        if (closedForGood || closeMessageBox.visible)
+            return;
+        closeChoiceBox.close();
         const question = appController.closeQuestion(liveSessions, activeTransfers, runningTunnels);
         if (question === "") {
             finishClose();
@@ -166,11 +255,17 @@ QQC2.ApplicationWindow {
     }
 
     function finishClose() {
+        if (closedForGood)
+            return;
+        closedForGood = true;
+        closeChoiceBox.close();
         if (restarting)
             appController.requestRestart(); // before shuttingDown(): the tab snapshot is kept
         shuttingDown();
         const g = visibility === Window.Windowed || normalGeometry.width <= 0 ? Qt.rect(x, y, width, height) : normalGeometry;
-        appController.setWindowPlacement(g.x, g.y, onWindows, visibility === Window.Maximized);
+        // Quit from the tray: the window is hidden, its state is the one it had when hidden.
+        const maximized = visible ? visibility === Window.Maximized : hiddenMaximized;
+        appController.setWindowPlacement(g.x, g.y, onWindows, maximized);
         appController.saveWindowState(g.width, g.height, side.visible ? side.width : 0);
         tray.visible = false;
         Qt.callLater(Qt.quit);
@@ -353,16 +448,10 @@ QQC2.ApplicationWindow {
         target: appController
 
         function onRemoteCommand(command) {
-            if (command === "toggle" && root.visible && root.visibility !== Window.Minimized && root.active) {
-                root.hide();
-                return;
-            }
-            if (root.visibility === Window.Minimized)
-                root.showNormal();
+            if (command === "toggle" && root.visible && root.visibility !== Window.Minimized && root.active)
+                root.hideWindow();
             else
-                root.show();
-            root.raise();
-            root.requestActivate();
+                root.restoreWindow();
         }
 
         function onWarning(text) {
@@ -371,9 +460,54 @@ QQC2.ApplicationWindow {
         }
     }
 
+    // The close button, Alt+F4, the taskbar's Close, Windows' close message: all arrive here.
     onClosing: close => {
         close.accepted = false;
-        root.requestQuit();
+        root.requestClose();
+    }
+
+    SessionEnd {
+        id: sessionEnd
+    }
+
+    // The session ends with the window hidden in the tray: Qt quits without a closing signal (only
+    // visible windows get one), so the shutdown work runs here.
+    Connections {
+        target: Qt.application
+
+        function onAboutToQuit() {
+            if (sessionEnd.ending && !root.closedForGood)
+                root.finishClose();
+        }
+    }
+
+    // window.close_action "ask": Hide in Tray (the default button: Enter keeps everything running),
+    // Exit, Cancel (also Esc and the dialog's own close button). "Hide", like the tray menu's item:
+    // the window is hidden, not minimized to the taskbar.
+    MessageBox {
+        id: closeChoiceBox
+
+        title: qsTr("Close Termigator?")
+        text: qsTr("Hide Termigator in the system tray, or exit?")
+        icon: "question"
+        buttons: MessageDialog.Ok | MessageDialog.Close | MessageDialog.Cancel
+        buttonTexts: ({
+                [MessageDialog.Ok]: qsTr("Hide in Tray"),
+                [MessageDialog.Close]: qsTr("Exit")
+            })
+        defaultButton: MessageDialog.Ok
+        checkBoxText: qsTr("Remember my choice (don't ask again)")
+        onButtonClicked: (button, role) => {
+            if (button === MessageDialog.Ok) {
+                if (checked)
+                    root.rememberCloseAction("tray");
+                root.hideToTray();
+            } else if (button === MessageDialog.Close) {
+                if (checked)
+                    root.rememberCloseAction("exit");
+                root.finishClose();
+            }
+        }
     }
 
     MessageBox {
@@ -533,7 +667,17 @@ QQC2.ApplicationWindow {
         shell: root
     }
 
-    // Tray icon toggling the window (window.tray_icon).
+    // On Windows a double click also sends the single click first: wait the double-click interval
+    // so it does not hide the window just before the double click brings it back.
+    Timer {
+        id: trayClickTimer
+
+        interval: Application.styleHints.mouseDoubleClickInterval
+        onTriggered: root.toggleVisible()
+    }
+
+    // Tray icon (window.tray_icon): a click toggles the window, a double click restores it.
+    // The only one: a second start hands over to this process (single_instance), so no duplicate.
     Platform.SystemTrayIcon {
         id: tray
 
@@ -544,20 +688,38 @@ QQC2.ApplicationWindow {
         tooltip: "Termigator"
         menu: Platform.Menu {
             Platform.MenuItem {
-                text: qsTr("Show / Hide")
-                onTriggered: root.toggleVisible()
+                id: trayShow
+
+                text: qsTr("Show / Restore")
+                enabled: !root.visible || root.visibility === Window.Minimized
+                onTriggered: root.restoreWindow()
+            }
+            Platform.MenuItem {
+                id: trayHide
+
+                text: qsTr("Hide")
+                enabled: root.visible
+                onTriggered: root.hideWindow()
             }
             Platform.MenuSeparator {}
+            // Ends everything, like File → Quit: the close question, then shuttingDown().
             Platform.MenuItem {
                 id: trayQuit
 
-                text: qsTr("Quit")
+                text: qsTr("Exit")
                 onTriggered: root.requestQuit()
             }
         }
         onActivated: reason => {
-            if (reason === Platform.SystemTrayIcon.Trigger)
-                root.toggleVisible();
+            if (reason === Platform.SystemTrayIcon.DoubleClick) {
+                trayClickTimer.stop();
+                root.restoreWindow();
+            } else if (reason === Platform.SystemTrayIcon.Trigger) {
+                if (root.onWindows)
+                    trayClickTimer.restart();
+                else
+                    root.toggleVisible();
+            }
         }
     }
 

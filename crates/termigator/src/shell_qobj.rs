@@ -15,6 +15,7 @@ use cxx_qt::{CxxQtType, Threading};
 use cxx_qt_lib::{QSize, QString, QStringList, QUrl};
 use serde_json::json;
 use termigator_core::actions::{self, Context};
+use termigator_core::close_action::{self, CloseAction};
 use termigator_core::config::doc::Value;
 use termigator_core::config::environments;
 use termigator_core::config::model::{section, truthy, value_int};
@@ -181,6 +182,23 @@ pub mod qobject {
         /// The close-confirmation question, or "" when the window may close at once.
         #[qinvokable]
         fn close_question(
+            self: &AppController,
+            sessions: i32,
+            transfers: i32,
+            tunnels: i32,
+        ) -> QString;
+
+        /// What the close button does (`termigator_core::close_action`): "ask", "tray" or "exit".
+        #[qinvokable]
+        fn close_action(self: &AppController) -> QString;
+
+        /// Stores the close button's choice (not saved; call `persist`); unknown text is ignored.
+        #[qinvokable]
+        fn set_close_action(self: &AppController, action: &QString);
+
+        /// The details under the close dialog's question: what Exit would end, "" when nothing runs.
+        #[qinvokable]
+        fn close_choice_details(
             self: &AppController,
             sessions: i32,
             transfers: i32,
@@ -539,6 +557,20 @@ impl qobject::AppController {
         QString::from(q.as_str())
     }
 
+    fn close_action(&self) -> QString {
+        QString::from(with_app(|app| close_action::configured(&app.cfg)).as_str())
+    }
+
+    fn set_close_action(&self, action: &QString) {
+        if let Some(action) = CloseAction::parse(&action.to_string()) {
+            with_app(|app| close_action::set(&mut app.cfg, action));
+        }
+    }
+
+    fn close_choice_details(&self, sessions: i32, transfers: i32, tunnels: i32) -> QString {
+        QString::from(close_choice_details(sessions, transfers, tunnels).as_str())
+    }
+
     fn quick_completions(&self) -> QStringList {
         string_list(&with_app(|app| quick_completions(&app.cfg)))
     }
@@ -725,6 +757,22 @@ pub fn close_question(cfg: &Value, sessions: i32, transfers: i32, tunnels: i32) 
     {
         return None;
     }
+    Some(running_lines(sessions, transfers, tunnels) + ".\nClose the window and end them?")
+}
+
+/// The close dialog's details: what Exit ends and Hide in Tray keeps; "" when nothing runs.
+pub fn close_choice_details(sessions: i32, transfers: i32, tunnels: i32) -> String {
+    if sessions <= 0 && transfers <= 0 && tunnels <= 0 {
+        return String::new();
+    }
+    format!(
+        "{}.\nExit ends them; in the tray they keep running.",
+        running_lines(sessions, transfers, tunnels)
+    )
+}
+
+/// One line per kind of work still running (none for a zero count).
+fn running_lines(sessions: i32, transfers: i32, tunnels: i32) -> String {
     let mut what = Vec::new();
     if sessions > 0 {
         what.push(format!("{sessions} embedded session(s) are still running"));
@@ -737,7 +785,7 @@ pub fn close_question(cfg: &Value, sessions: i32, transfers: i32, tunnels: i32) 
     if tunnels > 0 {
         what.push(format!("{tunnels} tunnel(s) will be stopped"));
     }
-    Some(what.join("\n") + ".\nClose the window and end them?")
+    what.join("\n")
 }
 
 fn string_list(items: &[String]) -> QStringList {

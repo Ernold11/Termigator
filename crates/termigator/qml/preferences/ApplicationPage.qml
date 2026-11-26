@@ -62,4 +62,35 @@ PrefPage {
         text: qsTr("Reopen the last session's tabs and splits on start")
         tip: qsTr("Passwords are never stored for this — saved / encrypted entries are reused.")
     }
+
+    // window.close_action (termigator_core::close_action); also what "Remember my choice" in the
+    // close dialog sets, so "Always ask" brings that dialog back.
+    Kirigami.Separator {
+        Kirigami.FormData.isSection: true
+        Kirigami.FormData.label: qsTr("Close behavior")
+    }
+    PrefCombo {
+        id: closeActionCombo
+
+        key: "close_action"
+        enabled: draft["tray_icon"] === true
+        model: [
+            {
+                "text": qsTr("Always ask"),
+                "value": "ask"
+            },
+            {
+                "text": qsTr("Always hide in the system tray"),
+                "value": "tray"
+            },
+            {
+                "text": qsTr("Always exit the application"),
+                "value": "exit"
+            }
+        ]
+        Kirigami.FormData.label: qsTr("Close button:")
+    }
+    PrefHint {
+        text: closeActionCombo.enabled ? qsTr("In the tray, sessions, transfers and tunnels keep running. File → Quit and the tray's Exit always end them. Choose “Always ask” to bring back the question you told not to ask again.") : qsTr("Without the tray icon the close button always exits.")
+    }
 }

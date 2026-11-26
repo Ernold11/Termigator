@@ -11,6 +11,7 @@ use std::path::Path;
 
 use cxx_qt_lib::{QString, QStringList};
 use serde_json::{Map, json};
+use termigator_core::close_action::{self, CloseAction};
 use termigator_core::config::doc::Value;
 use termigator_core::config::environments;
 use termigator_core::config::model::{
@@ -315,6 +316,10 @@ pub fn page_values(cfg: &Value) -> serde_json::Value {
     put("vnc_client", json!(text_of(l, "vnc_client")));
     put("editor", json!(text_of(l, "editor")));
     put("tray_icon", json!(flag_of(w, "tray_icon", true)));
+    put(
+        close_action::KEY,
+        json!(close_action::configured(cfg).as_str()),
+    );
     put("show_recent", json!(flag_of(w, "show_recent", true)));
     put(quick_history::LIMIT_KEY, json!(quick_history::limit(cfg)));
     put(
@@ -416,6 +421,11 @@ pub fn apply_values(cfg: &mut Value, draft: &serde_json::Value) {
             quick_history::LIMIT_KEY,
             Value::Int(history_limit),
         );
+    }
+    // Not in the defaults table either: stored once it differs from what is in effect (which also
+    // retires the legacy window.close_to_tray flag).
+    if let Some(action) = CloseAction::parse(&text(close_action::KEY)) {
+        close_action::set(cfg, action);
     }
     let mut win = |name: &str, value: Value| store(cfg, "window", name, value);
     win(

@@ -27,6 +27,7 @@
 #include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPushButton>
 
 namespace termigator {
 
@@ -174,6 +175,14 @@ void NativeMessageBox::setText(const QString &v)
     Q_EMIT textChanged();
 }
 
+void NativeMessageBox::setInformativeText(const QString &v)
+{
+    if (m_informativeText == v)
+        return;
+    m_informativeText = v;
+    Q_EMIT informativeTextChanged();
+}
+
 void NativeMessageBox::setIcon(const QString &v)
 {
     if (m_icon == v)
@@ -188,6 +197,22 @@ void NativeMessageBox::setButtons(int v)
         return;
     m_buttons = v;
     Q_EMIT buttonsChanged();
+}
+
+void NativeMessageBox::setButtonTexts(const QVariantMap &v)
+{
+    if (m_buttonTexts == v)
+        return;
+    m_buttonTexts = v;
+    Q_EMIT buttonTextsChanged();
+}
+
+void NativeMessageBox::setDefaultButton(int v)
+{
+    if (m_defaultButton == v)
+        return;
+    m_defaultButton = v;
+    Q_EMIT defaultButtonChanged();
 }
 
 void NativeMessageBox::setRichText(bool v)
@@ -241,8 +266,20 @@ void NativeMessageBox::open()
     box->setWindowTitle(m_title);
     box->setText(m_text);
     box->setTextFormat(m_richText ? Qt::RichText : Qt::PlainText);
+    if (!m_informativeText.isEmpty())
+        box->setInformativeText(m_informativeText);
     // The button texts and their order come from the platform theme.
     box->setStandardButtons(QMessageBox::StandardButtons(m_buttons));
+    for (auto it = m_buttonTexts.cbegin(); it != m_buttonTexts.cend(); ++it) {
+        bool ok = false;
+        const int which = it.key().toInt(&ok);
+        if (QAbstractButton *b = ok ? box->button(QMessageBox::StandardButton(which)) : nullptr)
+            b->setText(it.value().toString());
+    }
+    if (m_defaultButton != 0) {
+        if (auto *b = qobject_cast<QPushButton *>(box->button(QMessageBox::StandardButton(m_defaultButton))))
+            box->setDefaultButton(b);
+    }
     if (!m_checkBoxText.isEmpty()) {
         auto *check = new QCheckBox(m_checkBoxText, box);
         check->setChecked(m_checked);
@@ -311,6 +348,21 @@ void NativeMessageBox::dismiss()
 {
     if (m_box)
         m_box->close();
+}
+
+QString NativeMessageBox::buttonText(int standardButton) const
+{
+    if (!m_box)
+        return QString();
+    QAbstractButton *b = m_box->button(QMessageBox::StandardButton(standardButton));
+    return b ? b->text() : QString();
+}
+
+int NativeMessageBox::shownDefaultButton() const
+{
+    if (!m_box || !m_box->defaultButton())
+        return 0;
+    return m_box->standardButton(m_box->defaultButton());
 }
 
 void NativeMessageBox::close()

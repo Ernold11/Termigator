@@ -6,6 +6,7 @@
 
 pub mod actions;
 pub mod bulk;
+pub mod close_action;
 pub mod config;
 pub mod connectivity;
 pub mod credentials;

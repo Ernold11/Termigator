@@ -38,6 +38,7 @@ const QML_FILES: &[&str] = &[
     "qml/shell/SmokeCheck.qml",
     "qml/shell/StartupCheck.qml",
     "qml/shell/RestartCheck.qml",
+    "qml/shell/CloseChoiceCheck.qml",
     "qml/shell/LookCheck.qml",
     "qml/shell/ShowcaseCheck.qml",
     "qml/shell/ThemeSwitchCheck.qml",
@@ -144,6 +145,8 @@ fn main() {
         .cpp_file("src/terminal_native.cpp")
         .cpp_file("src/message_native.h")
         .cpp_file("src/message_native.cpp")
+        .cpp_file("src/session_native.h")
+        .cpp_file("src/session_native.cpp")
         .qt_module("Quick")
         .qt_module("Widgets")
         // The app icon (an installed binary has no source tree), for the empty-pane placeholder:
