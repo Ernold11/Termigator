@@ -324,6 +324,9 @@ FocusScope {
                     property: "position"
                     value: view.term ? (view.term.scrollbarCurrentValue - view.term.scrollbarMinimum) / Math.max(1, thumb.total) : 0
                     when: !thumb.pressed
+                    // Keep the handle where it is when a press turns the binding off: the default
+                    // restore put back an old position, so on Qt 6.12.1 the drag started from it.
+                    restoreMode: Binding.RestoreNone
                 }
             }
 
