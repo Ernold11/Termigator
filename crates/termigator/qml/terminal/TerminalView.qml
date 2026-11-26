@@ -66,8 +66,9 @@ FocusScope {
         findBar.toggle();
     }
 
+    // Not while the paste question is open: Enter must stay its answer.
     function focusTerminal() {
-        if (term)
+        if (term && !pasteDialog.visible)
             term.forceActiveFocus();
     }
 
@@ -457,26 +458,70 @@ FocusScope {
 
         property string text
         property bool appendReturn
+        // Preview is a read-only TextArea (not the button box): width from content, not the window.
+        readonly property int pasteColumnWidth: Math.min(
+            Math.max(Math.ceil(Math.max(pastePreview.contentWidth, pasteQuestion.implicitWidth)),
+                Kirigami.Units.gridUnit * 28),
+            parent ? parent.width - Kirigami.Units.gridUnit * 4 : Kirigami.Units.gridUnit * 56)
 
         title: qsTr("Paste multiline text")
         modal: true
         parent: QQC2.Overlay.overlay
         anchors.centerIn: parent
-        width: Math.min(Math.max(pasteBody.implicitWidth + Kirigami.Units.gridUnit * 4, 480),
-            (parent ? parent.width : 800) - Kirigami.Units.gridUnit * 2)
+        width: Math.max(pasteColumnWidth + padding * 2, Kirigami.Units.gridUnit * 30)
         padding: Kirigami.Units.largeSpacing
-        standardButtons: QQC2.Dialog.Yes | QQC2.Dialog.No
         onAccepted: if (view.term)
             view.term.pasteText(text, appendReturn)
         onClosed: view.focusTerminal()
+        // The popup takes the focus as it starts to show, long before `opened` (the enter
+        // transition): the body must already be the focus inside it, so Enter answers Yes right
+        // away and the first Tab goes to Yes, the second to No.
+        onAboutToShow: pasteBody.forceActiveFocus()
+
+        footer: QQC2.DialogButtonBox {
+            id: pasteFooter
+
+            standardButtons: QQC2.DialogButtonBox.Yes | QQC2.DialogButtonBox.No
+            onAccepted: pasteDialog.accept()
+            onRejected: pasteDialog.reject()
+            // Quick buttons click on Space only; Enter answers with the focused one, like a QMessageBox.
+            Keys.onReturnPressed: pasteFooter.answer()
+            Keys.onEnterPressed: pasteFooter.answer()
+            Keys.onTabPressed: pasteFooter.cycle()
+            Keys.onBacktabPressed: pasteFooter.cycle()
+
+            function answer() {
+                const no = standardButton(QQC2.DialogButtonBox.No);
+                if (no && no.activeFocus)
+                    pasteDialog.reject();
+                else
+                    pasteDialog.accept();
+            }
+
+            // Tab stays on Yes / No: the window's own chain would leave the dialog.
+            function cycle() {
+                const yes = standardButton(QQC2.DialogButtonBox.Yes);
+                const no = standardButton(QQC2.DialogButtonBox.No);
+                const next = yes && yes.activeFocus ? no : yes;
+                if (next)
+                    next.forceActiveFocus(Qt.TabFocusReason);
+            }
+        }
 
         contentItem: ColumnLayout {
             id: pasteBody
 
             spacing: Kirigami.Units.smallSpacing
 
+            Keys.onReturnPressed: pasteDialog.accept()
+            Keys.onEnterPressed: pasteDialog.accept()
+            Keys.onTabPressed: pasteFooter.cycle()
+            Keys.onBacktabPressed: pasteFooter.cycle()
+
             QQC2.Label {
-                Layout.fillWidth: true
+                id: pasteQuestion
+
+                Layout.preferredWidth: pasteDialog.pasteColumnWidth
                 wrapMode: Text.WordWrap
                 text: qsTr("Are you sure you want to paste this text?")
             }
@@ -484,8 +529,7 @@ FocusScope {
             QQC2.ScrollView {
                 id: pasteScroll
 
-                Layout.fillWidth: true
-                Layout.preferredWidth: pasteDialog.width - pasteDialog.padding * 2
+                Layout.preferredWidth: pasteDialog.pasteColumnWidth
                 Layout.preferredHeight: Math.min(
                     Math.max(Kirigami.Units.gridUnit * 8, pastePreview.contentHeight + Kirigami.Units.gridUnit),
                     Kirigami.Units.gridUnit * 18,
@@ -500,6 +544,7 @@ FocusScope {
                     font: Kirigami.Theme.fixedWidthFont
                     wrapMode: TextEdit.NoWrap
                     selectByMouse: true
+                    activeFocusOnTab: false
                     Accessible.name: qsTr("Text to paste")
 
                     Kirigami.WheelHandler {

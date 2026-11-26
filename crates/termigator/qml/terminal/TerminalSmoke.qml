@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls as QQC2
 import QtQuick.Window
 import Termigator.Terminal.Probe
 
@@ -222,7 +223,13 @@ Item {
                 if (!has(held.one, "PASTED_TEXT"))
                     return false;
                 host.copyText("ML_ONE\nML_TWO");
-                action("edit.paste");
+                // Through the context menu, which hands the focus back to the terminal after its entry.
+                const v = view(held.one);
+                v.showMenu(10, 10);
+                const item = v.menu.itemAt(1);
+                expect(item.text === "Paste", "menu entry " + item.text);
+                item.triggered();
+                v.menu.close();
             }
         },
         {
@@ -232,7 +239,8 @@ Item {
                 if (!v.pasteDialog.visible)
                     return false;
                 expect(!has(held.one, "ML_TWO") && v.pasteDialog.text.indexOf("ML_TWO") >= 0, "pasted before the answer");
-                v.pasteDialog.accept();
+                // Enter right away answers Yes, without a Tab or a click first.
+                key(Qt.Key_Return, Qt.NoModifier, "\r");
             }
         },
         {
@@ -837,7 +845,25 @@ Item {
                 if (!v.pasteDialog.visible)
                     return false;
                 expect(v.pasteDialog.text.indexOf("MIDWORD\n") === 0, "asked about " + JSON.stringify(v.pasteDialog.text));
-                v.pasteDialog.reject();
+                // The first Tab goes to Yes, the second to No, and Enter answers with it.
+                const yes = v.pasteDialog.footer.standardButton(QQC2.DialogButtonBox.Yes);
+                const no = v.pasteDialog.footer.standardButton(QQC2.DialogButtonBox.No);
+                expect(!yes.activeFocus && !no.activeFocus, "a button focused before Tab");
+                key(Qt.Key_Tab);
+                expect(yes.activeFocus, "first Tab on " + shell.activeFocusItem);
+                key(Qt.Key_Tab);
+                expect(no.activeFocus, "second Tab on " + shell.activeFocusItem);
+                held.midAccepted = false;
+                v.pasteDialog.accepted.connect(() => held.midAccepted = true);
+                key(Qt.Key_Return, Qt.NoModifier, "\r");
+            }
+        },
+        {
+            "name": "middle multiline answered",
+            "fn": () => {
+                if (view(held.mid).pasteDialog.visible)
+                    return false;
+                expect(!held.midAccepted, "Enter on No pasted");
             }
         },
         // The copy and paste keys, copy on select, paste on a right-click,
