@@ -24,8 +24,8 @@ FocusScope {
     readonly property bool accent: paneId >= 0 && area.paneCount > 1 && area.activePane === paneId
     readonly property Item coords: paneId >= 0 ? area : view // what a dragged tab's positions are relative to
     readonly property alias menu: menu
-    readonly property alias renameDialog: renameDialog
-    readonly property alias renameField: renameField
+    readonly property alias renameDialog: paneRenameDialog
+    readonly property alias renameField: paneRenameField
 
     function setTabs(ids, cur) {
         if (JSON.stringify(ids) !== JSON.stringify(tabIds))
@@ -70,9 +70,9 @@ FocusScope {
     }
 
     function rename(tab) {
-        renameDialog.tab = tab;
-        renameField.text = tab.text;
-        renameDialog.open();
+        paneRenameDialog.tab = tab;
+        paneRenameField.text = tab.text;
+        paneRenameDialog.open();
     }
 
     // entries: {text, icon, fn, enabled, checkable, checked} or "-"; separators collapse like
@@ -412,7 +412,7 @@ FocusScope {
     }
 
     QQC2.Dialog {
-        id: renameDialog
+        id: paneRenameDialog
 
         property var tab: null
 
@@ -421,10 +421,10 @@ FocusScope {
         anchors.centerIn: QQC2.Overlay.overlay
         standardButtons: QQC2.Dialog.Ok | QQC2.Dialog.Cancel
         onOpened: {
-            renameField.selectAll();
-            renameField.forceActiveFocus();
+            paneRenameField.selectAll();
+            paneRenameField.forceActiveFocus();
         }
-        onAccepted: view.area.applyRename(tab, renameField.text)
+        onAccepted: view.area.applyRename(tab, paneRenameField.text)
         onClosed: view.focusCurrent()
 
         ColumnLayout {
@@ -432,11 +432,11 @@ FocusScope {
                 text: qsTr("Tab title:")
             }
             QQC2.TextField {
-                id: renameField
+                id: paneRenameField
 
                 Layout.minimumWidth: 280
                 Accessible.name: qsTr("Tab title")
-                onAccepted: renameDialog.accept()
+                onAccepted: paneRenameDialog.accept()
             }
         }
     }

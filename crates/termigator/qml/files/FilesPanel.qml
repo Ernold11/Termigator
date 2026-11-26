@@ -32,19 +32,19 @@ FocusScope {
     signal localFollowRequested
     readonly property string followPausedTip: qsTr("Following paused: you went to another folder here.\nClick to go back to the terminal's folder (a cd in the terminal does it too).")
     readonly property alias list: remote
-    readonly property alias followButton: followButton
+    readonly property alias followButton: followTool
     readonly property alias hiddenButton: hiddenButton
-    readonly property alias twoPaneButton: twoPaneButton
+    readonly property alias twoPaneButton: twoPaneTool
     readonly property alias pathField: pathField
     readonly property alias transfersView: transfersView
-    readonly property alias localLoader: localLoader
-    readonly property alias saveDialog: saveDialog
+    readonly property alias localLoader: localPaneLoader
+    readonly property alias saveDialog: saveFileDialog
     readonly property alias messageBox: box
     readonly property alias askBox: ask3
-    readonly property alias prompt: prompt
+    readonly property alias prompt: promptDialog
     readonly property alias permissionsDialog: permDialog
     readonly property alias bookmarkMenu: bookmarkMenu
-    readonly property var local: localLoader.item
+    readonly property var local: localPaneLoader.item
     readonly property alias toolbar: toolbarFlow
 
     // The side dock and the window minimum width bind to it (ShellWindow.qml): the toolbar no
@@ -127,14 +127,14 @@ FocusScope {
 
     function setTwoPane(on) {
         twoPane = on;
-        if (twoPaneButton.checked !== on)
-            twoPaneButton.checked = on;
+        if (twoPaneTool.checked !== on)
+            twoPaneTool.checked = on;
         files.setTwoPane(session.twoPaneKey, on);
     }
 
     function followDirectory(path) {
         noteTerminalDir(path);
-        files.followDirectory(path, followButton.checked);
+        files.followDirectory(path, followTool.checked);
     }
 
     // The terminal reported `path` (each prompt reports it, changed or not): a different folder
@@ -144,23 +144,23 @@ FocusScope {
         terminalDir = path;
         if (followPaused && changed) {
             followPaused = false;
-            followButton.checked = true;
+            followTool.checked = true;
         }
     }
 
     // The user went to another folder in Files: stop following until asked again.
     function pauseFollow() {
-        if (!followButton.checked)
+        if (!followTool.checked)
             return;
         followPaused = true;
-        followButton.checked = false;
+        followTool.checked = false;
     }
 
     // The Follow button (or the local pane's copy of it) clicked: on goes to the terminal's
     // folder at once, off stops following until clicked again.
     function setFollow(on) {
-        if (followButton.checked !== on)
-            followButton.checked = on;
+        if (followTool.checked !== on)
+            followTool.checked = on;
         if (on)
             resumeFollow();
         else
@@ -200,10 +200,10 @@ FocusScope {
         if (!files.hasTarget)
             return;
         const name = remote.info(row).name;
-        saveDialog.row = row;
-        saveDialog.title = qsTr("Download %1").arg(name);
-        saveDialog.currentFile = pathToUrl(helper.homeDir() + "/" + name);
-        saveDialog.open();
+        saveFileDialog.row = row;
+        saveFileDialog.title = qsTr("Download %1").arg(name);
+        saveFileDialog.currentFile = pathToUrl(helper.homeDir() + "/" + name);
+        saveFileDialog.open();
     }
 
     // Several items and/or folders → pick a local folder; folders go recursively.
@@ -259,7 +259,7 @@ FocusScope {
 
     // The name prompt of the local pane's menu (New folder, Rename).
     function askText(title, label, text, done) {
-        prompt.ask(title, label, text, null, 0, done);
+        promptDialog.ask(title, label, text, null, 0, done);
     }
 
     function mkdir() {
@@ -269,14 +269,14 @@ FocusScope {
         }
         if (!files.hasTarget || files.busy || files.cwd === "")
             return;
-        prompt.ask(qsTr("New remote folder"), qsTr("Folder name:"), "", null, 0, text => files.mkdir(text));
+        promptDialog.ask(qsTr("New remote folder"), qsTr("Folder name:"), "", null, 0, text => files.mkdir(text));
     }
 
     function rename(row) {
         if (!files.hasTarget || files.busy)
             return;
         const name = remote.info(row).name;
-        prompt.ask(qsTr("Rename"), qsTr("New name:"), name, null, 0, text => files.rename(row, text));
+        promptDialog.ask(qsTr("Rename"), qsTr("New name:"), name, null, 0, text => files.rename(row, text));
     }
 
     function renameSelected() {
@@ -489,7 +489,7 @@ FocusScope {
                 onClicked: filesRoot.synchronize("")
             }
             Tool {
-                id: followButton
+                id: followTool
 
                 objectName: "toolFollow"
                 icon.name: "folder-sync"
@@ -509,7 +509,7 @@ FocusScope {
                 onCheckedChanged: filesRoot.files.setHidden(checked)
             }
             Tool {
-                id: twoPaneButton
+                id: twoPaneTool
 
                 objectName: "toolTwoPane"
                 remoteOnly: true
@@ -555,7 +555,7 @@ FocusScope {
             orientation: Qt.Horizontal
 
             Loader {
-                id: localLoader
+                id: localPaneLoader
 
                 QQC2.SplitView.preferredWidth: parent.width / 2
                 QQC2.SplitView.minimumWidth: 120
@@ -679,7 +679,7 @@ FocusScope {
     property int authRetries: 0
 
     function askPassword() {
-        prompt.ask(qsTr("Password"), qsTr("Password for %1:").arg(files.label), "", null, 0, pw => files.submitPassword(pw), true);
+        promptDialog.ask(qsTr("Password"), qsTr("Password for %1:").arg(files.label), "", null, 0, pw => files.submitPassword(pw), true);
     }
 
     Timer {
@@ -754,7 +754,7 @@ FocusScope {
     }
 
     PromptDialog {
-        id: prompt
+        id: promptDialog
     }
 
     PermissionsDialog {
@@ -770,7 +770,7 @@ FocusScope {
     }
 
     FileDialog {
-        id: saveDialog
+        id: saveFileDialog
 
         property int row: -1
 

@@ -13,14 +13,14 @@ FocusScope {
     id: panel
 
     required property var shell
-    readonly property alias hosts: hosts
-    readonly property alias list: list
-    readonly property alias search: search
+    readonly property alias hosts: hostModel
+    readonly property alias list: listView
+    readonly property alias search: searchField
     readonly property alias messageBox: box
-    readonly property alias saveQuestion: saveQuestion
-    readonly property alias prompt: prompt
+    readonly property alias saveQuestion: saveQuestionBox
+    readonly property alias prompt: promptDialog
     readonly property alias deleteFolderDialog: deleteFolder
-    readonly property alias testDialog: testDialog
+    readonly property alias testDialog: connectionTestDialog
     // Selected rows (sorted) and the current row; both reset with the model.
     property var selection: []
     property int currentRow: -1
@@ -34,8 +34,8 @@ FocusScope {
     property QQC2.Menu contextMenu: null
     property QQC2.Menu addMenu: null
     property QQC2.Menu shellMenu: null
-    readonly property var tools: JSON.parse(hosts.toolsJson())
-    readonly property var iconChoices: JSON.parse(hosts.iconChoicesJson())
+    readonly property var tools: JSON.parse(hostModel.toolsJson())
+    readonly property var iconChoices: JSON.parse(hostModel.iconChoicesJson())
 
     objectName: "hostsPanel"
 
@@ -50,7 +50,7 @@ FocusScope {
     // ---- rows and selection ------------------------------------------------------------
 
     function info(row) {
-        const text = row >= 0 ? hosts.rowJson(row) : "";
+        const text = row >= 0 ? hostModel.rowJson(row) : "";
         return text === "" ? null : JSON.parse(text);
     }
 
@@ -61,7 +61,7 @@ FocusScope {
             anchorRow = row;
         }
         if (row >= 0)
-            list.positionViewAtIndex(row, ListView.Contain);
+            listView.positionViewAtIndex(row, ListView.Contain);
     }
 
     function selectRange(from, to) {
@@ -77,20 +77,20 @@ FocusScope {
     }
 
     function selectAll() {
-        selectRange(0, list.count - 1);
+        selectRange(0, listView.count - 1);
     }
 
     function toggle(row) {
         const i = info(row);
         if (!i || (i.kind !== "group" && i.kind !== "recent"))
             return;
-        const kept = hosts.setExpanded(row, !i.expanded, [currentRow].concat(selection));
+        const kept = hostModel.setExpanded(row, !i.expanded, [currentRow].concat(selection));
         currentRow = kept[0];
         selection = kept.slice(1).filter(r => r >= 0);
     }
 
     function reveal(kind, index) {
-        setCurrent(hosts.reveal(kind, index), true);
+        setCurrent(hostModel.reveal(kind, index), true);
     }
 
     // ---- outcomes, boxes and prompts ---------------------------------------------------
@@ -110,7 +110,7 @@ FocusScope {
         if (o.select)
             reveal(o.select[0], o.select[1]);
         else if (o.folder)
-            setCurrent(hosts.groupRow(o.folder), true);
+            setCurrent(hostModel.groupRow(o.folder), true);
         if (o.warning)
             inform(o.warning, title, "warning");
         else if (o.info)
@@ -138,13 +138,13 @@ FocusScope {
     // ---- flows -----------------------------------------------
 
     function focusFilter() {
-        search.forceActiveFocus(Qt.ShortcutFocusReason);
-        search.selectAll();
+        searchField.forceActiveFocus(Qt.ShortcutFocusReason);
+        searchField.selectAll();
     }
 
     function openEntry(i) {
         if (shell.openConnection)
-            shell.openConnection(hosts.openJson(i.kind, i.index)); // with the folder's environment
+            shell.openConnection(hostModel.openJson(i.kind, i.index)); // with the folder's environment
     }
 
     function activate(row) {
@@ -168,13 +168,13 @@ FocusScope {
 
     function addEntry(kind, group) {
         if (shell.openEditor)
-            shell.openEditor(kind, "", group || "", data => store(hosts.storeEntry(kind, "", -1, data)));
+            shell.openEditor(kind, "", group || "", data => store(hostModel.storeEntry(kind, "", -1, data)));
     }
 
     function editEntry(i) {
         const kind = i.kind === "favorite" ? "favorite" : i.protocol;
         if (shell.openEditor)
-            shell.openEditor(kind, hosts.entryJson(i.kind, i.index), "", data => store(hosts.storeEntry(kind, i.kind, i.index, data)));
+            shell.openEditor(kind, hostModel.entryJson(i.kind, i.index), "", data => store(hostModel.storeEntry(kind, i.kind, i.index, data)));
     }
 
     // "Add to Hosts…" on a tab (shell.saveToHosts): the editor with the tab's connection, without
@@ -183,52 +183,52 @@ FocusScope {
     function saveFromTab(conn) {
         if (!shell.openEditor)
             return;
-        const p = JSON.parse(hosts.tabSavePlan(JSON.stringify(conn)));
-        const addNew = () => shell.openEditor(p.kind, JSON.stringify(p.entry), p.entry.group || "", data => store(hosts.storeEntry(p.kind, "", -1, data)));
+        const p = JSON.parse(hostModel.tabSavePlan(JSON.stringify(conn)));
+        const addNew = () => shell.openEditor(p.kind, JSON.stringify(p.entry), p.entry.group || "", data => store(hostModel.storeEntry(p.kind, "", -1, data)));
         if (p.existing < 0) {
             addNew();
             return;
         }
-        saveQuestion.onYes = () => shell.openEditor(p.mergedKind, JSON.stringify(p.merged), "", data => store(hosts.storeEntry(p.mergedKind, "connection", p.existing, data)));
-        saveQuestion.onNo = addNew;
-        saveQuestion.text = qsTr("“%1” is already in Hosts.\n\nYes updates that entry, No adds a new one.").arg(p.existingLabel);
-        saveQuestion.open();
+        saveQuestionBox.onYes = () => shell.openEditor(p.mergedKind, JSON.stringify(p.merged), "", data => store(hostModel.storeEntry(p.mergedKind, "connection", p.existing, data)));
+        saveQuestionBox.onNo = addNew;
+        saveQuestionBox.text = qsTr("“%1” is already in Hosts.\n\nYes updates that entry, No adds a new one.").arg(p.existingLabel);
+        saveQuestionBox.open();
     }
 
     function duplicate(i) {
-        finish(hosts.duplicate(i.kind, i.index));
+        finish(hostModel.duplicate(i.kind, i.index));
     }
 
     function moveBy(i, delta) {
-        finish(hosts.moveBy(i.kind, i.index, delta));
+        finish(hostModel.moveBy(i.kind, i.index, delta));
     }
 
     function moveToGroup(i) {
-        const choices = ["(top level)"].concat(hosts.groupNames());
+        const choices = ["(top level)"].concat(hostModel.groupNames());
         const at = i.group ? choices.indexOf(i.group) : 0;
-        prompt.ask(qsTr("Move to folder"), qsTr("Folder (type a new name to create it; use / to nest, e.g. prod/web):"), "", choices, Math.max(at, 0), name => finish(hosts.moveToGroup(i.kind, i.index, name)));
+        promptDialog.ask(qsTr("Move to folder"), qsTr("Folder (type a new name to create it; use / to nest, e.g. prod/web):"), "", choices, Math.max(at, 0), name => finish(hostModel.moveToGroup(i.kind, i.index, name)));
     }
 
     // After a delete the row that took the deleted one's place (else the last row) is current.
     function keepRow(row) {
-        if (currentRow < 0 && row >= 0 && list.count > 0)
-            setCurrent(Math.min(row, list.count - 1), true);
-        list.forceActiveFocus();
+        if (currentRow < 0 && row >= 0 && listView.count > 0)
+            setCurrent(Math.min(row, listView.count - 1), true);
+        listView.forceActiveFocus();
     }
 
     function removeEntry(i) {
         const at = currentRow;
         ask(qsTr("Remove “%1” from Hosts?\n\nOnly this entry is removed.").arg(i.label), () => {
-            finish(hosts.removeEntry(i.kind, i.index));
+            finish(hostModel.removeEntry(i.kind, i.index));
             keepRow(at);
         });
     }
 
     function addGroup(parentPath) {
         const where = parentPath ? qsTr(" inside “%1”").arg(parentPath) : "";
-        prompt.ask(qsTr("New folder"), qsTr("Folder name%1\n(use / to nest deeper):").arg(where), "", null, 0, name => {
-            finish(hosts.addGroup(parentPath, name));
-            list.forceActiveFocus();
+        promptDialog.ask(qsTr("New folder"), qsTr("Folder name%1\n(use / to nest deeper):").arg(where), "", null, 0, name => {
+            finish(hostModel.addGroup(parentPath, name));
+            listView.forceActiveFocus();
         });
     }
 
@@ -247,29 +247,29 @@ FocusScope {
         const i = info(row);
         if (!i || editingRow !== row)
             return "";
-        const json = i.kind === "group" ? hosts.renameFolder(i.path, text) : hosts.renameEntry(i.kind, i.index, text);
+        const json = i.kind === "group" ? hostModel.renameFolder(i.path, text) : hostModel.renameEntry(i.kind, i.index, text);
         const o = JSON.parse(json);
         if (o.warning)
             return o.warning;
         editingRow = -1;
         finish(json);
         if (!blur)
-            list.forceActiveFocus();
+            listView.forceActiveFocus();
         return "";
     }
 
     function cancelRename(blur) {
         editingRow = -1;
         if (!blur)
-            list.forceActiveFocus();
+            listView.forceActiveFocus();
     }
 
     // Into another folder (not itself or below it); a typed path that does not exist is created.
     function moveFolder(path) {
         const parentPath = path.includes("/") ? path.slice(0, path.lastIndexOf("/")) : "";
-        const choices = ["(top level)"].concat(hosts.folderMoveTargets(path));
+        const choices = ["(top level)"].concat(hostModel.folderMoveTargets(path));
         const at = parentPath ? choices.indexOf(parentPath) : 0;
-        prompt.ask(qsTr("Move folder"), qsTr("Move “%1” with its contents into:").arg(path), "", choices, Math.max(at, 0), dest => finish(hosts.moveFolder(path, dest)));
+        promptDialog.ask(qsTr("Move folder"), qsTr("Move “%1” with its contents into:").arg(path), "", choices, Math.max(at, 0), dest => finish(hostModel.moveFolder(path, dest)));
     }
 
     // An empty folder asks Yes / No; one with entries or subfolders asks where they go (into
@@ -280,12 +280,12 @@ FocusScope {
             finish(json);
             keepRow(at);
         };
-        const c = JSON.parse(hosts.folderContents(path));
+        const c = JSON.parse(hostModel.folderContents(path));
         if (c.question === null) {
-            ask(qsTr("Delete the empty folder “%1”?").arg(path), () => done(hosts.deleteGroup(path)));
+            ask(qsTr("Delete the empty folder “%1”?").arg(path), () => done(hostModel.deleteGroup(path)));
             return;
         }
-        deleteFolder.ask(path, c.question, c.parent, hosts.folderMoveTargets(path), (mode, dest) => done(mode === "delete" ? hosts.deleteGroup(path) : hosts.deleteFolderInto(path, dest)));
+        deleteFolder.ask(path, c.question, c.parent, hostModel.folderMoveTargets(path), (mode, dest) => done(mode === "delete" ? hostModel.deleteGroup(path) : hostModel.deleteFolderInto(path, dest)));
     }
 
     // Ctrl+C / Ctrl+X: the selection when the current row is in it, else the current row.
@@ -293,15 +293,15 @@ FocusScope {
         const rows = selection.includes(currentRow) ? selection : currentRow >= 0 ? [currentRow] : [];
         if (rows.length === 0)
             return;
-        finish(hosts.copyRows(rows, cut));
+        finish(hostModel.copyRows(rows, cut));
         ++clipVersion;
     }
 
     // Ctrl+V: into the folder of `row` (the folder itself, an entry's folder; -1 = top level).
     function pasteAt(row) {
-        finish(hosts.pasteAt(row), qsTr("Paste"));
+        finish(hostModel.pasteAt(row), qsTr("Paste"));
         ++clipVersion;
-        list.forceActiveFocus();
+        listView.forceActiveFocus();
     }
 
     // Where New folder / New connection go from the list: the folder of `row`.
@@ -318,17 +318,17 @@ FocusScope {
     }
 
     function bulkApply(indices, changes) {
-        finish(hosts.bulkApply(indices, JSON.stringify(changes)));
+        finish(hostModel.bulkApply(indices, JSON.stringify(changes)));
     }
 
     // Bulk edit: the tick-to-change dialog, then the same apply as the icon menu.
     function bulkEdit(indices) {
-        shell.openBulkEdit(indices.length, hosts.groupNames(), changes => bulkApply(indices, changes));
+        shell.openBulkEdit(indices.length, hostModel.groupNames(), changes => bulkApply(indices, changes));
     }
 
     function bulkMove(indices) {
-        const choices = ["(top level)"].concat(hosts.groupNames());
-        prompt.ask(qsTr("Move to folder"), qsTr("Folder for %1 entries (type a new name to create it):").arg(indices.length), "", choices, 0, name => bulkApply(indices, {
+        const choices = ["(top level)"].concat(hostModel.groupNames());
+        promptDialog.ask(qsTr("Move to folder"), qsTr("Folder for %1 entries (type a new name to create it):").arg(indices.length), "", choices, 0, name => bulkApply(indices, {
             "group": name === "(top level)" ? "" : name
         }));
     }
@@ -336,25 +336,25 @@ FocusScope {
     function bulkDelete(indices) {
         const at = currentRow;
         ask(qsTr("Remove %1 entries from config?").arg(indices.length), () => {
-            finish(hosts.bulkDelete(indices));
+            finish(hostModel.bulkDelete(indices));
             keepRow(at);
         });
     }
 
     function copyCommand(index) {
-        finish(hosts.copyCommand(index));
+        finish(hostModel.copyCommand(index));
     }
 
     function copyAddress(index) {
-        finish(hosts.copyAddress(index));
+        finish(hostModel.copyAddress(index));
     }
 
     function testConnection(index) {
-        testDialog.test(hosts.entryJson("connection", index));
+        connectionTestDialog.test(hostModel.entryJson("connection", index));
     }
 
     function runNettool(key, index) {
-        const o = JSON.parse(hosts.nettool(index, key));
+        const o = JSON.parse(hostModel.nettool(index, key));
         if (o.warning)
             inform(o.warning, qsTr("Network tools"), "warning");
         else if (o.cmd && shell.openInner)
@@ -396,7 +396,7 @@ FocusScope {
     // ---- keys (context hostList) ----------------------------------------------------
 
     function deleteKey() {
-        const multi = hosts.selectedConnections(selection);
+        const multi = hostModel.selectedConnections(selection);
         if (multi.length > 1) {
             bulkDelete(multi);
             return;
@@ -412,7 +412,7 @@ FocusScope {
 
     // Esc: drop a pending cut, else the selection (the current row stays); false: nothing to do.
     function cancelKey() {
-        if (hosts.cancelCut()) {
+        if (hostModel.cancelCut()) {
             ++clipVersion;
             shell.notify(qsTr("Cut cancelled."));
             return true;
@@ -460,20 +460,20 @@ FocusScope {
     function menuKey() {
         let row = currentRow;
         if (row < 0)
-            row = list.indexAt(0, list.contentY);
-        const item = row >= 0 ? list.itemAtIndex(row) : null;
-        const p = item ? item.mapToItem(list, item.width / 2, item.height / 2) : Qt.point(0, 0);
+            row = listView.indexAt(0, listView.contentY);
+        const item = row >= 0 ? listView.itemAtIndex(row) : null;
+        const p = item ? item.mapToItem(listView, item.width / 2, item.height / 2) : Qt.point(0, 0);
         openContextMenu(row, p.x, p.y);
     }
 
     function navigate(row, modifiers) {
-        if (list.count === 0)
+        if (listView.count === 0)
             return;
-        row = Math.max(0, Math.min(list.count - 1, row));
+        row = Math.max(0, Math.min(listView.count - 1, row));
         if (modifiers & Qt.ShiftModifier) {
             currentRow = row;
             selectRange(anchorRow >= 0 ? anchorRow : row, row);
-            list.positionViewAtIndex(row, ListView.Contain);
+            listView.positionViewAtIndex(row, ListView.Contain);
         } else {
             setCurrent(row, !(modifiers & Qt.ControlModifier));
         }
@@ -482,13 +482,13 @@ FocusScope {
     // Only for the list itself: a key the rename field (or anything else inside) leaves alone
     // must not delete, rename or move rows.
     function listKey(event) {
-        if (list.Window.activeFocusItem !== list) {
+        if (listView.Window.activeFocusItem !== listView) {
             event.accepted = false;
             return;
         }
         const mods = event.modifiers & (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier);
         const key = event.key;
-        const page = Math.max(1, Math.floor(list.height / 48));
+        const page = Math.max(1, Math.floor(listView.height / 48));
         if ((key === Qt.Key_Return || key === Qt.Key_Enter) && mods === 0)
             activate(currentRow); // hostlist.connect
         else if (key === Qt.Key_Up && mods === Qt.AltModifier)
@@ -530,7 +530,7 @@ FocusScope {
         else if (key === Qt.Key_Home)
             navigate(0, mods);
         else if (key === Qt.Key_End)
-            navigate(list.count - 1, mods);
+            navigate(listView.count - 1, mods);
         else if (key === Qt.Key_PageUp)
             navigate(currentRow - page, mods);
         else if (key === Qt.Key_PageDown)
@@ -551,7 +551,7 @@ FocusScope {
             "title": title || ""
         });
         if (title)
-            m.icon.name = hosts.menuIcon(title);
+            m.icon.name = hostModel.menuIcon(title);
         return m;
     }
 
@@ -561,7 +561,7 @@ FocusScope {
             "run": fn,
             "enabled": enabled === undefined ? true : enabled
         });
-        item.icon.name = iconName === undefined ? hosts.menuIcon(text) : iconName;
+        item.icon.name = iconName === undefined ? hostModel.menuIcon(text) : iconName;
         if (iconColor)
             item.icon.color = iconColor;
         menu.addItem(item);
@@ -594,7 +594,7 @@ FocusScope {
     function clipItems(menu, row) {
         keyed(add(menu, qsTr("Cut"), () => copyRows(true)), "Ctrl+X");
         keyed(add(menu, qsTr("Copy"), () => copyRows(false)), "Ctrl+C");
-        keyed(add(menu, qsTr("Paste"), () => pasteAt(row), hosts.hasClip()), "Ctrl+V");
+        keyed(add(menu, qsTr("Paste"), () => pasteAt(row), hostModel.hasClip()), "Ctrl+V");
     }
 
     function sep(menu) {
@@ -609,7 +609,7 @@ FocusScope {
 
     // Read on each menu build so a category edited in Settings shows up without a restart.
     function envCategories() {
-        return JSON.parse(hosts.environmentsJson());
+        return JSON.parse(hostModel.environmentsJson());
     }
 
     function envName(id) {
@@ -619,15 +619,15 @@ FocusScope {
 
     // Environment ▸ for a folder; entries inside without their own inherit it.
     function envMenu(menu, path) {
-        const st = JSON.parse(hosts.groupEnvironment(path));
+        const st = JSON.parse(hostModel.groupEnvironment(path));
         const s = sub(menu, qsTr("Label"));
         const inherited = st.inherited !== "" ? envName(st.inherited) : "";
         const inheritText = st.own === "" && inherited !== "" ? qsTr("Inherit from parent (%1)").arg(inherited) : qsTr("Inherit from parent folder (none)");
-        const inherit = add(s, inheritText, () => finish(hosts.setGroupEnvironment(path, "")), true, "");
+        const inherit = add(s, inheritText, () => finish(hostModel.setGroupEnvironment(path, "")), true, "");
         inherit.checkable = true;
         inherit.checked = st.own === "";
         for (const en of envCategories()) {
-            const item = addDot(s, en.name, () => finish(hosts.setGroupEnvironment(path, en.id)), en.color);
+            const item = addDot(s, en.name, () => finish(hostModel.setGroupEnvironment(path, en.id)), en.color);
             item.checkable = true;
             item.checked = st.own.toLowerCase() === en.id.toLowerCase();
         }
@@ -635,15 +635,15 @@ FocusScope {
 
     // The same menu for one entry; "" means "take the folder's".
     function entryEnvMenu(menu, i) {
-        const st = JSON.parse(hosts.entryEnvironment(i.kind, i.index));
+        const st = JSON.parse(hostModel.entryEnvironment(i.kind, i.index));
         const s = sub(menu, qsTr("Label"));
         const inherited = st.inherited !== "" ? envName(st.inherited) : "";
         const inheritText = inherited !== "" ? qsTr("Inherit from folder (%1)").arg(inherited) : qsTr("Inherit from folder (none)");
-        const inherit = add(s, inheritText, () => finish(hosts.setEntryEnvironment(i.kind, i.index, "")), true, "");
+        const inherit = add(s, inheritText, () => finish(hostModel.setEntryEnvironment(i.kind, i.index, "")), true, "");
         inherit.checkable = true;
         inherit.checked = st.own === "";
         for (const en of envCategories()) {
-            const item = addDot(s, en.name, () => finish(hosts.setEntryEnvironment(i.kind, i.index, en.id)), en.color);
+            const item = addDot(s, en.name, () => finish(hostModel.setEntryEnvironment(i.kind, i.index, en.id)), en.color);
             item.checkable = true;
             item.checked = st.own.toLowerCase() === en.id.toLowerCase();
         }
@@ -699,7 +699,7 @@ FocusScope {
             keyed(add(m, toggleText, () => toggle(row)), "Space");
             return m;
         }
-        const multi = hosts.selectedConnections(selection);
+        const multi = hostModel.selectedConnections(selection);
         if (i && multi.length > 1 && selection.includes(row)) {
             fillMulti(m, multi);
             return m;
@@ -713,7 +713,7 @@ FocusScope {
             addKind(m, qsTr("Add favorite command…"), "favorite", undefined, editor);
             sep(m);
             keyed(add(m, qsTr("New folder…"), () => addGroup("")), "Ctrl+N");
-            keyed(add(m, qsTr("Paste"), () => pasteAt(-1), hosts.hasClip()), "Ctrl+V");
+            keyed(add(m, qsTr("Paste"), () => pasteAt(-1), hostModel.hasClip()), "Ctrl+V");
         } else if (i.kind === "group") {
             const g = i.path;
             keyed(add(m, toggleText, () => toggle(row)), "Space");
@@ -747,9 +747,9 @@ FocusScope {
                 add(m, qsTr("Copy address"), () => copyAddress(i.index));
                 if (i.protocol === "ssh") {
                     sep(m);
-                    add(m, qsTr("Open files (SFTP)"), () => shell.openFilesTab(hosts.entryJson("connection", i.index)), shell.openFilesTab !== null);
-                    add(m, qsTr("Upload file to host…"), () => shell.scpTransfer(hosts.entryJson("connection", i.index), true), shell.scpTransfer !== null);
-                    add(m, qsTr("Download file from host…"), () => shell.scpTransfer(hosts.entryJson("connection", i.index), false), shell.scpTransfer !== null);
+                    add(m, qsTr("Open files (SFTP)"), () => shell.openFilesTab(hostModel.entryJson("connection", i.index)), shell.openFilesTab !== null);
+                    add(m, qsTr("Upload file to host…"), () => shell.scpTransfer(hostModel.entryJson("connection", i.index), true), shell.scpTransfer !== null);
+                    add(m, qsTr("Download file from host…"), () => shell.scpTransfer(hostModel.entryJson("connection", i.index), false), shell.scpTransfer !== null);
                 }
             }
             sep(m);
@@ -776,7 +776,7 @@ FocusScope {
         if (contextMenu)
             contextMenu.destroy();
         contextMenu = buildContextMenu(row);
-        contextMenu.popup(list, x, y);
+        contextMenu.popup(listView, x, y);
     }
 
     function importAction(id) {
@@ -786,7 +786,7 @@ FocusScope {
     // Kinds this machine cannot open (Windows: serial, VNC / Telnet without a client): greyed out
     // with a short reason, so no one builds an entry that only fails when connecting.
     function unavailableKinds() {
-        return JSON.parse(hosts.kindSupport());
+        return JSON.parse(hostModel.kindSupport());
     }
 
     function kindNote(kind) {
@@ -831,7 +831,7 @@ FocusScope {
         add(m, qsTr("Local shell"), () => openShell(""), live);
         // Linux: /etc/shells when there is a choice; Windows: cmd, PowerShell and WSL always, the
         // ones not installed here greyed out.
-        const shells = JSON.parse(hosts.shells());
+        const shells = JSON.parse(hostModel.shells());
         if (shells.length > 1 || shells.some(s => !s.available)) {
             sep(m);
             for (const sh of shells)
@@ -843,9 +843,9 @@ FocusScope {
     // ---- drag & drop (SidebarTree) -----------------------------------------------------
 
     function dropTarget(x, y) {
-        const row = list.indexAt(x, y + list.contentY);
-        const item = row >= 0 ? list.itemAtIndex(row) : null;
-        const fraction = item ? (y + list.contentY - item.y) / item.height : 0;
+        const row = listView.indexAt(x, y + listView.contentY);
+        const item = row >= 0 ? listView.itemAtIndex(row) : null;
+        const fraction = item ? (y + listView.contentY - item.y) / item.height : 0;
         return {
             "row": row,
             "fraction": fraction
@@ -854,32 +854,32 @@ FocusScope {
 
     function dragOver(x, y) {
         const t = dropTarget(x, y);
-        list.dropRow = t.row;
-        list.dropZone = t.row >= 0 ? hosts.dropZone(t.row, t.fraction) : -1;
+        listView.dropRow = t.row;
+        listView.dropZone = t.row >= 0 ? hostModel.dropZone(t.row, t.fraction) : -1;
         // Auto-scroll near the edges, as QAbstractItemView does.
         const edge = 16;
         if (y < edge)
-            list.contentY = Math.max(0, list.contentY - 8);
-        else if (y > list.height - edge)
-            list.contentY = Math.max(0, Math.min(list.contentHeight - list.height, list.contentY + 8));
+            listView.contentY = Math.max(0, listView.contentY - 8);
+        else if (y > listView.height - edge)
+            listView.contentY = Math.max(0, Math.min(listView.contentHeight - listView.height, listView.contentY + 8));
     }
 
     function dropRows(current, selected, row, fraction) {
-        finish(hosts.dropRows(current, selected, row, fraction));
+        finish(hostModel.dropRows(current, selected, row, fraction));
     }
 
     function endDrag(x, y, drop) {
         const t = dropTarget(x, y);
-        const zone = list.dropZone;
-        list.dropRow = -1;
-        list.dropZone = -1;
+        const zone = listView.dropZone;
+        listView.dropRow = -1;
+        listView.dropZone = -1;
         if (drop && (t.row < 0 || zone >= 0))
             dropRows(currentRow, selection, t.row, t.fraction);
     }
 
     Component.onCompleted: {
-        hosts.refresh();
-        shell.listSummary = Qt.binding(() => hosts.status);
+        hostModel.refresh();
+        shell.listSummary = Qt.binding(() => hostModel.status);
         shell.saveToHosts = conn => panel.saveFromTab(conn);
         const a = shell.shellActions;
         const live = (id, hook) => {
@@ -889,7 +889,7 @@ FocusScope {
         const unavailable = unavailableKinds();
         // From the focused list (Ctrl+Shift+N there) a new entry goes into the selected
         // folder; from anywhere else to the top level.
-        const here = () => list.activeFocus ? folderAt(currentRow) : "";
+        const here = () => listView.activeFocus ? folderAt(currentRow) : "";
         for (const kind of ["ssh", "rdp", "vnc", "telnet", "serial", "favorite"]) {
             a.handle("file.new." + kind, () => addEntry(kind, here()));
             live("file.new." + kind, "openEditor");
@@ -918,7 +918,7 @@ FocusScope {
     }
 
     HostListModel {
-        id: hosts
+        id: hostModel
 
         onModelReset: {
             panel.selection = [];
@@ -932,7 +932,7 @@ FocusScope {
         target: panel.shell.controller
 
         function onConfigChanged() {
-            hosts.refresh();
+            hostModel.refresh();
         }
     }
 
@@ -950,7 +950,7 @@ FocusScope {
             spacing: 2
 
             Kirigami.ActionTextField {
-                id: search
+                id: searchField
 
                 Layout.fillWidth: true
                 placeholderText: qsTr("Search…")
@@ -959,19 +959,19 @@ FocusScope {
                 QQC2.ToolTip.visible: hovered
                 QQC2.ToolTip.text: qsTr("Filter by label, host, user, tag or command (Ctrl+Shift+H from anywhere)")
                 QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
-                KeyNavigation.tab: list
+                KeyNavigation.tab: listView
                 leftActions: Kirigami.Action {
                     icon.name: "search"
                 }
                 rightActions: Kirigami.Action {
                     icon.name: "edit-clear"
-                    visible: search.text !== ""
-                    onTriggered: search.clear()
+                    visible: searchField.text !== ""
+                    onTriggered: searchField.clear()
                 }
-                onTextChanged: hosts.setFilter(text)
+                onTextChanged: hostModel.setFilter(text)
                 // hostlist.clear_search
                 Keys.onEscapePressed: event => {
-                    search.clear();
+                    searchField.clear();
                     event.accepted = true;
                 }
             }
@@ -1035,8 +1035,8 @@ FocusScope {
 
                 QQC2.Label {
                     Layout.fillWidth: true
-                    visible: hosts.hint !== ""
-                    text: hosts.hint
+                    visible: hostModel.hint !== ""
+                    text: hostModel.hint
                     font.italic: true
                     wrapMode: Text.Wrap
                     horizontalAlignment: Text.AlignHCenter
@@ -1044,7 +1044,7 @@ FocusScope {
                 }
 
                 ListView {
-                    id: list
+                    id: listView
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     QQC2.ScrollBar.vertical: QQC2.ScrollBar {
@@ -1056,7 +1056,7 @@ FocusScope {
                     property int dropZone: -1
 
                     objectName: "hostList"
-                    model: hosts
+                    model: hostModel
                     clip: true
                     focus: true
                     activeFocusOnTab: true
@@ -1071,19 +1071,19 @@ FocusScope {
                     // Flickable's own wheel handling restarts its scroll animation on every event and
                     // drops the unfinished distance, so a fast (free-spinning) wheel crawls.
                     Kirigami.WheelHandler {
-                        target: list
+                        target: listView
                     }
 
                     // Clicks below the last row (behind the rows): clear the selection;
                     // right-click: the empty-space menu.
                     MouseArea {
-                        parent: list
+                        parent: listView
                         z: -1
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
                         preventStealing: true
                         onPressed: mouse => {
-                            list.forceActiveFocus(Qt.MouseFocusReason);
+                            listView.forceActiveFocus(Qt.MouseFocusReason);
                             if (!(mouse.modifiers & (Qt.ControlModifier | Qt.ShiftModifier)))
                                 panel.setCurrent(-1, true);
                             if (mouse.button === Qt.RightButton)
@@ -1096,8 +1096,8 @@ FocusScope {
 
                         compact: !panel.detailed
                         selected: panel.selection.includes(index)
-                        current: index === panel.currentRow && list.activeFocus
-                        dropZone: list.dropRow === index ? list.dropZone : -1
+                        current: index === panel.currentRow && listView.activeFocus
+                        dropZone: listView.dropRow === index ? listView.dropZone : -1
                         cut: panel.clipVersion >= 0 && panel.hosts.isCut(index)
                         // (A delegate being made has index -1 for a moment.)
                         editing: panel.editingRow >= 0 && index === panel.editingRow
@@ -1124,7 +1124,7 @@ FocusScope {
                             preventStealing: true
 
                             onPressed: mouse => {
-                                list.forceActiveFocus(Qt.MouseFocusReason);
+                                listView.forceActiveFocus(Qt.MouseFocusReason);
                                 origin = Qt.point(mouse.x, mouse.y);
                                 dragging = false;
                                 pendingSingle = false;
@@ -1148,14 +1148,14 @@ FocusScope {
                                     panel.setCurrent(rowItem.index, true);
                                 }
                                 if (mouse.button === Qt.RightButton) {
-                                    const p = mapToItem(list, mouse.x, mouse.y);
+                                    const p = mapToItem(listView, mouse.x, mouse.y);
                                     panel.openContextMenu(rowItem.index, p.x, p.y);
                                 }
                             }
                             onPositionChanged: mouse => {
                                 if (!(mouse.buttons & Qt.LeftButton))
                                     return;
-                                const p = mapToItem(list, mouse.x, mouse.y);
+                                const p = mapToItem(listView, mouse.x, mouse.y);
                                 if (!dragging) {
                                     const far = Math.abs(mouse.x - origin.x) + Math.abs(mouse.y - origin.y) >= Qt.styleHints.startDragDistance;
                                     // The Recent section is not draggable.
@@ -1168,7 +1168,7 @@ FocusScope {
                             }
                             onReleased: mouse => {
                                 if (dragging) {
-                                    const p = mapToItem(list, mouse.x, mouse.y);
+                                    const p = mapToItem(listView, mouse.x, mouse.y);
                                     dragging = false;
                                     panel.endDrag(p.x, p.y, true);
                                 } else if (pendingSingle) {
@@ -1215,7 +1215,7 @@ FocusScope {
 
     // "Add to Hosts…" when the connection is saved already: update (Yes), add (No) or Cancel.
     MessageBox {
-        id: saveQuestion
+        id: saveQuestionBox
 
         property var onYes: null
         property var onNo: null
@@ -1233,7 +1233,7 @@ FocusScope {
     }
 
     PromptDialog {
-        id: prompt
+        id: promptDialog
     }
 
     DeleteFolderDialog {
@@ -1241,9 +1241,9 @@ FocusScope {
     }
 
     ConnectionTestDialog {
-        id: testDialog
+        id: connectionTestDialog
 
-        hosts: hosts
+        hosts: hostModel
     }
 
     Component {

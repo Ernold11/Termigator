@@ -13,11 +13,11 @@ ToolDialog {
     property var initial: []
     property var items: []
     property bool loading: false
-    readonly property alias list: list
-    readonly property alias nameField: nameField
-    readonly property alias commandField: commandField
-    readonly property alias enterBox: enterBox
-    readonly property bool has: list.currentIndex >= 0 && list.currentIndex < items.length
+    readonly property alias list: listView
+    readonly property alias nameField: nameEdit
+    readonly property alias commandField: commandEdit
+    readonly property alias enterBox: enterCheck
+    readonly property bool has: listView.currentIndex >= 0 && listView.currentIndex < items.length
 
     function snippets() {
         return items;
@@ -28,24 +28,24 @@ ToolDialog {
             return;
         loading = true;
         const s = items[row];
-        nameField.text = s.name;
-        commandField.text = s.command;
-        enterBox.checked = s.enter !== false;
+        nameEdit.text = s.name;
+        commandEdit.text = s.command;
+        enterCheck.checked = s.enter !== false;
         loading = false;
     }
 
     // Stores the snippet: the name falls back to the command's first line.
     function store() {
-        const row = list.currentIndex;
+        const row = listView.currentIndex;
         if (loading || row < 0 || row >= items.length)
             return;
-        const command = commandField.text;
+        const command = commandEdit.text;
         const first = (command.split(/[\r\n]/)[0] || "").slice(0, 80);
-        const name = nameField.text.trim() || first || "snippet";
+        const name = nameEdit.text.trim() || first || "snippet";
         items[row] = {
             "name": name,
             "command": command,
-            "enter": enterBox.checked
+            "enter": enterCheck.checked
         };
         names.setProperty(row, "name", name);
     }
@@ -60,21 +60,21 @@ ToolDialog {
             "name": "New snippet"
         });
         itemsChanged();
-        list.currentIndex = items.length - 1;
+        listView.currentIndex = items.length - 1;
         load(items.length - 1);
-        nameField.forceActiveFocus();
-        nameField.selectAll();
+        nameEdit.forceActiveFocus();
+        nameEdit.selectAll();
     }
 
     function remove() {
-        const row = list.currentIndex;
+        const row = listView.currentIndex;
         if (row < 0 || row >= items.length)
             return;
         items.splice(row, 1);
         names.remove(row);
         itemsChanged();
         if (items.length > 0)
-            load(list.currentIndex);
+            load(listView.currentIndex);
     }
 
     title: qsTr("Snippets")
@@ -89,7 +89,7 @@ ToolDialog {
                 "name": s.name
             });
         if (items.length > 0) {
-            list.currentIndex = 0;
+            listView.currentIndex = 0;
             load(0);
         }
     }
@@ -117,10 +117,10 @@ ToolDialog {
                     anchors.fill: parent
 
                     ListView {
-                        id: list
+                        id: listView
 
                         Kirigami.WheelHandler {
-                            target: list
+                            target: listView
                         }
 
                         clip: true
@@ -177,14 +177,14 @@ ToolDialog {
             Layout.preferredWidth: 2
 
             EdField {
-                id: nameField
+                id: nameEdit
 
                 Kirigami.FormData.label: qsTr("Name:")
                 enabled: dlg.has
                 onTextEdited: dlg.store()
             }
             EdArea {
-                id: commandField
+                id: commandEdit
 
                 Kirigami.FormData.label: qsTr("Command:")
                 enabled: dlg.has
@@ -193,7 +193,7 @@ ToolDialog {
                 onTextChanged: dlg.store()
             }
             EdCheck {
-                id: enterBox
+                id: enterCheck
 
                 text: qsTr("Press Enter after typing it")
                 enabled: dlg.has

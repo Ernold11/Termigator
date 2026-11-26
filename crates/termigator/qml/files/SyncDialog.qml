@@ -20,10 +20,10 @@ QQC2.Dialog {
     readonly property var info: JSON.parse(binding)
     // The plan: one row per action, `checked` is the tick.
     readonly property alias plan: plan
-    readonly property alias sync: sync
-    readonly property alias localField: localField
-    readonly property alias remoteField: remoteField
-    readonly property alias direction: direction
+    readonly property alias sync: syncCore
+    readonly property alias localField: localPathField
+    readonly property alias remoteField: remotePathField
+    readonly property alias direction: directionCombo
     readonly property alias message: msg
     readonly property alias compareButton: compareButton
     readonly property alias runButton: runButton
@@ -40,11 +40,11 @@ QQC2.Dialog {
     function invalidate() {
         plan.clear();
         runnable = false;
-        sync.invalidate();
+        syncCore.invalidate();
     }
 
     function compare() {
-        sync.compare(localField.text, remoteField.text, direction.currentValue);
+        syncCore.compare(localPathField.text, remotePathField.text, directionCombo.currentValue);
     }
 
     // Copies that overwrite existing files are counted and confirmed before the run.
@@ -59,7 +59,7 @@ QQC2.Dialog {
             confirmBox.open();
             return;
         }
-        sync.run(JSON.stringify(rows), localField.text, remoteField.text);
+        syncCore.run(JSON.stringify(rows), localPathField.text, remotePathField.text);
     }
 
     MessageBox {
@@ -81,12 +81,12 @@ QQC2.Dialog {
     height: Math.min(520, parent ? parent.height - 40 : 520)
     standardButtons: QQC2.Dialog.Close
     onClosed: {
-        sync.shutdown();
+        syncCore.shutdown();
         destroy();
     }
 
     FileSyncCore {
-        id: sync
+        id: syncCore
 
         onMessage: (level, text) => {
             msg.text = text;
@@ -118,9 +118,9 @@ QQC2.Dialog {
     }
 
     Component.onCompleted: {
-        sync.bind(binding, filesPanel.files.transfersId);
-        localField.text = localDir !== "" ? localDir : helper.homeDir();
-        remoteField.text = info.cwd;
+        syncCore.bind(binding, filesPanel.files.transfersId);
+        localPathField.text = localDir !== "" ? localDir : helper.homeDir();
+        remotePathField.text = info.cwd;
     }
 
     FilesHelper {
@@ -142,7 +142,7 @@ QQC2.Dialog {
                 Layout.fillWidth: true
 
                 QQC2.TextField {
-                    id: localField
+                    id: localPathField
 
                     objectName: "syncLocal"
                     Layout.fillWidth: true
@@ -151,7 +151,7 @@ QQC2.Dialog {
                 QQC2.Button {
                     text: qsTr("Browse…")
                     onClicked: {
-                        browse.currentFolder = dlg.filesPanel.pathToUrl(localField.text || helper.homeDir());
+                        browse.currentFolder = dlg.filesPanel.pathToUrl(localPathField.text || helper.homeDir());
                         browse.open();
                     }
                 }
@@ -161,7 +161,7 @@ QQC2.Dialog {
                 text: qsTr("Remote folder:")
             }
             QQC2.TextField {
-                id: remoteField
+                id: remotePathField
 
                 objectName: "syncRemote"
                 Layout.fillWidth: true
@@ -172,7 +172,7 @@ QQC2.Dialog {
                 text: qsTr("Direction:")
             }
             QQC2.ComboBox {
-                id: direction
+                id: directionCombo
 
                 objectName: "syncDirection"
                 Layout.fillWidth: true
@@ -311,7 +311,7 @@ QQC2.Dialog {
 
                 objectName: "syncCompare"
                 text: qsTr("Compare")
-                enabled: !sync.busy
+                enabled: !syncCore.busy
                 onClicked: dlg.compare()
             }
             Item {
@@ -332,6 +332,6 @@ QQC2.Dialog {
         id: browse
 
         title: qsTr("Local folder")
-        onAccepted: localField.text = dlg.filesPanel.urlToPath(selectedFolder).replace(/\/+$/, "")
+        onAccepted: localPathField.text = dlg.filesPanel.urlToPath(selectedFolder).replace(/\/+$/, "")
     }
 }

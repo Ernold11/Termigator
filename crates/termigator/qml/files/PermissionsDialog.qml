@@ -15,18 +15,18 @@ QQC2.Dialog {
     // The bits above 0o777 of the mode the dialog opened with.
     property int special: 0
     property bool syncing: false
-    readonly property alias octal: octal
-    readonly property alias recursive: recursive
+    readonly property alias octal: octalField
+    readonly property alias recursive: recursiveBox
     readonly property alias boxes: boxes
 
     // The octal field's value, -1 when it is not a number.
     function mode() {
-        const t = octal.text.trim();
+        const t = octalField.text.trim();
         return /^[0-7]+$/.test(t) ? parseInt(t, 8) : -1;
     }
 
     function recursiveWanted() {
-        return recursive.visible && recursive.checked;
+        return recursiveBox.visible && recursiveBox.checked;
     }
 
     function ask(what, mode, anyDir, done) {
@@ -37,8 +37,8 @@ QQC2.Dialog {
         syncing = true;
         for (let i = 0; i < 9; ++i)
             boxes.itemAt(i).checked = (mode & (1 << (8 - i))) !== 0;
-        octal.text = (mode & 4095).toString(8).padStart(4, "0");
-        recursive.checked = false;
+        octalField.text = (mode & 4095).toString(8).padStart(4, "0");
+        recursiveBox.checked = false;
         syncing = false;
         open();
     }
@@ -50,7 +50,7 @@ QQC2.Dialog {
         for (let i = 0; i < 9; ++i)
             if (boxes.itemAt(i).checked)
                 bits |= 1 << (8 - i);
-        octal.text = (special | bits).toString(8).padStart(4, "0");
+        octalField.text = (special | bits).toString(8).padStart(4, "0");
     }
 
     function fromOctal() {
@@ -135,7 +135,7 @@ QQC2.Dialog {
                 text: qsTr("Octal:")
             }
             QQC2.TextField {
-                id: octal
+                id: octalField
 
                 objectName: "permOctal"
                 Layout.preferredWidth: 80
@@ -144,7 +144,7 @@ QQC2.Dialog {
         }
 
         QQC2.CheckBox {
-            id: recursive
+            id: recursiveBox
 
             objectName: "permRecursive"
             visible: dlg.anyDir

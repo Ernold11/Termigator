@@ -22,7 +22,7 @@ FocusScope {
     property bool showPermissions: false
     property bool showOwner: false
     property QQC2.Menu contextMenu: null
-    readonly property alias list: list
+    readonly property alias list: listView
     // Column widths, dragged by the header's grips and remembered in launch.files_column_widths
     // (next to files_columns). A width set by hand is a MINIMUM: Name takes whatever room the
     // other columns leave, so the last column always meets the panel's edge; once the panel is
@@ -46,7 +46,7 @@ FocusScope {
     // a QTreeView's viewport, so no row runs under it.
     // Only as much as the handle covers: Breeze reports 21 px for a handle drawn ~8 px wide.
     readonly property real scrollBarWidth: vbar.visible ? Math.min(vbar.width, 10) : 0
-    readonly property real viewWidth: list.width - scrollBarWidth
+    readonly property real viewWidth: listView.width - scrollBarWidth
     // Room for the columns inside a row's 4 px margins without scrolling.
     readonly property real columnsRoom: viewWidth - 8
     // A row's width: the view's, or more when the columns are wider, and then the list scrolls
@@ -138,7 +138,7 @@ FocusScope {
             anchorRow = row;
         }
         if (row >= 0)
-            list.positionViewAtIndex(row, ListView.Contain);
+            listView.positionViewAtIndex(row, ListView.Contain);
     }
 
     function selectRange(from, to) {
@@ -154,13 +154,13 @@ FocusScope {
     }
 
     function move(to, mods) {
-        if (list.count === 0)
+        if (listView.count === 0)
             return;
-        const row = Math.max(0, Math.min(list.count - 1, to));
+        const row = Math.max(0, Math.min(listView.count - 1, to));
         if (mods & Qt.ShiftModifier) {
             selectRange(anchorRow < 0 ? row : anchorRow, row);
             currentRow = row;
-            list.positionViewAtIndex(row, ListView.Contain);
+            listView.positionViewAtIndex(row, ListView.Contain);
         } else if (mods & Qt.ControlModifier) {
             setCurrent(row, false);
         } else {
@@ -187,22 +187,22 @@ FocusScope {
 
     // Shift+F10 / Menu: at the current row, else at the top-left corner.
     function menuKey() {
-        const item = currentRow >= 0 ? list.itemAtIndex(currentRow) : null;
-        const p = item ? item.mapToItem(list, item.width / 4, item.height / 2) : Qt.point(0, 0);
+        const item = currentRow >= 0 ? listView.itemAtIndex(currentRow) : null;
+        const p = item ? item.mapToItem(listView, item.width / 4, item.height / 2) : Qt.point(0, 0);
         openContextMenu(currentRow, p.x, p.y);
     }
 
     // Only for the list itself, never for a field or a dialog over it.
     function listKey(event) {
-        if (list.Window.activeFocusItem !== list) {
+        if (listView.Window.activeFocusItem !== listView) {
             event.accepted = false;
             return;
         }
         const key = event.key, mods = event.modifiers & (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier);
-        const page = Math.max(1, Math.floor(list.height / 22) - 1);
+        const page = Math.max(1, Math.floor(listView.height / 22) - 1);
         const busy = !files.hasTarget || files.busy;
         if (key === Qt.Key_A && mods === Qt.ControlModifier)
-            selectRange(0, list.count - 1);
+            selectRange(0, listView.count - 1);
         else if ((key === Qt.Key_Return || key === Qt.Key_Enter) && mods === 0)
             activateKey();
         else if ((key === Qt.Key_Backspace && mods === 0) || (key === Qt.Key_Up && mods === Qt.AltModifier)) {
@@ -229,7 +229,7 @@ FocusScope {
         else if (key === Qt.Key_Home)
             move(0, mods);
         else if (key === Qt.Key_End)
-            move(list.count - 1, mods);
+            move(listView.count - 1, mods);
         else if (key === Qt.Key_PageUp)
             move(currentRow - page, mods);
         else if (key === Qt.Key_PageDown)
@@ -375,7 +375,7 @@ FocusScope {
                 contextMenu.addItem(item);
             }
         }
-        contextMenu.popup(list, x, y);
+        contextMenu.popup(listView, x, y);
     }
 
     function openHeaderMenu() {
@@ -385,7 +385,7 @@ FocusScope {
     // ---- drop (files from the file manager upload)
 
     function rowAt(y) {
-        return list.indexAt(10, y + list.contentY);
+        return listView.indexAt(10, y + listView.contentY);
     }
 
     function droppedPaths(urls) {
@@ -451,7 +451,7 @@ FocusScope {
                         id: header
 
                         // Lined up with the rows' columns and scrolled with the list.
-                        x: 4 - list.contentX
+                        x: 4 - listView.contentX
                         width: rl.rowWidth - 8
                         height: parent.height
                         spacing: 0
@@ -546,10 +546,10 @@ FocusScope {
                 }
 
                 ListView {
-                    id: list
+                    id: listView
 
                     Kirigami.WheelHandler {
-                        target: list
+                        target: listView
                     }
 
                     objectName: "remoteListView"
@@ -577,12 +577,12 @@ FocusScope {
 
                     // Clicks below the last row: clear the selection; right-click: the empty-space menu.
                     MouseArea {
-                        parent: list
+                        parent: listView
                         z: -1
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
                         onPressed: mouse => {
-                            list.forceActiveFocus(Qt.MouseFocusReason);
+                            listView.forceActiveFocus(Qt.MouseFocusReason);
                             if (!(mouse.modifiers & (Qt.ControlModifier | Qt.ShiftModifier)))
                                 rl.setCurrent(-1, true);
                             if (mouse.button === Qt.RightButton)
@@ -611,7 +611,7 @@ FocusScope {
                         width: rl.rowWidth
                         height: Math.max(22, nameLabel.implicitHeight + 4)
                         color: selected ? Kirigami.Theme.highlightColor : (index % 2 === 1 ? Kirigami.Theme.alternateBackgroundColor : "transparent")
-                        border.width: index === rl.currentRow && list.activeFocus ? 1 : 0
+                        border.width: index === rl.currentRow && listView.activeFocus ? 1 : 0
                         border.color: Kirigami.Theme.highlightColor
 
                         // Dragged out as the drag payload, for a drop on the local pane.
@@ -696,7 +696,7 @@ FocusScope {
                             QQC2.ToolTip.text: item.tooltip
                             QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
                             onPressed: mouse => {
-                                list.forceActiveFocus(Qt.MouseFocusReason);
+                                listView.forceActiveFocus(Qt.MouseFocusReason);
                                 const ctrl = mouse.modifiers & Qt.ControlModifier;
                                 const shift = mouse.modifiers & Qt.ShiftModifier;
                                 if (shift && rl.anchorRow >= 0) {
@@ -711,7 +711,7 @@ FocusScope {
                                     rl.setCurrent(item.index, true);
                                 }
                                 if (mouse.button === Qt.RightButton) {
-                                    const p = mapToItem(list, mouse.x, mouse.y);
+                                    const p = mapToItem(listView, mouse.x, mouse.y);
                                     rl.openContextMenu(item.index, p.x, p.y);
                                 }
                             }
@@ -742,10 +742,10 @@ FocusScope {
                     // The scrollable width is the content plus the margin kept for the vertical bar
                     // (list.rightMargin): a bar over `contentWidth` alone stops that margin short,
                     // and the last column stays under the vertical bar.
-                    readonly property real span: Math.max(1, list.contentWidth + list.rightMargin)
-                    size: Math.min(1, list.width / span)
-                    position: list.contentX / span
-                    onPositionChanged: list.contentX = position * span
+                    readonly property real span: Math.max(1, listView.contentWidth + listView.rightMargin)
+                    size: Math.min(1, listView.width / span)
+                    position: listView.contentX / span
+                    onPositionChanged: listView.contentX = position * span
                 }
             }
 
@@ -757,7 +757,7 @@ FocusScope {
                 }
                 onDropped: drop => {
                     // The area spans the header too: the row is looked up in the list's coordinates.
-                    drop.accepted = rl.dropUrls(drop.urls, mapToItem(list, 0, drop.y).y);
+                    drop.accepted = rl.dropUrls(drop.urls, mapToItem(listView, 0, drop.y).y);
                 }
             }
 
