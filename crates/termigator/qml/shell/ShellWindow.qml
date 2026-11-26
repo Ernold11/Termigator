@@ -50,8 +50,8 @@ QQC2.ApplicationWindow {
     readonly property alias shellActions: appActions
     readonly property alias followTimer: followTimer
     readonly property alias closeBox: closeMessageBox
-    readonly property alias closeChoiceBox: closeChoiceBox
-    readonly property alias sessionEnd: sessionEnd
+    readonly property alias closeChoiceBox: closeChoice
+    readonly property alias sessionEnd: sessionEndWatch
     readonly property alias contentArea: split
     readonly property alias trayQuitItem: trayQuit
     readonly property alias trayShowItem: trayShow
@@ -126,7 +126,7 @@ QQC2.ApplicationWindow {
     }
 
     // window.close_action (termigator_core::close_action): what the close button, Alt+F4 and any
-    // other window-manager close do — "ask" (closeChoiceBox), "tray" (hide) or "exit" (requestQuit).
+    // other window-manager close do — "ask" (closeChoice), "tray" (hide) or "exit" (requestQuit).
     // Without a tray icon to bring the window back it is always "exit". Read at each close, so a
     // change in Settings works at once. The smoke checks set trayReady (no tray offscreen).
     property bool trayReady: tray.visible
@@ -193,11 +193,11 @@ QQC2.ApplicationWindow {
         if (closedForGood)
             return;
         // Logout / shutdown: no question the session manager would have to wait for.
-        if (sessionEnd.ending) {
+        if (sessionEndWatch.ending) {
             finishClose();
             return;
         }
-        if (closeChoiceBox.visible || closeMessageBox.visible) {
+        if (closeChoice.visible || closeMessageBox.visible) {
             raise();
             requestActivate();
             return;
@@ -208,9 +208,9 @@ QQC2.ApplicationWindow {
         } else if (action === "exit") {
             requestQuit();
         } else {
-            closeChoiceBox.informativeText = appController.closeChoiceDetails(liveSessions, activeTransfers, runningTunnels);
-            closeChoiceBox.checked = false;
-            closeChoiceBox.open();
+            closeChoice.informativeText = appController.closeChoiceDetails(liveSessions, activeTransfers, runningTunnels);
+            closeChoice.checked = false;
+            closeChoice.open();
         }
     }
 
@@ -233,7 +233,7 @@ QQC2.ApplicationWindow {
     function requestQuit() {
         if (closedForGood || closeMessageBox.visible)
             return;
-        closeChoiceBox.close();
+        closeChoice.close();
         const question = appController.closeQuestion(liveSessions, activeTransfers, runningTunnels);
         if (question === "") {
             finishClose();
@@ -258,7 +258,7 @@ QQC2.ApplicationWindow {
         if (closedForGood)
             return;
         closedForGood = true;
-        closeChoiceBox.close();
+        closeChoice.close();
         if (restarting)
             appController.requestRestart(); // before shuttingDown(): the tab snapshot is kept
         shuttingDown();
@@ -467,7 +467,7 @@ QQC2.ApplicationWindow {
     }
 
     SessionEnd {
-        id: sessionEnd
+        id: sessionEndWatch
     }
 
     // The session ends with the window hidden in the tray: Qt quits without a closing signal (only
@@ -476,7 +476,7 @@ QQC2.ApplicationWindow {
         target: Qt.application
 
         function onAboutToQuit() {
-            if (sessionEnd.ending && !root.closedForGood)
+            if (sessionEndWatch.ending && !root.closedForGood)
                 root.finishClose();
         }
     }
@@ -485,7 +485,7 @@ QQC2.ApplicationWindow {
     // Exit, Cancel (also Esc and the dialog's own close button). "Hide", like the tray menu's item:
     // the window is hidden, not minimized to the taskbar.
     MessageBox {
-        id: closeChoiceBox
+        id: closeChoice
 
         title: qsTr("Close Termigator?")
         text: qsTr("Hide Termigator in the system tray, or exit?")

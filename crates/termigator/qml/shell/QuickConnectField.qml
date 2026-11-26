@@ -26,8 +26,8 @@ Kirigami.ActionTextField {
                     "removable": history.indexOf(t) >= 0
                 }));
     }
-    readonly property alias popup: popup
-    readonly property alias list: list
+    readonly property alias popup: historyPopup
+    readonly property alias list: historyList
 
     signal failed(string message)
 
@@ -39,15 +39,15 @@ Kirigami.ActionTextField {
     // Shows the rows for the current text; closes when there are none.
     function showList() {
         if (matches.length === 0) {
-            popup.close();
+            historyPopup.close();
             return;
         }
-        list.currentIndex = -1;
-        popup.open();
+        historyList.currentIndex = -1;
+        historyPopup.open();
     }
 
     function connect() {
-        popup.close();
+        historyPopup.close();
         const err = handler(text);
         if (err)
             failed(qsTr("Quick connect: %1").arg(err));
@@ -67,9 +67,9 @@ Kirigami.ActionTextField {
         controller.forgetQuickTarget(row.text);
         controller.persist();
         refresh(); // also when the save failed
-        list.currentIndex = Math.min(index, matches.length - 1);
+        historyList.currentIndex = Math.min(index, matches.length - 1);
         if (matches.length === 0)
-            popup.close();
+            historyPopup.close();
     }
 
     function clearHistory() {
@@ -77,7 +77,7 @@ Kirigami.ActionTextField {
         controller.persist();
         refresh();
         if (matches.length === 0)
-            popup.close();
+            historyPopup.close();
     }
 
     objectName: "quickConnect"
@@ -85,7 +85,7 @@ Kirigami.ActionTextField {
     placeholderText: qsTr("user@host[:port] or a saved name")
     placeholderTextColor: Qt.alpha(Kirigami.Theme.textColor, 0.65)
     Accessible.name: qsTr("Quick connect")
-    QQC2.ToolTip.visible: hovered && !popup.visible
+    QQC2.ToolTip.visible: hovered && !historyPopup.visible
     QQC2.ToolTip.text: qsTr("Quick connect — Enter connects, Down shows recent targets (Ctrl+Shift+O opens the full dialog)")
     QQC2.ToolTip.delay: 700
     leftActions: Kirigami.Action {
@@ -104,8 +104,8 @@ Kirigami.ActionTextField {
             enabled: field.matches.length > 0
             onTriggered: {
                 field.forceActiveFocus();
-                if (popup.visible)
-                    popup.close();
+                if (historyPopup.visible)
+                    historyPopup.close();
                 else
                     field.showList();
             }
@@ -113,40 +113,40 @@ Kirigami.ActionTextField {
     ]
 
     onPressed: {
-        if (!popup.visible)
+        if (!historyPopup.visible)
             showList();
     }
     onTextEdited: showList()
     onAccepted: {
-        if (popup.visible && list.currentIndex >= 0)
-            choose(list.currentIndex);
+        if (historyPopup.visible && historyList.currentIndex >= 0)
+            choose(historyList.currentIndex);
         else
             connect();
     }
     Keys.onDownPressed: event => {
-        if (popup.visible)
-            list.incrementCurrentIndex();
+        if (historyPopup.visible)
+            historyList.incrementCurrentIndex();
         else if (matches.length > 0) {
             showList();
-            list.currentIndex = 0;
+            historyList.currentIndex = 0;
         } else
             event.accepted = false;
     }
     Keys.onUpPressed: event => {
-        if (popup.visible)
-            list.decrementCurrentIndex();
+        if (historyPopup.visible)
+            historyList.decrementCurrentIndex();
         else
             event.accepted = false;
     }
     Keys.onEscapePressed: event => {
-        if (popup.visible)
-            popup.close();
+        if (historyPopup.visible)
+            historyPopup.close();
         else
             event.accepted = false;
     }
     Keys.onDeletePressed: event => {
-        if (popup.visible && list.currentIndex >= 0 && (event.modifiers & Qt.ShiftModifier))
-            forget(list.currentIndex);
+        if (historyPopup.visible && historyList.currentIndex >= 0 && (event.modifiers & Qt.ShiftModifier))
+            forget(historyList.currentIndex);
         else
             event.accepted = false;
     }
@@ -160,11 +160,11 @@ Kirigami.ActionTextField {
     }
 
     QQC2.Popup {
-        id: popup
+        id: historyPopup
 
         y: field.height
         width: field.width
-        height: Math.min(list.contentHeight, Kirigami.Units.gridUnit * 14) + topPadding + bottomPadding
+        height: Math.min(historyList.contentHeight, Kirigami.Units.gridUnit * 14) + topPadding + bottomPadding
         padding: 1
         closePolicy: QQC2.Popup.CloseOnEscape | QQC2.Popup.CloseOnPressOutsideParent
         // No fade: the keys above go by `visible`, which a running exit transition keeps true.
@@ -172,10 +172,10 @@ Kirigami.ActionTextField {
         exit: Transition {}
 
         ListView {
-            id: list
+            id: historyList
 
             Kirigami.WheelHandler {
-                target: list
+                target: historyList
             }
 
             anchors.fill: parent

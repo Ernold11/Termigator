@@ -44,7 +44,7 @@ Item {
     property bool editing: false
     property string renameError: ""
     readonly property bool hovered: hover.hovered
-    readonly property alias renameField: renameField
+    readonly property alias renameField: renameEdit
 
     signal commitRequested(string text, bool blur)
     signal cancelRequested
@@ -95,12 +95,12 @@ Item {
     onEditingChanged: {
         renameError = "";
         if (editing) {
-            renameField.text = label;
-            renameField.selectAll();
-            renameField.forceActiveFocus(Qt.ShortcutFocusReason);
+            renameEdit.text = label;
+            renameEdit.selectAll();
+            renameEdit.forceActiveFocus(Qt.ShortcutFocusReason);
         } else {
             // The list is a focus scope: it would hand its focus back to the hidden field.
-            renameField.focus = false;
+            renameEdit.focus = false;
         }
     }
 
@@ -268,7 +268,7 @@ Item {
 
     // F2: the name in place.
     QQC2.TextField {
-        id: renameField
+        id: renameEdit
 
         objectName: "renameField"
         visible: row.editing

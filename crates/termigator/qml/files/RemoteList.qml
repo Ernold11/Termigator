@@ -347,6 +347,14 @@ FocusScope {
         return menuEntries(row).map(e => e === "-" ? "-" : e.text).join("|");
     }
 
+    // The key of an entry beside its text (KeyedMenuContent), as in HostsPanel.
+    function keyed(item, keys) {
+        item.shortcutText = keys;
+        item.contentItem = keyedContentComponent.createObject(item, {
+            "menuItem": item
+        });
+    }
+
     function openContextMenu(row, x, y) {
         const entries = menuEntries(row);
         if (entries.length === 0)
@@ -362,12 +370,8 @@ FocusScope {
                     "text": e.text,
                     "run": e.fn
                 });
-                if (e.keys) {
-                    item.shortcutText = e.keys;
-                    item.contentItem = keyedContentComponent.createObject(item, {
-                        "menuItem": item
-                    });
-                }
+                if (e.keys)
+                    keyed(item, e.keys);
                 contextMenu.addItem(item);
             }
         }
