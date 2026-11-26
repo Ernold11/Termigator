@@ -443,6 +443,74 @@ Item {
             panel.messageBox.buttonClicked(MessageDialog.Yes, MessageDialog.YesRole);
             panel.messageBox.close();
             expect(entries() === "desk,u@10.0.0.9,broken", "folder deleted " + entries());
+            // "Add to Hosts…" on a tab: the hook, then a new connection without its password.
+            expect(typeof shell.saveToHosts === "function", "saveToHosts hook");
+            editor = null;
+            shell.saveToHosts({
+                "label": "ops@192.0.2.20",
+                "host": "192.0.2.20",
+                "user": "ops",
+                "port": null,
+                "terminal": "embedded",
+                "password": "tab-secret"
+            });
+            const e = editor ? JSON.parse(editor.json) : null;
+            expect(e !== null && editor.kind === "ssh" && e.host === "192.0.2.20" && e.password === undefined && !panel.saveQuestion.visible, "add to hosts " + JSON.stringify(editor));
+            editor.done(JSON.stringify({
+                "label": "jump",
+                "host": "192.0.2.20",
+                "user": "ops"
+            }));
+            expect(entries() === "desk,u@10.0.0.9,broken,jump", "added from tab " + entries());
+        },
+        // The same target again (another name, port 22 spelled out): the question; No adds anew.
+        () => {
+            editor = null;
+            shell.saveToHosts({
+                "label": "ops@192.0.2.20",
+                "host": "192.0.2.20",
+                "user": "ops",
+                "port": 22
+            });
+            expect(editor === null && panel.saveQuestion.text.indexOf("“jump”") >= 0, "duplicate question " + panel.saveQuestion.text);
+            panel.saveQuestion.buttonClicked(MessageDialog.No, MessageDialog.NoRole);
+            panel.saveQuestion.close();
+            expect(editor !== null && editor.kind === "ssh" && JSON.parse(editor.json).label === "ops@192.0.2.20", "create new " + JSON.stringify(editor));
+            editor.done(JSON.stringify({
+                "label": "ops@192.0.2.20",
+                "host": "192.0.2.20",
+                "user": "ops",
+                "port": 22
+            }));
+            expect(entries() === "desk,u@10.0.0.9,broken,jump,ops@192.0.2.20", "created anew " + entries());
+        },
+        // The same name (any case): Yes edits that entry, with the tab's host; Cancel does nothing.
+        () => {
+            editor = null;
+            shell.saveToHosts({
+                "label": "DESK",
+                "protocol": "rdp",
+                "host": "10.0.0.70",
+                "user": "u"
+            });
+            panel.saveQuestion.buttonClicked(MessageDialog.Cancel, MessageDialog.RejectRole);
+            panel.saveQuestion.close();
+            expect(editor === null, "cancel " + JSON.stringify(editor));
+            shell.saveToHosts({
+                "label": "DESK",
+                "protocol": "rdp",
+                "host": "10.0.0.70",
+                "user": "u"
+            });
+            panel.saveQuestion.buttonClicked(MessageDialog.Yes, MessageDialog.YesRole);
+            panel.saveQuestion.close();
+            const m = editor ? JSON.parse(editor.json) : null;
+            expect(m !== null && editor.kind === "rdp" && m.label === "desk" && m.host === "10.0.0.70" && m.group === "lab/new", "update " + JSON.stringify(editor));
+            editor.done(JSON.stringify(m));
+            const desk = conns().find(c => c.label === "desk");
+            expect(entries() === "desk,u@10.0.0.9,broken,jump,ops@192.0.2.20" && desk.host === "10.0.0.70" && desk.group === "lab/new", "updated " + JSON.stringify(desk));
+        },
+        () => {
             const started = shell.contentArea.grabToImage(result => {
                 if (!result.saveToFile(shell.controller.smokeTestShot))
                     check.fail("cannot save the grab");

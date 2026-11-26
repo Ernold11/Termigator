@@ -863,7 +863,9 @@ pub fn build(cfg: &Value, state: &TreeState, filter: &str, hooks: &dyn Hooks) ->
 }
 
 mod dnd;
+mod from_tab;
 mod mutations;
 
 pub use dnd::*;
+pub use from_tab::*;
 pub use mutations::*;

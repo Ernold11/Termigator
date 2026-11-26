@@ -17,6 +17,7 @@ FocusScope {
     readonly property alias list: list
     readonly property alias search: search
     readonly property alias messageBox: box
+    readonly property alias saveQuestion: saveQuestion
     readonly property alias prompt: prompt
     readonly property alias testDialog: testDialog
     // Selected rows (sorted) and the current row; both reset with the model.
@@ -167,6 +168,24 @@ FocusScope {
         const kind = i.kind === "favorite" ? "favorite" : i.protocol;
         if (shell.openEditor)
             shell.openEditor(kind, hosts.entryJson(i.kind, i.index), "", data => store(hosts.storeEntry(kind, i.kind, i.index, data)));
+    }
+
+    // "Add to Hosts…" on a tab (shell.saveToHosts): the editor with the tab's connection, without
+    // its secrets. One that is saved already (same name, or same protocol, host, port and user)
+    // asks first: Yes edits that entry (it keeps its own password), No adds a new one.
+    function saveFromTab(conn) {
+        if (!shell.openEditor)
+            return;
+        const p = JSON.parse(hosts.tabSavePlan(JSON.stringify(conn)));
+        const addNew = () => shell.openEditor(p.kind, JSON.stringify(p.entry), p.entry.group || "", data => store(hosts.storeEntry(p.kind, "", -1, data)));
+        if (p.existing < 0) {
+            addNew();
+            return;
+        }
+        saveQuestion.onYes = () => shell.openEditor(p.mergedKind, JSON.stringify(p.merged), "", data => store(hosts.storeEntry(p.mergedKind, "connection", p.existing, data)));
+        saveQuestion.onNo = addNew;
+        saveQuestion.text = qsTr("“%1” is already in Hosts.\n\nYes updates that entry, No adds a new one.").arg(p.existingLabel);
+        saveQuestion.open();
     }
 
     function duplicate(i) {
@@ -691,6 +710,7 @@ FocusScope {
     Component.onCompleted: {
         hosts.refresh();
         shell.listSummary = Qt.binding(() => hosts.status);
+        shell.saveToHosts = conn => panel.saveFromTab(conn);
         const a = shell.shellActions;
         const live = (id, hook) => {
             const act = a.actions[id];
@@ -1003,6 +1023,25 @@ FocusScope {
             const fn = onYes;
             onYes = null;
             if (button === MessageDialog.Yes && fn)
+                fn();
+        }
+    }
+
+    // "Add to Hosts…" when the connection is saved already: update (Yes), add (No) or Cancel.
+    MessageBox {
+        id: saveQuestion
+
+        property var onYes: null
+        property var onNo: null
+
+        title: qsTr("Add to Hosts")
+        buttons: MessageDialog.Yes | MessageDialog.No | MessageDialog.Cancel
+        icon: "question"
+        onButtonClicked: (button, role) => {
+            const fn = button === MessageDialog.Yes ? onYes : button === MessageDialog.No ? onNo : null;
+            onYes = null;
+            onNo = null;
+            if (fn)
                 fn();
         }
     }

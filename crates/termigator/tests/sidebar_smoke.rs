@@ -53,4 +53,14 @@ fn host_list_runs_offscreen() {
     );
     assert!(hosts.contains("host: 10.0.0.9"), "edit not saved:\n{hosts}");
     assert!(hosts.contains("group: lab/new"), "move not saved:\n{hosts}");
+    // "Add to Hosts…" from a tab: saved, without the tab's password; the update in place.
+    assert!(hosts.contains("label: jump"), "tab not added:\n{hosts}");
+    assert!(
+        hosts.contains("host: 10.0.0.70"),
+        "tab update not saved:\n{hosts}"
+    );
+    assert!(
+        !hosts.contains("tab-secret"),
+        "tab password saved:\n{hosts}"
+    );
 }

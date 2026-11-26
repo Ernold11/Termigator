@@ -153,6 +153,25 @@ pub(super) fn bulk_apply(
     out
 }
 
+/// "Add to Hosts…" for a tab's connection: `kind` (the editor), `entry` (the connection without
+/// secrets), and the saved connection it duplicates (by label or by target) as `existing` (its
+/// index, else -1), `existingLabel`, `merged` (that entry with the tab's values layered on) and
+/// `mergedKind` (its editor).
+pub fn tab_save_plan(cfg: &Value, tab: &Value) -> serde_json::Value {
+    let entry = hosttree::without_secrets(tab);
+    let existing = hosttree::matching_connection(cfg, &entry)
+        .and_then(|i| Some((i, seq(cfg, "connections").get(i)?)));
+    let merged = existing.map(|(_, c)| hosttree::merged_with_tab(c, tab));
+    json!({
+        "kind": connection_protocol(&entry),
+        "entry": entry.to_json(),
+        "existing": existing.map_or(-1, |(i, _)| i64::try_from(i).unwrap_or(-1)),
+        "existingLabel": existing.map(|(_, c)| entry_label(c)).unwrap_or_default(),
+        "merged": merged.as_ref().map(Value::to_json),
+        "mergedKind": merged.as_ref().map(connection_protocol),
+    })
+}
+
 fn has(data: &Value, keys: &[&str]) -> bool {
     keys.iter().all(|k| data.get(k).is_some_and(truthy))
 }

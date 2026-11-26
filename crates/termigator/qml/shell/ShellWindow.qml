@@ -29,6 +29,8 @@ import Termigator
 //                                kind: ssh|rdp|vnc|telnet|serial|favorite; entryJson: the entry
 //                                (Value::to_json) or "" for a new one; onAccepted(dataJson) after
 //                                OK — the sidebar validates, stores and persists
+//   saveToHosts                  sidebar sets, panes call: fn(conn) the tab menu's "Add to Hosts…"
+//                                (conn: PaneTab.conn)
 //   openBulkEdit                 tools set, sidebar calls: fn(count, groups, done) — "Edit N entries…"; done(changes)
 //                                after OK when something was ticked
 //   panes                        panes set: the PanesArea (tools hang disconnectNotice / testConnection on it)
@@ -80,6 +82,7 @@ QQC2.ApplicationWindow {
     property var scpTransfer: null
     property var openEditor: null
     property var openBulkEdit: null
+    property var saveToHosts: null
     property var panes: null
     property var unlockVault: null
     property int liveSessions: 0

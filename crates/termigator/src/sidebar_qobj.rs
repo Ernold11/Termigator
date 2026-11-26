@@ -126,6 +126,11 @@ pub mod qobject {
         #[qinvokable]
         fn entry_json(self: &HostListModel, kind: &QString, index: i32) -> QString;
 
+        /// "Add to Hosts…" for a tab's connection ([`super::tab_save_plan`]): `{kind, entry,
+        /// existing, existingLabel, merged, mergedKind}`.
+        #[qinvokable]
+        fn tab_save_plan(self: &HostListModel, conn_json: &QString) -> QString;
+
         /// Config indices of the selected connection rows, each once, in config order.
         #[qinvokable]
         fn selected_connections(self: &HostListModel, rows: &QList_i32) -> QList_i32;
@@ -551,6 +556,11 @@ impl qobject::HostListModel {
         };
         with_app(|app| entry_at(&app.cfg, e).map(|v| qs(&v.to_json().to_string())))
             .unwrap_or_default()
+    }
+
+    fn tab_save_plan(&self, conn_json: &QString) -> QString {
+        let tab = parse_json("tab_save_plan", conn_json);
+        with_app(|app| qs(&tab_save_plan(&app.cfg, &tab).to_string()))
     }
 
     fn selected_connections(&self, rows: &QList<i32>) -> QList<i32> {

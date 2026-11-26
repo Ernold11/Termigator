@@ -423,3 +423,35 @@ fn probe_report_marks_the_steps() {
             .starts_with("✘  Device")
     );
 }
+
+#[test]
+fn tab_save_plan_drops_secrets_and_finds_the_duplicate() {
+    let c = cfg(
+        "connections:\n  - label: prod-db\n    host: db.example.test\n    user: admin\n    password: hunter2\n",
+    );
+    let fresh = tab_save_plan(
+        &c,
+        &map("label: web\nhost: web.example.test\nuser: root\npassword: pw\n"),
+    );
+    assert_eq!(fresh["kind"], "ssh");
+    assert_eq!(fresh["existing"], -1);
+    assert!(fresh["merged"].is_null());
+    assert!(fresh["entry"].get("password").is_none());
+    assert_eq!(fresh["entry"]["host"], "web.example.test");
+
+    let dup = tab_save_plan(
+        &c,
+        &map("label: admin@db.example.test\nhost: db.example.test\nuser: admin\nport: 22\n"),
+    );
+    assert_eq!(dup["existing"], 0);
+    assert_eq!(dup["existingLabel"], "prod-db");
+    assert_eq!(dup["merged"]["label"], "prod-db");
+    // The stored entry's own password stays in the update.
+    assert_eq!(dup["merged"]["password"], "hunter2");
+    assert!(dup["entry"].get("password").is_none());
+
+    assert_eq!(dup["mergedKind"], "ssh");
+
+    let telnet = tab_save_plan(&c, &map("label: sw\nprotocol: telnet\nhost: 10.0.0.9\n"));
+    assert_eq!(telnet["kind"], "telnet");
+}

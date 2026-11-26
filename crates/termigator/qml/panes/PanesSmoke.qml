@@ -286,7 +286,14 @@ Item {
                 }
             });
             const entries = area.tabMenuEntries(web, false);
-            expect(texts(entries).startsWith("Rename tab…,Duplicate tab,Reconnect,Test connection…,-,Exclude from MultiExec,"), texts(entries));
+            expect(texts(entries).startsWith("Rename tab…,Duplicate tab,Reconnect,Test connection…,Add to Hosts…,-,Exclude from MultiExec,"), texts(entries));
+            // "Add to Hosts…" hands the tab's connection to the sidebar's hook.
+            const saveHook = shell.saveToHosts;
+            let saved = null;
+            shell.saveToHosts = conn => saved = conn;
+            area.tabMenuEntries(web, false).find(e => e.text === "Add to Hosts…").fn();
+            shell.saveToHosts = saveHook;
+            expect(saved !== null && saved.label === "web" && saved.host === "h", "add to hosts " + JSON.stringify(saved));
             entries.find(e => e.text === "Exclude from MultiExec").fn();
             expect(web.multiexecExcluded, "exclude");
             // A split pane that loses its last tab goes away.

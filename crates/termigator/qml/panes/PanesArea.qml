@@ -720,6 +720,12 @@ FocusScope {
             "icon": "view-refresh",
             "enabled": emb
         };
+        const addToHosts = {
+            "text": qsTr("Add to Hosts…"),
+            "icon": "list-add",
+            "enabled": shell.saveToHosts !== null,
+            "fn": () => shell.saveToHosts(tab.conn)
+        };
         if (detached) {
             reconnect.fn = () => restartTab(tab);
             const out = [{
@@ -728,7 +734,11 @@ FocusScope {
                     "fn": () => attachTab(tab)
                 }, rename];
             if (emb)
-                out.push(dup, reconnect, "-", log, rec);
+                out.push(dup, reconnect);
+            if (hasConn)
+                out.push(addToHosts);
+            if (emb)
+                out.push("-", log, rec);
             return out.concat(["-", close]);
         }
         reconnect.fn = () => reconnectTab(tab);
@@ -739,7 +749,7 @@ FocusScope {
                 "icon": "network-connect",
                 "enabled": testConnection !== null,
                 "fn": () => testConnection(JSON.stringify(tab.conn))
-            });
+            }, addToHosts);
         out.push("-");
         if (emb && hasConn)
             out.push({
