@@ -1,7 +1,7 @@
 use super::*;
 
 #[test]
-fn tray_icon_prefers_theme_then_file_then_none() {
+fn tray_icon_prefers_theme_then_file_then_bundled() {
     let dir = std::env::temp_dir().join(format!("termigator-icon-{}", std::process::id()));
     std::fs::create_dir_all(&dir).expect("temp dir");
     let file = dir.join("termigator-icon.png");
@@ -13,7 +13,7 @@ fn tray_icon_prefers_theme_then_file_then_none() {
         choose_tray_icon(true, &missing),
         TrayIcon::Theme("termigator")
     );
-    assert_eq!(choose_tray_icon(false, &missing), TrayIcon::None);
+    assert_eq!(choose_tray_icon(false, &missing), TrayIcon::Bundled);
     let _ = std::fs::remove_dir_all(&dir);
 }
 use termigator_core::config::doc;

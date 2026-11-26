@@ -315,8 +315,12 @@ const THEME_ICON_NAME: &str = "termigator";
 enum TrayIcon {
     Theme(&'static str),
     File(PathBuf),
-    None,
+    /// The PNG compiled into the binary (build.rs): an installed build without the hicolor
+    /// theme icon, e.g. on Windows.
+    Bundled,
 }
+
+const BUNDLED_TRAY_ICON: &str = "qrc:/qt/qml/Termigator/qml/assets/icons/termigator-64.png";
 
 fn choose_tray_icon(theme_has_icon: bool, dev_file: &Path) -> TrayIcon {
     if theme_has_icon {
@@ -324,7 +328,7 @@ fn choose_tray_icon(theme_has_icon: bool, dev_file: &Path) -> TrayIcon {
     } else if dev_file.is_file() {
         TrayIcon::File(dev_file.to_path_buf())
     } else {
-        TrayIcon::None
+        TrayIcon::Bundled
     }
 }
 
@@ -378,7 +382,8 @@ impl Default for AppControllerRust {
                     QUrl::from_local_file(&QString::from(icon.to_string_lossy().as_ref()))
                         .to_qstring()
                 }
-                _ => QString::default(),
+                TrayIcon::Bundled => QString::from(BUNDLED_TRAY_ICON),
+                TrayIcon::Theme(_) => QString::default(),
             },
             tray_icon_name: match tray {
                 TrayIcon::Theme(name) => QString::from(name),

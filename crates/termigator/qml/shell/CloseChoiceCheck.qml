@@ -55,6 +55,22 @@ Item {
         return n;
     }
 
+    // The tray icon shows the app's own image: a theme name, or a file / resource that loads.
+    function trayIconLoads() {
+        for (const o of shell.contentData) {
+            if (!(o && typeof o.showMessage === "function" && o.supportsMessages !== undefined))
+                continue;
+            if (o.icon.name !== "")
+                return o.icon.name === "termigator";
+            const img = Qt.createQmlObject('import QtQuick; Image { asynchronous: false }', check);
+            img.source = o.icon.source;
+            const ok = img.status === Image.Ready;
+            img.destroy();
+            return ok;
+        }
+        return false;
+    }
+
     function liveCount() {
         return shell.panesArea ? shell.panesArea.liveCount : 0;
     }
@@ -70,6 +86,7 @@ Item {
     readonly property var askSteps: [
         () => {
             expect(trayIcons() === 1, "tray icons: " + trayIcons());
+            expect(trayIconLoads(), "the tray icon is not the app icon");
             expect(shell.controller.closeAction() === "ask", "default " + shell.controller.closeAction());
             shell.newLocalShell("");
         },

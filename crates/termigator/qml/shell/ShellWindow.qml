@@ -684,8 +684,7 @@ QQC2.ApplicationWindow {
 
         visible: appController.windowBool("tray_icon", true) && available
         icon.source: appController.trayIconUrl
-        icon.name: appController.trayIconName !== "" ? appController.trayIconName
-                   : appController.trayIconUrl === "" ? "utilities-terminal" : ""
+        icon.name: appController.trayIconName
         tooltip: "Termigator"
         menu: Platform.Menu {
             Platform.MenuItem {
