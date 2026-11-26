@@ -254,7 +254,25 @@ fn main() {
     {
         println!("cargo:rustc-link-lib={lib}");
     }
+    remove_stale_qmltypes(&out_dir);
     builder.build();
+}
+
+/// qt-build-utils 0.10 runs qmlcachegen before qmltyperegistrar rewrites `plugin.qmltypes`, so an
+/// incremental build compiles the QML ahead-of-time against the previous build's QObjects: after
+/// an invokable is added or moved, the compiled QML calls methods by their old index and crashes
+/// (a timer's `backend.poll()` in ToolsHost.qml). Without the old file it compiles like a clean
+/// build.
+fn remove_stale_qmltypes(out_dir: &std::path::Path) {
+    let qmltypes = out_dir.join("qt-build-utils/qml_modules/Termigator/plugin.qmltypes");
+    match std::fs::remove_file(&qmltypes) {
+        Ok(()) => {}
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+        Err(e) => println!(
+            "cargo:warning=cannot remove {} ({e}); the QML may be compiled against old types",
+            qmltypes.display()
+        ),
+    }
 }
 
 /// The app icon as resource `IDI_ICON1` of termigator.exe: Explorer and the shortcuts show it, and
