@@ -261,6 +261,9 @@ pub struct Session {
     startup: Option<Startup>,
     icon: TabIcon,
     attention: Option<(Attention, TabIcon)>,
+    /// The tooltip of the dead session ([`STOPPED_TOOLTIP`] / [`GAVE_UP_TOOLTIP`]), which
+    /// clearing a mark brings back instead of the log tooltip.
+    stopped_tip: Option<&'static str>,
     delay: Duration,
 }
 
@@ -274,6 +277,7 @@ impl Session {
             startup: None,
             icon: TabIcon::None,
             attention: None,
+            stopped_tip: None,
             delay: Duration::ZERO,
         }
     }
@@ -349,6 +353,12 @@ impl Session {
     fn gone(&mut self) {
         self.phase = Phase::Gone;
         self.startup = None;
+    }
+
+    /// The tooltip of the tab when no mark is on it.
+    fn base_tooltip(&self) -> String {
+        self.stopped_tip
+            .map_or_else(|| self.log_tooltip(), str::to_owned)
     }
 
     fn log_tooltip(&self) -> String {
@@ -442,6 +452,10 @@ impl Session {
         }
         self.startup = None;
         self.icon = TabIcon::Disconnected;
+        // The disconnect icon replaces a bell / activity mark: clearing that mark later must not
+        // bring back the icon and tooltip of the session that was alive when it was set.
+        self.attention = None;
+        self.stopped_tip = Some(STOPPED_TOOLTIP);
         let mut out = vec![
             Effect::SetIcon(TabIcon::Disconnected),
             Effect::SetTooltip(STOPPED_TOOLTIP.to_owned()),
@@ -471,6 +485,7 @@ impl Session {
                 });
                 return out;
             }
+            self.stopped_tip = Some(GAVE_UP_TOOLTIP);
             out.push(Effect::SetTooltip(GAVE_UP_TOOLTIP.to_owned()));
             GAVE_UP_HEADLINE
         } else {
@@ -542,7 +557,7 @@ impl Session {
         self.icon = before;
         vec![
             Effect::SetIcon(before),
-            Effect::SetTooltip(self.log_tooltip()),
+            Effect::SetTooltip(self.base_tooltip()),
             Effect::RearmActivity,
         ]
     }

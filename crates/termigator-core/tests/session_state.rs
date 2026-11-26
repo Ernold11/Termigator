@@ -674,6 +674,52 @@ fn clearing_attention_restores_the_dead_session_icon() {
 }
 
 #[test]
+fn a_mark_from_before_the_exit_never_brings_the_live_tab_back() {
+    // A background tab rang, then its session ended: the disconnect icon replaced the bell, and
+    // viewing the tab must not put back the icon and tooltip of the session that was alive then.
+    let mut s = spawned(spec());
+    s.handle(secs(1), BELL);
+    exit(&mut s, secs(2), false);
+    assert_eq!(s.icon(), TabIcon::Disconnected);
+    let seen = s.handle(secs(3), Event::TabSeen);
+    assert!(
+        !seen.contains(&Effect::SetIcon(TabIcon::None)),
+        "the dead tab lost its icon: {seen:?}"
+    );
+    assert!(
+        !seen.contains(&Effect::SetTooltip(String::new())),
+        "the dead tab lost its tooltip: {seen:?}"
+    );
+    assert_eq!(s.icon(), TabIcon::Disconnected);
+    // The same while auto-reconnect counts down.
+    let mut s = auto(0);
+    s.handle(secs(1), BACK);
+    exit(&mut s, secs(2), false);
+    let seen = s.handle(secs(3), Event::TabSeen);
+    assert!(!seen.contains(&Effect::SetIcon(TabIcon::None)), "{seen:?}");
+    assert_eq!(s.icon(), TabIcon::Disconnected);
+}
+
+#[test]
+fn clearing_attention_on_a_dead_tab_restores_its_stopped_tooltip() {
+    let mut s = spawned(spec());
+    exit(&mut s, secs(1), false);
+    s.handle(secs(2), BELL);
+    assert_eq!(
+        s.handle(secs(3), Event::TabSeen)[1],
+        Effect::SetTooltip(STOPPED_TOOLTIP.into())
+    );
+    // Gave up: the tooltip says so again.
+    let mut s = auto(MAX_RECONNECT_ATTEMPTS);
+    exit(&mut s, secs(1), false);
+    s.handle(secs(2), BELL);
+    assert_eq!(
+        s.handle(secs(3), Event::TabSeen)[1],
+        Effect::SetTooltip(GAVE_UP_TOOLTIP.into())
+    );
+}
+
+#[test]
 fn clearing_attention_restores_the_log_tooltip() {
     let mut s = spawned(spec());
     s.handle(secs(1), Event::SessionLog(Some("/l/a.log")));
