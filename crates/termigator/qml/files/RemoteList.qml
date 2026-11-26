@@ -691,7 +691,7 @@ FocusScope {
                             acceptedButtons: Qt.LeftButton | Qt.RightButton
                             hoverEnabled: true
                             drag.target: item.kind === "entry" ? dragProxy : null
-                            drag.threshold: Qt.styleHints.startDragDistance
+                            drag.threshold: Application.styleHints.startDragDistance
                             QQC2.ToolTip.visible: containsMouse && item.tooltip !== ""
                             QQC2.ToolTip.text: item.tooltip
                             QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay

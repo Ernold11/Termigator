@@ -26,7 +26,7 @@ ToolDialog {
     // Under ~10 s the session almost never "dropped" — it failed to come up (bad key, refused auth),
     // and saying so points the user at the terminal text still on screen.
     readonly property string message: lead + "<br><span style='color:" + hint + ";'>" + (tail !== "" ? tail : qsTr("Checking the host…")) + "</span>"
-    readonly property string hint: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.textColor, Kirigami.Theme.backgroundColor, 0.35)
+    readonly property color hint: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.textColor, Kirigami.Theme.backgroundColor, 0.35)
 
     function escaped(text) {
         return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

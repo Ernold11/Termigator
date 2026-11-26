@@ -37,7 +37,7 @@ ColumnLayout {
             "id": j.id,
             "label": j.label,
             "tooltip": j.tooltip,
-            "state": j.state,
+            "jobState": j.state,
             "percent": j.percent,
             "speed": j.speed,
             "stateText": j.stateText,
@@ -54,7 +54,7 @@ ColumnLayout {
     function activeCount() {
         let n = 0;
         for (let i = 0; i < jobs.count; ++i)
-            if (jobs.get(i).state === "running" || jobs.get(i).state === "queued")
+            if (jobs.get(i).jobState === "running" || jobs.get(i).jobState === "queued")
                 ++n;
         return n;
     }
@@ -91,8 +91,8 @@ ColumnLayout {
         if (i < 0)
             return;
         const j = jobs.get(i);
-        const finished = j.state === "done" || j.state === "failed" || j.state === "cancelled";
-        const interrupted = j.state === "failed" || j.state === "cancelled";
+        const finished = j.jobState === "done" || j.jobState === "failed" || j.jobState === "cancelled";
+        const interrupted = j.jobState === "failed" || j.jobState === "cancelled";
         while (contextMenu.count > 0)
             contextMenu.takeItem(0).destroy();
         const add = (text, fn) => {
@@ -149,7 +149,7 @@ ColumnLayout {
             text: {
                 if (view.transfers === null)
                     return "";
-                view.transfers.activeCount; // re-read the title when the count changes
+                void view.transfers.activeCount; // re-read the title when the count changes
                 return view.transfers.title();
             }
             font.weight: Font.DemiBold
@@ -224,7 +224,8 @@ ColumnLayout {
             required property int id
             required property string label
             required property string tooltip
-            required property string state
+            // Not `state`: that is every Item's own state machine.
+            required property string jobState
             required property int percent
             required property string speed
             required property string stateText
@@ -285,7 +286,7 @@ ColumnLayout {
                         view.menu(item.id);
                 }
                 QQC2.ToolTip.visible: containsMouse
-                QQC2.ToolTip.text: item.tooltip + (item.state === "failed" ? "\n" + item.stateText : "")
+                QQC2.ToolTip.text: item.tooltip + (item.jobState === "failed" ? "\n" + item.stateText : "")
                 QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
             }
         }

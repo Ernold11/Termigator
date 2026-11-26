@@ -82,7 +82,7 @@ pub mod qobject {
         #[qproperty(QString, shortcut_rows_json, READ, CONSTANT)]
         #[qproperty(QString, first_run_message, READ, CONSTANT)]
         #[qproperty(QString, about_text, READ, CONSTANT)]
-        #[qproperty(QString, tray_icon_url, READ, CONSTANT)]
+        #[qproperty(QUrl, tray_icon_url, READ, CONSTANT)]
         #[qproperty(QString, tray_icon_name, READ, CONSTANT)]
         #[qproperty(QString, smoke_test_shot, READ, CONSTANT)]
         type AppController = super::AppControllerRust;
@@ -351,7 +351,7 @@ pub struct AppControllerRust {
     shortcut_rows_json: QString,
     first_run_message: QString,
     about_text: QString,
-    tray_icon_url: QString,
+    tray_icon_url: QUrl,
     tray_icon_name: QString,
     smoke_test_shot: QString,
 }
@@ -380,10 +380,9 @@ impl Default for AppControllerRust {
             tray_icon_url: match &tray {
                 TrayIcon::File(icon) => {
                     QUrl::from_local_file(&QString::from(icon.to_string_lossy().as_ref()))
-                        .to_qstring()
                 }
-                TrayIcon::Bundled => QString::from(BUNDLED_TRAY_ICON),
-                TrayIcon::Theme(_) => QString::default(),
+                TrayIcon::Bundled => QUrl::from(BUNDLED_TRAY_ICON),
+                TrayIcon::Theme(_) => QUrl::default(),
             },
             tray_icon_name: match tray {
                 TrayIcon::Theme(name) => QString::from(name),

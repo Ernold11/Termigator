@@ -715,7 +715,7 @@ ColumnLayout {
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
                         drag.target: (area.pressedButtons & Qt.RightButton) ? null : dragProxy
-                        drag.threshold: Qt.styleHints.startDragDistance
+                        drag.threshold: Application.styleHints.startDragDistance
                         onPressed: mouse => {
                             localListView.forceActiveFocus(Qt.MouseFocusReason);
                             pane.currentRow = item.index;

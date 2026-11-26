@@ -1157,7 +1157,7 @@ FocusScope {
                                     return;
                                 const p = mapToItem(listView, mouse.x, mouse.y);
                                 if (!dragging) {
-                                    const far = Math.abs(mouse.x - origin.x) + Math.abs(mouse.y - origin.y) >= Qt.styleHints.startDragDistance;
+                                    const far = Math.abs(mouse.x - origin.x) + Math.abs(mouse.y - origin.y) >= Application.styleHints.startDragDistance;
                                     // The Recent section is not draggable.
                                     if (!far || !rowItem.draggable)
                                         return;

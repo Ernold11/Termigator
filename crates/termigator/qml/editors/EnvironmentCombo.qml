@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Layouts
@@ -41,8 +43,11 @@ QQC2.ComboBox {
     delegate: QQC2.ItemDelegate {
         id: entry
 
+        required property int index
+        required property var modelData
+
         width: ListView.view ? ListView.view.width : implicitWidth
-        highlighted: combo.highlightedIndex === index
+        highlighted: combo.highlightedIndex === entry.index
         contentItem: RowLayout {
             spacing: Kirigami.Units.smallSpacing
 
@@ -50,17 +55,17 @@ QQC2.ComboBox {
                 implicitWidth: Kirigami.Units.smallSpacing * 2
                 implicitHeight: implicitWidth
                 radius: width / 2
-                visible: modelData && modelData.color !== ""
-                color: modelData && modelData.color !== "" ? modelData.color : "transparent"
+                visible: entry.modelData && entry.modelData.color !== ""
+                color: entry.modelData && entry.modelData.color !== "" ? entry.modelData.color : "transparent"
             }
             QQC2.Label {
                 Layout.fillWidth: true
-                text: modelData && modelData.text !== undefined ? modelData.text : modelData
+                text: entry.modelData && entry.modelData.text !== undefined ? entry.modelData.text : entry.modelData
                 elide: Text.ElideRight
             }
         }
         onClicked: {
-            combo.currentIndex = index;
+            combo.currentIndex = entry.index;
             combo.popup.close();
         }
     }
