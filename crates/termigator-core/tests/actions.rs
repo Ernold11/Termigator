@@ -179,14 +179,20 @@ fn no_action_takes_a_bare_ctrl_letter_from_the_shell() {
             assert!(!terminal_claims(k), "{}: {k} belongs to the terminal", a.id);
         }
     }
-    // The host-list exceptions are exactly Ctrl+F and Ctrl+L.
+    // The host-list exceptions: Enter, the search, Esc and the editing keys of a file manager.
     let claimed: Vec<_> = ACTIONS
         .iter()
         .filter(|a| a.context == Context::HostList)
         .flat_map(|a| a.keys.iter().copied())
         .filter(|k| terminal_claims(k))
         .collect();
-    assert_eq!(claimed, ["Return", "Enter", "Ctrl+F", "Ctrl+L", "Esc"]);
+    assert_eq!(
+        claimed,
+        [
+            "Return", "Enter", "Ctrl+F", "Ctrl+L", "Esc", "Ctrl+A", "Ctrl+C", "Ctrl+X", "Ctrl+V",
+            "Ctrl+N"
+        ]
+    );
 }
 
 #[test]

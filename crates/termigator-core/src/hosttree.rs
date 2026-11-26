@@ -25,7 +25,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use crate::config::doc::Value;
 use crate::config::groups::{
-    group_path_ancestors, map_group_on_dissolve, map_group_on_rename, normalize_group_path,
+    group_path_ancestors, map_group_on_relocate, map_group_on_rename, normalize_group_path,
     normalize_group_value,
 };
 use crate::config::model::{
@@ -862,10 +862,12 @@ pub fn build(cfg: &Value, state: &TreeState, filter: &str, hooks: &dyn Hooks) ->
     }
 }
 
+mod clipboard;
 mod dnd;
 mod from_tab;
 mod mutations;
 
+pub use clipboard::*;
 pub use dnd::*;
 pub use from_tab::*;
 pub use mutations::*;

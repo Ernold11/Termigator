@@ -6,7 +6,9 @@ import Termigator
 // One host-list row: icon · title (DemiBold) over a muted subtitle
 // (red for an entry error) · a right-aligned chip, dropped before it squeezes the title; the
 // tree arrow sits in the indentation as in the QTreeWidget. Mouse handling is the list's
-// (`arrowHit` tells it a press hit the arrow).
+// (`arrowHit` tells it a press hit the arrow). While `editing` (F2) a field over the title edits
+// the name: Enter asks for `commitRequested`, Escape for `cancelRequested`, leaving the field
+// commits too (`blur`); the list shows a refused name in `renameError`.
 Item {
     id: row
 
@@ -37,7 +39,15 @@ Item {
     property bool current: false
     // -1 none, 0 above, 1 on, 2 below (SidebarTree's drop indicator).
     property int dropZone: -1
+    // Waiting to be moved by Paste (Ctrl+X): drawn faded, as file managers do.
+    property bool cut: false
+    property bool editing: false
+    property string renameError: ""
     readonly property bool hovered: hover.hovered
+    readonly property alias renameField: renameField
+
+    signal commitRequested(string text, bool blur)
+    signal cancelRequested
 
     readonly property int indentation: 14
     readonly property int hPad: 10
@@ -81,6 +91,18 @@ Item {
     Accessible.name: label
     Accessible.description: environmentName !== "" ? subtitle + " — " + environmentName : subtitle
     Accessible.selected: selected
+
+    onEditingChanged: {
+        renameError = "";
+        if (editing) {
+            renameField.text = label;
+            renameField.selectAll();
+            renameField.forceActiveFocus(Qt.ShortcutFocusReason);
+        } else {
+            // The list is a focus scope: it would hand its focus back to the hidden field.
+            renameField.focus = false;
+        }
+    }
 
     FontMetrics {
         id: fm
@@ -153,6 +175,7 @@ Item {
     }
 
     Kirigami.Icon {
+        opacity: row.cut ? 0.5 : 1
         x: row.contentX + row.hPad
         anchors.verticalCenter: parent.verticalCenter
         width: row.iconSize
@@ -165,6 +188,7 @@ Item {
 
     // A distro badge: rounded brand colour, white logo or initial.
     Rectangle {
+        opacity: row.cut ? 0.5 : 1
         x: row.contentX + row.hPad + row.iconSize * 0.06
         anchors.verticalCenter: parent.verticalCenter
         width: row.iconSize * 0.88
@@ -213,6 +237,8 @@ Item {
     }
 
     Column {
+        opacity: row.cut ? 0.5 : 1
+        visible: !row.editing
         x: row.textLeft
         width: Math.max(0, (row.chipShown ? chip.x - row.gap : row.width - row.hPad) - x)
         anchors.verticalCenter: parent.verticalCenter
@@ -237,6 +263,39 @@ Item {
             color: row.selected ? Kirigami.Theme.highlightedTextColor : (row.error ? Kirigami.Theme.negativeTextColor : row.mutedColor)
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    // F2: the name in place.
+    QQC2.TextField {
+        id: renameField
+
+        objectName: "renameField"
+        visible: row.editing
+        x: row.textLeft - leftPadding
+        width: Math.max(row.minTitle, row.width - row.hPad - x)
+        anchors.verticalCenter: parent.verticalCenter
+        font: row.titleFont
+        Accessible.name: qsTr("New name")
+        QQC2.ToolTip.visible: row.editing && row.renameError !== ""
+        QQC2.ToolTip.text: row.renameError
+        onTextEdited: row.renameError = ""
+        // Handled here, so Enter neither reaches the list (it would connect) nor Escape the panel.
+        Keys.onReturnPressed: event => {
+            event.accepted = true;
+            row.commitRequested(text, false);
+        }
+        Keys.onEnterPressed: event => {
+            event.accepted = true;
+            row.commitRequested(text, false);
+        }
+        Keys.onEscapePressed: event => {
+            event.accepted = true;
+            row.cancelRequested();
+        }
+        onActiveFocusChanged: {
+            if (!activeFocus && row.editing)
+                row.commitRequested(text, true);
         }
     }
 

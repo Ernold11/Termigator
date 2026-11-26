@@ -44,11 +44,9 @@ fn every_distro_with_a_logo_gets_a_readable_file_url() {
 fn menu_icons_take_the_longest_prefix() {
     assert_eq!(menu_icon("Move up"), Some("go-up"));
     assert_eq!(menu_icon("Move 3 entries to folder…"), Some("go-jump"));
-    assert_eq!(menu_icon("Move to group…"), Some("go-jump"));
-    assert_eq!(
-        menu_icon("Delete folder and contents…"),
-        Some("edit-delete")
-    );
+    assert_eq!(menu_icon("Move to folder…"), Some("go-jump"));
+    assert_eq!(menu_icon("Move folder to…"), Some("go-jump"));
+    assert_eq!(menu_icon("Delete folder…"), Some("edit-delete"));
     assert_eq!(
         menu_icon("Add SSH connection here…"),
         Some("utilities-terminal")
@@ -63,7 +61,7 @@ fn menu_icons_take_the_longest_prefix() {
         "Edit…",
         "Delete…",
         "Move up",
-        "Rename / move folder…",
+        "Rename folder…",
         "Close tab",
         "Set icon",
         "Split right",
@@ -336,19 +334,20 @@ fn rows_are_found_again_after_a_rebuild() {
 }
 
 #[test]
-fn folder_questions_count_and_name_the_destination() {
+fn delete_folder_question_counts_the_subtree() {
+    let c = |entries, folders| hosttree::FolderContents { entries, folders };
+    assert_eq!(delete_folder_question("lab", c(0, 0)), None);
     assert_eq!(
-        delete_group_question("lab", 1),
-        "Delete the “lab” folder, all its subfolders and its 1 entry?\nThis cannot be undone."
+        delete_folder_question("lab", c(1, 0)).as_deref(),
+        Some("The “lab” folder holds 1 entry.\nWhat should happen to them?")
     );
-    assert!(delete_group_question("lab", 0).contains("and no entries?"));
-    assert!(delete_group_question("lab", 3).contains("its 3 entries?"));
     assert_eq!(
-        dissolve_question("prod/web"),
-        "Dissolve the “prod/web” folder and move its contents to “prod”?\n(The entries \
-             themselves are kept.)"
+        delete_folder_question("prod", c(3, 1)).as_deref(),
+        Some("The “prod” folder holds 3 entries and 1 subfolder.\nWhat should happen to them?")
     );
-    assert!(dissolve_question("lab").contains("to the top level?"));
+    assert!(
+        delete_folder_question("x", c(0, 2)).is_some_and(|q| q.contains("holds 2 subfolders."))
+    );
 }
 
 #[test]

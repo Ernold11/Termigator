@@ -33,7 +33,8 @@ use termigator_core::config::model::{
 use termigator_core::connectivity::{DEFAULT_TIMEOUT, ProbeReport, probe_connection};
 use termigator_core::credentials::apply_credential;
 use termigator_core::hosttree::{
-    self, EntryKind, EntryRef, Hooks, Icon, Row, RowKind, TreeState, Zone, entry_label, group_of,
+    self, Clip, ClipItem, DropAction, EntryKind, EntryRef, Hooks, Icon, Row, RowKind, TreeState,
+    Zone, entry_label, group_of,
 };
 use termigator_core::proc::tunnel::free_local_port;
 use termigator_core::proto::ssh::{Env, quote_repr};
@@ -118,7 +119,7 @@ pub mod qobject {
             keep: &QList_i32,
         ) -> QList_i32;
 
-        /// `{kind, index, path, inRecent, expanded, protocol, group, label}` of a row, or "".
+        /// `{kind, index, path, inRecent, expanded, protocol, group, label, depth}` of a row, or "".
         #[qinvokable]
         fn row_json(self: &HostListModel, row: i32) -> QString;
 
@@ -157,11 +158,14 @@ pub mod qobject {
         #[qinvokable]
         fn group_names(self: &HostListModel) -> QStringList;
 
+        /// The folders `path` can move into (not itself, not its subfolders), sorted.
         #[qinvokable]
-        fn delete_group_question(self: &HostListModel, path: &QString) -> QString;
+        fn folder_move_targets(self: &HostListModel, path: &QString) -> QStringList;
 
+        /// `{entries, folders, parent, question}` for the delete-folder dialog; `question` is
+        /// null for an empty folder.
         #[qinvokable]
-        fn dissolve_question(self: &HostListModel, path: &QString) -> QString;
+        fn folder_contents(self: &HostListModel, path: &QString) -> QString;
 
         /// Adds (`entry_kind` "") or replaces an entry with the editor's result (`kind`: the
         /// editor, ssh|rdp|vnc|telnet|serial|favorite).
@@ -191,6 +195,40 @@ pub mod qobject {
         #[qinvokable]
         fn remove_entry(self: &HostListModel, kind: &QString, index: i32) -> QString;
 
+        /// Renames the entry in place (F2); a blank or taken name is a `warning`.
+        #[qinvokable]
+        fn rename_entry(
+            self: &HostListModel,
+            kind: &QString,
+            index: i32,
+            name: &QString,
+        ) -> QString;
+
+        /// Copy (`cut` false) or Cut the entries and folders of `rows` onto the tree's own
+        /// clipboard (never the system one); a `notice` says what is on it.
+        #[qinvokable]
+        fn copy_rows(self: Pin<&mut HostListModel>, rows: &QList_i32, cut: bool) -> QString;
+
+        /// Pastes the clipboard into the folder of `row` (the folder itself, an entry's folder;
+        /// -1 = top level). A cut is pasted once.
+        #[qinvokable]
+        fn paste_at(self: Pin<&mut HostListModel>, row: i32) -> QString;
+
+        /// Drops a pending cut (Esc); `true` when there was one. A copy stays.
+        #[qinvokable]
+        fn cancel_cut(self: Pin<&mut HostListModel>) -> bool;
+
+        #[qinvokable]
+        fn has_clip(self: &HostListModel) -> bool;
+
+        /// `row` is an entry or folder waiting to be moved by Paste.
+        #[qinvokable]
+        fn is_cut(self: &HostListModel, row: i32) -> bool;
+
+        /// The row of folder `path`, -1 when it is not shown.
+        #[qinvokable]
+        fn group_row(self: &HostListModel, path: &QString) -> i32;
+
         /// `indices`: config indices of connections.
         #[qinvokable]
         fn bulk_delete(self: &HostListModel, indices: &QList_i32) -> QString;
@@ -206,11 +244,21 @@ pub mod qobject {
         #[qinvokable]
         fn add_group(self: Pin<&mut HostListModel>, parent: &QString, name: &QString) -> QString;
 
+        /// Renames the folder in place (`name`: its new last segment).
         #[qinvokable]
-        fn rename_group(self: Pin<&mut HostListModel>, old: &QString, path: &QString) -> QString;
+        fn rename_folder(self: Pin<&mut HostListModel>, path: &QString, name: &QString) -> QString;
 
+        /// Moves the folder with its contents into `parent` (`""` / `(top level)` = top).
         #[qinvokable]
-        fn ungroup(self: Pin<&mut HostListModel>, path: &QString) -> QString;
+        fn move_folder(self: Pin<&mut HostListModel>, path: &QString, parent: &QString) -> QString;
+
+        /// Deletes the folder; its entries and subfolders go into `dest` (`""` = top level).
+        #[qinvokable]
+        fn delete_folder_into(
+            self: Pin<&mut HostListModel>,
+            path: &QString,
+            dest: &QString,
+        ) -> QString;
 
         /// `{own, inherited, from}` — the folder's own environment, the one it shows
         /// (own or a parent's) and the folder that one comes from.
@@ -342,6 +390,8 @@ pub struct HostListModelRust {
     filter: String,
     /// Folders collapsed by hand while a search is active (not remembered).
     filter_collapsed: BTreeSet<String>,
+    /// Copy / Cut of the tree (Ctrl+C / Ctrl+X), in memory only.
+    clip: Clip,
     probe_seq: i32,
     status: QString,
     hint: QString,
@@ -546,6 +596,7 @@ impl qobject::HostListModel {
             "protocol": protocol,
             "group": group,
             "label": r.label,
+            "depth": r.depth,
         });
         qs(&info.to_string())
     }
@@ -604,12 +655,16 @@ impl qobject::HostListModel {
             (t, zone)
         });
         let action = hosttree::resolve_drop(&rows, current, &selected, target);
+        let moved = match &action {
+            DropAction::FolderMoved { path, .. } => Some(path.as_str()),
+            _ => None,
+        };
         let mut state = self.state.clone();
-        let out = with_app(|app| {
-            let before = app.cfg.clone();
-            match hosttree::apply_drop(&mut app.cfg, &mut state, &action) {
+        let out = keeping_folders(moved, |cfg| {
+            let before = cfg.clone();
+            match hosttree::apply_drop(cfg, &mut state, &action) {
                 Ok(select) => Outcome {
-                    changed: app.cfg != before,
+                    changed: *cfg != before,
                     select,
                     ..Outcome::default()
                 },
@@ -643,14 +698,24 @@ impl qobject::HostListModel {
             .collect()
     }
 
-    fn delete_group_question(&self, path: &QString) -> QString {
-        let path = normalize_group_path(&path.to_string());
-        let doomed = with_app(|app| hosttree::group_entry_count(&app.cfg, &path));
-        qs(&delete_group_question(&path, doomed))
+    fn folder_move_targets(&self, path: &QString) -> QStringList {
+        with_app(|app| hosttree::folder_move_targets(&app.cfg, &path.to_string()))
+            .iter()
+            .map(|s| qs(s))
+            .collect()
     }
 
-    fn dissolve_question(&self, path: &QString) -> QString {
-        qs(&dissolve_question(&normalize_group_path(&path.to_string())))
+    fn folder_contents(&self, path: &QString) -> QString {
+        let path = normalize_group_path(&path.to_string());
+        let contents = with_app(|app| hosttree::folder_contents(&app.cfg, &path));
+        let parent = path.rsplit_once('/').map_or("", |(p, _)| p);
+        qs(&json!({
+            "entries": contents.entries,
+            "folders": contents.folders,
+            "parent": parent,
+            "question": delete_folder_question(&path, contents),
+        })
+        .to_string())
     }
 
     fn store_entry(
@@ -662,7 +727,9 @@ impl qobject::HostListModel {
     ) -> QString {
         let target = entry_ref(entry_kind, index);
         let data = parse_json("store_entry", data_json);
-        let out = with_app(|app| store_entry(&mut app.cfg, &kind.to_string(), target, data));
+        let out = keeping_folders(None, |cfg| {
+            store_entry(cfg, &kind.to_string(), target, data)
+        });
         match out {
             Ok(true) => Outcome::changed(None),
             Ok(false) => Outcome::default(),
@@ -701,8 +768,9 @@ impl qobject::HostListModel {
             return Outcome::default().json();
         };
         let mut state = self.state.clone();
-        let out =
-            with_app(|app| hosttree::move_to_group(&mut app.cfg, &mut state, e, &name.to_string()));
+        let out = keeping_folders(None, |cfg| {
+            hosttree::move_to_group(cfg, &mut state, e, &name.to_string())
+        });
         self.as_mut().rust_mut().state = state;
         out.map_or_else(Outcome::default, |s| Outcome::changed(Some(s)))
             .json()
@@ -712,12 +780,117 @@ impl qobject::HostListModel {
         let Some(e) = entry_ref(kind, index) else {
             return Outcome::default().json();
         };
-        with_app(|app| hosttree::remove_entry(&mut app.cfg, e));
+        keeping_folders(None, |cfg| hosttree::remove_entry(cfg, e));
         Outcome::changed(None).json()
     }
 
+    fn rename_entry(&self, kind: &QString, index: i32, name: &QString) -> QString {
+        let Some(e) = entry_ref(kind, index) else {
+            return Outcome::default().json();
+        };
+        with_app(|app| {
+            let before = app.cfg.clone();
+            match hosttree::rename_entry(&mut app.cfg, e, &name.to_string()) {
+                Ok(e) => Outcome {
+                    changed: app.cfg != before,
+                    select: Some(e),
+                    ..Outcome::default()
+                },
+                Err(w) => Outcome::warning(w),
+            }
+        })
+        .json()
+    }
+
+    fn copy_rows(mut self: Pin<&mut Self>, rows: &QList<i32>, cut: bool) -> QString {
+        let picked: Vec<&Row> = indices(rows)
+            .into_iter()
+            .filter_map(|r| self.views.get(r).map(|v| &v.row))
+            .collect();
+        let entries: Vec<EntryRef> = picked.iter().filter_map(|r| r.entry()).collect();
+        let folders: Vec<String> = picked
+            .iter()
+            .filter(|r| r.kind == RowKind::Group)
+            .map(|r| r.path.clone())
+            .collect();
+        let clip = with_app(|app| Clip::new(&app.cfg, &entries, &folders, cut));
+        let notice = clip_notice(&clip);
+        self.as_mut().rust_mut().clip = clip;
+        notice.map_or_else(Outcome::default, Outcome::notice).json()
+    }
+
+    fn paste_at(mut self: Pin<&mut Self>, row: i32) -> QString {
+        if self.clip.is_empty() {
+            return Outcome::default().json();
+        }
+        let dest = self
+            .view(row)
+            .map(|v| v.row.clone())
+            .map_or_else(String::new, |r| with_app(|app| row_folder(&app.cfg, &r)));
+        let clip = self.clip.clone();
+        let mut state = self.state.clone();
+        let out = with_app(|app| {
+            let before = app.cfg.clone();
+            // A moved folder goes; folders the paste empties otherwise stay.
+            let moved = |g: &str| {
+                clip.cut
+                    && clip
+                        .items
+                        .iter()
+                        .any(|i| matches!(i, ClipItem::Folder(f) if hosttree::is_within(g, f)))
+            };
+            hosttree::with_folders_kept(&mut app.cfg, moved, |cfg| {
+                hosttree::paste(cfg, &mut state, &clip, &dest)
+            })
+            .map(|p| Outcome {
+                changed: app.cfg != before,
+                select: p.entry.filter(|_| p.folder.is_none()),
+                folder: p.folder,
+                ..Outcome::default()
+            })
+            .unwrap_or_else(Outcome::warning)
+        });
+        let mut me = self.as_mut().rust_mut();
+        me.state = state;
+        if clip.cut && out.warning.is_none() {
+            me.clip = Clip::default();
+        }
+        out.json()
+    }
+
+    fn cancel_cut(mut self: Pin<&mut Self>) -> bool {
+        let had = self.clip.cut && !self.clip.is_empty();
+        if had {
+            self.as_mut().rust_mut().clip = Clip::default();
+        }
+        had
+    }
+
+    fn has_clip(&self) -> bool {
+        !self.clip.is_empty()
+    }
+
+    fn is_cut(&self, row: i32) -> bool {
+        let Some(v) = self.view(row).filter(|_| self.clip.cut) else {
+            return false;
+        };
+        match v.row.entry() {
+            Some(e) => with_app(|app| self.clip.holds_entry(&app.cfg, e)),
+            None => v.row.kind == RowKind::Group && self.clip.holds_folder(&v.row.path),
+        }
+    }
+
+    fn group_row(&self, path: &QString) -> i32 {
+        let path = normalize_group_path(&path.to_string());
+        self.views
+            .iter()
+            .position(|v| v.row.kind == RowKind::Group && v.row.path == path)
+            .and_then(|r| i32::try_from(r).ok())
+            .unwrap_or(-1)
+    }
+
     fn bulk_delete(&self, list: &QList<i32>) -> QString {
-        with_app(|app| hosttree::bulk_delete(&mut app.cfg, &indices(list)));
+        keeping_folders(None, |cfg| hosttree::bulk_delete(cfg, &indices(list)));
         Outcome::changed(None).json()
     }
 
@@ -725,42 +898,66 @@ impl qobject::HostListModel {
         let changes = parse_json("bulk_apply", changes_json);
         let picked: Vec<i64> = list.iter().map(|&i| i64::from(i)).collect();
         let mut state = self.state.clone();
-        let out = with_app(|app| bulk_apply(&mut app.cfg, &mut state, &picked, &changes));
+        let out = keeping_folders(None, |cfg| bulk_apply(cfg, &mut state, &picked, &changes));
         self.as_mut().rust_mut().state = state;
         out.json()
     }
 
     fn add_group(mut self: Pin<&mut Self>, parent: &QString, name: &QString) -> QString {
         let mut state = self.state.clone();
-        let added = with_app(|app| {
-            hosttree::add_group(
-                &mut app.cfg,
-                &mut state,
-                &parent.to_string(),
-                &name.to_string(),
-            )
-        });
+        let (parent, name) = (parent.to_string(), name.to_string());
+        let added = with_app(|app| hosttree::add_group(&mut app.cfg, &mut state, &parent, &name));
         self.as_mut().rust_mut().state = state;
         if added {
-            Outcome::changed(None)
+            Outcome {
+                folder: Some(normalize_group_path(&format!("{parent}/{name}"))),
+                ..Outcome::changed(None)
+            }
         } else {
             Outcome::default()
         }
         .json()
     }
 
-    fn rename_group(mut self: Pin<&mut Self>, old: &QString, path: &QString) -> QString {
+    fn rename_folder(self: Pin<&mut Self>, path: &QString, name: &QString) -> QString {
+        let name = name.to_string();
+        self.folder_change(&path.to_string(), |cfg, state, path| {
+            hosttree::rename_folder(cfg, state, path, &name).map(Some)
+        })
+    }
+
+    fn move_folder(self: Pin<&mut Self>, path: &QString, parent: &QString) -> QString {
+        let parent = top_level_or(&parent.to_string());
+        self.folder_change(&path.to_string(), |cfg, state, path| {
+            hosttree::folder_moved(cfg, state, path, &parent).map(|()| None)
+        })
+    }
+
+    fn delete_folder_into(self: Pin<&mut Self>, path: &QString, dest: &QString) -> QString {
+        let dest = top_level_or(&dest.to_string());
+        self.folder_change(&path.to_string(), |cfg, state, path| {
+            hosttree::delete_folder_into(cfg, state, path, &dest).map(|()| None)
+        })
+    }
+
+    /// A change of folder `path` (it is renamed, moved or deleted; other folders it empties
+    /// stay); an error shows in a box. `f` may name the folder to select afterwards.
+    fn folder_change(
+        mut self: Pin<&mut Self>,
+        path: &str,
+        f: impl FnOnce(&mut Value, &mut TreeState, &str) -> Result<Option<String>, String>,
+    ) -> QString {
+        let path = normalize_group_path(path);
+        if path.is_empty() {
+            return Outcome::default().json();
+        }
         let mut state = self.state.clone();
-        let out = with_app(|app| {
-            let before = app.cfg.clone();
-            match hosttree::apply_group_rename(
-                &mut app.cfg,
-                &mut state,
-                &old.to_string(),
-                &path.to_string(),
-            ) {
-                Ok(()) => Outcome {
-                    changed: app.cfg != before,
+        let out = keeping_folders(Some(&path), |cfg| {
+            let before = cfg.clone();
+            match f(cfg, &mut state, &path) {
+                Ok(folder) => Outcome {
+                    changed: *cfg != before,
+                    folder,
                     ..Outcome::default()
                 },
                 Err(e) => Outcome::warning(e),
@@ -854,24 +1051,15 @@ impl qobject::HostListModel {
         .unwrap_or_default()
     }
 
-    fn ungroup(mut self: Pin<&mut Self>, path: &QString) -> QString {
-        let path = normalize_group_path(&path.to_string());
-        if path.is_empty() {
-            return Outcome::default().json();
-        }
-        let mut state = self.state.clone();
-        with_app(|app| hosttree::ungroup_group(&mut app.cfg, &mut state, &path));
-        self.as_mut().rust_mut().state = state;
-        Outcome::changed(None).json()
-    }
-
     fn delete_group(mut self: Pin<&mut Self>, path: &QString) -> QString {
         let path = normalize_group_path(&path.to_string());
         if path.is_empty() {
             return Outcome::default().json();
         }
         let mut state = self.state.clone();
-        with_app(|app| hosttree::delete_group(&mut app.cfg, &mut state, &path));
+        keeping_folders(Some(&path), |cfg| {
+            hosttree::delete_group(cfg, &mut state, &path)
+        });
         self.as_mut().rust_mut().state = state;
         Outcome::changed(None).json()
     }
@@ -1007,7 +1195,60 @@ impl qobject::HostListModel {
     }
 }
 
+/// The folder a paste or a new folder at `row` goes into: a folder row itself, else the
+/// folder of the entry (also for one shown under Recent).
+fn row_folder(cfg: &Value, row: &Row) -> String {
+    match row.kind {
+        RowKind::Group => row.path.clone(),
+        RowKind::Recent => String::new(),
+        _ => row
+            .entry()
+            .and_then(|e| entry_at(cfg, e))
+            .map(group_of)
+            .unwrap_or_default(),
+    }
+}
+
+/// The status-bar line after Copy / Cut.
+fn clip_notice(clip: &Clip) -> Option<String> {
+    let what = match clip.items.as_slice() {
+        [] => return None,
+        [ClipItem::Folder(f)] => format!("the folder “{f}”"),
+        [ClipItem::Entry { value, .. }] => format!("“{}”", entry_label(value)),
+        many => format!("{} items", many.len()),
+    };
+    Some(if clip.cut {
+        format!("Cut {what}: Ctrl+V moves it into the selected folder, Esc cancels.")
+    } else {
+        format!("Copied {what}: Ctrl+V pastes a copy into the selected folder.")
+    })
+}
+
 /// The first icon of `a|b` the theme has.
+/// `with_app` around [`hosttree::with_folders_kept`]: a folder the change empties stays, unless
+/// it is (inside) `removed`, the folder the change renames, moves or deletes.
+fn keeping_folders<R>(removed: Option<&str>, f: impl FnOnce(&mut Value) -> R) -> R {
+    with_app(|app| {
+        hosttree::with_folders_kept(
+            &mut app.cfg,
+            |g| removed.is_some_and(|p| hosttree::is_within(g, p)),
+            f,
+        )
+    })
+}
+
+/// A folder picked in a dialog: `(top level)` is `""`.
+fn top_level_or(name: &str) -> String {
+    if strip_space(name) == TOP_LEVEL {
+        String::new()
+    } else {
+        normalize_group_path(name)
+    }
+}
+
+/// The top-level choice of the folder pickers (as `hosttree::move_to_group` spells it).
+const TOP_LEVEL: &str = "(top level)";
+
 fn theme_icon(names: &str) -> String {
     shell_qobj::qobject::theme_icon(&qs(names)).to_string()
 }
@@ -1019,6 +1260,8 @@ fn theme_icon(names: &str) -> String {
 struct Outcome {
     changed: bool,
     select: Option<EntryRef>,
+    /// A folder to select afterwards (its path).
+    folder: Option<String>,
     info: Option<String>,
     warning: Option<String>,
     notice: Option<String>,
@@ -1060,6 +1303,7 @@ impl Outcome {
         qs(&json!({
             "changed": self.changed,
             "select": select,
+            "folder": self.folder,
             "info": self.info,
             "warning": self.warning,
             "notice": self.notice,

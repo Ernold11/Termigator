@@ -108,6 +108,11 @@ Item {
         }
     }
 
+    function groupOf(label) {
+        const c = conns().find(e => e.label === label);
+        return c && c.group ? c.group : "";
+    }
+
     function entries() {
         return conns().map(c => c.label).join(",");
     }
@@ -223,16 +228,16 @@ Item {
             panel.setCurrent(rowOf("desk"), true);
             press(Qt.Key_Return);
             const m = menuAt(rowOf("desk"));
-            expect(m.startsWith("!Connect / Run|Test connection…|Network tools>|Copy RDP command|Copy address|-|!Edit…|Duplicate entry|Move to group…|Label>|Set icon>|-|Move up|Move down|-|Delete…"), "rdp menu " + m);
+            expect(m === "!Connect / Run|Test connection…|Network tools>|Copy RDP command|Copy address|-|!Edit…|Rename|Duplicate entry|Move to folder…|Label>|Set icon>|-|Cut|Copy|!Paste|-|Move up|Move down|-|Delete…", "rdp menu " + m);
         },
         // The menus of the list context menu: texts and order.
         () => {
             const empty = menuAt(-1);
-            expect(empty === "!Add SSH connection…|!Add RDP connection…|!Add VNC connection…|!Add Telnet connection…|!Add serial connection…|!Add favorite command…|-|New folder…", "empty menu " + empty);
+            expect(empty === "!Add SSH connection…|!Add RDP connection…|!Add VNC connection…|!Add Telnet connection…|!Add serial connection…|!Add favorite command…|-|New folder…|!Paste", "empty menu " + empty);
             const folder = menuAt(0);
-            expect(folder === "Expand|-|!Add SSH connection here…|!Add RDP connection here…|!Add VNC connection here…|!Add Telnet connection here…|!Add serial connection here…|!Add favorite command here…|-|New subfolder…|Label>|Rename / move folder…|Dissolve folder (keep entries)|Delete folder and contents…", "folder menu " + folder);
+            expect(folder === "Expand|-|!Add SSH connection here…|!Add RDP connection here…|!Add VNC connection here…|!Add Telnet connection here…|!Add serial connection here…|!Add favorite command here…|-|New subfolder…|Label>|Rename folder|Move folder to…|-|Cut|Copy|!Paste|-|Delete folder…", "folder menu " + folder);
             const fav = menuAt(rowOf("top"));
-            expect(fav === "!Connect / Run|-|!Edit…|Duplicate entry|Move to group…|-|Move up|Move down|-|Delete…", "favorite menu " + fav);
+            expect(fav === "!Connect / Run|-|!Edit…|Rename|Duplicate entry|Move to folder…|-|Cut|Copy|!Paste|-|Move up|Move down|-|Delete…", "favorite menu " + fav);
             const m = panel.buildContextMenu(rowOf("desk"));
             const net = m.itemAt(2).subMenu;
             expect(menuTexts(net) === "!Ping|!Trace route|!DNS lookup|!Check port|!Scan common ports", "network tools " + menuTexts(net));
@@ -257,7 +262,7 @@ Item {
         () => {
             expect(panel.selection.length === panel.list.count, "Ctrl+A " + panel.selection);
             const multi = menuAt(rowOf("desk"));
-            expect(multi === "!Connect 2 entries|-|!Edit 2 entries…|Move 2 entries to folder…|Set icon>|-|Delete 2 entries…", "multi menu " + multi);
+            expect(multi === "!Connect 2 entries|-|!Edit 2 entries…|Move 2 entries to folder…|Set icon>|-|Cut|Copy|-|Delete 2 entries…", "multi menu " + multi);
             // Delete with several connections selected: the bulk question; answer No.
             press(Qt.Key_Delete);
         },
@@ -349,11 +354,11 @@ Item {
         () => {
             expect(entries() === "web,db,desk,desk (copy),broken", "duplicate " + entries());
             expect(panel.currentRow === rowOf("desk (copy)"), "duplicate selected " + panel.currentRow);
-            // F2 opens the editor for the entry; its result is validated, stored and saved.
-            press(Qt.Key_F2);
+            // Edit… opens the editor for the entry; its result is validated, stored and saved.
+            panel.editEntry(panel.info(panel.currentRow));
         },
         () => {
-            expect(editor !== null && editor.kind === "rdp" && JSON.parse(editor.json).label === "desk (copy)", "F2 editor " + JSON.stringify(editor));
+            expect(editor !== null && editor.kind === "rdp" && JSON.parse(editor.json).label === "desk (copy)", "editor " + JSON.stringify(editor));
             const err = editor.done(JSON.stringify({
                 "protocol": "rdp",
                 "user": "u"
@@ -432,17 +437,81 @@ Item {
             // Offscreen, a closed message box stays the focus window until the shell asks back.
             shell.requestActivate();
         },
-        // Delete on a folder: the question names its entries.
+        // Delete on a folder with entries: the dialog asks where they go; into another folder.
         () => {
             panel.list.forceActiveFocus();
             panel.setCurrent(rowOf("prod"), true);
             press(Qt.Key_Delete);
         },
         () => {
-            expect(panel.messageBox.text === "Delete the “prod” folder, all its subfolders and its 3 entries?\nThis cannot be undone.", "delete folder " + panel.messageBox.text);
+            const d = panel.deleteFolderDialog;
+            expect(d.visible && d.question === "The “prod” folder holds 3 entries and 1 subfolder.\nWhat should happen to them?", "delete folder " + d.question);
+            expect(d.toParent.checked && d.toParent.text === "Move them to the top level", "default choice " + d.toParent.text);
+            expect(JSON.stringify(d.target.model) === JSON.stringify(["empty", "lab", "lab/new"]), "targets " + JSON.stringify(d.target.model));
+            d.toOther.checked = true;
+            d.target.currentIndex = d.target.find("empty");
+            d.accept();
+            expect(entries() === "web,db,desk,u@10.0.0.9,broken,ops@10.0.0.10", "entries kept " + entries());
+            expect(groupOf("web") === "empty" && groupOf("db") === "empty/db" && groupOf("ops@10.0.0.10") === "empty", "moved into empty " + JSON.stringify(conns().map(c => c.group)));
+            expect(panel.hosts.groupNames().indexOf("prod") < 0, "prod gone " + panel.hosts.groupNames());
+            // Move folder to…: the picker leaves out the folder itself and what is below it.
+            panel.moveFolder("empty/db");
+        },
+        () => {
+            expect(panel.prompt.visible && panel.prompt.title === "Move folder", "move prompt " + panel.prompt.title);
+            expect(panel.prompt.choices.indexOf("empty/db") < 0 && panel.prompt.choices[0] === "(top level)", "move targets " + panel.prompt.choices);
+            panel.prompt.combo.editText = "lab";
+            panel.prompt.accept();
+            expect(groupOf("db") === "lab/db", "folder moved " + groupOf("db"));
+            // Rename folder: the name in place in its row; Enter takes it.
+            shell.requestActivate();
+            panel.startRename(panel.hosts.groupRow("lab"));
+        },
+        () => {
+            const field = panel.list.itemAtIndex(panel.editingRow).renameField;
+            if (!field.activeFocus)
+                return false;
+            expect(field.text === "lab" && field.selectedText === "lab", "rename field " + field.text + " / " + field.selectedText);
+            field.text = "infra";
+            press(Qt.Key_Return);
+        },
+        () => {
+            expect(panel.editingRow === -1 && groupOf("db") === "infra/db" && groupOf("desk") === "infra/new", "renamed " + JSON.stringify(conns().map(c => c.group)));
+            // The last entry dragged out of a folder: the folder stays, empty.
+            const row = panel.hosts.reveal("connection", conns().findIndex(c => c.label === "db"));
+            expect(row >= 0, "db shown");
+            panel.dropRows(row, [row], -1, 0);
+            expect(groupOf("db") === "" && panel.hosts.groupNames().indexOf("infra/db") >= 0, "emptied folder kept " + panel.hosts.groupNames());
+            // Delete with its contents.
+            panel.deleteGroup("empty");
+        },
+        () => {
+            const d = panel.deleteFolderDialog;
+            expect(d.visible && d.question === "The “empty” folder holds 2 entries.\nWhat should happen to them?", "delete empty " + d.question);
+            d.deleteAll.checked = true;
+            d.accept();
+            expect(entries() === "db,desk,u@10.0.0.9,broken", "folder deleted " + entries());
+            // Into the parent folder.
+            panel.deleteGroup("infra/new");
+        },
+        () => {
+            const d = panel.deleteFolderDialog;
+            expect(d.visible && d.toParent.text === "Move them to the parent folder “infra”", "parent choice " + d.toParent.text);
+            d.accept();
+            expect(groupOf("desk") === "infra" && panel.hosts.groupNames().indexOf("infra/new") < 0, "into the parent " + groupOf("desk"));
+            // An empty folder only asks Yes / No.
+            panel.deleteGroup("infra/db");
+            expect(panel.messageBox.text === "Delete the empty folder “infra/db”?", "empty folder question " + panel.messageBox.text);
             panel.messageBox.buttonClicked(MessageDialog.Yes, MessageDialog.YesRole);
             panel.messageBox.close();
-            expect(entries() === "desk,u@10.0.0.9,broken", "folder deleted " + entries());
+            expect(panel.deleteFolderDialog.path === "infra/new" && panel.hosts.groupNames().indexOf("infra/db") < 0, "empty folder deleted " + panel.hosts.groupNames());
+            shell.requestActivate();
+            panel.addGroup("infra");
+        },
+        () => {
+            panel.prompt.field.text = "kept";
+            panel.prompt.accept();
+            expect(panel.hosts.groupNames().indexOf("infra/kept") >= 0, "subfolder " + panel.hosts.groupNames());
             // "Add to Hosts…" on a tab: the hook, then a new connection without its password.
             expect(typeof shell.saveToHosts === "function", "saveToHosts hook");
             editor = null;
@@ -461,7 +530,7 @@ Item {
                 "host": "192.0.2.20",
                 "user": "ops"
             }));
-            expect(entries() === "desk,u@10.0.0.9,broken,jump", "added from tab " + entries());
+            expect(entries() === "db,desk,u@10.0.0.9,broken,jump", "added from tab " + entries());
         },
         // The same target again (another name, port 22 spelled out): the question; No adds anew.
         () => {
@@ -482,7 +551,7 @@ Item {
                 "user": "ops",
                 "port": 22
             }));
-            expect(entries() === "desk,u@10.0.0.9,broken,jump,ops@192.0.2.20", "created anew " + entries());
+            expect(entries() === "db,desk,u@10.0.0.9,broken,jump,ops@192.0.2.20", "created anew " + entries());
         },
         // The same name (any case): Yes edits that entry, with the tab's host; Cancel does nothing.
         () => {
@@ -505,10 +574,10 @@ Item {
             panel.saveQuestion.buttonClicked(MessageDialog.Yes, MessageDialog.YesRole);
             panel.saveQuestion.close();
             const m = editor ? JSON.parse(editor.json) : null;
-            expect(m !== null && editor.kind === "rdp" && m.label === "desk" && m.host === "10.0.0.70" && m.group === "lab/new", "update " + JSON.stringify(editor));
+            expect(m !== null && editor.kind === "rdp" && m.label === "desk" && m.host === "10.0.0.70" && m.group === "infra", "update " + JSON.stringify(editor));
             editor.done(JSON.stringify(m));
             const desk = conns().find(c => c.label === "desk");
-            expect(entries() === "desk,u@10.0.0.9,broken,jump,ops@192.0.2.20" && desk.host === "10.0.0.70" && desk.group === "lab/new", "updated " + JSON.stringify(desk));
+            expect(entries() === "db,desk,u@10.0.0.9,broken,jump,ops@192.0.2.20" && desk.host === "10.0.0.70" && desk.group === "infra", "updated " + JSON.stringify(desk));
         },
         () => {
             const started = shell.contentArea.grabToImage(result => {

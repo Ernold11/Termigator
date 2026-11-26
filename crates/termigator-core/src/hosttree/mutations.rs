@@ -156,11 +156,18 @@ pub fn ungroup_group(cfg: &mut Value, state: &mut TreeState, name: &str) {
     if path.is_empty() {
         return;
     }
+    let parent = path.rsplit_once('/').map_or("", |(p, _)| p).to_owned();
+    relocate_contents(cfg, state, &path, &parent);
+}
+
+/// Folder `path` goes away, its entries and subfolders into `dest` (the caller checked that
+/// `dest` is not inside `path`).
+fn relocate_contents(cfg: &mut Value, state: &mut TreeState, path: &str, dest: &str) {
     for key in ["connections", "favorites"] {
         let mut lst = list(cfg, key);
         for e in lst.iter_mut().filter(|e| is_dict(e)) {
             let g = group_of(e);
-            let ng = map_group_on_dissolve(&g, &path);
+            let ng = map_group_on_relocate(&g, path, dest);
             if ng != g {
                 set_group(e, &ng);
             }
@@ -170,20 +177,144 @@ pub fn ungroup_group(cfg: &mut Value, state: &mut TreeState, name: &str) {
     let mapped: Vec<String> = explicit_groups(cfg)
         .iter()
         .filter(|g| **g != path)
-        .map(|g| map_group_on_dissolve(g, &path))
+        .map(|g| map_group_on_relocate(g, path, dest))
         .collect();
     set_explicit_groups(cfg, &mapped);
-    // The dissolved folder's own environment goes with it; its contents now inherit from above.
+    // The removed folder's own environment goes with it; its contents now inherit from above.
     remap_group_environments(cfg, |g| {
-        (g != path).then(|| map_group_on_dissolve(g, &path))
+        (g != path).then(|| map_group_on_relocate(g, path, dest))
     });
     state.expanded_groups = state
         .expanded_groups
         .iter()
         .filter(|g| **g != path)
-        .map(|g| map_group_on_dissolve(g, &path))
+        .map(|g| map_group_on_relocate(g, path, dest))
         .filter(|g| !g.is_empty())
         .collect();
+}
+
+/// Delete folder `name` but keep what is in it: its entries and subfolders go into `dest`
+/// (`""` = top level), which must not be the folder itself or inside it.
+pub fn delete_folder_into(
+    cfg: &mut Value,
+    state: &mut TreeState,
+    name: &str,
+    dest: &str,
+) -> Result<(), String> {
+    let (path, dest) = (normalize_group_path(name), normalize_group_path(dest));
+    if path.is_empty() {
+        return Ok(());
+    }
+    if is_within(&dest, &path) {
+        return Err(SELF_MOVE.to_owned());
+    }
+    relocate_contents(cfg, state, &path, &dest);
+    state.reveal(&dest);
+    Ok(())
+}
+
+/// Rename folder `path` in place: only its last segment becomes `name`. Returns the new path.
+pub fn rename_folder(
+    cfg: &mut Value,
+    state: &mut TreeState,
+    path: &str,
+    name: &str,
+) -> Result<String, String> {
+    let path = normalize_group_path(path);
+    let name = strip_space(name);
+    if name.is_empty() {
+        return Err("A folder needs a name.".to_owned());
+    }
+    if name.contains(['/', '\\']) {
+        return Err(
+            "A folder name cannot contain “/” or “\\”; use Move folder to… to nest it.".to_owned(),
+        );
+    }
+    let parent = path.rsplit_once('/').map_or("", |(p, _)| p);
+    let new = if parent.is_empty() {
+        name.to_owned()
+    } else {
+        format!("{parent}/{name}")
+    };
+    if new == path || path.is_empty() {
+        return Ok(path);
+    }
+    if all_group_names(cfg).contains(&new) {
+        let place = if parent.is_empty() {
+            "the top level".to_owned()
+        } else {
+            format!("“{parent}”")
+        };
+        return Err(format!("A folder “{name}” already exists in {place}."));
+    }
+    apply_group_rename(cfg, state, &path, &new)?;
+    Ok(new)
+}
+
+/// The folders `path` can be moved into: every folder but itself and its subfolders.
+pub fn folder_move_targets(cfg: &Value, path: &str) -> Vec<String> {
+    let path = normalize_group_path(path);
+    all_group_names(cfg)
+        .into_iter()
+        .filter(|g| !is_within(g, &path))
+        .collect()
+}
+
+/// What a folder holds, its whole subtree counted.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct FolderContents {
+    /// Connections and favorites.
+    pub entries: usize,
+    pub folders: usize,
+}
+
+pub fn folder_contents(cfg: &Value, name: &str) -> FolderContents {
+    let path = normalize_group_path(name);
+    let folders = all_group_names(cfg)
+        .iter()
+        .filter(|g| **g != path && is_within(g, &path))
+        .count();
+    FolderContents {
+        entries: group_entry_count(cfg, &path),
+        folders,
+    }
+}
+
+/// Runs the change `f`; a folder that only existed through its entries and is gone afterwards
+/// stays as an (explicit) empty folder, unless `removed` says the change meant to remove it.
+pub fn with_folders_kept<R>(
+    cfg: &mut Value,
+    removed: impl Fn(&str) -> bool,
+    f: impl FnOnce(&mut Value) -> R,
+) -> R {
+    let before = all_group_names(cfg);
+    let out = f(cfg);
+    let now: BTreeSet<String> = all_group_names(cfg).into_iter().collect();
+    let lost: Vec<&String> = before
+        .iter()
+        .filter(|g| !now.contains(*g) && !removed(g))
+        .collect();
+    // The deepest ones are enough: a folder brings back its parents.
+    let keep: Vec<String> = lost
+        .iter()
+        .filter(|g| !lost.iter().any(|o| is_within(o, g) && o != *g))
+        .map(|g| (*g).clone())
+        .collect();
+    if !keep.is_empty() {
+        let mut groups = explicit_groups(cfg);
+        groups.extend(keep);
+        set_explicit_groups(cfg, &groups);
+    }
+    out
+}
+
+/// `group` is `path` or inside it.
+pub fn is_within(group: &str, path: &str) -> bool {
+    !path.is_empty()
+        && (group == path
+            || group
+                .strip_prefix(path)
+                .is_some_and(|rest| rest.starts_with('/')))
 }
 
 fn inside(entry: &Value, path: &str) -> bool {

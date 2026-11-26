@@ -597,7 +597,14 @@ pub const ACTIONS: &[Action] = &[
     act("hostlist.rename", "", "", "", &["F2"]).ctx(HostList),
     act("hostlist.focus_search", "", "", "", &["Ctrl+F", "Ctrl+L"]).ctx(HostList),
     act("hostlist.context_menu", "", "", "", &["Shift+F10", "Menu"]).ctx(HostList),
-    act("hostlist.clear_search", "", "", "", &["Esc"]).ctx(HostList),
+    // In the search field: clear it; in the list: drop a pending cut, else the selection.
+    act("hostlist.cancel", "", "", "", &["Esc"]).ctx(HostList),
+    act("hostlist.toggle", "", "", "", &["Space"]).ctx(HostList),
+    act("hostlist.select_all", "", "", "", &["Ctrl+A"]).ctx(HostList),
+    act("hostlist.copy", "", "", "", &["Ctrl+C"]).ctx(HostList),
+    act("hostlist.cut", "", "", "", &["Ctrl+X"]).ctx(HostList),
+    act("hostlist.paste", "", "", "", &["Ctrl+V"]).ctx(HostList),
+    act("hostlist.new_folder", "", "", "", &["Ctrl+N"]).ctx(HostList),
     // ---- Terminal keys the terminal binds itself and that have no menu entry
     act("terminal.zoom_in_equals", "", "", "", &["Ctrl+="]).ctx(Terminal),
     // ---- Detached tab window
@@ -608,9 +615,28 @@ pub const ACTIONS: &[Action] = &[
     act("detached.fullscreen", "", "", "", &["F11"]).ctx(DetachedWindow),
 ];
 
-/// The host-list rows of Help → Keyboard shortcuts.
-const HOST_LIST_ROWS: [(&str, &str, &str); 3] = [
-    ("Host list", "Connect", "Enter"),
+/// The host-list rows of Help → Keyboard shortcuts (the `hostlist.*` keys, and File → New
+/// connection → SSH, which goes into the selected folder while the list has focus).
+const HOST_LIST_ROWS: [(&str, &str, &str); 13] = [
+    (
+        "Host list",
+        "Connect / expand or collapse a folder",
+        "Enter",
+    ),
+    ("Host list", "Expand or collapse a folder", "Space"),
+    ("Host list", "Collapse / go to the parent folder", "Left"),
+    ("Host list", "Expand / go to the first entry", "Right"),
+    ("Host list", "Rename", "F2"),
+    ("Host list", "Delete", "Delete"),
+    ("Host list", "Copy / cut / paste", "Ctrl+C, Ctrl+X, Ctrl+V"),
+    ("Host list", "New folder in the selected folder", "Ctrl+N"),
+    (
+        "Host list",
+        "New SSH connection in the selected folder",
+        "Ctrl+Shift+N",
+    ),
+    ("Host list", "Context menu", "Shift+F10, Menu"),
+    ("Host list", "Cancel the cut / clear the selection", "Esc"),
     ("Host list", "Focus the search", "Ctrl+L, Ctrl+F"),
     ("Host list", "Move entry up / down", "Alt+Up, Alt+Down"),
 ];

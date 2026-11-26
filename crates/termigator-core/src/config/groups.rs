@@ -53,18 +53,25 @@ pub fn map_group_on_rename(group: &str, old: &str, new: &str) -> String {
 
 /// An entry's group after folder `path` is dissolved: its contents move up one level.
 pub fn map_group_on_dissolve(group: &str, path: &str) -> String {
-    let g = normalize_group_path(group);
     let path = normalize_group_path(path);
+    let parent = path.rsplit_once('/').map_or("", |(p, _)| p).to_owned();
+    map_group_on_relocate(group, &path, &parent)
+}
+
+/// An entry's group after folder `path` is removed and its contents (entries and subfolders)
+/// go into `dest` (`""` = top level).
+pub fn map_group_on_relocate(group: &str, path: &str, dest: &str) -> String {
+    let g = normalize_group_path(group);
+    let (path, dest) = (normalize_group_path(path), normalize_group_path(dest));
     if path.is_empty() {
         return g;
     }
-    let parent = path.rsplit_once('/').map_or("", |(p, _)| p);
     if g == path {
-        return parent.to_owned();
+        return dest;
     }
     match g.strip_prefix(&path).and_then(|r| r.strip_prefix('/')) {
-        Some(rest) if parent.is_empty() => rest.to_owned(),
-        Some(rest) => format!("{parent}/{rest}"),
+        Some(rest) if dest.is_empty() => rest.to_owned(),
+        Some(rest) => format!("{dest}/{rest}"),
         None => g,
     }
 }

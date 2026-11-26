@@ -914,8 +914,58 @@
     ],
     [
      "Host list",
-     "Connect",
+     "Connect / expand or collapse a folder",
      "Enter"
+    ],
+    [
+     "Host list",
+     "Expand or collapse a folder",
+     "Space"
+    ],
+    [
+     "Host list",
+     "Collapse / go to the parent folder",
+     "Left"
+    ],
+    [
+     "Host list",
+     "Expand / go to the first entry",
+     "Right"
+    ],
+    [
+     "Host list",
+     "Rename",
+     "F2"
+    ],
+    [
+     "Host list",
+     "Delete",
+     "Delete"
+    ],
+    [
+     "Host list",
+     "Copy / cut / paste",
+     "Ctrl+C, Ctrl+X, Ctrl+V"
+    ],
+    [
+     "Host list",
+     "New folder in the selected folder",
+     "Ctrl+N"
+    ],
+    [
+     "Host list",
+     "New SSH connection in the selected folder",
+     "Ctrl+Shift+N"
+    ],
+    [
+     "Host list",
+     "Context menu",
+     "Shift+F10, Menu"
+    ],
+    [
+     "Host list",
+     "Cancel the cut / clear the selection",
+     "Esc"
     ],
     [
      "Host list",

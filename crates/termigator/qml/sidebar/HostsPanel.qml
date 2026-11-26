@@ -19,11 +19,16 @@ FocusScope {
     readonly property alias messageBox: box
     readonly property alias saveQuestion: saveQuestion
     readonly property alias prompt: prompt
+    readonly property alias deleteFolderDialog: deleteFolder
     readonly property alias testDialog: testDialog
     // Selected rows (sorted) and the current row; both reset with the model.
     property var selection: []
     property int currentRow: -1
     property int anchorRow: -1
+    // The row whose name is edited in place (F2), -1 for none.
+    property int editingRow: -1
+    // Bumped when the tree's clipboard changes, so the rows read `isCut` again.
+    property int clipVersion: 0
     // Settings → Appearance: one line per host (default) or two (user@host under the name).
     property bool detailed: shell.controller.windowBool("host_list_detailed", false)
     property QQC2.Menu contextMenu: null
@@ -104,6 +109,8 @@ FocusScope {
             shell.notify(o.notice);
         if (o.select)
             reveal(o.select[0], o.select[1]);
+        else if (o.folder)
+            setCurrent(hosts.groupRow(o.folder), true);
         if (o.warning)
             inform(o.warning, title, "warning");
         else if (o.info)
@@ -202,25 +209,107 @@ FocusScope {
         prompt.ask(qsTr("Move to folder"), qsTr("Folder (type a new name to create it; use / to nest, e.g. prod/web):"), "", choices, Math.max(at, 0), name => finish(hosts.moveToGroup(i.kind, i.index, name)));
     }
 
+    // After a delete the row that took the deleted one's place (else the last row) is current.
+    function keepRow(row) {
+        if (currentRow < 0 && row >= 0 && list.count > 0)
+            setCurrent(Math.min(row, list.count - 1), true);
+        list.forceActiveFocus();
+    }
+
     function removeEntry(i) {
-        ask(qsTr("Remove the selected entry from config?"), () => finish(hosts.removeEntry(i.kind, i.index)));
+        const at = currentRow;
+        ask(qsTr("Remove “%1” from Hosts?\n\nOnly this entry is removed.").arg(i.label), () => {
+            finish(hosts.removeEntry(i.kind, i.index));
+            keepRow(at);
+        });
     }
 
     function addGroup(parentPath) {
         const where = parentPath ? qsTr(" inside “%1”").arg(parentPath) : "";
-        prompt.ask(qsTr("New folder"), qsTr("Folder name%1\n(use / to nest deeper):").arg(where), "", null, 0, name => finish(hosts.addGroup(parentPath, name)));
+        prompt.ask(qsTr("New folder"), qsTr("Folder name%1\n(use / to nest deeper):").arg(where), "", null, 0, name => {
+            finish(hosts.addGroup(parentPath, name));
+            list.forceActiveFocus();
+        });
     }
 
-    function renameGroup(path) {
-        prompt.ask(qsTr("Rename / move folder"), qsTr("New folder path (use / to nest, e.g. prod/web):"), path, null, 0, name => finish(hosts.renameGroup(path, name)));
+    // F2 / Rename: the name in place in the row, for entries and folders (not Recent).
+    function startRename(row) {
+        const i = info(row);
+        if (!i || i.kind === "recent")
+            return;
+        setCurrent(row, true);
+        editingRow = row;
     }
 
-    function ungroup(path) {
-        ask(hosts.dissolveQuestion(path), () => finish(hosts.ungroup(path)));
+    // The field's Enter, or leaving it (`blur`: the focus went elsewhere and stays there):
+    // "" once renamed or unchanged, else the reason and the field stays.
+    function commitRename(row, text, blur) {
+        const i = info(row);
+        if (!i || editingRow !== row)
+            return "";
+        const json = i.kind === "group" ? hosts.renameFolder(i.path, text) : hosts.renameEntry(i.kind, i.index, text);
+        const o = JSON.parse(json);
+        if (o.warning)
+            return o.warning;
+        editingRow = -1;
+        finish(json);
+        if (!blur)
+            list.forceActiveFocus();
+        return "";
     }
 
+    function cancelRename(blur) {
+        editingRow = -1;
+        if (!blur)
+            list.forceActiveFocus();
+    }
+
+    // Into another folder (not itself or below it); a typed path that does not exist is created.
+    function moveFolder(path) {
+        const parentPath = path.includes("/") ? path.slice(0, path.lastIndexOf("/")) : "";
+        const choices = ["(top level)"].concat(hosts.folderMoveTargets(path));
+        const at = parentPath ? choices.indexOf(parentPath) : 0;
+        prompt.ask(qsTr("Move folder"), qsTr("Move “%1” with its contents into:").arg(path), "", choices, Math.max(at, 0), dest => finish(hosts.moveFolder(path, dest)));
+    }
+
+    // An empty folder asks Yes / No; one with entries or subfolders asks where they go (into
+    // the parent unless another choice is made).
     function deleteGroup(path) {
-        ask(hosts.deleteGroupQuestion(path), () => finish(hosts.deleteGroup(path)));
+        const at = currentRow;
+        const done = json => {
+            finish(json);
+            keepRow(at);
+        };
+        const c = JSON.parse(hosts.folderContents(path));
+        if (c.question === null) {
+            ask(qsTr("Delete the empty folder “%1”?").arg(path), () => done(hosts.deleteGroup(path)));
+            return;
+        }
+        deleteFolder.ask(path, c.question, c.parent, hosts.folderMoveTargets(path), (mode, dest) => done(mode === "delete" ? hosts.deleteGroup(path) : hosts.deleteFolderInto(path, dest)));
+    }
+
+    // Ctrl+C / Ctrl+X: the selection when the current row is in it, else the current row.
+    function copyRows(cut) {
+        const rows = selection.includes(currentRow) ? selection : currentRow >= 0 ? [currentRow] : [];
+        if (rows.length === 0)
+            return;
+        finish(hosts.copyRows(rows, cut));
+        ++clipVersion;
+    }
+
+    // Ctrl+V: into the folder of `row` (the folder itself, an entry's folder; -1 = top level).
+    function pasteAt(row) {
+        finish(hosts.pasteAt(row), qsTr("Paste"));
+        ++clipVersion;
+        list.forceActiveFocus();
+    }
+
+    // Where New folder / New connection go from the list: the folder of `row`.
+    function folderAt(row) {
+        const i = info(row);
+        if (!i || i.kind === "recent")
+            return "";
+        return i.kind === "group" ? i.path : i.group;
     }
 
     function connectMany(indices) {
@@ -245,7 +334,11 @@ FocusScope {
     }
 
     function bulkDelete(indices) {
-        ask(qsTr("Remove %1 entries from config?").arg(indices.length), () => finish(hosts.bulkDelete(indices)));
+        const at = currentRow;
+        ask(qsTr("Remove %1 entries from config?").arg(indices.length), () => {
+            finish(hosts.bulkDelete(indices));
+            keepRow(at);
+        });
     }
 
     function copyCommand(index) {
@@ -317,14 +410,44 @@ FocusScope {
             removeEntry(i);
     }
 
-    function renameKey() {
+    // Esc: drop a pending cut, else the selection (the current row stays); false: nothing to do.
+    function cancelKey() {
+        if (hosts.cancelCut()) {
+            ++clipVersion;
+            shell.notify(qsTr("Cut cancelled."));
+            return true;
+        }
+        if (selection.length === 0)
+            return false;
+        selection = [];
+        return true;
+    }
+
+    // The folder row above `row`, -1 at the top level.
+    function parentRow(row) {
+        const i = info(row);
+        for (let r = row - 1; i && r >= 0; --r) {
+            if (info(r).depth < i.depth)
+                return r;
+        }
+        return -1;
+    }
+
+    // QTreeView: Left collapses, else goes to the parent; Right expands, else to the first child.
+    function sideKey(right) {
         const i = info(currentRow);
         if (!i)
             return;
-        if (i.kind === "group")
-            renameGroup(i.path);
-        else if (i.kind === "connection" || i.kind === "favorite")
-            editEntry(i);
+        const folder = i.kind === "group" || i.kind === "recent";
+        if (folder && i.expanded !== right)
+            toggle(currentRow);
+        else if (!right && parentRow(currentRow) >= 0)
+            setCurrent(parentRow(currentRow), true);
+        else if (right && folder) {
+            const next = info(currentRow + 1);
+            if (next && next.depth > i.depth)
+                setCurrent(currentRow + 1, true);
+        }
     }
 
     function moveKey(delta) {
@@ -356,7 +479,13 @@ FocusScope {
         }
     }
 
+    // Only for the list itself: a key the rename field (or anything else inside) leaves alone
+    // must not delete, rename or move rows.
     function listKey(event) {
+        if (list.Window.activeFocusItem !== list) {
+            event.accepted = false;
+            return;
+        }
         const mods = event.modifiers & (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier);
         const key = event.key;
         const page = Math.max(1, Math.floor(list.height / 48));
@@ -369,13 +498,31 @@ FocusScope {
         else if (key === Qt.Key_Delete && mods === 0)
             deleteKey(); // hostlist.delete
         else if (key === Qt.Key_F2 && mods === 0)
-            renameKey(); // hostlist.rename
+            startRename(currentRow); // hostlist.rename
+        else if (key === Qt.Key_Space && mods === 0) {
+            const i = info(currentRow); // hostlist.toggle
+            if (i && (i.kind === "group" || i.kind === "recent"))
+                toggle(currentRow);
+        } else if (key === Qt.Key_C && mods === Qt.ControlModifier)
+            copyRows(false); // hostlist.copy
+        else if (key === Qt.Key_X && mods === Qt.ControlModifier)
+            copyRows(true); // hostlist.cut
+        else if (key === Qt.Key_V && mods === Qt.ControlModifier)
+            pasteAt(currentRow); // hostlist.paste
+        else if (key === Qt.Key_N && mods === Qt.ControlModifier)
+            addGroup(folderAt(currentRow)); // hostlist.new_folder
+        else if (key === Qt.Key_Escape && mods === 0) {
+            if (!cancelKey()) { // hostlist.cancel
+                event.accepted = false;
+                return;
+            }
+        }
         else if ((key === Qt.Key_F || key === Qt.Key_L) && mods === Qt.ControlModifier)
             focusFilter(); // hostlist.focus_search
         else if ((key === Qt.Key_F10 && mods === Qt.ShiftModifier) || (key === Qt.Key_Menu && mods === 0))
             menuKey(); // hostlist.context_menu
         else if (key === Qt.Key_A && mods === Qt.ControlModifier)
-            selectAll();
+            selectAll(); // hostlist.select_all
         else if (key === Qt.Key_Up && (mods & ~(Qt.ShiftModifier | Qt.ControlModifier)) === 0)
             navigate(currentRow < 0 ? 0 : currentRow - 1, mods);
         else if (key === Qt.Key_Down && (mods & ~(Qt.ShiftModifier | Qt.ControlModifier)) === 0)
@@ -388,12 +535,9 @@ FocusScope {
             navigate(currentRow - page, mods);
         else if (key === Qt.Key_PageDown)
             navigate(currentRow + page, mods);
-        else if ((key === Qt.Key_Left || key === Qt.Key_Right) && mods === 0) {
-            // QTreeView: Left collapses, Right expands.
-            const i = info(currentRow);
-            if (i && (i.kind === "group" || i.kind === "recent") && i.expanded === (key === Qt.Key_Left))
-                toggle(currentRow);
-        } else {
+        else if ((key === Qt.Key_Left || key === Qt.Key_Right) && mods === 0)
+            sideKey(key === Qt.Key_Right);
+        else {
             event.accepted = false;
             return;
         }
@@ -435,6 +579,22 @@ FocusScope {
         });
         item.contentItem = content;
         return item;
+    }
+
+    // The key of an entry beside its text (KeyedMenuContent).
+    function keyed(item, keys) {
+        item.shortcutText = keys;
+        item.contentItem = keyedContentComponent.createObject(item, {
+            "menuItem": item
+        });
+        return item;
+    }
+
+    // Cut / Copy / Paste of the row's menu (the same calls as Ctrl+X / Ctrl+C / Ctrl+V).
+    function clipItems(menu, row) {
+        keyed(add(menu, qsTr("Cut"), () => copyRows(true)), "Ctrl+X");
+        keyed(add(menu, qsTr("Copy"), () => copyRows(false)), "Ctrl+C");
+        keyed(add(menu, qsTr("Paste"), () => pasteAt(row), hosts.hasClip()), "Ctrl+V");
     }
 
     function sep(menu) {
@@ -509,7 +669,10 @@ FocusScope {
         add(menu, qsTr("Move %1 entries to folder…").arg(n), () => bulkMove(indices));
         iconMenu(menu, indices);
         sep(menu);
-        add(menu, qsTr("Delete %1 entries…").arg(n), () => bulkDelete(indices));
+        keyed(add(menu, qsTr("Cut"), () => copyRows(true)), "Ctrl+X");
+        keyed(add(menu, qsTr("Copy"), () => copyRows(false)), "Ctrl+C");
+        sep(menu);
+        keyed(add(menu, qsTr("Delete %1 entries…").arg(n), () => bulkDelete(indices)), "Del");
     }
 
     function copyLabel(protocol) {
@@ -533,7 +696,7 @@ FocusScope {
         const editor = shell.openEditor !== null;
         const toggleText = i && i.expanded ? qsTr("Collapse") : qsTr("Expand");
         if (i && i.kind === "recent") {
-            add(m, toggleText, () => toggle(row));
+            keyed(add(m, toggleText, () => toggle(row)), "Space");
             return m;
         }
         const multi = hosts.selectedConnections(selection);
@@ -542,33 +705,37 @@ FocusScope {
             return m;
         }
         if (!i) {
-            addKind(m, qsTr("Add SSH connection…"), "ssh", undefined, editor);
+            keyed(addKind(m, qsTr("Add SSH connection…"), "ssh", undefined, editor), "Ctrl+Shift+N");
             addKind(m, qsTr("Add RDP connection…"), "rdp", undefined, editor);
             addKind(m, qsTr("Add VNC connection…"), "vnc", undefined, editor);
             addKind(m, qsTr("Add Telnet connection…"), "telnet", undefined, editor);
             addKind(m, qsTr("Add serial connection…"), "serial", undefined, editor);
             addKind(m, qsTr("Add favorite command…"), "favorite", undefined, editor);
             sep(m);
-            add(m, qsTr("New folder…"), () => addGroup(""));
+            keyed(add(m, qsTr("New folder…"), () => addGroup("")), "Ctrl+N");
+            keyed(add(m, qsTr("Paste"), () => pasteAt(-1), hosts.hasClip()), "Ctrl+V");
         } else if (i.kind === "group") {
             const g = i.path;
-            add(m, toggleText, () => toggle(row));
+            keyed(add(m, toggleText, () => toggle(row)), "Space");
             sep(m);
-            addKind(m, qsTr("Add SSH connection here…"), "ssh", g, editor);
+            keyed(addKind(m, qsTr("Add SSH connection here…"), "ssh", g, editor), "Ctrl+Shift+N");
             addKind(m, qsTr("Add RDP connection here…"), "rdp", g, editor);
             addKind(m, qsTr("Add VNC connection here…"), "vnc", g, editor);
             addKind(m, qsTr("Add Telnet connection here…"), "telnet", g, editor);
             addKind(m, qsTr("Add serial connection here…"), "serial", g, editor);
             addKind(m, qsTr("Add favorite command here…"), "favorite", g, editor);
             sep(m);
-            add(m, qsTr("New subfolder…"), () => addGroup(g));
+            keyed(add(m, qsTr("New subfolder…"), () => addGroup(g)), "Ctrl+N");
             envMenu(m, g);
-            add(m, qsTr("Rename / move folder…"), () => renameGroup(g));
-            add(m, qsTr("Dissolve folder (keep entries)"), () => ungroup(g));
-            add(m, qsTr("Delete folder and contents…"), () => deleteGroup(g));
+            keyed(add(m, qsTr("Rename folder"), () => startRename(row)), "F2");
+            add(m, qsTr("Move folder to…"), () => moveFolder(g));
+            sep(m);
+            clipItems(m, row);
+            sep(m);
+            keyed(add(m, qsTr("Delete folder…"), () => deleteGroup(g)), "Del");
         } else {
             const conn = i.kind === "connection";
-            add(m, qsTr("Connect / Run"), () => openEntry(i), shell.openConnection !== null);
+            keyed(add(m, qsTr("Connect / Run"), () => openEntry(i), shell.openConnection !== null), "Enter");
             if (conn) {
                 add(m, qsTr("Test connection…"), () => testConnection(i.index));
                 if (i.protocol !== "serial") {
@@ -587,17 +754,20 @@ FocusScope {
             }
             sep(m);
             add(m, qsTr("Edit…"), () => editEntry(i), editor);
+            keyed(add(m, qsTr("Rename"), () => startRename(row)), "F2");
             add(m, qsTr("Duplicate entry"), () => duplicate(i));
-            add(m, qsTr("Move to group…"), () => moveToGroup(i));
+            add(m, qsTr("Move to folder…"), () => moveToGroup(i));
             if (conn) {
                 entryEnvMenu(m, i);
                 iconMenu(m, [i.index]);
             }
             sep(m);
-            add(m, qsTr("Move up"), () => moveBy(i, -1));
-            add(m, qsTr("Move down"), () => moveBy(i, 1));
+            clipItems(m, row);
             sep(m);
-            add(m, qsTr("Delete…"), () => removeEntry(i));
+            keyed(add(m, qsTr("Move up"), () => moveBy(i, -1)), "Alt+Up");
+            keyed(add(m, qsTr("Move down"), () => moveBy(i, 1)), "Alt+Down");
+            sep(m);
+            keyed(add(m, qsTr("Delete…"), () => removeEntry(i)), "Del");
         }
         return m;
     }
@@ -717,8 +887,11 @@ FocusScope {
             act.enabled = Qt.binding(() => act.handler !== null && panel.shell[hook] !== null);
         };
         const unavailable = unavailableKinds();
+        // From the focused list (Ctrl+Shift+N there) a new entry goes into the selected
+        // folder; from anywhere else to the top level.
+        const here = () => list.activeFocus ? folderAt(currentRow) : "";
         for (const kind of ["ssh", "rdp", "vnc", "telnet", "serial", "favorite"]) {
-            a.handle("file.new." + kind, () => addEntry(kind));
+            a.handle("file.new." + kind, () => addEntry(kind, here()));
             live("file.new." + kind, "openEditor");
             if (unavailable[kind]) {
                 const act = a.actions["file.new." + kind];
@@ -726,7 +899,7 @@ FocusScope {
                 act.text = act.text + " (" + kindNote(kind) + ")";
             }
         }
-        a.handle("file.new.folder", () => addGroup(""));
+        a.handle("file.new.folder", () => addGroup("")); // Ctrl+N in the list: hostlist.new_folder
         a.handle("edit.search_hosts", () => focusFilter());
         a.handle("edit.copy_conn_command", () => copyFromSelection());
         a.handle("tools.test_connection", () => testFromSelection());
@@ -751,6 +924,7 @@ FocusScope {
             panel.selection = [];
             panel.currentRow = -1;
             panel.anchorRow = -1;
+            panel.editingRow = -1;
         }
     }
 
@@ -924,6 +1098,17 @@ FocusScope {
                         selected: panel.selection.includes(index)
                         current: index === panel.currentRow && list.activeFocus
                         dropZone: list.dropRow === index ? list.dropZone : -1
+                        cut: panel.clipVersion >= 0 && panel.hosts.isCut(index)
+                        // (A delegate being made has index -1 for a moment.)
+                        editing: panel.editingRow >= 0 && index === panel.editingRow
+                        onCommitRequested: (text, blur) => {
+                            const err = panel.commitRename(index, text, blur);
+                            if (err !== "" && blur)
+                                panel.cancelRename(true);
+                            else
+                                rowItem.renameError = err;
+                        }
+                        onCancelRequested: panel.cancelRename(false)
 
                         MouseArea {
                             id: rowMouse
@@ -933,6 +1118,7 @@ FocusScope {
                             property bool pendingSingle: false
 
                             anchors.fill: parent
+                            enabled: !rowItem.editing // clicks go to the rename field
                             acceptedButtons: Qt.LeftButton | Qt.RightButton
                             // The list is interactive only for the wheel: it must not take a fast drag.
                             preventStealing: true
@@ -1050,6 +1236,10 @@ FocusScope {
         id: prompt
     }
 
+    DeleteFolderDialog {
+        id: deleteFolder
+    }
+
     ConnectionTestDialog {
         id: testDialog
 
@@ -1109,10 +1299,18 @@ FocusScope {
     }
 
     Component {
+        id: keyedContentComponent
+
+        KeyedMenuContent {}
+    }
+
+    Component {
         id: itemComponent
 
         QQC2.MenuItem {
             property var run: null
+            // The entry's key, drawn by KeyedMenuContent ("" = none).
+            property string shortcutText: ""
 
             onTriggered: {
                 if (run)

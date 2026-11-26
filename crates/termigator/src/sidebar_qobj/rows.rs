@@ -237,22 +237,26 @@ pub fn remap_rows(old: &[Row], new: &[Row], keep: &[usize]) -> Vec<Option<usize>
         .collect()
 }
 
-pub fn delete_group_question(path: &str, doomed: usize) -> String {
-    let what = match doomed {
-        0 => "no entries".to_owned(),
-        1 => "its 1 entry".to_owned(),
-        n => format!("its {n} entries"),
-    };
-    format!("Delete the “{path}” folder, all its subfolders and {what}?\nThis cannot be undone.")
+/// `1 entry`, `3 entries`.
+fn count(n: usize, one: &str, many: &str) -> String {
+    if n == 1 {
+        format!("1 {one}")
+    } else {
+        format!("{n} {many}")
+    }
 }
 
-pub fn dissolve_question(path: &str) -> String {
-    let dest = match path.rsplit_once('/') {
-        Some((parent, _)) => format!("“{parent}”"),
-        None => "the top level".to_owned(),
+/// The question of the delete-folder dialog; `None` when the folder is empty (no question).
+pub fn delete_folder_question(path: &str, contents: hosttree::FolderContents) -> Option<String> {
+    let entries = count(contents.entries, "entry", "entries");
+    let folders = count(contents.folders, "subfolder", "subfolders");
+    let what = match (contents.entries, contents.folders) {
+        (0, 0) => return None,
+        (_, 0) => entries,
+        (0, _) => folders,
+        _ => format!("{entries} and {folders}"),
     };
-    format!(
-        "Dissolve the “{path}” folder and move its contents to {dest}?\n(The entries themselves \
-         are kept.)"
-    )
+    Some(format!(
+        "The “{path}” folder holds {what}.\nWhat should happen to them?"
+    ))
 }
