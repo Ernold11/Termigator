@@ -168,11 +168,60 @@ FocusScope {
         }
     }
 
+    // The rows Delete acts on: the selection when the current row is in it, else the current row.
+    function keyRows() {
+        if (selection.includes(currentRow))
+            return entryRows();
+        return currentRow >= 0 && info(currentRow).kind === "entry" ? [currentRow] : [];
+    }
+
+    // Enter: a folder or link opens, a file is downloaded (as a double click); ".." goes up.
+    function activateKey() {
+        if (currentRow < 0)
+            return;
+        if (info(currentRow).kind === "up")
+            files.goUp();
+        else
+            panel.activate(currentRow);
+    }
+
+    // Shift+F10 / Menu: at the current row, else at the top-left corner.
+    function menuKey() {
+        const item = currentRow >= 0 ? list.itemAtIndex(currentRow) : null;
+        const p = item ? item.mapToItem(list, item.width / 4, item.height / 2) : Qt.point(0, 0);
+        openContextMenu(currentRow, p.x, p.y);
+    }
+
+    // Only for the list itself, never for a field or a dialog over it.
     function listKey(event) {
-        const key = event.key, mods = event.modifiers;
+        if (list.Window.activeFocusItem !== list) {
+            event.accepted = false;
+            return;
+        }
+        const key = event.key, mods = event.modifiers & (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier);
         const page = Math.max(1, Math.floor(list.height / 22) - 1);
+        const busy = !files.hasTarget || files.busy;
         if (key === Qt.Key_A && mods === Qt.ControlModifier)
             selectRange(0, list.count - 1);
+        else if ((key === Qt.Key_Return || key === Qt.Key_Enter) && mods === 0)
+            activateKey();
+        else if ((key === Qt.Key_Backspace && mods === 0) || (key === Qt.Key_Up && mods === Qt.AltModifier)) {
+            if (!busy)
+                files.goUp();
+        } else if (key === Qt.Key_Delete && mods === 0)
+            panel.deleteRows(keyRows());
+        else if (key === Qt.Key_F2 && mods === 0) {
+            if (currentRow >= 0 && info(currentRow).kind === "entry")
+                panel.rename(currentRow);
+        } else if (key === Qt.Key_F5 && mods === 0) {
+            if (!busy)
+                files.refresh();
+        } else if (key === Qt.Key_N && mods === Qt.ControlModifier)
+            panel.mkdir();
+        else if ((key === Qt.Key_F10 && mods === Qt.ShiftModifier) || (key === Qt.Key_Menu && mods === 0))
+            menuKey();
+        else if (key === Qt.Key_Escape && mods === 0 && selection.length > 0)
+            selection = [];
         else if (key === Qt.Key_Up)
             move(currentRow < 0 ? 0 : currentRow - 1, mods);
         else if (key === Qt.Key_Down)
@@ -205,6 +254,7 @@ FocusScope {
         if (i.kind === "up") {
             out.push({
                 "text": qsTr("Open parent directory"),
+                "keys": "Backspace",
                 "fn": () => files.goUp()
             });
             return out;
@@ -219,6 +269,7 @@ FocusScope {
             });
             out.push({
                 "text": qsTr("Delete %1 items…").arg(chosen.length),
+                "keys": "Del",
                 "fn": () => panel.deleteRows(chosen)
             });
             out.push({
@@ -232,6 +283,7 @@ FocusScope {
             if (entry.isDir || entry.isLink)
                 out.push({
                     "text": qsTr("Open"),
+                    "keys": "Enter",
                     "fn": () => files.activate(row)
                 });
             if (entry.isDir) {
@@ -251,6 +303,7 @@ FocusScope {
             }
             out.push({
                 "text": qsTr("Rename…"),
+                "keys": "F2",
                 "fn": () => panel.rename(row)
             });
             out.push({
@@ -259,6 +312,7 @@ FocusScope {
             });
             out.push({
                 "text": qsTr("Delete…"),
+                "keys": "Del",
                 "fn": () => panel.deleteRows([row])
             });
             out.push("-");
@@ -278,10 +332,12 @@ FocusScope {
         });
         out.push({
             "text": qsTr("New folder…"),
+            "keys": "Ctrl+N",
             "fn": () => panel.mkdir()
         });
         out.push({
             "text": qsTr("Refresh"),
+            "keys": "F5",
             "fn": () => files.refresh()
         });
         return out;
@@ -301,11 +357,19 @@ FocusScope {
         for (const e of entries) {
             if (e === "-")
                 contextMenu.addItem(separatorComponent.createObject(null));
-            else
-                contextMenu.addItem(itemComponent.createObject(null, {
+            else {
+                const item = itemComponent.createObject(null, {
                     "text": e.text,
                     "run": e.fn
-                }));
+                });
+                if (e.keys) {
+                    item.shortcutText = e.keys;
+                    item.contentItem = keyedContentComponent.createObject(item, {
+                        "menuItem": item
+                    });
+                }
+                contextMenu.addItem(item);
+            }
         }
         contextMenu.popup(list, x, y);
     }
@@ -740,10 +804,18 @@ FocusScope {
     }
 
     Component {
+        id: keyedContentComponent
+
+        KeyedMenuContent {}
+    }
+
+    Component {
         id: itemComponent
 
         QQC2.MenuItem {
             property var run: null
+            // The entry's key, drawn by KeyedMenuContent ("" = none).
+            property string shortcutText: ""
 
             onTriggered: {
                 if (run)

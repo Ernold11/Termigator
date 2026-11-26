@@ -641,6 +641,20 @@ const HOST_LIST_ROWS: [(&str, &str, &str); 13] = [
     ("Host list", "Move entry up / down", "Alt+Up, Alt+Down"),
 ];
 
+/// The keys of the Files lists (remote and local), bound in RemoteList.qml / LocalPane.qml.
+const FILES_ROWS: [(&str, &str, &str); 6] = [
+    (
+        "Files",
+        "Open / go to the parent folder",
+        "Enter, Backspace",
+    ),
+    ("Files", "Rename", "F2"),
+    ("Files", "Delete", "Delete"),
+    ("Files", "New folder", "Ctrl+N"),
+    ("Files", "Refresh", "F5"),
+    ("Files", "Context menu", "Shift+F10, Menu"),
+];
+
 /// The action with this id.
 pub fn by_id(id: &str) -> Option<&'static Action> {
     ACTIONS.iter().find(|a| a.id == id)
@@ -699,6 +713,7 @@ pub fn shortcut_rows() -> Vec<(String, String, String)> {
         }
     }
     rows.extend(HOST_LIST_ROWS.map(|(m, a, k)| (m.into(), a.into(), k.into())));
+    rows.extend(FILES_ROWS.map(|(m, a, k)| (m.into(), a.into(), k.into())));
     rows
 }
 

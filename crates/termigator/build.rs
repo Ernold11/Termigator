@@ -117,6 +117,7 @@ const QML_FILES: &[&str] = &[
     "qml/files/PermissionsDialog.qml",
     "qml/files/SyncDialog.qml",
     "qml/files/FilesSmoke.qml",
+    "qml/files/FilesKeysSmoke.qml",
     "qml/files/FilesCheck.qml",
     "qml/files/FilesAuthCheck.qml",
     "qml/files/FilesFollowCheck.qml",

@@ -976,6 +976,36 @@
      "Host list",
      "Move entry up / down",
      "Alt+Up, Alt+Down"
+    ],
+    [
+     "Files",
+     "Open / go to the parent folder",
+     "Enter, Backspace"
+    ],
+    [
+     "Files",
+     "Rename",
+     "F2"
+    ],
+    [
+     "Files",
+     "Delete",
+     "Delete"
+    ],
+    [
+     "Files",
+     "New folder",
+     "Ctrl+N"
+    ],
+    [
+     "Files",
+     "Refresh",
+     "F5"
+    ],
+    [
+     "Files",
+     "Context menu",
+     "Shift+F10, Menu"
     ]
    ]
   }

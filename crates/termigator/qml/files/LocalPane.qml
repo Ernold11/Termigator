@@ -20,8 +20,11 @@ ColumnLayout {
     // Selected file paths (ExtendedSelection) and the anchor row.
     property var selection: []
     property int anchorRow: -1
+    // The keyboard's row (-1 none).
+    property int currentRow: -1
     readonly property alias list: localListView
     readonly property alias model: folderModel
+    readonly property alias pathField: pathField
     // Column widths work as in RemoteList.qml and share its store (launch.files_column_widths):
     // a width set by hand is a minimum, Name fills the rest, the list scrolls sideways below the
     // sum of the minimums, a double click on a grip fits the column, the header menu resets them.
@@ -129,6 +132,7 @@ ColumnLayout {
         pathField.text = path;
         selection = [];
         anchorRow = -1;
+        currentRow = -1;
         dirChanged(path);
     }
 
@@ -162,6 +166,7 @@ ColumnLayout {
     }
 
     function select(row, mods) {
+        currentRow = row;
         const p = folderModel.get(row, "filePath");
         if ((mods & Qt.ShiftModifier) && anchorRow >= 0) {
             const out = [];
@@ -175,6 +180,96 @@ ColumnLayout {
         else if (!selection.includes(p))
             selection = [p];
         anchorRow = row;
+    }
+
+    // ---- keys (the remote list's, RemoteList.qml)
+
+    function pathAt(row) {
+        return folderModel.get(row, "filePath");
+    }
+
+    // Up / Down / Home / End / Page: Shift extends from the anchor, Ctrl moves only the current row.
+    function move(to, mods) {
+        if (folderModel.count === 0)
+            return;
+        const row = Math.max(0, Math.min(folderModel.count - 1, to));
+        if (mods & Qt.ShiftModifier) {
+            if (anchorRow < 0)
+                anchorRow = row;
+            const out = [];
+            for (let r = Math.min(anchorRow, row); r <= Math.max(anchorRow, row); ++r)
+                out.push(pathAt(r));
+            selection = out;
+        } else if (!(mods & Qt.ControlModifier)) {
+            selection = [pathAt(row)];
+            anchorRow = row;
+        }
+        currentRow = row;
+        localListView.positionViewAtIndex(row, ListView.Contain);
+    }
+
+    // What Delete / F2 act on: the selection when the current row is in it, else the current row.
+    function keyPaths() {
+        if (currentRow >= 0 && !selection.includes(pathAt(currentRow)))
+            return [pathAt(currentRow)];
+        return selection.slice();
+    }
+
+    function menuKey() {
+        const item = currentRow >= 0 ? localListView.itemAtIndex(currentRow) : null;
+        const p = item ? item.mapToItem(localListView, item.width / 4, item.height / 2) : Qt.point(0, 0);
+        openContextMenu(currentRow, p.x, p.y);
+    }
+
+    // Only for the list itself, never for the path field or a dialog over it.
+    function listKey(event) {
+        if (localListView.Window.activeFocusItem !== localListView) {
+            event.accepted = false;
+            return;
+        }
+        const key = event.key, mods = event.modifiers & (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier);
+        const page = Math.max(1, Math.floor(localListView.height / 22) - 1);
+        const nav = (mods & ~(Qt.ShiftModifier | Qt.ControlModifier)) === 0;
+        if (key === Qt.Key_A && mods === Qt.ControlModifier) {
+            const out = [];
+            for (let r = 0; r < folderModel.count; ++r)
+                out.push(pathAt(r));
+            selection = out;
+        } else if (key === Qt.Key_Up && nav)
+            move(currentRow < 0 ? 0 : currentRow - 1, mods);
+        else if (key === Qt.Key_Down && nav)
+            move(currentRow + 1, mods);
+        else if (key === Qt.Key_Home && nav)
+            move(0, mods);
+        else if (key === Qt.Key_End && nav)
+            move(folderModel.count - 1, mods);
+        else if (key === Qt.Key_PageUp && nav)
+            move(currentRow - page, mods);
+        else if (key === Qt.Key_PageDown && nav)
+            move(currentRow + page, mods);
+        else if ((key === Qt.Key_Return || key === Qt.Key_Enter) && mods === 0) {
+            if (currentRow >= 0)
+                activate(currentRow);
+        } else if ((key === Qt.Key_Backspace && mods === 0) || (key === Qt.Key_Up && mods === Qt.AltModifier))
+            goUp();
+        else if (key === Qt.Key_Delete && mods === 0)
+            deleteEntries(keyPaths());
+        else if (key === Qt.Key_F2 && mods === 0) {
+            if (currentRow >= 0)
+                renameEntry(pathAt(currentRow));
+        } else if (key === Qt.Key_F5 && mods === 0)
+            refresh();
+        else if (key === Qt.Key_N && mods === Qt.ControlModifier)
+            makeFolder();
+        else if ((key === Qt.Key_F10 && mods === Qt.ShiftModifier) || (key === Qt.Key_Menu && mods === 0))
+            menuKey();
+        else if (key === Qt.Key_Escape && mods === 0 && selection.length > 0)
+            selection = [];
+        else {
+            event.accepted = false;
+            return;
+        }
+        event.accepted = true;
     }
 
     // ---- the context menu (the remote list's menu for the local side)
@@ -249,12 +344,14 @@ ColumnLayout {
                     });
                 out.push({
                     "text": qsTr("Delete %1 items…").arg(chosen.length),
+                    "keys": "Del",
                     "fn": () => deleteEntries(chosen)
                 });
                 out.push("-");
             } else {
                 out.push({
                     "text": isDir ? qsTr("Open") : qsTr("Open with the default application"),
+                    "keys": "Enter",
                     "fn": () => activate(row)
                 });
                 if (canUpload)
@@ -267,10 +364,12 @@ ColumnLayout {
                     });
                 out.push({
                     "text": qsTr("Rename…"),
+                    "keys": "F2",
                     "fn": () => renameEntry(p)
                 });
                 out.push({
                     "text": qsTr("Delete…"),
+                    "keys": "Del",
                     "fn": () => deleteEntries([p])
                 });
                 out.push("-");
@@ -290,10 +389,12 @@ ColumnLayout {
         }
         out.push({
             "text": qsTr("New folder…"),
+            "keys": "Ctrl+N",
             "fn": () => makeFolder()
         });
         out.push({
             "text": qsTr("Refresh"),
+            "keys": "F5",
             "fn": () => refresh()
         });
         return out;
@@ -311,11 +412,19 @@ ColumnLayout {
         for (const e of entries) {
             if (e === "-")
                 contextMenu.addItem(separatorComponent.createObject(null));
-            else
-                contextMenu.addItem(itemComponent.createObject(null, {
+            else {
+                const item = itemComponent.createObject(null, {
                     "text": e.text,
                     "run": e.fn
-                }));
+                });
+                if (e.keys) {
+                    item.shortcutText = e.keys;
+                    item.contentItem = keyedContentComponent.createObject(item, {
+                        "menuItem": item
+                    });
+                }
+                contextMenu.addItem(item);
+            }
         }
         contextMenu.popup(localListView, x, y);
     }
@@ -512,9 +621,13 @@ ColumnLayout {
                 flickableDirection: Flickable.AutoFlickIfNeeded
                 model: folderModel
                 boundsBehavior: Flickable.StopAtBounds
+                activeFocusOnTab: true
+                Accessible.role: Accessible.List
+                Accessible.name: qsTr("Local files")
                 QQC2.ScrollBar.vertical: QQC2.ScrollBar {
                     id: localVBar
                 }
+                Keys.onPressed: event => pane.listKey(event)
 
                 // Below the last row: right-click opens the folder's menu.
                 MouseArea {
@@ -546,6 +659,8 @@ ColumnLayout {
                     width: pane.rowWidth
                     height: Math.max(22, nameLabel.implicitHeight + 4)
                     color: selected ? Kirigami.Theme.highlightColor : (index % 2 === 1 ? Kirigami.Theme.alternateBackgroundColor : "transparent")
+                    border.width: index === pane.currentRow && localListView.activeFocus ? 1 : 0
+                    border.color: Kirigami.Theme.highlightColor
 
                     // Rows are dragged out as file URLs, the drop a file manager makes.
                     Item {
@@ -602,6 +717,8 @@ ColumnLayout {
                         drag.target: (area.pressedButtons & Qt.RightButton) ? null : dragProxy
                         drag.threshold: Qt.styleHints.startDragDistance
                         onPressed: mouse => {
+                            localListView.forceActiveFocus(Qt.MouseFocusReason);
+                            pane.currentRow = item.index;
                             if (!pane.selection.includes(item.filePath) || (mouse.modifiers & (Qt.ControlModifier | Qt.ShiftModifier)))
                                 pane.select(item.index, mouse.modifiers);
                             if (mouse.button === Qt.RightButton) {
@@ -672,10 +789,18 @@ ColumnLayout {
     }
 
     Component {
+        id: keyedContentComponent
+
+        KeyedMenuContent {}
+    }
+
+    Component {
         id: itemComponent
 
         QQC2.MenuItem {
             property var run: null
+            // The entry's key, drawn by KeyedMenuContent ("" = none).
+            property string shortcutText: ""
 
             onTriggered: {
                 if (run)
