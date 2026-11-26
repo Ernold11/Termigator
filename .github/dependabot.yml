@@ -10,6 +10,12 @@ updates:
     ignore:
       - dependency-name: "cxx-qt*"
       - dependency-name: "ghostty-vt"
+      # termigator-core uses the versions portable-pty requires (nix 0.28, winreg 0.10), so the
+      # binary has one copy of each; a newer one comes with a portable-pty that needs it.
+      - dependency-name: "nix"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "winreg"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
