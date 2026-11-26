@@ -2,7 +2,7 @@
 
 ![Termigator logo](assets/termigator-logo.png)
 
-A lightweight SSH launcher and terminal for the KDE desktop: saved connections in a folder tree, an
+A lightweight SSH launcher and terminal for your desktop: saved connections in a folder tree, an
 embedded terminal (built on Ghostty's terminal engine) or an external Konsole window, an SFTP-style
 file sidebar, tunnels, and RDP / VNC / telnet / serial launching. Written in Rust with Qt 6 (cxx-qt,
 QML, KF6).
@@ -19,25 +19,31 @@ frameworks installed) and Windows 11 x64 (installer with its own Qt and KF6; tes
 - **Connections:** SSH (optionally over mosh), RDP (FreeRDP), VNC (TigerVNC), telnet and serial,
   plus favourite commands.
   Nested folders (`prod/web/eu`), drag & drop, search (`Ctrl+Shift+H`), duplicate, copy the exact
-  `ssh` command (password masked), quick connect (`Ctrl+Shift+O` or the toolbar field).
+  `ssh` command (password masked), quick connect (`Ctrl+Shift+O` or the toolbar field, with a history).
+  Folders are renamed, moved and deleted from the tree; the tree works from the keyboard (`F2`,
+  `Delete`, `Ctrl+C` / `Ctrl+X` / `Ctrl+V`, `Ctrl+N`). **Add to Hosts…** on a tab saves an open connection.
 - **Embedded terminal:** Ghostty's VT engine (`ghostty-vt`) with tabs, nested split panes,
   detachable tabs, find, zoom, snippets, session logging, asciinema recording, MultiExec and
   broadcast to all live sessions. Follows your Konsole profile (colour scheme and font) unless you
-  override it.
+  override it. Mouse-aware programs (vim, tmux, mc, htop, k9s) get the wheel and drags; a dragged
+  selection scrolls the view; the zoom stays with a tab when it is split, moved or detached.
   An external terminal (Konsole or any `launch.template`) is available per entry.
 - **Session handling:** a stopped session keeps its tab and offers restart / close / save output;
   optional auto-reconnect with back-off; SSH keepalive; optional disconnect notification.
 - **Files panel:** SFTP-style sidebar that follows the active SSH tab and reuses its connection
   (OpenSSH ControlMaster, so no second login), two-pane local / remote view, drag & drop transfers,
-  and folder synchronisation with a plan you review first.
+  folder synchronisation with a plan you review first, and both panes work from the keyboard.
 - **SSH features:** jump hosts, local / remote / dynamic forwards, agent and X11 forwarding, key
-  manager (generate, copy, add to agent, install on a host), connection test without logging in,
+  manager (generate, copy, add to agent, install on a host), a separate private key per tunnel and
+  for the jump host, connection test without logging in,
   network tools (ping, traceroute, DNS, port check, port scan).
 - **Secrets:** saved passwords are stored in plain text unless you set a master password
   (scrypt + AES-GCM); the master password is asked once per run and only when needed.
-- **Import / export:** MobaXterm, PuTTY, Remmina and `~/.ssh/config`; backup export.
+- **Import / export:** MobaXterm, PuTTY, SuperPuTTY (Windows), Remmina (Linux) and `~/.ssh/config`;
+  backup export.
 - **Desktop integration:** KDE look and feel (identical look elsewhere), global show / hide through
-  `termigator --toggle` (bind it in System Settings → Shortcuts), `termigator --show`.
+  `termigator --toggle` (bind it in System Settings → Shortcuts), `termigator --show`. With the tray
+  icon on, closing the window asks whether to hide it in the tray or exit (the answer can be remembered).
 - **Update check:** once a day at startup, a banner when GitHub has a newer release (nothing is
   downloaded; the request tells GitHub only your IP address). Chosen in the welcome window,
   switched off in **Settings → Configure Termigator… → Application**.
@@ -169,7 +175,8 @@ save a connection and `config.yaml` when you change a setting, and **File → Im
   or `external`. Every field is documented in `config/session.example.yaml`.
 
 Most settings are also in **Settings → Configure Termigator…**. For an SSH entry, `identity_file` must be
-the private key; with a key set Termigator passes `-o IdentitiesOnly=yes`. Encrypted keys need an unlocked
+the private key; with a key set Termigator passes `-o IdentitiesOnly=yes`. A tunnel can have its own
+`identity_file`, and `jump_identity_file` gives the entry's jump hosts their own key. Encrypted keys need an unlocked
 agent (`ssh-add`).
 
 ## Runtime dependencies
