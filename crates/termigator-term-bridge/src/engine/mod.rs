@@ -520,6 +520,10 @@ pub struct Engine {
     cells: render::CellIterator,
     keys: key::Encoder,
     mouse: mouse::Encoder,
+    /// The cell of the last mouse report: a motion is reported only when it reaches another
+    /// one. Ghostty's own deduplication (`set_track_last_cell`) cannot be used, as
+    /// `set_options_from_terminal`, needed before every event, forgets the cell.
+    last_cell: Option<(u16, u16)>,
     cols: u16,
     rows_count: u16,
 }
@@ -562,6 +566,7 @@ impl Engine {
             cells: render::CellIterator::new()?,
             keys: key::Encoder::new()?,
             mouse: mouse::Encoder::new()?,
+            last_cell: None,
             cols,
             rows_count: rows,
         })
@@ -778,6 +783,18 @@ impl Engine {
     /// Encodes a mouse event if the program enabled mouse reporting; an empty vector means the view
     /// should handle it locally (selection, scrolling).
     pub fn encode_mouse(&mut self, input: MouseInput, cell_px: (u16, u16)) -> Result<Vec<u8>> {
+        if !self.term.is_mouse_tracking().unwrap_or(false) {
+            self.last_cell = None; // tracking turned on again starts afresh, as in Ghostty
+        }
+        let cell = (input.x, input.y);
+        // SGR-Pixels reports where inside the cell the pointer is: every motion is news there.
+        let pixels = self
+            .term
+            .mode(terminal::Mode::SGR_PIXELS_MOUSE)
+            .unwrap_or(false);
+        if input.action == MouseAction::Motion && !pixels && self.last_cell == Some(cell) {
+            return Ok(Vec::new());
+        }
         self.mouse.set_options_from_terminal(&self.term);
         self.mouse.set_size(mouse::EncoderSize {
             screen_width: u32::from(self.cols) * u32::from(cell_px.0.max(1)),
@@ -821,6 +838,9 @@ impl Engine {
             });
         let mut out = Vec::new();
         self.mouse.encode_to_vec(&event, &mut out)?;
+        if !out.is_empty() {
+            self.last_cell = Some(cell);
+        }
         Ok(out)
     }
 

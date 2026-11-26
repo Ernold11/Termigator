@@ -512,7 +512,9 @@ void GhosttyTerminalItem::updateGrid()
         return;
     const int cols = qMax(1, static_cast<int>(width() / m_cellWidth));
     const int rows = qMax(1, static_cast<int>(height() / m_cellHeight));
-    m_session->resizeTerminal(cols, rows);
+    // Whole pixels, as the mouse reports get them.
+    m_session->resizeTerminal(cols, rows, static_cast<int>(m_cellWidth),
+                              static_cast<int>(m_cellHeight));
     requestFrame();
 }
 
@@ -578,9 +580,11 @@ void GhosttyTerminalItem::mouseMoveEvent(QMouseEvent *event)
         return;
     }
     const QPoint cell = cellAt(event->position());
-    const QByteArray encoded =
-        m_session->encodeMouse(cell.x(), cell.y(), 0, 2, static_cast<int>(event->modifiers()),
-                               static_cast<int>(m_cellWidth), static_cast<int>(m_cellHeight));
+    // The held buttons: a program tracking drags only (DECSET 1002) ignores a motion without one.
+    const QByteArray encoded = m_session->encodeMouse(
+        cell.x(), cell.y(), static_cast<int>(event->buttons().toInt()), 2,
+        static_cast<int>(event->modifiers()), static_cast<int>(m_cellWidth),
+        static_cast<int>(m_cellHeight));
     if (!encoded.isEmpty() && !m_selecting) {
         m_session->sendBytes(encoded);
         event->accept();

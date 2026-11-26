@@ -105,7 +105,13 @@ mod ffi {
         type SessionEngine;
         fn new_session_engine(cols: u16, rows: u16, scrollback: i64) -> Box<SessionEngine>;
         fn feed(self: &mut SessionEngine, data: &[u8]);
-        fn resize(self: &mut SessionEngine, cols: u16, rows: u16);
+        fn resize(
+            self: &mut SessionEngine,
+            cols: u16,
+            rows: u16,
+            cell_width: u16,
+            cell_height: u16,
+        );
         fn scroll(self: &mut SessionEngine, delta: i32);
         fn history_text(self: &SessionEngine) -> String;
         fn snapshot_json(self: &mut SessionEngine) -> String;

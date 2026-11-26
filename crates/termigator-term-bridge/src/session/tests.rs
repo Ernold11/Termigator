@@ -194,3 +194,73 @@ fn screen_selection_spans_rows_scrolled_out_of_view() {
     assert_eq!(rows.last().copied(), Some(last.as_str()), "{text:?}");
     assert_eq!(rows.len(), 6, "{text:?}");
 }
+
+#[test]
+fn a_drag_reports_the_held_button_to_a_program_tracking_buttons() {
+    // vim with 'mouse=a', tmux, mc: button-event tracking (DECSET 1002) reports motion only
+    // while a button is held, so a drag must carry the button (Qt's `buttons()` mask).
+    const CELL: u32 = (8 << 16) | 16;
+    const MOTION: i32 = 2;
+    let mut engine = SessionEngine::new(20, 5, None).expect("engine");
+    engine.feed(b"\x1b[?1002h\x1b[?1006h");
+    // Each motion in another cell: one in the cell of the last report is not sent again.
+    assert_eq!(
+        engine.encode_mouse(3, 1, 1, MOTION, 0, CELL),
+        b"\x1b[<32;4;2M"
+    );
+    assert_eq!(
+        engine.encode_mouse(4, 1, 4, MOTION, 0, CELL),
+        b"\x1b[<33;5;2M"
+    );
+    assert_eq!(
+        engine.encode_mouse(5, 1, 2, MOTION, 0, CELL),
+        b"\x1b[<34;6;2M"
+    );
+    // Left and right held: the lowest button, as xterm reports it.
+    assert_eq!(
+        engine.encode_mouse(6, 1, 1 | 2, MOTION, 0, CELL),
+        b"\x1b[<32;7;2M"
+    );
+    // A plain move without a button is not reported in this mode…
+    assert!(engine.encode_mouse(7, 1, 0, MOTION, 0, CELL).is_empty());
+    // …and is "no button" (3 + 32) when the program tracks every motion (DECSET 1003).
+    engine.feed(b"\x1b[?1003h");
+    assert_eq!(
+        engine.encode_mouse(7, 1, 0, MOTION, 0, CELL),
+        b"\x1b[<35;8;2M"
+    );
+}
+
+/// The bytes the emulator wrote back to the program (`pty` events), concatenated.
+fn replies(engine: &mut SessionEngine) -> String {
+    let events: Value = serde_json::from_str(&engine.events_json()).expect("events");
+    events
+        .as_array()
+        .expect("list")
+        .iter()
+        .filter(|e| e["t"] == "pty")
+        .map(|e| {
+            let hex = e["d"].as_str().expect("hex");
+            (0..hex.len())
+                .step_by(2)
+                .map(|i| u8::from_str_radix(&hex[i..i + 2], 16).expect("byte") as char)
+                .collect::<String>()
+        })
+        .collect()
+}
+
+#[test]
+fn pixel_size_reports_use_the_cell_size_of_the_view() {
+    // CSI 16 t (cell size) and CSI 14 t (text area) are what image tools (chafa, sixel, the
+    // kitty protocol) size their output by: the real font, not a fixed 8×16.
+    let mut engine = SessionEngine::new(20, 5, None).expect("engine");
+    engine.resize(20, 5, 10, 22);
+    engine.feed(b"\x1b[16t");
+    assert_eq!(replies(&mut engine), "\x1b[6;22;10t");
+    engine.feed(b"\x1b[14t");
+    assert_eq!(replies(&mut engine), "\x1b[4;110;200t");
+    // A new font size (zoom) at the same number of cells still changes the pixels.
+    engine.resize(20, 5, 12, 26);
+    engine.feed(b"\x1b[16t");
+    assert_eq!(replies(&mut engine), "\x1b[6;26;12t");
+}

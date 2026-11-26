@@ -160,7 +160,7 @@ void GhosttySession::attachFd(int fd)
         tcsetattr(own, TCSANOW, &tio);
     }
     m_fd = own;
-    resizeTerminal(m_cols, m_rows);
+    resizeTerminal(m_cols, m_rows, m_cellWidth, m_cellHeight);
 
     m_readNotifier = new QSocketNotifier(own, QSocketNotifier::Read, this);
     connect(m_readNotifier, &QSocketNotifier::activated, this, [this] { onReadable(); });
@@ -176,7 +176,7 @@ void GhosttySession::attachFeed()
 {
     detach();
     m_feed = true;
-    resizeTerminal(m_cols, m_rows);
+    resizeTerminal(m_cols, m_rows, m_cellWidth, m_cellHeight);
     emit attachedChanged();
     emit updated();
 }
@@ -390,13 +390,17 @@ void GhosttySession::sendKey(int key, int modifiers, const QString &text)
     flushPending();
 }
 
-void GhosttySession::resizeTerminal(int cols, int rows)
+void GhosttySession::resizeTerminal(int cols, int rows, int cellWidth, int cellHeight)
 {
     cols = qMax(1, cols);
     rows = qMax(1, rows);
     m_cols = cols;
     m_rows = rows;
-    m_engine->resize(static_cast<std::uint16_t>(cols), static_cast<std::uint16_t>(rows));
+    m_cellWidth = qBound(1, cellWidth, 0xffff);
+    m_cellHeight = qBound(1, cellHeight, 0xffff);
+    m_engine->resize(static_cast<std::uint16_t>(cols), static_cast<std::uint16_t>(rows),
+                     static_cast<std::uint16_t>(m_cellWidth),
+                     static_cast<std::uint16_t>(m_cellHeight));
     if (m_feed) {
         // Rust resizes the pty (ResizePseudoConsole / TIOCSWINSZ) in its on_resize handler.
         if (m_id != 0)
@@ -409,6 +413,9 @@ void GhosttySession::resizeTerminal(int cols, int rows)
     winsize ws{};
     ws.ws_row = static_cast<unsigned short>(rows);
     ws.ws_col = static_cast<unsigned short>(cols);
+    // What TIOCGWINSZ tells image tools (chafa, sixel, the kitty protocol) about the pixels.
+    ws.ws_xpixel = static_cast<unsigned short>(qMin(0xffff, cols * m_cellWidth));
+    ws.ws_ypixel = static_cast<unsigned short>(qMin(0xffff, rows * m_cellHeight));
     if (ioctl(m_fd, TIOCSWINSZ, &ws) == 0 && m_id != 0)
         on_resize(m_id, ws.ws_col, ws.ws_row);
 #endif

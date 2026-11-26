@@ -21,6 +21,7 @@ pub struct SessionEngine {
 impl SessionEngine {
     /// Creates an engine; errors are returned as strings because the C++ side only logs them.
     pub fn new(cols: u16, rows: u16, scrollback: Option<usize>) -> Result<Self, String> {
+        // The view reports its real cell size with its first resize.
         let engine = Engine::new(cols, rows, scrollback, (8, 16)).map_err(|e| e.to_string())?;
         Ok(Self {
             engine,
@@ -103,8 +104,10 @@ impl SessionEngine {
             .is_ok()
     }
 
-    pub fn resize(&mut self, cols: u16, rows: u16) {
-        let cell_px = (8, 16);
+    /// The grid in cells and the view's cell size in pixels, which the pixel reports
+    /// (CSI 14 t / 16 t, in-band size reports) give the program.
+    pub fn resize(&mut self, cols: u16, rows: u16, cell_width: u16, cell_height: u16) {
+        let cell_px = (cell_width.max(1), cell_height.max(1));
         // Errors would only mean an invalid size, which the caller clamps already.
         let _ = self.engine.resize(cols, rows, cell_px);
     }
@@ -323,6 +326,8 @@ impl SessionEngine {
     }
 
     /// Encodes a mouse event with the session's live modes; empty when reporting is off.
+    /// `button` is the button pressed or released; for a motion it is the buttons held (Qt's
+    /// `buttons()` mask), so a drag reaches a program that tracks only drags (DECSET 1002).
     #[allow(clippy::too_many_arguments, reason = "flat cxx bridge signature")]
     pub fn encode_mouse(
         &mut self,
@@ -334,18 +339,30 @@ impl SessionEngine {
         cell_size: u32,
     ) -> Vec<u8> {
         use crate::engine::{MouseAction, MouseButton, MouseInput};
-        let button = match button {
-            1 => Some(MouseButton::Left),
-            2 => Some(MouseButton::Right),
-            4 => Some(MouseButton::Middle),
-            8 => Some(MouseButton::WheelUp),
-            16 => Some(MouseButton::WheelDown),
-            _ => None,
-        };
         let action = match action {
             1 => MouseAction::Release,
             2 => MouseAction::Motion,
             _ => MouseAction::Press,
+        };
+        let button = if action == MouseAction::Motion {
+            // Several held: the lowest-numbered one (left, middle, right), as xterm reports it.
+            [
+                (1, MouseButton::Left),
+                (4, MouseButton::Middle),
+                (2, MouseButton::Right),
+            ]
+            .into_iter()
+            .find(|(bit, _)| button & bit != 0)
+            .map(|(_, b)| b)
+        } else {
+            match button {
+                1 => Some(MouseButton::Left),
+                2 => Some(MouseButton::Right),
+                4 => Some(MouseButton::Middle),
+                8 => Some(MouseButton::WheelUp),
+                16 => Some(MouseButton::WheelDown),
+                _ => None,
+            }
         };
         let mods = qt_mods(modifiers);
         self.engine

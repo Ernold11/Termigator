@@ -70,7 +70,8 @@ public:
     Q_INVOKABLE QString urlAt(int col, int row);
     static QStringList availableSchemes();
     Q_INVOKABLE void sendKey(int key, int modifiers, const QString &text);
-    Q_INVOKABLE void resizeTerminal(int cols, int rows);
+    // The grid in cells and the view's cell size in pixels (pixel reports, TIOCSWINSZ).
+    Q_INVOKABLE void resizeTerminal(int cols, int rows, int cellWidth, int cellHeight);
     Q_INVOKABLE void clear();
     Q_INVOKABLE void scrollBy(int rows);
     Q_INVOKABLE void scrollToRow(int row);
@@ -85,6 +86,7 @@ public:
     Q_INVOKABLE int scrollbarTotal();
     Q_INVOKABLE int scrollbarOffset();
     Q_INVOKABLE int scrollbarLen();
+    // `button` is the pressed / released button, or for a motion (action 2) the held buttons.
     Q_INVOKABLE QByteArray encodeMouse(int x, int y, int button, int action, int modifiers,
                                        int cellWidth, int cellHeight);
     // Where a wheel turn goes: WheelScrollback, WheelReport (a step is a notch) or WheelArrows
@@ -133,6 +135,8 @@ private:
     bool m_feed = false;
     int m_cols = 80;
     int m_rows = 24;
+    int m_cellWidth = 8;
+    int m_cellHeight = 16;
     int m_historySize = -1;
     bool m_finished = false;
     bool m_monitorActivity = false;

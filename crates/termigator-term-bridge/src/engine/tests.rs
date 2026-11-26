@@ -256,6 +256,62 @@ fn wheel_is_reported_in_the_format_the_program_chose() {
     assert_eq!(engine.encode_wheel(0, 0, 1, ctrl, CELL), b"\x1b[<81;1;1M");
 }
 
+fn motion(engine: &mut Engine, x: u16, y: u16, button: Option<MouseButton>) -> Vec<u8> {
+    engine
+        .encode_mouse(
+            MouseInput {
+                action: MouseAction::Motion,
+                button,
+                x,
+                y,
+                mods: Mods::default(),
+            },
+            CELL,
+        )
+        .expect("encode")
+}
+
+#[test]
+fn a_motion_is_reported_once_per_cell() {
+    // Qt sends a move per pixel; a program tracking every motion (DECSET 1003) is told only when
+    // the pointer reaches another cell, as xterm and Ghostty do.
+    let mut engine = engine();
+    engine.feed(b"\x1b[?1003h\x1b[?1006h");
+    assert_eq!(motion(&mut engine, 3, 1, None), b"\x1b[<35;4;2M");
+    assert!(motion(&mut engine, 3, 1, None).is_empty());
+    assert_eq!(motion(&mut engine, 4, 1, None), b"\x1b[<35;5;2M");
+    // A drag (DECSET 1002) right after the press, still in the pressed cell, is no news either.
+    engine.feed(b"\x1b[?1003l\x1b[?1002h");
+    let press = MouseInput {
+        action: MouseAction::Press,
+        button: Some(MouseButton::Left),
+        x: 6,
+        y: 2,
+        mods: Mods::default(),
+    };
+    assert_eq!(
+        engine.encode_mouse(press, CELL).expect("press"),
+        b"\x1b[<0;7;3M"
+    );
+    let left = Some(MouseButton::Left);
+    assert!(motion(&mut engine, 6, 2, left).is_empty());
+    assert_eq!(motion(&mut engine, 7, 2, left), b"\x1b[<32;8;3M");
+    // Tracking switched off and on again: the first motion counts, wherever it is.
+    engine.feed(b"\x1b[?1002l");
+    assert!(motion(&mut engine, 7, 2, left).is_empty());
+    engine.feed(b"\x1b[?1002h");
+    assert_eq!(motion(&mut engine, 7, 2, left), b"\x1b[<32;8;3M");
+}
+
+#[test]
+fn pixel_reports_keep_every_motion() {
+    // SGR-Pixels (DECSET 1016) reports positions inside a cell, so no motion is dropped.
+    let mut engine = engine();
+    engine.feed(b"\x1b[?1003h\x1b[?1016h");
+    assert!(!motion(&mut engine, 3, 1, None).is_empty());
+    assert!(!motion(&mut engine, 3, 1, None).is_empty());
+}
+
 #[test]
 fn shift_wheel_bypasses_the_program() {
     let mut engine = engine();

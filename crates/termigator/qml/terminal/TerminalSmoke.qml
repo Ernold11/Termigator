@@ -805,7 +805,55 @@ Item {
                 expect(keys.split("^[[A").length - 1 === 3, "a notch is not three Up keys: " + keys);
                 expect(mouse.split("^[[<64;").length - 1 === 1, "a notch is not one report: " + mouse);
                 expect(keys.indexOf("^[[<") < 0 && mouse.indexOf("^[[A") < 0, "the wheel went both ways");
+                held.altDrag = open("altdrag", "stty -icanon -echo; printf '\\033[?1049h\\033[?1002h\\033[?1006hready'; exec cat -v");
+            }
+        },
+        // A program that tracks drags only (DECSET 1002: vim with 'mouse=a', tmux, mc) is told
+        // about a motion only with the held button in it.
+        {
+            "name": "drag tracking",
+            "fn": () => {
+                const v = view(held.altDrag);
+                if (!v || !v.term || v.term.lines <= 0 || !has(held.altDrag, "ready"))
+                    return false;
+                focusTab(held.altDrag);
+                const a = v.term.mapToItem(null, 20, 20);
+                const b = v.term.mapToItem(null, 220, 20);
+                Probe.drag(shell, a.x, a.y, b.x, b.y, Qt.LeftButton, Qt.NoModifier);
+            }
+        },
+        {
+            "name": "drag tracking received",
+            "fn": () => {
+                const got = held.altDrag.session.ext.history;
+                if (got.indexOf("^[[<32;") < 0)
+                    return false;
+                expect(got.indexOf("^[[<0;") >= 0, "no press before the drag: " + got);
+                // Asks for the cell size (CSI 16 t) once the view has sized the session: a key.
+                held.pixels = open("pixels", "stty -icanon -echo; printf ready; read -r -n 1 _; printf '\\033[16t'; exec cat -v");
                 focusTab(held.scroll); // the autoscroll steps drag over it
+            }
+        },
+        // Image tools (chafa, sixel, the kitty protocol) size their output by the cell size the
+        // terminal reports: the view's font, not a fixed 8×16.
+        {
+            "name": "pixel size report",
+            "fn": () => {
+                const v = view(held.pixels);
+                if (!v || !v.term || v.term.lines <= 0 || !has(held.pixels, "ready"))
+                    return false;
+                held.pixels.session.ext.sendText("x");
+            }
+        },
+        {
+            "name": "pixel size report received",
+            "fn": () => {
+                const got = held.pixels.session.ext.history;
+                if (got.indexOf("^[[6;") < 0)
+                    return false;
+                const v = view(held.pixels);
+                const want = "^[[6;" + Math.floor(v.term.cellHeight) + ";" + Math.floor(v.term.cellWidth) + "t";
+                expect(got.indexOf(want) >= 0, "the cell size report is not the view's (" + want + "): " + got);
             }
         },
         // Dragging a selection above the rows scrolls the scrollback under it until the button
