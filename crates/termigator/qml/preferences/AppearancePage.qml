@@ -10,7 +10,7 @@ PrefPage {
 
     // Windows has no Konsole profile: an empty font / size / scheme means Termigator's own defaults.
     // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
-    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
+    readonly property PrefWindow prefsWindow: Window.window as PrefWindow
     readonly property bool windows: Qt.platform.os === "windows"
 
     // Fixed-pitch families and colour scheme names, listed by the dialog.

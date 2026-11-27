@@ -43,6 +43,7 @@ const QML_FILES: &[&str] = &[
     "qml/shell/LookCheck.qml",
     "qml/shell/ShowcaseCheck.qml",
     "qml/shell/ThemeSwitchCheck.qml",
+    "qml/preferences/PrefWindow.qml",
     "qml/preferences/PreferencesDialog.qml",
     "qml/preferences/PrefPage.qml",
     "qml/preferences/PrefHint.qml",

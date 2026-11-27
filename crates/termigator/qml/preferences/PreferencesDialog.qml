@@ -13,19 +13,16 @@ import Termigator
 // and emits `applied`, after which the owner saves it (`controller.persist()`, which emits
 // `configChanged`) and applies what concerns the shell. Terminal tabs re-read the `launch`
 // keys on `configChanged`. The dialog registers its own action handler on creation.
-Window {
+// draft, dirty, edit() and ok() come from PrefWindow, the type the pages and controls see.
+PrefWindow {
     id: dlg
 
     // The main window (ShellWindow.qml): `controller`, `shellActions`.
     required property var shell
-    property var draft: ({})
-    // Apply is enabled by any edit, even one that is changed back.
-    property bool dirty: false
     property var fonts: []
     property var schemes: []
     property var styles: []
     property string runningStyle
-    readonly property alias controller: prefs
     readonly property alias applyButton: applyButton
     readonly property alias okButton: okButton
     readonly property alias restoreButton: restoreButton
@@ -37,13 +34,6 @@ Window {
     function reload() {
         draft = JSON.parse(prefs.load());
         dirty = false;
-    }
-
-    function edit(key, value) {
-        draft = Object.assign({}, draft, {
-            [key]: value
-        });
-        dirty = true;
     }
 
     // Puts every page back to the defaults; nothing is stored until OK or Apply.
@@ -64,11 +54,6 @@ Window {
         }
     }
 
-    function ok() {
-        if (dirty)
-            apply();
-        close();
-    }
 
     // Grow to the shown page's height so it fits without scrolling, within the screen; only the
     // shown page has a laid-out form (StackLayout leaves the others unpolished), so this runs on
@@ -95,7 +80,13 @@ Window {
         requestActivate();
     }
 
+    controller: prefs
     title: qsTr("Configure Termigator")
+    onOkRequested: {
+        if (dirty)
+            apply();
+        close();
+    }
     width: 720
     height: 480
     minimumWidth: 720

@@ -9,7 +9,7 @@ QQC2.CheckBox {
 
     required property string key
     // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
-    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
+    readonly property PrefWindow prefsWindow: Window.window as PrefWindow
     property string tip
     readonly property var draft: prefsWindow ? prefsWindow.draft : ({})
 

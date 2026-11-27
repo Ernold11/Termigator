@@ -11,7 +11,7 @@ Item {
     id: page
 
     // The settings window these controls live in, typed so qmllint checks draft / edit() / ok().
-    readonly property PreferencesDialog prefsWindow: Window.window as PreferencesDialog
+    readonly property PrefWindow prefsWindow: Window.window as PrefWindow
     property var draft: prefsWindow ? prefsWindow.draft : ({})
     readonly property var environments: draft.environments || []
     property int colorIndex: -1
