@@ -25,6 +25,7 @@ window:
   list_width: 360
 launch:
   shell_executable: /bin/bash
+  background_opacity: 100 # opaque, whatever the Konsole scheme says: the shots show no wallpaper
 favorites:
   - {label: local shell, command: bash, terminal: embedded}
 YAML
