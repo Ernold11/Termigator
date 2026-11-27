@@ -3,7 +3,7 @@
 All notable changes to Termigator. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.4.0] - 2026-11-27
 
 ### Embedded terminal
 
@@ -11,6 +11,9 @@ versions follow [Semantic Versioning](https://semver.org/).
   *Blur what shows through* (KDE). Only the terminal's default background lets the desktop show; text,
   coloured cells, tabs, toolbars and the side panel stay solid. Without a setting, the Konsole colour
   scheme's `Opacity` / `Blur` apply. One setting for every tab and detached window.
+- Full-screen programs stay on the cell grid: a coloured blank cell (mc's panels) no longer shifts the
+  rest of its row left, and box drawing and block elements are drawn as shapes, so frames meet their
+  corners (k9s) whatever the font has.
 
 ### Window
 
