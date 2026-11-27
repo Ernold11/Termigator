@@ -1039,19 +1039,29 @@ void GhosttyTerminalItem::paint(QPainter *painter)
                 painter->restore();
                 continue;
             }
+            // A blank cell (no text, as mc's coloured ED/ECH panels, or a space) ends the run: the
+            // next glyph starts on its own cell, whatever a space advances in the font (a missing
+            // family falls back to a proportional one). Only its underline / strikethrough is drawn.
+            if (cell.text.isEmpty() || cell.text == QLatin1String(" ")) {
+                flush();
+                painter->setPen(fg);
+                if (flags & (1 << 8)) // underline
+                    painter->drawLine(QPointF(rect.left(), rect.bottom() - 1),
+                                      QPointF(rect.right(), rect.bottom() - 1));
+                if (flags & (1 << 6)) // strikethrough
+                    painter->drawLine(QPointF(rect.left(), rect.center().y()),
+                                      QPointF(rect.right(), rect.center().y()));
+                continue;
+            }
             // Monospace runs: one drawText for consecutive cells with the same pen and style.
-            // A cell with a background but no text (ED/ECH with a colour, as mc paints its
-            // panels) stands for spaces, or the glyphs after it shift left into its columns.
-            const QString text =
-                cell.text.isEmpty() ? QString(cell.width, QLatin1Char(' ')) : cell.text;
             if (runActive && cell.x == runX + runWidth && fg == runFg && flags == runFlags) {
-                runText += text;
+                runText += cell.text;
                 runWidth += cell.width;
             } else {
                 flush();
                 runX = cell.x;
                 runWidth = cell.width;
-                runText = text;
+                runText = cell.text;
                 runFg = fg;
                 runFlags = flags;
                 runActive = true;
