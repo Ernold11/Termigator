@@ -25,6 +25,10 @@ versions follow [Semantic Versioning](https://semver.org/).
   too. Hiding the toolbar shows the menu bar, so the menus stay reachable.
 - **MultiExec** moved to `Ctrl+Alt+M` (`Ctrl+Shift+M` now shows the menu bar).
 - Windows: a lone `Alt` also shows the menu bar with its first menu open, as in Windows applications.
+- The status bar is slimmer and hides with the side panel it describes. It shows the summary of the side
+  tab in front: the host list, or the Files panel's status line (which no longer takes a line of the
+  panel). Its right corner shows the version: *up to date*, or *Termigator X is available* with a link to
+  the release page (from the last update check).
 - The tray icon's menu no longer tries to open at start (a warning on Wayland).
 - The main window loads again with Qt 6.10 (a type cycle in the settings dialog stopped it).
 

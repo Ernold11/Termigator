@@ -12,6 +12,9 @@ Kirigami.InlineMessage {
     property string version
     property string url
 
+    // An answer came (the status bar re-reads what it found).
+    signal checked
+
     function start() {
         const target = appController.updateCheckUrl();
         if (target === "")
@@ -24,6 +27,7 @@ Kirigami.InlineMessage {
             // The status is not looked at: an error body (404 while the repository is private,
             // a captive portal page) is simply not a newer release.
             const found = appController.updateCheckResult(xhr.responseText);
+            banner.checked();
             if (found === "")
                 return;
             const r = JSON.parse(found);

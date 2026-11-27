@@ -56,9 +56,9 @@ pub fn is_newer(candidate: &str, current: &str) -> bool {
     }
 }
 
-/// The release in a `releases/latest` answer when it is newer than `current` and not `skipped`.
-/// Bad JSON, an error object (404 while the repository is private) or a draft give `None`.
-pub fn newer_release(body: &str, current: &str, skipped: &str) -> Option<Release> {
+/// The release in a `releases/latest` answer. Bad JSON, an error object (404 while the repository
+/// is private), a draft, a pre-release or a page outside github.com give `None`.
+pub fn latest_release(body: &str) -> Option<Release> {
     let v: J = serde_json::from_str(body).ok()?;
     if v.get("draft").and_then(J::as_bool) == Some(true)
         || v.get("prerelease").and_then(J::as_bool) == Some(true)
@@ -67,15 +67,19 @@ pub fn newer_release(body: &str, current: &str, skipped: &str) -> Option<Release
     }
     let tag = v.get("tag_name")?.as_str()?;
     let version = tag.trim().trim_start_matches(['v', 'V']).to_owned();
-    if !is_newer(&version, current) || version == skipped.trim_start_matches(['v', 'V']) {
-        return None;
-    }
     let url = v
         .get("html_url")
         .and_then(J::as_str)
         .filter(|u| u.starts_with("https://github.com/"))?
         .to_owned();
     Some(Release { version, url })
+}
+
+/// [`latest_release`] when it is newer than `current` and not `skipped`.
+pub fn newer_release(body: &str, current: &str, skipped: &str) -> Option<Release> {
+    latest_release(body).filter(|r| {
+        is_newer(&r.version, current) && r.version != skipped.trim_start_matches(['v', 'V'])
+    })
 }
 
 /// What `update-check.json` holds.
@@ -85,6 +89,8 @@ pub struct State {
     pub checked_at: u64,
     /// A version the user dismissed: not shown again.
     pub skipped: String,
+    /// The latest release the last successful check found (the status bar shows it between checks).
+    pub latest: Option<Release>,
 }
 
 impl State {
@@ -101,11 +107,27 @@ impl State {
                 .and_then(J::as_str)
                 .unwrap_or("")
                 .to_owned(),
+            latest: v.get("latest").and_then(|l| {
+                Some(Release {
+                    version: l.get("version")?.as_str()?.to_owned(),
+                    url: l
+                        .get("url")?
+                        .as_str()
+                        .filter(|u| u.starts_with("https://github.com/"))?
+                        .to_owned(),
+                })
+            }),
         }
     }
 
     pub fn save(&self, dir: &Path) -> std::io::Result<()> {
-        let text = json!({"checked_at": self.checked_at, "skipped": self.skipped}).to_string();
+        let latest = self
+            .latest
+            .as_ref()
+            .map(|r| json!({"version": r.version, "url": r.url}));
+        let text =
+            json!({"checked_at": self.checked_at, "skipped": self.skipped, "latest": latest})
+                .to_string();
         write_atomic(&dir.join(STATE_FILE), &format!("{text}\n"))
     }
 
@@ -180,12 +202,26 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("tg-update-{}", std::process::id()));
         std::fs::create_dir_all(&dir).expect("dir");
         assert_eq!(State::load(&dir), State::default());
-        let s = State {
+        let mut s = State {
             checked_at: 1_000_000,
             skipped: "0.1.4".into(),
+            latest: None,
         };
         s.save(&dir).expect("save");
         assert_eq!(State::load(&dir), s);
+        s.latest = Some(Release {
+            version: "0.5.0".into(),
+            url: "https://github.com/x/y/releases/tag/v0.5.0".into(),
+        });
+        s.save(&dir).expect("save");
+        assert_eq!(State::load(&dir), s);
+        // A stored page outside github.com is dropped, as in an answer.
+        std::fs::write(
+            dir.join(STATE_FILE),
+            r#"{"checked_at": 1, "latest": {"version": "9.0", "url": "https://evil.example/x"}}"#,
+        )
+        .expect("write");
+        assert_eq!(State::load(&dir).latest, None);
         assert!(!s.due(1_000_000 + INTERVAL_SECS - 1));
         assert!(s.due(1_000_000 + INTERVAL_SECS));
         assert!(s.due(999_999)); // clock went back

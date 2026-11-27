@@ -124,6 +124,7 @@ Item {
         id: panelComponent
 
         FilesPanel {
+            statusInFooter: true
             onLocalFollowRequested: side.followLocal()
         }
     }

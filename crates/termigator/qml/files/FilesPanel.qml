@@ -21,6 +21,8 @@ FocusScope {
     required property var transfers
     readonly property var shell: session.host.shell
     property bool twoPane: false
+    // In the side dock the window's status bar shows the status line instead (ShellWindow).
+    property bool statusInFooter: false
     // A local shell is in front: only this machine's folder, no host (FilesSidePanel.qml).
     property bool localMode: false
     // "Follow terminal folder": the last folder the terminal reported, and whether following is
@@ -649,6 +651,7 @@ FocusScope {
             id: statusLabel
 
             objectName: "filesStatus"
+            visible: !filesRoot.statusInFooter
             Layout.fillWidth: true
             readOnly: true
             selectByMouse: true

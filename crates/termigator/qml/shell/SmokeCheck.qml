@@ -148,10 +148,15 @@ Item {
         // Ctrl+Shift+B and F11 as key presses.
         () => {
             shell.requestActivate();
+            // The status bar: compact (small text, little padding), and it goes with the side panel.
+            const summary = shell.footer.contentItem.children[0];
+            expect(shell.footer.visible && shell.footer.height <= Math.ceil(summary.implicitHeight) + 4, "status bar height " + shell.footer.height + " for text " + summary.implicitHeight);
             press(Qt.Key_B, Qt.ControlModifier | Qt.ShiftModifier);
             expect(!shell.sidebarVisible && !actionOf("view.sidebar").checked, "sidebar hidden");
+            expect(!shell.footer.visible, "status bar shown without the side panel");
             press(Qt.Key_B, Qt.ControlModifier | Qt.ShiftModifier);
             expect(shell.sidebarVisible && actionOf("view.sidebar").checked, "sidebar back");
+            expect(shell.footer.visible, "status bar back with the side panel");
             press(Qt.Key_F11, Qt.NoModifier);
         },
         () => {

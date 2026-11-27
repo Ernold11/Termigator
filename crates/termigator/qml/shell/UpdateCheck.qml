@@ -38,9 +38,9 @@ Item {
             ticks++;
             const b = check.shell.updates;
             if (!check.checking) {
-                if (b.version !== "") {
+                if (b.version !== "" || check.shell.updateStatus.latest !== "") {
                     running = false;
-                    check.fail("banner shown although check_updates is off: " + b.version);
+                    check.fail("update shown although check_updates is off: " + b.version);
                 } else if (ticks > 30) { // 6 s: well past the 3 s start delay
                     console.log("update: none");
                     Qt.exit(0);
@@ -54,6 +54,10 @@ Item {
                 return check.fail("wrong release " + b.version + " " + b.url);
             if (!b.visible)
                 return check.fail("banner not visible");
+            // The status bar's corner offers it too, linked to its page.
+            const st = check.shell.updateStatus;
+            if (!st.newer || st.latest !== "9.9.9" || st.url !== b.url)
+                return check.fail("status bar " + JSON.stringify(st));
             console.log("update: shown " + b.version);
             // A picture of the banner for a look (tests keep it next to the config).
             check.shell.contentArea.grabToImage(result => {

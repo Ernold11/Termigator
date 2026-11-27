@@ -167,6 +167,11 @@ pub mod qobject {
         #[qinvokable]
         fn skip_update(self: &AppController, version: &QString);
 
+        /// The status bar's corner: `{"current", "latest", "url", "newer"}` from the last
+        /// successful check (`latest` "" before any, or with the check turned off).
+        #[qinvokable]
+        fn update_status(self: &AppController) -> QString;
+
         /// On exit: window size and sidebar width (and `last_session` dropped unless
         /// `session_restore`); a failed write never blocks closing.
         #[qinvokable]
@@ -536,13 +541,42 @@ impl qobject::AppController {
     }
 
     fn update_check_result(&self, body: &QString) -> QString {
-        let skipped = with_app(|app| update_check::State::load(&app.paths.config_dir).skipped);
-        let found =
-            update_check::newer_release(&body.to_string(), env!("CARGO_PKG_VERSION"), &skipped);
+        let body = body.to_string();
+        let skipped = with_app(|app| {
+            let dir = &app.paths.config_dir;
+            let mut state = update_check::State::load(dir);
+            if let Some(latest) = update_check::latest_release(&body) {
+                state.latest = Some(latest);
+                if let Err(e) = state.save(dir) {
+                    eprintln!(
+                        "termigator: update check: cannot save {}: {e}",
+                        update_check::STATE_FILE
+                    );
+                }
+            }
+            state.skipped
+        });
+        let found = update_check::newer_release(&body, env!("CARGO_PKG_VERSION"), &skipped);
         QString::from(
             found
                 .map(|r| json!({"version": r.version, "url": r.url}).to_string())
                 .unwrap_or_default()
+                .as_str(),
+        )
+    }
+
+    fn update_status(&self) -> QString {
+        let current = env!("CARGO_PKG_VERSION");
+        let latest = with_app(|app| {
+            window_bool(&app.cfg, "check_updates", true)
+                .then(|| update_check::State::load(&app.paths.config_dir).latest)
+                .flatten()
+        });
+        let (version, url) = latest.map_or((String::new(), String::new()), |r| (r.version, r.url));
+        let newer = update_check::is_newer(&version, current);
+        QString::from(
+            json!({"current": current, "latest": version, "url": url, "newer": newer})
+                .to_string()
                 .as_str(),
         )
     }

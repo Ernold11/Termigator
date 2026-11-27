@@ -196,6 +196,8 @@ Item {
                 const n = names().join(",");
                 expect(n === "..,ro,sub,.hidden,a.txt,big.bin,link", "rows " + n);
                 expect(files.status === "box · " + remote + " — 6 shown (6 total, 2 dir(s))", "status " + files.status);
+                // In the side dock the window's status bar carries the line, not the panel.
+                expect(shell.sideTabBar.currentIndex === 1 && shell.sideStatus === files.status && !find("filesStatus", panel).visible, "status bar " + shell.sideStatus);
                 expect(panel.pathField.text === remote, "path bar " + panel.pathField.text);
                 const a = itemAt("a.txt");
                 expect(a.sizeText === "6 B" && a.mode.startsWith("-rw") && a.mtime !== "" && a.owner.indexOf(":") > 0, "a.txt " + a.sizeText + " " + a.mode + " " + a.owner);

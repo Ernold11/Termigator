@@ -345,17 +345,67 @@ QQC2.ApplicationWindow {
         onQuickConnectFailed: message => root.notify(message)
     }
 
+    // The status bar: the summary of the side dock's tab in front (the host list, or the Files
+    // panel's status line) and, in the corner, this version against the latest release the last
+    // check found (a click opens its page). It goes with the side panel.
+    readonly property string sideStatus: sideTabs.currentIndex === 1 ? (filesLoader.item && filesLoader.item.session ? filesLoader.item.session.files.status : "") : listSummary
+    property var updateStatus: JSON.parse(appController.updateStatus())
+
     footer: QQC2.ToolBar {
         position: QQC2.ToolBar.Footer
+        visible: root.sidebarVisible
+        // The text's height, not the style's toolbar height (a status bar, not a toolbar).
+        implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+        topPadding: 1
+        bottomPadding: 1
+        leftPadding: Kirigami.Units.smallSpacing
+        rightPadding: Kirigami.Units.smallSpacing
 
-        QQC2.Label {
-            id: statusLabel
+        contentItem: RowLayout {
+            spacing: Kirigami.Units.largeSpacing
 
-            anchors.fill: parent
-            text: root.statusMessage !== "" ? root.statusMessage : root.listSummary
-            elide: Text.ElideRight
-            verticalAlignment: Text.AlignVCenter
-            Accessible.name: qsTr("List summary")
+            QQC2.Label {
+                id: statusLabel
+
+                Layout.fillWidth: true
+                text: root.statusMessage !== "" ? root.statusMessage : root.sideStatus
+                elide: Text.ElideRight
+                Accessible.name: qsTr("Status")
+                // An elided error still reads in full.
+                QQC2.ToolTip.visible: truncated && summaryHover.hovered
+                QQC2.ToolTip.text: text
+
+                HoverHandler {
+                    id: summaryHover
+                }
+            }
+
+            QQC2.Label {
+                id: versionStatus
+
+                readonly property var st: root.updateStatus
+                readonly property bool linked: st.url !== ""
+
+                objectName: "updateStatus"
+                text: st.newer ? qsTr("Termigator %1 is available").arg(st.latest) : st.latest !== "" ? qsTr("Termigator %1 · up to date").arg(st.current) : qsTr("Termigator %1").arg(st.current)
+                color: st.newer ? Kirigami.Theme.linkColor : Kirigami.Theme.disabledTextColor
+                font.underline: linked && versionHover.hovered
+                Accessible.role: linked ? Accessible.Link : Accessible.StaticText
+                Accessible.name: text
+                QQC2.ToolTip.visible: linked && versionHover.hovered
+                QQC2.ToolTip.text: qsTr("Open the release page")
+                QQC2.ToolTip.delay: 700
+
+                HoverHandler {
+                    id: versionHover
+
+                    cursorShape: versionStatus.linked ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+                TapHandler {
+                    enabled: versionStatus.linked
+                    onTapped: Qt.openUrlExternally(versionStatus.st.url)
+                }
+            }
         }
     }
 
@@ -447,6 +497,7 @@ QQC2.ApplicationWindow {
                     id: updateBanner
 
                     Layout.fillWidth: true
+                    onChecked: root.updateStatus = JSON.parse(appController.updateStatus())
                 }
 
                 // MultiExec banner above the terminals while it is on.
@@ -514,6 +565,7 @@ QQC2.ApplicationWindow {
 
         function onConfigChanged() {
             root.terminalBackground = JSON.parse(appController.terminalBackgroundJson());
+            root.updateStatus = JSON.parse(appController.updateStatus());
         }
 
         function onRemoteCommand(command) {
@@ -627,6 +679,7 @@ QQC2.ApplicationWindow {
         onButtonClicked: {
             appController.setWindowBool("check_updates", checked);
             appController.persist();
+            root.updateStatus = JSON.parse(appController.updateStatus());
             updateTimer.start();
         }
     }

@@ -32,6 +32,11 @@ fn newer_release_shows_the_banner_and_skip_is_remembered() {
     assert!(log.contains("update: checkbox ok"), "{log}");
     let state = std::fs::read_to_string(config.join("update-check.json")).expect("state");
     assert!(state.contains(r#""skipped":"9.9.9""#), "{state}");
+    // The status bar shows the latest release between checks.
+    assert!(
+        state.contains(r#""latest":{"#) && state.contains(r#""version":"9.9.9""#),
+        "{state}"
+    );
 }
 
 #[test]
