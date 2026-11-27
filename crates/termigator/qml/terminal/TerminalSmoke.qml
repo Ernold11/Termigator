@@ -131,6 +131,17 @@ Item {
                 expect(t.session.core.isRunning() && t.live && shell.liveSessions === 1, "not running / live");
                 expect(v.term !== null && v.term.colorScheme !== "" && v.term.font.family === t.session.fontFamily, "look not applied");
                 expect(v.term.font.pointSize === t.session.fontSize && t.session.fontSize >= 1, "font size");
+                // Preferences → Terminal background: the look's opacity reaches the view; at
+                // 100 % the window stays opaque.
+                expect(v.term.backgroundOpacity === t.session.look.opacity && t.session.look.opacity === 1 && !shell.seeThrough && shell.color.a === 1, "background " + v.term.backgroundOpacity + " " + shell.seeThrough);
+                v.term.backgroundOpacity = 0.7;
+                expect(Math.abs(v.term.backgroundOpacity - 0.7) < 1e-6, "opacity not set");
+                // The padding's see-through background lies beside the terminal, never under it
+                // (two layers would be more opaque than the padding).
+                const left = find("termPadLeft", v), right = find("termPadRight", v);
+                const termX = v.term.mapToItem(left.parent, 0, 0).x;
+                expect(left && right && Math.abs(left.color.a - 0.7) < 0.01 && left.x + left.width <= termX + 0.5 && right.x >= termX + v.term.width - 0.5, "padding under the terminal " + JSON.stringify([left.x, left.width, termX, v.term.width, right.x]));
+                v.term.backgroundOpacity = t.session.look.opacity;
                 expect(t.iconName === "" && t.toolTip === "", "icon / tip " + t.iconName);
                 v.term.forceActiveFocus();
                 type("abc");

@@ -152,6 +152,22 @@ FocusScope {
             area.setActive(paneId);
     }
 
+    // Own backgrounds for the tab bar and an empty pane: the window is transparent while the
+    // terminals are see-through (Preferences → Terminal).
+    Rectangle {
+        x: barRow.x
+        y: barRow.y
+        width: barRow.width
+        height: barRow.height
+        visible: barRow.visible
+        color: Kirigami.Theme.backgroundColor
+    }
+    Rectangle {
+        anchors.fill: parent
+        visible: view.tabIds.length === 0
+        color: Kirigami.Theme.backgroundColor
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0

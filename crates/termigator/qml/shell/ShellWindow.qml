@@ -43,6 +43,9 @@ import Termigator
 //   listSummary                  sidebar: the status-bar summary of the host list
 //   shuttingDown()               the window is closing for good: snapshot, stop jobs
 //   notify(text)                 a success message in the status bar for 6 s
+//   terminalBackground           {opacity, blur} of Settings → Appearance; seeThrough: below 100 %,
+//                                the window is transparent and only the terminals let it show (they
+//                                also ask KWin for the blur, for whichever window they are in)
 QQC2.ApplicationWindow {
     id: root
 
@@ -101,6 +104,10 @@ QQC2.ApplicationWindow {
     // One of the two always shows, or the menus could not be reached.
     property bool menubarVisible: appController.windowBool("menubar", false)
     property bool sidebarVisible: true
+    // termigator_core::terminal_background, re-read after every save. While the terminals are
+    // see-through the window is transparent: everything else paints its own background.
+    property var terminalBackground: JSON.parse(appController.terminalBackgroundJson())
+    readonly property bool seeThrough: terminalBackground.opacity < 1
     // The side dock can narrow far (the Files toolbar hides icons behind its » button), and the
     // window still leaves the panes their 360 px minimum plus the splitter handle.
     readonly property real sideMinimumWidth: Math.max(140, filesLoader.item ? filesLoader.item.minimumPanelWidth : 0)
@@ -275,6 +282,7 @@ QQC2.ApplicationWindow {
     }
 
     title: "Termigator"
+    color: seeThrough ? "transparent" : palette.window
     onXChanged: noteGeometry()
     onYChanged: noteGeometry()
     onWidthChanged: noteGeometry()
@@ -336,73 +344,90 @@ QQC2.ApplicationWindow {
         handle: SplitGrip {}
 
         // Hosts (session tree) and Files (remote browser of the active SSH tab).
-        ColumnLayout {
+        // Its own background: the window is transparent while the terminals are see-through.
+        Rectangle {
             id: side
 
             visible: root.sidebarVisible
-            spacing: 0
+            color: Kirigami.Theme.backgroundColor
             QQC2.SplitView.minimumWidth: root.sideMinimumWidth
             QQC2.SplitView.preferredWidth: {
                 const lw = appController.windowInt("list_width", 0);
                 return lw > 0 ? lw : 280;
             }
 
-            QQC2.TabBar {
-                id: sideTabs
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 0
 
-                Layout.fillWidth: true
+                QQC2.TabBar {
+                    id: sideTabs
 
-                // The two tabs share the dock's width equally.
-                QQC2.TabButton {
-                    width: sideTabs.width / 2
-                    text: qsTr("Hosts")
+                    Layout.fillWidth: true
+
+                    // The two tabs share the dock's width equally.
+                    QQC2.TabButton {
+                        width: sideTabs.width / 2
+                        text: qsTr("Hosts")
+                    }
+                    QQC2.TabButton {
+                        width: sideTabs.width / 2
+                        text: qsTr("Files")
+                    }
                 }
-                QQC2.TabButton {
-                    width: sideTabs.width / 2
-                    text: qsTr("Files")
-                }
-            }
 
-            StackLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                currentIndex: sideTabs.currentIndex
+                StackLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    currentIndex: sideTabs.currentIndex
 
-                Loader {
-                    sourceComponent: root.hostsPanel
-                }
-                Loader {
-                    id: filesLoader
+                    Loader {
+                        sourceComponent: root.hostsPanel
+                    }
+                    Loader {
+                        id: filesLoader
 
-                    sourceComponent: root.filesPanel
+                        sourceComponent: root.filesPanel
+                    }
                 }
             }
         }
 
-        ColumnLayout {
-            spacing: 0
+        Item {
             QQC2.SplitView.fillWidth: true
             QQC2.SplitView.minimumWidth: root.contentMinimumWidth
 
-            // A newer release on GitHub (window.check_updates).
-            UpdateBanner {
-                id: updateBanner
-
-                Layout.fillWidth: true
+            // Behind the banners, which are tinted, not opaque.
+            Rectangle {
+                width: parent.width
+                height: panesLoader.y
+                color: Kirigami.Theme.backgroundColor
             }
 
-            // MultiExec banner above the terminals while it is on.
-            MultiExecBanner {
-                Layout.fillWidth: true
-                shell: root
-            }
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 0
 
-            Loader {
-                id: panesLoader
+                // A newer release on GitHub (window.check_updates).
+                UpdateBanner {
+                    id: updateBanner
 
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                sourceComponent: root.panesComponent
+                    Layout.fillWidth: true
+                }
+
+                // MultiExec banner above the terminals while it is on.
+                MultiExecBanner {
+                    Layout.fillWidth: true
+                    shell: root
+                }
+
+                Loader {
+                    id: panesLoader
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    sourceComponent: root.panesComponent
+                }
             }
         }
     }
@@ -452,6 +477,10 @@ QQC2.ApplicationWindow {
 
     Connections {
         target: appController
+
+        function onConfigChanged() {
+            root.terminalBackground = JSON.parse(appController.terminalBackgroundJson());
+        }
 
         function onRemoteCommand(command) {
             if (command === "toggle" && root.visible && root.visibility !== Window.Minimized && root.active)

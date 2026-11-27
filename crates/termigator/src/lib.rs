@@ -202,6 +202,9 @@ pub fn run() -> ExitCode {
     // events to the tabs. Konsole's colour scheme directories are scanned by `termigator-core`.
     shell_qobj::hand_over(startup);
     termigator_term_bridge::register_ghostty_types();
+    // A see-through terminal background (Preferences → Terminal) needs windows with alpha; set
+    // before the first window so the setting can change without a restart.
+    termigator_term_bridge::enable_alpha_windows();
     trace("controller handed over + terminal types registered");
     terminal_qobj::install_router();
     if std::env::var_os(SMOKE_TEST_ENV).is_some_and(|v| v != OsString::new()) {

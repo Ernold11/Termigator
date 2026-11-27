@@ -285,10 +285,23 @@ FocusScope {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            // The padding shows the terminal's own background, in every colour scheme.
+            // The padding beside the terminal shows its background, in every colour scheme, and as
+            // see-through as it (Preferences → Terminal). Only beside it: the terminal paints its
+            // own, and two see-through layers would be more opaque than the padding.
+            readonly property color padColor: view.term ? Qt.alpha(view.term.fillColor, view.term.backgroundOpacity) : "transparent"
+
             Rectangle {
-                anchors.fill: parent
-                color: view.term ? view.term.fillColor : "transparent"
+                objectName: "termPadLeft"
+                width: screen.textPad
+                height: parent.height
+                color: screen.padColor
+            }
+            Rectangle {
+                objectName: "termPadRight"
+                anchors.right: parent.right
+                width: thumb.width
+                height: parent.height
+                color: screen.padColor
             }
 
             Loader {
@@ -423,6 +436,8 @@ FocusScope {
             copyOnSelect: view.session.look.copy_on_select
             pasteOnRightClick: view.session.look.paste_on_right_click
             pasteOnMiddleClick: view.session.look.paste_on_middle_click
+            backgroundOpacity: view.session.look.opacity ?? 1
+            blurBehind: (view.session.look.blur ?? false) && backgroundOpacity < 1
             focus: true
             Accessible.role: Accessible.Terminal
             Accessible.name: view.tab.text

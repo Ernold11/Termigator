@@ -43,6 +43,7 @@ mod ffi {
         include!("termigator-term-bridge/src/multiexec.h");
         include!("termigator-term-bridge/src/probe.h");
         include!("termigator-term-bridge/src/kde.h");
+        include!("termigator-term-bridge/src/window_effects.h");
         include!("termigator-term-bridge/src/terminal_item.h");
         include!("termigator-term-bridge/src/ghostty_session.h");
 
@@ -92,6 +93,11 @@ mod ffi {
         /// becomes the startup id). An empty token does nothing. GUI thread only.
         #[rust_name = "set_activation_token"]
         fn setActivationToken(token: &str);
+
+        /// Every window gets an alpha channel (a see-through terminal background); call before
+        /// the first window is created. GUI thread only.
+        #[rust_name = "enable_alpha_windows"]
+        fn enableAlphaWindows();
     }
 
     extern "Rust" {
@@ -185,8 +191,8 @@ mod ffi {
 }
 
 pub use ffi::{
-    register_ghostty_types, register_probe_types, register_spike_types, set_activation_token,
-    set_multiexec_targets,
+    enable_alpha_windows, register_ghostty_types, register_probe_types, register_spike_types,
+    set_activation_token, set_multiexec_targets,
 };
 
 fn paste_is_safe(text: &str) -> bool {

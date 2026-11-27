@@ -47,6 +47,12 @@ class GhosttyTerminalItem : public QQuickPaintedItem
     Q_PROPERTY(bool pasteOnRightClick READ pasteOnRightClick WRITE setPasteOnRightClick NOTIFY pasteOnRightClickChanged)
     Q_PROPERTY(bool pasteOnMiddleClick READ pasteOnMiddleClick WRITE setPasteOnMiddleClick NOTIFY pasteOnMiddleClickChanged)
     Q_PROPERTY(QColor fillColor READ fillColor NOTIFY fillColorChanged)
+    // 0.3..1: the default background's alpha (termigator_core::terminal_background); coloured
+    // cells, the selection, the cursor and the text stay solid, as in Konsole.
+    Q_PROPERTY(qreal backgroundOpacity READ backgroundOpacity WRITE setBackgroundOpacity NOTIFY backgroundOpacityChanged)
+    // KWin blurs what shows through the window this view is in (its last view's value wins; every
+    // view gets the same setting).
+    Q_PROPERTY(bool blurBehind READ blurBehind WRITE setBlurBehind NOTIFY blurBehindChanged)
     Q_PROPERTY(int lines READ lines NOTIFY linesChanged)
     Q_PROPERTY(QStringList availableColorSchemes READ availableColorSchemes CONSTANT)
 
@@ -80,6 +86,10 @@ public:
     bool pasteOnRightClick() const { return m_pasteOnRightClick; }
     void setPasteOnRightClick(bool paste);
     bool pasteOnMiddleClick() const { return m_pasteOnMiddleClick; }
+    qreal backgroundOpacity() const { return m_backgroundOpacity; }
+    void setBackgroundOpacity(qreal opacity);
+    bool blurBehind() const { return m_blurBehind; }
+    void setBlurBehind(bool blur);
     void setPasteOnMiddleClick(bool paste);
     QColor fillColor() const { return m_bg; }
     int lines() const { return m_rows; }
@@ -112,6 +122,7 @@ protected:
     void focusInEvent(QFocusEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
+    void itemChange(ItemChange change, const ItemChangeData &data) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
@@ -132,6 +143,8 @@ signals:
     void confirmMultilinePasteChanged();
     void pasteOnRightClickChanged();
     void pasteOnMiddleClickChanged();
+    void backgroundOpacityChanged();
+    void blurBehindChanged();
     void fillColorChanged();
     void linesChanged();
     void searchResult(bool found);
@@ -204,6 +217,8 @@ private:
     bool m_confirmMultilinePaste = true;
     bool m_pasteOnRightClick = false;
     bool m_pasteOnMiddleClick = true;
+    qreal m_backgroundOpacity = 1.0;
+    bool m_blurBehind = false;
     QString m_preedit;
     bool m_selecting = false;
     // The cell a drag selection started at; y is a screen row (0 = the oldest scrollback row),

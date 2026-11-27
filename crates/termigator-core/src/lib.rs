@@ -25,6 +25,7 @@ pub mod remote;
 pub mod session_state;
 pub mod shell;
 pub mod single_instance;
+pub mod terminal_background;
 pub mod text;
 pub mod update_check;
 pub mod vault;

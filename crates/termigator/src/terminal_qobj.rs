@@ -387,6 +387,8 @@ pub fn look_json(
     let konsole = default_appearance(xdg);
     let family = text_opt(own("font_family")).or(konsole.font_family.clone());
     let scheme = text_opt(own("color_scheme")).or(konsole.color_scheme.clone());
+    // One setting for every tab (not the entry's own scheme): termigator_core::terminal_background.
+    let background = termigator_core::terminal_background::configured(lo, xdg);
     json!({
         "history": history,
         "family": pick_terminal_font(family.as_deref(), installed),
@@ -399,6 +401,8 @@ pub fn look_json(
         "paste_on_right_click": opt_bool(lo, "paste_on_right_click", false),
         "paste_on_middle_click": opt_bool(lo, "paste_on_middle_click", true),
         "attention": opt_bool(lo, "tab_attention_marks", true),
+        "opacity": background.opacity as f64 / 100.0,
+        "blur": background.blur,
     })
 }
 

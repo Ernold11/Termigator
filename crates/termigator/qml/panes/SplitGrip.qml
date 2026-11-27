@@ -11,7 +11,8 @@ Rectangle {
 
     implicitWidth: horizontal ? 8 : 0
     implicitHeight: horizontal ? 0 : 8
-    color: QQC2.SplitHandle.pressed ? Kirigami.Theme.highlightColor : QQC2.SplitHandle.hovered ? Qt.alpha(Kirigami.Theme.highlightColor, 0.45) : "transparent"
+    // Opaque: the window is transparent while the terminals are see-through.
+    color: QQC2.SplitHandle.pressed ? Kirigami.Theme.highlightColor : QQC2.SplitHandle.hovered ? Qt.tint(Kirigami.Theme.backgroundColor, Qt.alpha(Kirigami.Theme.highlightColor, 0.45)) : Kirigami.Theme.backgroundColor
 
     Rectangle {
         anchors.centerIn: parent

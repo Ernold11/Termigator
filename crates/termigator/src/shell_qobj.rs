@@ -132,6 +132,11 @@ pub mod qobject {
         #[qinvokable]
         fn window_int(self: &AppController, key: &QString, fallback: i32) -> i32;
 
+        /// The terminal background for the windows: `{"opacity": 0.3..1, "blur": bool}`
+        /// (`termigator_core::terminal_background`).
+        #[qinvokable]
+        fn terminal_background_json(self: &AppController) -> QString;
+
         /// The colour of environment `name` (an id or display name), `""` when unknown.
         #[qinvokable]
         fn environment_color(self: &AppController, name: &QString) -> QString;
@@ -451,6 +456,20 @@ impl qobject::AppController {
     fn window_int(&self, key: &QString, fallback: i32) -> i32 {
         let v = with_app(|app| window_int(&app.cfg, &key.to_string(), i64::from(fallback)));
         i32::try_from(v).unwrap_or(fallback)
+    }
+
+    fn terminal_background_json(&self) -> QString {
+        let bg = with_app(|app| {
+            termigator_core::terminal_background::configured(
+                termigator_core::config::model::section(&app.cfg, "launch"),
+                &termigator_core::konsole::XdgDirs::from_env(),
+            )
+        });
+        QString::from(
+            json!({ "opacity": bg.opacity as f64 / 100.0, "blur": bg.blur })
+                .to_string()
+                .as_str(),
+        )
     }
 
     fn environment_color(&self, name: &QString) -> QString {

@@ -83,6 +83,21 @@ fn unlimited_scrollback_and_defaults() {
     );
     assert_eq!(j["history"], 10_000);
     assert_eq!(j["attention"], true);
+    assert_eq!(
+        (j["opacity"].as_f64(), j["blur"].as_bool()),
+        (Some(1.0), Some(false))
+    );
+}
+
+#[test]
+fn look_carries_the_background_setting_for_every_tab() {
+    let lo = yaml("background_opacity: 70\nbackground_blur: true\n");
+    let conn = yaml("color_scheme: Solarized\n");
+    let j = look_json(&lo, Some(&conn), &[], false, &HashSet::new(), &xdg_none());
+    assert_eq!(
+        (j["opacity"].as_f64(), j["blur"].as_bool()),
+        (Some(0.7), Some(true))
+    );
 }
 
 #[test]

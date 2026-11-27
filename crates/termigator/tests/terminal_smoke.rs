@@ -21,7 +21,15 @@ const CHECK: &str = "--smoke-check=terminal/TerminalSmoke.qml";
 
 /// Runs the check once; `env` selects the pty wiring of the app (`TERMIGATOR_PTY_FEED`).
 fn check(name: &str, env: &[(&str, &str)]) {
-    let mut run = common::launch_env(name, CONFIG, &[CHECK], env);
+    // An empty HOME: the developer's ~/.local/share/konsole schemes would set the background opacity.
+    let home = PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join(format!("termigator-{name}-home"));
+    fs::create_dir_all(&home).expect("home dir");
+    let home = home.to_str().expect("utf-8 path");
+    let env: Vec<_> = [("HOME", home)]
+        .into_iter()
+        .chain(env.iter().copied())
+        .collect();
+    let mut run = common::launch_env(name, CONFIG, &[CHECK], &env);
     let status = run.wait(90, |_| {});
     let log = run.log();
     assert!(status.success(), "exit {status}, stderr:\n{log}");

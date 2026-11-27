@@ -26,6 +26,8 @@ QQC2.ApplicationWindow {
     transientParent: null
     minimumWidth: 280
     minimumHeight: 160
+    // See-through terminals like the main window's (ShellWindow.terminalBackground).
+    color: area.shell.seeThrough ? "transparent" : palette.window
     header: MultiExecBanner {
         shell: win.area.shell
     }

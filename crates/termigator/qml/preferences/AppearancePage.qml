@@ -58,6 +58,24 @@ PrefPage {
         model: [""].concat(page.schemes)
         Kirigami.FormData.label: qsTr("Color scheme:")
     }
+    // launch.background_opacity / background_blur (termigator_core::terminal_background); unset,
+    // the Konsole colour scheme's Opacity / Blur. Only the default background, as in Konsole.
+    PrefSpin {
+        key: "background_opacity"
+        from: 30
+        to: 100
+        stepSize: 5
+        suffix: " %"
+        Layout.maximumWidth: 160
+        tip: qsTr("How much of the terminal's background covers what is behind the window; the text and coloured cells stay solid.")
+        Kirigami.FormData.label: qsTr("Background opacity:")
+    }
+    PrefCheck {
+        key: "background_blur"
+        visible: !page.windows
+        enabled: (page.prefsWindow?.draft?.background_opacity ?? 100) < 100
+        text: qsTr("Blur what shows through (KDE)")
+    }
     PrefCheck {
         key: "blinking_cursor"
         text: qsTr("Blinking cursor")

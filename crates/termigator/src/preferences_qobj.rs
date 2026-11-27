@@ -21,6 +21,7 @@ use termigator_core::config::model::{
 use termigator_core::konsole::{XdgDirs, scheme_dirs};
 use termigator_core::proto::rdp;
 use termigator_core::quick_history;
+use termigator_core::terminal_background::{self, BLUR_KEY, MIN_OPACITY, OPACITY_KEY};
 
 use crate::shell_qobj::with_app;
 
@@ -262,6 +263,9 @@ pub fn page_values(cfg: &Value) -> serde_json::Value {
         "tab_attention_marks",
         json!(flag_of(l, "tab_attention_marks", true)),
     );
+    let background = terminal_background::configured(l, &XdgDirs::from_env());
+    put(OPACITY_KEY, json!(background.opacity));
+    put(BLUR_KEY, json!(background.blur));
     put("bell_sound", json!(flag_of(l, "bell_sound", true)));
     put(
         "track_remote_folder",
@@ -445,6 +449,17 @@ pub fn apply_values(cfg: &mut Value, draft: &serde_json::Value) {
         "environment_frame",
     ] {
         win(name, Value::Bool(flag(name)));
+    }
+
+    // Like the history limit: stored only once it differs from what is in effect, so the colour
+    // scheme's Opacity / Blur keep applying until the user picks something else.
+    let background = terminal_background::configured(section(cfg, "launch"), &XdgDirs::from_env());
+    let opacity = num(OPACITY_KEY, MIN_OPACITY, 100);
+    if opacity != background.opacity {
+        store(cfg, "launch", OPACITY_KEY, Value::Int(opacity));
+    }
+    if flag(BLUR_KEY) != background.blur {
+        store(cfg, "launch", BLUR_KEY, Value::Bool(flag(BLUR_KEY)));
     }
 
     let resolution_chosen_before = cfg

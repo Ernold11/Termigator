@@ -5,6 +5,13 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Embedded terminal
+
+- **See-through background**, as in Konsole: Settings → Appearance → *Background opacity* (30–100 %) and
+  *Blur what shows through* (KDE). Only the terminal's default background lets the desktop show; text,
+  coloured cells, tabs, toolbars and the side panel stay solid. Without a setting, the Konsole colour
+  scheme's `Opacity` / `Blur` apply. One setting for every tab and detached window.
+
 ### Window
 
 - The menu bar is hidden by default and its menus sit behind a **☰** button at the end of the toolbar,

@@ -1,4 +1,7 @@
 #include "termigator-term-bridge/src/terminal_item.h"
+#include "termigator-term-bridge/src/window_effects.h"
+
+#include <QtQuick/QQuickWindow>
 
 #include <QtCore/QDataStream>
 #include <QtCore/QElapsedTimer>
@@ -268,6 +271,33 @@ void GhosttyTerminalItem::setPasteOnMiddleClick(bool paste)
         return;
     m_pasteOnMiddleClick = paste;
     emit pasteOnMiddleClickChanged();
+}
+
+void GhosttyTerminalItem::setBackgroundOpacity(qreal opacity)
+{
+    opacity = qBound(0.0, opacity, 1.0);
+    if (qFuzzyCompare(opacity, m_backgroundOpacity))
+        return;
+    m_backgroundOpacity = opacity;
+    emit backgroundOpacityChanged();
+    update();
+}
+
+void GhosttyTerminalItem::setBlurBehind(bool blur)
+{
+    if (blur == m_blurBehind)
+        return;
+    m_blurBehind = blur;
+    setBlurBehindWindow(window(), blur);
+    emit blurBehindChanged();
+}
+
+void GhosttyTerminalItem::itemChange(ItemChange change, const ItemChangeData &data)
+{
+    // A view made for a split, a drag or a detached window lands in its window here.
+    if (change == ItemSceneChange && m_blurBehind)
+        setBlurBehindWindow(data.window, true);
+    QQuickPaintedItem::itemChange(change, data);
 }
 
 QStringList GhosttyTerminalItem::availableColorSchemes() const
@@ -909,7 +939,12 @@ void GhosttyTerminalItem::paint(QPainter *painter)
     ensureSnapshot();
     // QQuickPaintedItem clears its texture before paint, so every frame draws the whole
     // viewport. Dirty rows only decide whether a repaint is needed at all.
-    painter->fillRect(boundingRect(), m_bg);
+    QColor defaultBg = m_bg;
+    defaultBg.setAlphaF(static_cast<float>(m_backgroundOpacity));
+    // Source, not over: the see-through background replaces what the texture held.
+    painter->setCompositionMode(QPainter::CompositionMode_Source);
+    painter->fillRect(boundingRect(), defaultBg);
+    painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
 
     const qreal cellW = m_cellWidth;
     const qreal cellH = m_cellHeight;

@@ -284,3 +284,27 @@ fn an_old_close_to_tray_shows_as_tray_and_is_replaced_once_changed() {
     assert_eq!(section(&c, "window").get("close_to_tray"), None);
     assert_eq!(page_values(&c)["close_action"], "exit");
 }
+
+#[test]
+fn background_opacity_and_blur_are_shown_and_stored_only_when_changed() {
+    let mut c = cfg("{}");
+    let shown = page_values(&c);
+    // No setting and (in the test's environment) no Konsole scheme with Opacity: full.
+    let start = shown["background_opacity"].as_i64().expect("opacity");
+    assert!((30..=100).contains(&start), "{start}");
+    apply_values(&mut c, &shown);
+    let l = section(&c, "launch");
+    assert_eq!(l.get("background_opacity"), None);
+    assert_eq!(l.get("background_blur"), None);
+
+    let mut draft = page_values(&c);
+    draft["background_opacity"] = json!(80);
+    draft["background_blur"] = json!(true);
+    apply_values(&mut c, &draft);
+    let shown = page_values(&c);
+    assert_eq!(shown["background_opacity"], 80);
+    assert_eq!(shown["background_blur"], true);
+    draft["background_opacity"] = json!(10);
+    apply_values(&mut c, &draft);
+    assert_eq!(page_values(&c)["background_opacity"], 30);
+}
