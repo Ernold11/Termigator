@@ -3,6 +3,19 @@
 All notable changes to Termigator. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Window
+
+- The menu bar is hidden by default and its menus sit behind a **☰** button at the end of the toolbar,
+  laid out as in KDE applications: frequent actions first (duplicate, reconnect, log, full screen, zoom),
+  then Session, Tools, Settings and Help, and **More** with File, Edit and View. **View → Show menubar**
+  (`Ctrl+Shift+M`) brings the classic menu bar back, as in Konsole; the terminal's context menu offers it
+  too. Hiding the toolbar shows the menu bar, so the menus stay reachable.
+- **MultiExec** moved to `Ctrl+Alt+M` (`Ctrl+Shift+M` now shows the menu bar).
+- The tray icon's menu no longer tries to open at start (a warning on Wayland).
+- The main window loads again with Qt 6.10 (a type cycle in the settings dialog stopped it).
+
 ## [0.3.0] - 2026-11-26
 
 ### Hosts

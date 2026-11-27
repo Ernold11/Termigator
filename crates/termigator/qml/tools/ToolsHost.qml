@@ -81,9 +81,10 @@ Item {
         return dlg;
     }
 
-    // Fills the snippets menu: one entry per snippet, then "Manage snippets…".
-    function fillSnippetsMenu() {
-        const menu = shell.shellActions.menus["Edit/Snippets"];
+    // Fills the snippets menu (the menu bar's, or a copy of it): one entry per snippet, then
+    // "Manage snippets…".
+    function fillSnippetsMenu(into) {
+        const menu = into || shell.shellActions.menus["Edit/Snippets"];
         if (!menu)
             return;
         while (menu.count > 0)
@@ -308,6 +309,7 @@ Item {
         shell.runningTunnels = Qt.binding(() => host.running);
         shell.openBulkEdit = host.bulkEdit;
         shell.shellActions.handle("tools.tunnels", () => host.openTunnels());
+        shell.shellActions.fillers["Edit/Snippets"] = menu => host.fillSnippetsMenu(menu);
         host.wire();
         // After the window has built its menus, and after the shell is up (a zero-delay single shot).
         Qt.callLater(() => {

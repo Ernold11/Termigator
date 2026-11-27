@@ -870,7 +870,8 @@ fn context_name(c: Context) -> &'static str {
     }
 }
 
-/// The action table for `ShellActions.qml`: `{menus: [...], actions: [...]}`; `icon` resolves `a|b`.
+/// The action table for `ShellActions.qml`: `{menus: [...], menuIcons: {menu: icon}, actions: [...]}`;
+/// `icon` resolves `a|b`.
 pub fn actions_json(icon: &dyn Fn(&str) -> String) -> String {
     let list: Vec<_> = actions::ACTIONS
         .iter()
@@ -889,7 +890,11 @@ pub fn actions_json(icon: &dyn Fn(&str) -> String) -> String {
             })
         })
         .collect();
-    json!({ "menus": actions::MENUS, "actions": list }).to_string()
+    let menu_icons: serde_json::Map<String, serde_json::Value> = actions::MENUS
+        .iter()
+        .map(|m| ((*m).to_owned(), json!(icon(actions::menu_icon(m)))))
+        .collect();
+    json!({ "menus": actions::MENUS, "menuIcons": menu_icons, "actions": list }).to_string()
 }
 
 /// Help → Keyboard shortcuts: `[[menu, action, keys], …]`.

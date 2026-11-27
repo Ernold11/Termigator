@@ -12,6 +12,12 @@ import QtQuick.Controls as QQC2
 //                             checkedFn: the checked state, re-bound after every trigger.
 //   menus[path]               the menu-bar Menu of a submenu, e.g. "Edit/Snippets" (fill it yourself)
 //   buildMenu(path, parent)   a new Menu with the entries of `path` (the toolbar's New ▾)
+//   buildHamburger(parent, shown)  the toolbar's ☰ while the menu bar is hidden, laid out like KDE's
+//                             KHamburgerMenu: a few frequent actions, Session / Tools / Settings / Help,
+//                             then More with File / Edit / View; actions in `shown` (ids already on
+//                             the toolbar) and the ones on top are left out of the submenus
+//   fillers[path]             fn(menu): fills a submenu its area owns (Edit/Snippets) in a menu made
+//                             by buildMenu / buildHamburger; the menu bar's own copy stays the area's to fill
 // Host list, terminal and detached-window keys (contexts hostList / terminal / detachedWindow)
 // are not bound here: the host list, terminal and panes bind them in their own FocusScopes.
 Item {
@@ -22,6 +28,7 @@ Item {
     property var actions: ({})
     property bool built: false
     property var menus: ({})
+    property var fillers: ({})
 
     function plain(text) {
         return text.replace(/&&/g, "\u0000").replace(/&/g, "").replace(/\u0000/g, "&");
@@ -48,17 +55,20 @@ Item {
         menus = found;
     }
 
-    function buildMenu(path, parent, found) {
+    function buildMenu(path, parent, found, skip) {
         const menu = menuComponent.createObject(parent);
         for (const a of table.actions) {
-            if (a.menu !== path)
+            if (a.menu !== path || (skip && skip[a.id]))
                 continue;
             if (a.sep && menu.count > 0)
                 menu.addItem(separatorComponent.createObject(null));
             if (a.submenu) {
-                const sub = buildMenu(path + "/" + plain(a.text), parent, found);
+                const subPath = path + "/" + plain(a.text);
+                const sub = buildMenu(subPath, parent, found, skip);
                 sub.title = a.text;
                 sub.icon.name = a.icon;
+                if (!found && fillers[subPath])
+                    fillers[subPath](sub);
                 menu.addMenu(sub);
                 const item = menu.itemAt(menu.count - 1);
                 item.enabled = Qt.binding(() => sub.count > 0);
@@ -69,6 +79,57 @@ Item {
             }
         }
         return menu;
+    }
+
+    // The ☰ menu's own entries, above its submenus (ids; "-" is a separator).
+    readonly property var hamburgerTop: ["session.duplicate", "session.reconnect", "session.log", "-", "view.fullscreen", "view.menubar", "view.zoom_in", "view.zoom_reset", "view.zoom_out"]
+    readonly property var hamburgerMenus: ["Session", "Tools", "Settings", "Help"]
+
+    // Destroying the returned Menu destroys its submenus too.
+    function buildHamburger(parent, shown) {
+        const top = menuComponent.createObject(parent);
+        const skip = Object.assign({}, shown || {});
+        for (const id of hamburgerTop) {
+            if (id === "-") {
+                top.addItem(separatorComponent.createObject(null));
+            } else {
+                top.addAction(actions[id]);
+                skip[id] = true;
+            }
+        }
+        const titled = path => table.menus.find(t => plain(t) === path) || path;
+        const addSub = (into, path) => {
+            const sub = buildMenu(path, top, null, skip);
+            sub.title = titled(path);
+            sub.icon.name = (table.menuIcons || {})[titled(path)] || "";
+            into.addMenu(sub);
+            into.itemAt(into.count - 1).enabled = Qt.binding(() => sub.count > 0);
+        };
+        top.addItem(separatorComponent.createObject(null));
+        for (const path of hamburgerMenus)
+            addSub(top, path);
+        top.addItem(separatorComponent.createObject(null));
+        const more = menuComponent.createObject(top);
+        more.title = qsTr("More");
+        more.icon.name = "overflow-menu";
+        for (const t of table.menus) {
+            if (hamburgerMenus.indexOf(plain(t)) < 0)
+                addSub(more, plain(t));
+        }
+        top.addMenu(more);
+        asWindows(top);
+        return top;
+    }
+
+    // Each its own popup window, as KDE's menus are: submenus open beside it even past the
+    // window's edge instead of folding back over it.
+    function asWindows(menu) {
+        menu.popupType = QQC2.Popup.Window;
+        for (let i = 0; i < menu.count; ++i) {
+            const sub = menu.menuAt(i);
+            if (sub)
+                asWindows(sub);
+        }
     }
 
     // Whichever Component.onCompleted runs first (this one or the window's) creates the actions.

@@ -280,6 +280,16 @@
        "kind": "action"
       },
       {
+       "text": "Show &menubar",
+       "keys": [
+        "Ctrl+Shift+M"
+       ],
+       "checkable": true,
+       "tip": "",
+       "display_only": false,
+       "kind": "action"
+      },
+      {
        "text": "Show &sidebar",
        "keys": [
         "Ctrl+Shift+B"
@@ -467,7 +477,7 @@
       {
        "text": "&MultiExec — type into all remote sessions",
        "keys": [
-        "Ctrl+Shift+M"
+        "Ctrl+Alt+M"
        ],
        "checkable": true,
        "tip": "Every key typed in one remote session goes to all of them",
@@ -794,6 +804,11 @@
     ],
     [
      "View",
+     "Show menubar",
+     "Ctrl+Shift+M"
+    ],
+    [
+     "View",
      "Show sidebar",
      "Ctrl+Shift+B"
     ],
@@ -855,7 +870,7 @@
     [
      "Session",
      "MultiExec — type into all remote sessions",
-     "Ctrl+Shift+M"
+     "Ctrl+Alt+M"
     ],
     [
      "Session",

@@ -112,6 +112,26 @@ pub const MENUS: &[&str] = &[
     "&Help",
 ];
 
+/// The icon of each top-level menu where it shows as a submenu (the toolbar's ☰); `a|b` = the
+/// first theme icon that exists. The menu bar itself shows none, as in KDE applications.
+const MENU_ICONS: [(&str, &str); 7] = [
+    ("&File", "document-multiple"),
+    ("&Edit", "document-edit"),
+    ("&View", "view-visible"),
+    ("&Session", "utilities-terminal"),
+    ("&Tools", "tools|applications-utilities"),
+    ("Se&ttings", "settings-configure|configure"),
+    ("&Help", "help-contents"),
+];
+
+/// The icon of the top-level menu `title` (as in [`MENUS`]), "" for an unknown one.
+pub fn menu_icon(title: &str) -> &'static str {
+    MENU_ICONS
+        .iter()
+        .find(|(t, _)| *t == title)
+        .map_or("", |(_, icon)| icon)
+}
+
 use Context::{DetachedWindow, DisplayOnly, HostList, Terminal};
 
 /// Every action, in creation order (menu order within each menu).
@@ -305,6 +325,15 @@ pub const ACTIONS: &[Action] = &[
         &[],
     )
     .check(),
+    // Hidden by default (window.menubar): the toolbar's ☰ holds the menus, as in KDE applications.
+    act(
+        "view.menubar",
+        "View",
+        "Show &menubar",
+        "show-menu",
+        &["Ctrl+Shift+M"],
+    )
+    .check(),
     act(
         "view.sidebar",
         "View",
@@ -453,7 +482,7 @@ pub const ACTIONS: &[Action] = &[
         "Session",
         "&MultiExec — type into all remote sessions",
         "system-run",
-        &["Ctrl+Shift+M"],
+        &["Ctrl+Alt+M"],
     )
     .sep()
     .check()
@@ -611,7 +640,7 @@ pub const ACTIONS: &[Action] = &[
     act("detached.close_tab", "", "", "", &["Ctrl+Shift+W"]).ctx(DetachedWindow),
     act("detached.attach", "", "", "", &["Ctrl+Shift+A"]).ctx(DetachedWindow),
     act("detached.new_tab", "", "", "", &["Ctrl+Shift+T"]).ctx(DetachedWindow),
-    act("detached.multiexec", "", "", "", &["Ctrl+Shift+M"]).ctx(DetachedWindow),
+    act("detached.multiexec", "", "", "", &["Ctrl+Alt+M"]).ctx(DetachedWindow),
     act("detached.fullscreen", "", "", "", &["F11"]).ctx(DetachedWindow),
 ];
 

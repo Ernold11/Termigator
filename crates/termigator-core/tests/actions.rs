@@ -286,3 +286,33 @@ fn every_menu_action_has_an_icon() {
         .collect();
     assert!(bare.is_empty(), "menu actions without an icon: {bare:?}");
 }
+
+/// KDE's Show Menubar key; MultiExec moved off it to Ctrl+Alt+M (also in detached windows).
+#[test]
+fn menubar_takes_ctrl_shift_m_multiexec_moves_to_ctrl_alt_m() {
+    let m = by_id("view.menubar").expect("menubar");
+    assert_eq!(
+        (m.menu, m.keys, m.checkable),
+        ("View", &["Ctrl+Shift+M"][..], true)
+    );
+    assert_eq!(
+        by_id("session.multiexec").map(|a| a.keys),
+        Some(&["Ctrl+Alt+M"][..])
+    );
+    assert_eq!(
+        by_id("detached.multiexec").map(|a| a.keys),
+        Some(&["Ctrl+Alt+M"][..])
+    );
+    assert!(!terminal_claims("Ctrl+Alt+M") && !terminal_claims("Ctrl+Shift+M"));
+}
+
+/// The ☰ shows the top-level menus as submenus with an icon each, as Konsole's does.
+#[test]
+fn every_top_level_menu_has_an_icon() {
+    use termigator_core::actions::menu_icon;
+    for title in MENUS {
+        assert!(!menu_icon(title).is_empty(), "no icon for {title}");
+    }
+    assert_eq!(menu_icon("&Help"), "help-contents");
+    assert_eq!(menu_icon("&Nope"), "");
+}

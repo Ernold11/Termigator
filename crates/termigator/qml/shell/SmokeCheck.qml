@@ -14,6 +14,8 @@ Item {
     property bool quitting: false
     property bool wasMaximized: false
     property int splitHits: 0
+    property int waitTicks: 0
+    readonly property string retry: "retry" // a step returns this to run again on the next tick
     property var dialog: null
     property var sizedWindow: null
 
@@ -67,13 +69,57 @@ Item {
             expect(actionOf("edit.copy").enabled, "Copy not handled by the terminal");
             expect(actionOf("help.about").enabled, "About disabled");
         },
-        // Toolbar: hidden from View, remembered in window.toolbar.
+        // Menu bar: hidden by default, its menus behind the toolbar's ☰ (KHamburgerMenu layout);
+        // Ctrl+Shift+M shows it (window.menubar) and the ☰ goes.
+        () => {
+            const menuButton = findByName("tbMenu", shell.header);
+            expect(!shell.menuBar.visible && !actionOf("view.menubar").checked && menuButton.visible, "menu bar hidden, ☰ shown");
+            menuButton.clicked();
+        },
+        () => {
+            const all = shell.header.mainMenu;
+            const label = it => it.subMenu ? shell.shellActions.plain(it.subMenu.title) + "›" : !it.text ? "-" : shell.shellActions.plain(it.text);
+            const rows = m => {
+                const out = [];
+                for (let i = 0; i < m.count; ++i)
+                    out.push(label(m.itemAt(i)));
+                return out.join(",");
+            };
+            expect(all.visible && rows(all) === "Duplicate tab,Reconnect,Log output to file,-,Full screen,Show menubar,Zoom in,Reset zoom,Zoom out,-,Session›,Tools›,Settings›,Help›,-,More›", "☰ " + rows(all));
+            const more = all.menuAt(all.count - 1);
+            expect(rows(more) === "File›,Edit›,View›", "More " + rows(more));
+            expect(all.menuAt(13).icon.name !== "" && more.menuAt(0).icon.name !== "", "submenu icons " + all.menuAt(13).icon.name);
+            // Nothing the toolbar or the top of ☰ already shows.
+            const session = rows(all.menuAt(10));
+            expect(rows(more.menuAt(0)).indexOf("New tab") < 0 && session.indexOf("Rename tab") >= 0 && session.indexOf("MultiExec") < 0 && session.indexOf("Duplicate tab") < 0, "repeated entries " + session);
+            all.close();
+            waitTicks = 0;
+        },
+        () => {
+            if (shell.header.mainMenu.visible && waitTicks++ < 40)
+                return retry;
+            shell.requestActivate();
+            press(Qt.Key_M, Qt.ControlModifier | Qt.ShiftModifier);
+            expect(shell.menuBar.visible && actionOf("view.menubar").checked && !findByName("tbMenu", shell.header).visible, "Ctrl+Shift+M shows the menu bar");
+            expect(shell.controller.windowBool("menubar", false), "window.menubar not stored");
+            press(Qt.Key_M, Qt.ControlModifier | Qt.ShiftModifier);
+            expect(!shell.menuBar.visible && !shell.controller.windowBool("menubar", true), "Ctrl+Shift+M hides it");
+        },
+        // Toolbar: hidden from View, remembered in window.toolbar; its ☰ goes with it, so the menu
+        // bar comes back (one of the two always shows).
         () => {
             expect(shell.header.visible && actionOf("view.toolbar").checked, "toolbar shown");
             actionOf("view.toolbar").trigger();
             expect(!shell.header.visible && !shell.controller.windowBool("toolbar", true), "toolbar hidden");
+            expect(shell.menuBar.visible && shell.controller.windowBool("menubar", false), "menu bar with the toolbar hidden");
             actionOf("view.toolbar").trigger();
             expect(shell.header.visible && actionOf("view.toolbar").checked, "toolbar back");
+            actionOf("view.menubar").trigger();
+            expect(!shell.menuBar.visible && shell.header.visible, "menu bar hidden again");
+            // Hiding the menu bar while the toolbar is hidden brings the toolbar back.
+            actionOf("view.toolbar").trigger();
+            actionOf("view.menubar").trigger();
+            expect(!shell.menuBar.visible && shell.header.visible && shell.controller.windowBool("toolbar", false), "toolbar back for its ☰");
         },
         // Ctrl+Shift+B and F11 as key presses.
         () => {
@@ -268,8 +314,8 @@ Item {
         repeat: true
         running: check.step < check.steps.length
         onTriggered: {
-            check.steps[check.step]();
-            ++check.step;
+            if (check.steps[check.step]() !== check.retry)
+                ++check.step;
         }
     }
 

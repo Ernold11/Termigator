@@ -27,6 +27,6 @@ Rectangle {
         wrapMode: Text.Wrap
         color: Kirigami.Theme.textColor
         font.weight: Font.DemiBold
-        text: qsTr("MultiExec — what you type or paste goes to %1 remote session(s): %2. Ctrl+Shift+M or Session → MultiExec stops it; new sessions stay out until included from the tab menu.").arg(banner.shell.multiexecTargets).arg(banner.shell.multiexecNames || "—")
+        text: qsTr("MultiExec — what you type or paste goes to %1 remote session(s): %2. Ctrl+Alt+M or Session → MultiExec stops it; new sessions stay out until included from the tab menu.").arg(banner.shell.multiexecTargets).arg(banner.shell.multiexecNames || "—")
     }
 }

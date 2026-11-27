@@ -97,6 +97,9 @@ QQC2.ApplicationWindow {
     property string listSummary: ""
 
     property bool toolbarVisible: appController.windowBool("toolbar", true)
+    // window.menubar: hidden by default, the toolbar's ☰ holds the menus (KDE's KHamburgerMenu).
+    // One of the two always shows, or the menus could not be reached.
+    property bool menubarVisible: appController.windowBool("menubar", false)
     property bool sidebarVisible: true
     // The side dock can narrow far (the Files toolbar hides icons behind its » button), and the
     // window still leaves the panes their 360 px minimum plus the splitter handle.
@@ -287,10 +290,13 @@ QQC2.ApplicationWindow {
 
     menuBar: QQC2.MenuBar {
         id: menuBar
+
+        visible: root.menubarVisible || !root.toolbarVisible
     }
 
     header: ShellToolBar {
         visible: root.toolbarVisible
+        menuButtonShown: !menuBar.visible
         shellActions: appActions
         controller: appController
         quickConnectHandler: root.quickConnectHandler
@@ -756,8 +762,21 @@ QQC2.ApplicationWindow {
         a.handle("view.toolbar", checked => {
             root.toolbarVisible = checked;
             appController.setWindowBool("toolbar", checked);
+            if (!checked && !root.menubarVisible) {
+                root.menubarVisible = true; // the ☰ goes with the toolbar
+                appController.setWindowBool("menubar", true);
+            }
             appController.persist();
         }, () => root.toolbarVisible);
+        a.handle("view.menubar", checked => {
+            root.menubarVisible = checked;
+            appController.setWindowBool("menubar", checked);
+            if (!checked && !root.toolbarVisible) {
+                root.toolbarVisible = true; // for its ☰
+                appController.setWindowBool("toolbar", true);
+            }
+            appController.persist();
+        }, () => menuBar.visible);
         a.handle("view.sidebar", () => root.sidebarVisible = !root.sidebarVisible, () => root.sidebarVisible);
         a.handle("view.fullscreen", () => {
             if (root.visibility === Window.FullScreen)

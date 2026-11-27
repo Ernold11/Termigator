@@ -92,7 +92,7 @@ pub fn broadcast_payload(text: &str) -> String {
 pub fn multiexec_banner(count: usize) -> String {
     format!(
         "MultiExec — what you type goes to {count} remote session(s) \
-         (Ctrl+Shift+M or Session → MultiExec to stop; tab menu: Exclude from MultiExec)"
+         (Ctrl+Alt+M or Session → MultiExec to stop; tab menu: Exclude from MultiExec)"
     )
 }
 

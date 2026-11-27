@@ -197,6 +197,9 @@ fn action_json_carries_the_whole_table() {
     let text = actions_json(&|names| names.split('|').next().unwrap_or("").to_owned());
     let v: serde_json::Value = serde_json::from_str(&text).expect("json");
     assert_eq!(v["menus"][0], "&File");
+    // The ☰'s submenu icons, `a|b` resolved like the actions'.
+    assert_eq!(v["menuIcons"]["&Help"], "help-contents");
+    assert_eq!(v["menuIcons"]["&Tools"], "tools");
     let list = v["actions"].as_array().expect("actions");
     assert_eq!(list.len(), actions::ACTIONS.len());
     let search = list

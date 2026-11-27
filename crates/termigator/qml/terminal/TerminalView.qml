@@ -162,6 +162,14 @@ FocusScope {
                 "fn": () => host.copyText(mail ? url.slice(7) : url)
             }, "-");
         }
+        // As Konsole: with the menu bar hidden, the way to bring it back.
+        const shell = area ? area.shell : null;
+        const menubar = shell && Window.window === shell ? shell.shellActions.actions["view.menubar"] : null;
+        if (menubar && !menubar.checked)
+            out.push({
+                "text": qsTr("Show menubar"),
+                "fn": () => menubar.trigger()
+            }, "-");
         const hasSelection = term.selectedText(false).trim() !== "";
         out.push({
             "text": qsTr("Copy"),

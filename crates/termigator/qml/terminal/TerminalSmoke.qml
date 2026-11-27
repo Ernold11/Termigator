@@ -233,7 +233,8 @@ Item {
                 // Through the context menu, which hands the focus back to the terminal after its entry.
                 const v = view(held.one);
                 v.showMenu(10, 10);
-                const item = v.menu.itemAt(1);
+                // "Show menubar" and a separator come first while the menu bar is hidden (the default).
+                const item = v.menu.itemAt(3);
                 expect(item.text === "Paste", "menu entry " + item.text);
                 item.triggered();
                 v.menu.close();
@@ -265,7 +266,7 @@ Item {
                     const item = v.menu.itemAt(i);
                     texts.push(item.text === undefined || item.text === "" ? "-" : item.text);
                 }
-                expect(texts.join("|") === "Copy|Paste|Paste Selection|-|Enable folder tracking in this shell|-|Find…|-|Zoom in|Zoom out|Reset zoom|-|Clear|-|Log output to file…", "menu " + texts.join("|"));
+                expect(texts.join("|") === "Show menubar|-|Copy|Paste|Paste Selection|-|Enable folder tracking in this shell|-|Find…|-|Zoom in|Zoom out|Reset zoom|-|Clear|-|Log output to file…", "menu " + texts.join("|"));
                 v.menu.close();
             }
         },
@@ -657,15 +658,15 @@ Item {
             "name": "shortcut beats the terminal",
             "fn": () => {
                 focusTab(held.mx1);
-                key(Qt.Key_M, Qt.ControlModifier | Qt.ShiftModifier, "\r");
+                key(Qt.Key_M, Qt.ControlModifier | Qt.AltModifier, "\r");
                 return host.multiexecOn;
             }
         },
         {
             "name": "shortcut beats the terminal off",
             "fn": () => {
-                expect(host.multiexecTargets().indexOf(held.mx1) >= 0, "targets via Ctrl+Shift+M");
-                key(Qt.Key_M, Qt.ControlModifier | Qt.ShiftModifier, "\r");
+                expect(host.multiexecTargets().indexOf(held.mx1) >= 0, "targets via Ctrl+Alt+M");
+                key(Qt.Key_M, Qt.ControlModifier | Qt.AltModifier, "\r");
                 return !host.multiexecOn;
             }
         },
