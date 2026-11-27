@@ -24,6 +24,7 @@ versions follow [Semantic Versioning](https://semver.org/).
   (`Ctrl+Shift+M`) brings the classic menu bar back, as in Konsole; the terminal's context menu offers it
   too. Hiding the toolbar shows the menu bar, so the menus stay reachable.
 - **MultiExec** moved to `Ctrl+Alt+M` (`Ctrl+Shift+M` now shows the menu bar).
+- Windows: a lone `Alt` also shows the menu bar with its first menu open, as in Windows applications.
 - The tray icon's menu no longer tries to open at start (a warning on Wayland).
 - The main window loads again with Qt 6.10 (a type cycle in the settings dialog stopped it).
 

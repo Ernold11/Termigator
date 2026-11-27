@@ -73,6 +73,8 @@ pub mod qobject {
         fn startupError(text: &QString, folder: &QString);
         #[rust_name = "instance_not_responding"]
         fn instanceNotResponding();
+        #[rust_name = "install_alt_tap_menu"]
+        fn installAltTapMenu();
     }
 
     #[auto_cxx_name]

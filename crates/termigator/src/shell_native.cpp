@@ -5,7 +5,10 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QSize>
 #include <QtCore/QStringList>
+#include <QtCore/QPointer>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QWindow>
 #include <QtGui/QIcon>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
@@ -82,6 +85,62 @@ void instanceNotResponding()
         "running one (its sessions end with it). Settings → Application turns off "
         "“Allow only one application instance”."));
     box.exec();
+}
+
+namespace {
+
+// See installAltTapMenu. Key events reach the QWindow first and its items after; only the window's
+// copy counts, so the terminal (which takes every key) does not hide the tap.
+class AltTapFilter : public QObject
+{
+public:
+    using QObject::QObject;
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override
+    {
+        switch (event->type()) {
+        case QEvent::KeyPress: {
+            auto *window = qobject_cast<QWindow *>(watched);
+            const auto *key = static_cast<QKeyEvent *>(event);
+            if (window == nullptr || key->isAutoRepeat())
+                break;
+            const auto others = key->modifiers() & ~(Qt::AltModifier | Qt::KeypadModifier);
+            m_armed = key->key() == Qt::Key_Alt && others == Qt::NoModifier ? window : nullptr;
+            break;
+        }
+        case QEvent::KeyRelease: {
+            const auto *key = static_cast<QKeyEvent *>(event);
+            if (key->key() != Qt::Key_Alt || key->isAutoRepeat() || m_armed.isNull() || watched != m_armed)
+                break;
+            QWindow *window = m_armed;
+            m_armed = nullptr;
+            if (window->metaObject()->indexOfMethod("altTapped()") >= 0)
+                QMetaObject::invokeMethod(window, "altTapped", Qt::QueuedConnection);
+            break;
+        }
+        case QEvent::MouseButtonPress:
+        case QEvent::MouseButtonDblClick:
+        case QEvent::Wheel:
+        case QEvent::FocusOut:
+        case QEvent::WindowDeactivate:
+            m_armed = nullptr;
+            break;
+        default:
+            break;
+        }
+        return false;
+    }
+
+private:
+    QPointer<QWindow> m_armed;
+};
+
+} // namespace
+
+void installAltTapMenu()
+{
+    qApp->installEventFilter(new AltTapFilter(qApp));
 }
 
 void aboutTermigator(const QString &title, const QString &html)

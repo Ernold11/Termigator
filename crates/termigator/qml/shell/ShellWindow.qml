@@ -103,6 +103,9 @@ QQC2.ApplicationWindow {
     // window.menubar: hidden by default, the toolbar's ☰ holds the menus (KDE's KHamburgerMenu).
     // One of the two always shows, or the menus could not be reached.
     property bool menubarVisible: appController.windowBool("menubar", false)
+    // Windows: a lone Alt (installAltTapMenu in shell_native) shows the hidden menu bar with its first
+    // menu open, as Windows applications do; the bar hides again once its menus are closed.
+    property bool menubarPeek: false
     property bool sidebarVisible: true
     // termigator_core::terminal_background, re-read after every save. While the terminals are
     // see-through the window is transparent: everything else paints its own background.
@@ -116,6 +119,30 @@ QQC2.ApplicationWindow {
     property Window shortcutsWindow: null
 
     signal shuttingDown
+
+    function openMenuBarMenus() {
+        const open = [];
+        for (let i = 0; i < menuBar.count; ++i) {
+            const m = menuBar.menuAt(i);
+            if (m && m.visible)
+                open.push(m);
+        }
+        return open;
+    }
+
+    function altTapped() {
+        const open = openMenuBarMenus();
+        if (open.length > 0) {
+            open.forEach(m => m.close());
+            return;
+        }
+        if (menuBar.count === 0)
+            return;
+        if (!menuBar.visible)
+            menubarPeek = true;
+        // Once the bar is laid out, so the menu opens under its item.
+        Qt.callLater(() => menuBar.itemAt(0).triggered());
+    }
 
     function notify(text) {
         statusMessage = text;
@@ -299,7 +326,14 @@ QQC2.ApplicationWindow {
     menuBar: QQC2.MenuBar {
         id: menuBar
 
-        visible: root.menubarVisible || !root.toolbarVisible
+        visible: root.menubarVisible || !root.toolbarVisible || root.menubarPeek
+    }
+
+    Timer {
+        interval: 200
+        repeat: true
+        running: root.menubarPeek
+        onTriggered: root.menubarPeek = root.openMenuBarMenus().length > 0
     }
 
     header: ShellToolBar {

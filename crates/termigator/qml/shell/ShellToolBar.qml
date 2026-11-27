@@ -4,7 +4,7 @@ import QtQuick.Controls as QQC2
 import QtQuick.Layouts
 
 // One compact row — New ▾, Quick connect, splits, MultiExec, tunnels, Files, and ☰ with the menus
-// while the menu bar is hidden (View → Show menubar, Ctrl+Shift+M), as in KDE applications.
+// while the menu bar is hidden (View → Show menubar, Ctrl+Shift+M; Alt on Windows), as in KDE applications.
 // Everything on it is a menu action too, so View → Show toolbar can hide it.
 QQC2.ToolBar {
     id: bar
@@ -115,7 +115,7 @@ QQC2.ToolBar {
             display: QQC2.AbstractButton.IconOnly
             Accessible.name: qsTr("Menu")
             QQC2.ToolTip.visible: hovered
-            QQC2.ToolTip.text: qsTr("Menu (Ctrl+Shift+M shows the menu bar)")
+            QQC2.ToolTip.text: Qt.platform.os === "windows" ? qsTr("Menu (Alt or Ctrl+Shift+M shows the menu bar)") : qsTr("Menu (Ctrl+Shift+M shows the menu bar)")
             QQC2.ToolTip.delay: 700
             onClicked: {
                 if (bar.mainMenu)

@@ -200,6 +200,11 @@ pub fn run() -> ExitCode {
         .set_application_name(&QString::from("Termigator"));
     // Wayland matches the surface app_id to "<name>.desktop" for the window / taskbar icon.
     QGuiApplication::set_desktop_file_name(&QString::from("termigator"));
+    // Windows: a lone Alt shows the menu bar, as in Windows applications. TERMIGATOR_ALT_MENU
+    // turns it on elsewhere for the smoke test.
+    if cfg!(windows) || std::env::var_os("TERMIGATOR_ALT_MENU").is_some_and(|v| !v.is_empty()) {
+        shell_qobj::qobject::install_alt_tap_menu();
+    }
     shell_qobj::qobject::apply_fixed_look(&QString::from(
         preferences_qobj::configured_ui_theme(&startup.cfg).as_str(),
     ));

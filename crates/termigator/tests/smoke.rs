@@ -16,7 +16,13 @@ use termigator as _;
 #[test]
 fn shell_window_runs_offscreen() {
     // A config file exists, so no first-run notice.
-    let mut run = common::launch("u1-smoke", "window:\n  width: 800\n", &[]);
+    // TERMIGATOR_ALT_MENU: the Windows lone-Alt menu, so the check can press it here.
+    let mut run = common::launch_env(
+        "u1-smoke",
+        "window:\n  width: 800\n",
+        &[],
+        &[("TERMIGATOR_ALT_MENU", "1")],
+    );
     let socket = run.socket.clone();
     let mut sent = false;
     let status = run.wait(60, |log| {

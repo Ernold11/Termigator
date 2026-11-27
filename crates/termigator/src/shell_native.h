@@ -42,4 +42,9 @@ void startupError(const QString &text, const QString &folder);
 // A box saying so before this process quits, rather than a second instance.
 void instanceNotResponding();
 
+// Windows convention: Alt pressed and released alone (no Ctrl, so not AltGr; no key, click or
+// focus change in between) calls `altTapped()` on the window that got it, if it has one (the main
+// window shows its menu bar). Call once after the QApplication exists.
+void installAltTapMenu();
+
 } // namespace termigator::shell

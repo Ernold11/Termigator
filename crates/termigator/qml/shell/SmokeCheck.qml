@@ -105,6 +105,30 @@ Item {
             press(Qt.Key_M, Qt.ControlModifier | Qt.ShiftModifier);
             expect(!shell.menuBar.visible && !shell.controller.windowBool("menubar", true), "Ctrl+Shift+M hides it");
         },
+        // A lone Alt (Windows; TERMIGATOR_ALT_MENU here) shows the bar with its first menu open, a
+        // second Alt closes both; Ctrl+Alt (AltGr on Windows) does nothing.
+        () => {
+            shell.requestActivate();
+            press(Qt.Key_Alt, Qt.AltModifier);
+            waitTicks = 0;
+        },
+        () => {
+            if (shell.openMenuBarMenus().length === 0 && waitTicks++ < 20)
+                return retry;
+            expect(shell.menuBar.visible && shell.menubarPeek && shell.menuBar.menuAt(0).visible, "Alt opens the first menu");
+            expect(!shell.controller.windowBool("menubar", true), "Alt changed window.menubar");
+            press(Qt.Key_Alt, Qt.AltModifier);
+            waitTicks = 0;
+        },
+        () => {
+            if (shell.menubarPeek && waitTicks++ < 20)
+                return retry;
+            expect(!shell.menuBar.visible && shell.openMenuBarMenus().length === 0, "second Alt closes the menu and the bar");
+            press(Qt.Key_Alt, Qt.ControlModifier | Qt.AltModifier);
+        },
+        () => {
+            expect(!shell.menubarPeek && shell.openMenuBarMenus().length === 0, "Ctrl+Alt (AltGr) opened a menu");
+        },
         // Toolbar: hidden from View, remembered in window.toolbar; its ☰ goes with it, so the menu
         // bar comes back (one of the two always shows).
         () => {
