@@ -686,7 +686,13 @@ QQC2.ApplicationWindow {
         icon.source: appController.trayIconUrl
         icon.name: appController.trayIconName
         tooltip: "Termigator"
+        // visible: false — the KDE platform theme maps a menu's `visible` (meant for menu-bar
+        // menus) to showing it, so the default true popped the context menu up at start; on
+        // Wayland a popup with no parent window is refused ("Failed to create grabbing popup").
+        // The tray still exports the menu (DBusMenu) and Plasma shows it on a right click.
         menu: Platform.Menu {
+            visible: false
+
             Platform.MenuItem {
                 id: trayShow
 
