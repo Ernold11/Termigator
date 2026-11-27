@@ -23,10 +23,13 @@ frameworks installed) and Windows 11 x64 (installer with its own Qt and KF6; tes
   Folders are renamed, moved and deleted from the tree; the tree works from the keyboard (`F2`,
   `Delete`, `Ctrl+C` / `Ctrl+X` / `Ctrl+V`, `Ctrl+N`). **Add to Hosts…** on a tab saves an open connection.
 - **Embedded terminal:** Ghostty's VT engine (`ghostty-vt`) with tabs, nested split panes,
-  detachable tabs, find, zoom, snippets, session logging, asciinema recording, MultiExec and
-  broadcast to all live sessions. Follows your Konsole profile (colour scheme and font) unless you
-  override it. Mouse-aware programs (vim, tmux, mc, htop, k9s) get the wheel and drags; a dragged
-  selection scrolls the view; the zoom stays with a tab when it is split, moved or detached.
+  detachable tabs, find, zoom, snippets, session logging, asciinema recording, MultiExec
+  (`Ctrl+Alt+M`) and broadcast to all live sessions. Follows your Konsole profile (colour scheme and
+  font) unless you override it, and can be see-through (Settings → Appearance → *Background opacity*,
+  blur on KDE; the Konsole scheme's `Opacity` applies by default). Mouse-aware programs (vim, tmux, mc,
+  htop, k9s) get the wheel and drags; full-screen programs keep their cell grid at any scale, with box
+  drawing drawn as shapes; a dragged selection scrolls the view; the zoom stays with a tab when it is
+  split, moved or detached.
   An external terminal (Konsole or any `launch.template`) is available per entry.
 - **Session handling:** a stopped session keeps its tab and offers restart / close / save output;
   optional auto-reconnect with back-off; SSH keepalive; optional disconnect notification.
@@ -41,12 +44,16 @@ frameworks installed) and Windows 11 x64 (installer with its own Qt and KF6; tes
   (scrypt + AES-GCM); the master password is asked once per run and only when needed.
 - **Import / export:** MobaXterm, PuTTY, SuperPuTTY (Windows), Remmina (Linux) and `~/.ssh/config`;
   backup export.
+- **Window:** the menu bar is hidden by default and its menus sit behind the toolbar's **☰**, laid out as
+  in KDE applications; `Ctrl+Shift+M` shows the menu bar (as in Konsole), and on Windows a lone `Alt`
+  does too. The status bar summarises the side panel's tab in front (hosts or files) and hides with it.
 - **Desktop integration:** KDE look and feel (identical look elsewhere), global show / hide through
   `termigator --toggle` (bind it in System Settings → Shortcuts), `termigator --show`. With the tray
   icon on, closing the window asks whether to hide it in the tray or exit (the answer can be remembered).
   One instance per user: starting Termigator again brings the running window forward, also from the
   tray (Settings → Application → *Allow only one application instance* turns it off).
-- **Update check:** once a day at startup, a banner when GitHub has a newer release (nothing is
+- **Update check:** once a day at startup, a banner when GitHub has a newer release, and the status
+  bar's corner says whether you are up to date (a click opens the release page; nothing is
   downloaded; the request tells GitHub only your IP address). Chosen in the welcome window,
   switched off in **Settings → Configure Termigator… → Application**.
 
