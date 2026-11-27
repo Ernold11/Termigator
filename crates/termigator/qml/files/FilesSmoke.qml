@@ -197,7 +197,7 @@ Item {
                 expect(n === "..,ro,sub,.hidden,a.txt,big.bin,link", "rows " + n);
                 expect(files.status === "box · " + remote + " — 6 shown (6 total, 2 dir(s))", "status " + files.status);
                 // In the side dock the window's status bar carries the line, not the panel.
-                expect(shell.sideTabBar.currentIndex === 1 && shell.sideStatus === files.status && !find("filesStatus", panel).visible, "status bar " + shell.sideStatus);
+                expect(shell.sideTabBar.currentIndex === 1 && shell.sideStatus === files.status && panel.statusText === files.status && !find("filesStatus", panel).visible, "status bar " + shell.sideStatus);
                 expect(panel.pathField.text === remote, "path bar " + panel.pathField.text);
                 const a = itemAt("a.txt");
                 expect(a.sizeText === "6 B" && a.mode.startsWith("-rw") && a.mtime !== "" && a.owner.indexOf(":") > 0, "a.txt " + a.sizeText + " " + a.mode + " " + a.owner);
@@ -1039,6 +1039,8 @@ Item {
                 expect(!files.hasTarget && shell.sideTabBar.currentIndex === 1 && panel.list.list.count === 0, "side panel kept the host");
                 expect(panel.localMode && panel.local !== null, "no local files for a local shell");
                 expect(files.status === "Open an SSH session — its files will show up here.", "status " + files.status);
+                // The status bar describes the local folder shown, not the idle remote side.
+                expect(shell.sideStatus.startsWith("This computer · " + panel.local.path + " — "), "local status bar " + shell.sideStatus);
                 expect(!shell.shellActions.actions["session.files"].enabled, "session.files enabled without an SSH tab");
                 // Back to the SSH tab: the same host, the folder is kept.
                 const pv = area.viewOf(held.t1);

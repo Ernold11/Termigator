@@ -47,6 +47,9 @@ FocusScope {
     readonly property alias permissionsDialog: permDialog
     readonly property alias bookmarkMenu: bookmarkMenu
     readonly property var local: localPaneLoader.item
+    // The status line: the remote side's, or for a local shell this machine's folder (the remote
+    // side then only has its "open an SSH session" hint).
+    readonly property string statusText: localMode && local ? qsTr("This computer · %1 — %2 shown").arg(local.path).arg(local.model.count) : files.status
     readonly property alias toolbar: toolbarFlow
 
     // The side dock and the window minimum width bind to it (ShellWindow.qml): the toolbar no
@@ -660,7 +663,7 @@ FocusScope {
             selectedTextColor: Kirigami.Theme.highlightedTextColor
             selectionColor: Kirigami.Theme.highlightColor
             font: Kirigami.Theme.defaultFont
-            text: filesRoot.files.status
+            text: filesRoot.statusText
         }
 
         // The password was typed in the terminal and is not saved: ask for it here (kept in memory

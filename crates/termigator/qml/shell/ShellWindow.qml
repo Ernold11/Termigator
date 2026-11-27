@@ -348,7 +348,7 @@ QQC2.ApplicationWindow {
     // The status bar: the summary of the side dock's tab in front (the host list, or the Files
     // panel's status line) and, in the corner, this version against the latest release the last
     // check found (a click opens its page). It goes with the side panel.
-    readonly property string sideStatus: sideTabs.currentIndex === 1 ? (filesLoader.item && filesLoader.item.session ? filesLoader.item.session.files.status : "") : listSummary
+    readonly property string sideStatus: sideTabs.currentIndex === 1 ? (filesLoader.item && filesLoader.item.panel ? filesLoader.item.panel.statusText : "") : listSummary
     property var updateStatus: JSON.parse(appController.updateStatus())
 
     footer: QQC2.ToolBar {
