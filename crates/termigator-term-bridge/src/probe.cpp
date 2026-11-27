@@ -4,7 +4,12 @@
 
 #include <QtCore/QEvent>
 #include <QtCore/QPointF>
+#include <QtCore/QtMath>
+#include <QtGui/QImage>
+#include <QtGui/QPainter>
 #include <QtGui/QWindow>
+#include <QtQuick/QQuickPaintedItem>
+#include <QtQuick/QQuickWindow>
 #include <QtQml/qqml.h>
 
 #include <fstream>
@@ -117,6 +122,40 @@ void Probe::click(QWindow *window, qreal x, qreal y, int button, int count, int 
         qt_handleMouseEvent(window, local, global, Qt::NoButton, which, QEvent::MouseButtonRelease,
                             mods, 1010 + i * 50);
     }
+}
+
+QVariantList Probe::inkSpans(QQuickPaintedItem *item, qreal y, qreal refX) const
+{
+    QVariantList spans;
+    if (!item || item->width() < 1 || item->height() < 1)
+        return spans;
+    // At the window's device pixel ratio, as the scene graph paints it: fractional scaling is
+    // where glyph advances round differently from the cell grid.
+    const qreal dpr = item->window() ? item->window()->devicePixelRatio() : 1.0;
+    QImage image(qCeil(item->width() * dpr), qCeil(item->height() * dpr),
+                 QImage::Format_ARGB32_Premultiplied);
+    image.setDevicePixelRatio(dpr);
+    image.fill(Qt::transparent);
+    {
+        QPainter painter(&image);
+        item->paint(&painter);
+    }
+    const int row = qFloor(y * dpr);
+    const int ref = qFloor(refX * dpr);
+    if (row < 0 || row >= image.height() || ref < 0 || ref >= image.width())
+        return spans;
+    const QRgb background = image.pixel(ref, row);
+    int start = -1;
+    for (int x = 0; x <= image.width(); ++x) {
+        const bool ink = x < image.width() && image.pixel(x, row) != background;
+        if (ink && start < 0) {
+            start = x;
+        } else if (!ink && start >= 0) {
+            spans << start / dpr << x / dpr;
+            start = -1;
+        }
+    }
+    return spans;
 }
 
 qint64 Probe::rssKiB() const

@@ -5,7 +5,9 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QVariantList>
 
+class QQuickPaintedItem;
 class QWindow;
 
 namespace termigator::term {
@@ -44,6 +46,11 @@ public:
     // click is a press and a release, 50 ms apart, so Qt detects the double click itself.
     Q_INVOKABLE void click(QWindow *window, qreal x, qreal y, int button, int count,
                            int modifiers) const;
+
+    // Paints `item` into an image of its size (at the window's device pixel ratio) and returns,
+    // for row `y`, the spans [x1, x2) whose pixels differ from the pixel at `refX` on that row, as
+    // [x1, x2, x1, x2, ...] in item coordinates. Lets a check see where glyphs landed.
+    Q_INVOKABLE QVariantList inkSpans(QQuickPaintedItem *item, qreal y, qreal refX) const;
 
     // Resident set size of this process in KiB, from /proc/self/statm; -1 when unreadable.
     Q_INVOKABLE qint64 rssKiB() const;

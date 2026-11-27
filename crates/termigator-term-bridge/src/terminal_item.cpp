@@ -1,4 +1,5 @@
 #include "termigator-term-bridge/src/terminal_item.h"
+#include "termigator-term-bridge/src/box_drawing.h"
 #include "termigator-term-bridge/src/window_effects.h"
 
 #include <QtQuick/QQuickWindow>
@@ -44,22 +45,6 @@ constexpr qreal AUTO_SCROLL_MIN_ROWS_PER_SEC = 8;
 constexpr qreal AUTO_SCROLL_ROWS_PER_SEC_PER_CELL = 12;
 constexpr qreal AUTO_SCROLL_MAX_ROWS_PER_SEC = 400;
 
-// Powerline/Nerd Font icons and emoji are not guaranteed to advance exactly one cell in the
-// configured font (the non-Mono Nerd Font variants are proportional for private-use glyphs).
-// Drawing them inside their own cell keeps the following runs aligned; Konsole does the same by
-// positioning every glyph.
-bool needsOwnCell(const QString &text, int width)
-{
-    if (width != 1)
-        return true;
-    for (const QChar ch : text) {
-        const ushort c = ch.unicode();
-        if ((c >= 0xe000 && c <= 0xf8ff) || c >= 0xd800)
-            return true;
-    }
-    return false;
-}
-
 QColor readColor(QDataStream &stream, bool &ok)
 {
     quint8 r = 0;
@@ -72,11 +57,31 @@ QColor readColor(QDataStream &stream, bool &ok)
 
 } // namespace
 
+// Powerline/Nerd Font icons and emoji are not guaranteed to advance exactly one cell in the
+// configured font (the non-Mono Nerd Font variants are proportional for private-use glyphs), nor
+// is any glyph the primary face lacks (a fallback font steps in with its own metrics). Drawing
+// them inside their own cell keeps the following runs aligned; Konsole does the same by
+// positioning every glyph.
+bool GhosttyTerminalItem::needsOwnCell(const QString &text, int width) const
+{
+    if (width != 1)
+        return true;
+    for (const QChar ch : text) {
+        const ushort c = ch.unicode();
+        if ((c >= 0xe000 && c <= 0xf8ff) || c >= 0xd800)
+            return true;
+        if (c >= 0x80 && (!m_primaryFace.isValid() || !m_primaryFace.supportsCharacter(ch)))
+            return true;
+    }
+    return false;
+}
+
 GhosttyTerminalItem::GhosttyTerminalItem(QQuickItem *parent)
     : QQuickPaintedItem(parent)
 {
     m_font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     m_font.setPointSizeF(10.5);
+    m_primaryFace = QRawFont::fromFont(m_font);
     const QFontMetricsF metrics(m_font);
     m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
     m_cellHeight = metrics.height();
@@ -209,6 +214,7 @@ void GhosttyTerminalItem::setFont(const QFont &font)
                         QStringLiteral("JetBrainsMono Nerd Font Mono"),
                         QStringLiteral("Noto Sans Mono CJK JP"),
                         QStringLiteral("Noto Color Emoji")});
+    m_primaryFace = QRawFont::fromFont(m_font);
     const QFontMetricsF metrics(m_font);
     m_cellWidth = metrics.horizontalAdvance(QLatin1Char('M'));
     m_cellHeight = metrics.height();
@@ -1008,6 +1014,12 @@ void GhosttyTerminalItem::paint(QPainter *painter)
                 flush();
                 continue;
             }
+            // Box drawing and block elements as shapes on the grid, so frames meet exactly.
+            if (cell.text.size() == 1 && cell.width == 1 && isBoxChar(cell.text.at(0).unicode())) {
+                flush();
+                drawBoxChar(painter, rect, cell.text.at(0).unicode(), fg);
+                continue;
+            }
             if (!cell.text.isEmpty() && needsOwnCell(cell.text, cell.width)) {
                 flush();
                 QFont font = m_font;
@@ -1028,14 +1040,18 @@ void GhosttyTerminalItem::paint(QPainter *painter)
                 continue;
             }
             // Monospace runs: one drawText for consecutive cells with the same pen and style.
+            // A cell with a background but no text (ED/ECH with a colour, as mc paints its
+            // panels) stands for spaces, or the glyphs after it shift left into its columns.
+            const QString text =
+                cell.text.isEmpty() ? QString(cell.width, QLatin1Char(' ')) : cell.text;
             if (runActive && cell.x == runX + runWidth && fg == runFg && flags == runFlags) {
-                runText += cell.text;
+                runText += text;
                 runWidth += cell.width;
             } else {
                 flush();
                 runX = cell.x;
                 runWidth = cell.width;
-                runText = cell.text;
+                runText = text;
                 runFg = fg;
                 runFlags = flags;
                 runActive = true;

@@ -23,6 +23,7 @@ const QML_FILES: &[&str] = &[
     "qml/terminal/TerminalView.qml",
     "qml/terminal/TerminalFindBar.qml",
     "qml/terminal/TerminalSmoke.qml",
+    "qml/terminal/GridCheck.qml",
     "qml/shell/ShellWindow.qml",
     "qml/shell/ShellActions.qml",
     "qml/shell/ShellToolBar.qml",

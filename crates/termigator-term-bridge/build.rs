@@ -54,6 +54,7 @@ fn main() -> Result<()> {
     glue.file("src/register.cpp")
         .file("src/kde.cpp")
         .file("src/window_effects.cpp")
+        .file("src/box_drawing.cpp")
         .files(resources.file)
         .std("c++17")
         .includes(qt.include_paths())

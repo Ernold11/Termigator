@@ -15,6 +15,7 @@
 #include <QtCore/QVector>
 #include <QtGui/QColor>
 #include <QtGui/QFont>
+#include <QtGui/QRawFont>
 #include <QtQuick/QQuickPaintedItem>
 
 #include "termigator-term-bridge/src/ghostty_session.h"
@@ -185,12 +186,16 @@ private:
     void updateAutoScroll();
     void autoScrollStep();
     void stopSelecting();
+    bool needsOwnCell(const QString &text, int width) const;
 
     // The tab owns the session and may destroy it before this view (closing a tab, quitting);
     // a pending refresh must then see null instead of a freed session.
     QPointer<GhosttySession> m_session;
     QString m_source;
     QFont m_font;
+    // The face the font resolves to for Latin text: what it lacks comes from a fallback whose
+    // advance need not be one cell, so such glyphs are drawn in their own cells.
+    QRawFont m_primaryFace;
     qreal m_cellWidth = 8;
     qreal m_cellHeight = 16;
     bool m_snapshotStale = true;
