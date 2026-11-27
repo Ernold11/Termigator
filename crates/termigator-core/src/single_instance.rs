@@ -14,6 +14,10 @@
 //!   means `err`). Dropping the server stops the thread and removes the socket file.
 //!   At most 8 clients are served at once; more are closed at once. Only the holder of an
 //!   exclusive `flock` on `<path>.lock` checks and replaces a stale socket file.
+//! * [`claim`]: the single-instance start (`window.single_instance`). Become the server, or hand
+//!   `show` to the Termigator that is; only the `flock` holder is ever the one, so two starts at
+//!   once cannot both win, and a crashed one leaves nothing that blocks (the kernel drops the lock,
+//!   the stale socket is replaced).
 //! * [`split_remote_args`] picks `--toggle` / `--show` out of the command line.
 
 use std::ffi::OsString;
@@ -24,7 +28,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 use crate::paths::{EnvSource, Layout, private_runtime_dir_in};
 use crate::platform::{self, IpcListener, IpcStream};
@@ -37,6 +41,11 @@ const POLL: Duration = Duration::from_millis(25);
 const MAX_LINE: u64 = 4096;
 /// Connections served at once; more are closed at once (the client sees a dead server).
 const MAX_CONNECTIONS: usize = 8;
+/// Pause between [`claim`] attempts while the other Termigator is still starting.
+const CLAIM_RETRY: Duration = Duration::from_millis(100);
+/// How long a second start waits for the running Termigator to answer: enough for a slow first
+/// start (config, QML) to begin serving, short enough that a hung one does not hold the user up.
+pub const HAND_OVER_WAIT: Duration = Duration::from_secs(10);
 
 /// A control command.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -133,6 +142,39 @@ fn send_io(path: &Path, command: Command, token: &str) -> io::Result<bool> {
 /// connect succeeds or fails at once, so no timeout is needed.
 pub fn socket_alive(path: &Path) -> bool {
     IpcStream::connect(path).is_ok()
+}
+
+/// What [`claim`] found.
+#[derive(Debug)]
+pub enum Claim {
+    /// No other Termigator: this process is the one. Keep the server for its whole life.
+    Primary(ControlServer),
+    /// The running Termigator took the command: this process is not needed.
+    HandedOver,
+    /// Another Termigator holds the lock but did not answer within the wait (hung, or stuck in
+    /// its start). This process must not become a second one.
+    NoAnswer,
+}
+
+/// The single-instance start on *path*: [`ControlServer::start`], else deliver *command* to the
+/// server there, retried until *wait* runs out while the other process is still starting (lock
+/// held, socket not bound or not served yet). A retry may deliver *command* twice, so it should be
+/// one that does no harm then ([`Command::Show`]). `Err`: no server could be set up at *path*
+/// (e.g. something else than a socket there).
+pub fn claim(path: &Path, command: Command, token: &str, wait: Duration) -> io::Result<Claim> {
+    let deadline = Instant::now() + wait;
+    loop {
+        if let Some(server) = ControlServer::start(path)? {
+            return Ok(Claim::Primary(server));
+        }
+        if send_io(path, command, token).unwrap_or(false) {
+            return Ok(Claim::HandedOver);
+        }
+        if Instant::now() >= deadline {
+            return Ok(Claim::NoAnswer);
+        }
+        thread::sleep(CLAIM_RETRY);
+    }
 }
 
 /// `--toggle` / `--show` from the command line (without the program name): the first one found

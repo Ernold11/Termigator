@@ -33,7 +33,9 @@ use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QQuickStyle, QString, Q
 use cxx_qt_lib_extras::QApplication;
 use termigator_core::paths::ProcessEnv;
 use termigator_core::proto::askpass;
-use termigator_core::single_instance::{send_command, split_remote_args};
+use termigator_core::single_instance::{
+    Claim, Command, HAND_OVER_WAIT, claim, control_socket_path, send_command, split_remote_args,
+};
 
 pub use shell_qobj::SMOKE_TEST_ENV;
 
@@ -144,23 +146,36 @@ pub fn run() -> ExitCode {
         // None running: this process becomes the window.
     }
     trace("args split");
+    // Single instance: before anything a running Termigator also uses (config file modes, the
+    // edit cache, the tray icon, KGlobalAccel), either hold the place or hand over and quit.
+    if warm_up.is_none() && shell_qobj::single_instance_wanted() {
+        let token = std::env::var("XDG_ACTIVATION_TOKEN").unwrap_or_default();
+        match control_socket_path(&ProcessEnv)
+            .map(|path| claim(&path, Command::Show, &token, HAND_OVER_WAIT))
+        {
+            Some(Ok(Claim::Primary(server))) => shell_qobj::hand_over_control(server),
+            Some(Ok(Claim::HandedOver)) => return ExitCode::SUCCESS,
+            Some(Ok(Claim::NoAnswer)) => {
+                eprintln!("termigator: already running but not responding; not starting another");
+                if !headless() {
+                    let _app = QApplication::new();
+                    shell_qobj::qobject::instance_not_responding();
+                }
+                return ExitCode::FAILURE;
+            }
+            // No private runtime directory, or no socket can be made there: as without the setting.
+            Some(Err(e)) => eprintln!("termigator: single-instance check failed ({e}); starting"),
+            None => {}
+        }
+    }
+    trace("single instance");
     job_windows::install();
     let startup = match shell_qobj::AppState::load() {
         Ok(s) => s,
         Err(e) => {
             eprintln!("Error loading config: {e}");
-            // Started from the menu there is no terminal: say it in a window. Not
-            // offscreen (tests, the installer's warm-up), where nobody could close it, nor without
-            // a display (ssh, cron), where Qt would abort with a core dump.
-            let set = |k: &str| std::env::var_os(k).is_some_and(|v| !v.is_empty());
-            let no_display = cfg!(target_os = "linux")
-                && !set("DISPLAY")
-                && !set("WAYLAND_DISPLAY")
-                && !set("QT_QPA_PLATFORM");
-            let headless = std::env::var_os("QT_QPA_PLATFORM").is_some_and(|p| p == "offscreen")
-                || set(SMOKE_TEST_ENV)
-                || no_display;
-            if !headless {
+            // Started from the menu there is no terminal: say it in a window.
+            if !headless() {
                 let _app = QApplication::new();
                 let dir = shell_qobj::app_paths().config_dir;
                 shell_qobj::qobject::startup_error(
@@ -232,6 +247,7 @@ pub fn run() -> ExitCode {
     let code = app_ref.exec();
     // The QML objects own the control socket and its lock: gone before the new process asks.
     drop(engine);
+    shell_qobj::release_control();
     termigator_core::proto::ssh::remove_private_key_copies();
     if shell_qobj::RESTART.load(std::sync::atomic::Ordering::SeqCst) {
         restart();
@@ -240,6 +256,19 @@ pub fn run() -> ExitCode {
         let _ = std::fs::remove_dir_all(dir);
     }
     ExitCode::from(u8::try_from(code).unwrap_or(1))
+}
+
+/// No one to read a message box: offscreen (tests, the installer's warm-up), where nobody could
+/// close it, or no display (ssh, cron), where Qt would abort with a core dump.
+fn headless() -> bool {
+    let set = |k: &str| std::env::var_os(k).is_some_and(|v| !v.is_empty());
+    let no_display = cfg!(target_os = "linux")
+        && !set("DISPLAY")
+        && !set("WAYLAND_DISPLAY")
+        && !set("QT_QPA_PLATFORM");
+    std::env::var_os("QT_QPA_PLATFORM").is_some_and(|p| p == "offscreen")
+        || set(SMOKE_TEST_ENV)
+        || no_display
 }
 
 /// `requestRestart`: the same program and arguments again, told to reopen the saved tabs.

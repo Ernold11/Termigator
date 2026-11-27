@@ -38,4 +38,8 @@ void applyFixedLook(const QString &mode);
 // config folder, before the app quits (the files are left as they are).
 void startupError(const QString &text, const QString &folder);
 
+// Single-instance start: another Termigator holds the place but did not answer in time (hung).
+// A box saying so before this process quits, rather than a second instance.
+void instanceNotResponding();
+
 } // namespace termigator::shell

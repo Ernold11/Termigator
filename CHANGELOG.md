@@ -14,6 +14,10 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ### Window
 
+- **One instance:** starting Termigator again (menu, desktop shortcut) brings the running window
+  forward — from the tray, minimized or behind other windows — instead of a second copy; sessions,
+  transfers and tunnels keep running. Several starts at once and a crashed instance are handled.
+  Settings → Application → *Allow only one application instance* (on by default) allows several.
 - The menu bar is hidden by default and its menus sit behind a **☰** button at the end of the toolbar,
   laid out as in KDE applications: frequent actions first (duplicate, reconnect, log, full screen, zoom),
   then Session, Tools, Settings and Help, and **More** with File, Edit and View. **View → Show menubar**

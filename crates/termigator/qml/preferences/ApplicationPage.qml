@@ -53,6 +53,16 @@ PrefPage {
         text: qsTr("Check for new versions on GitHub at startup (once a day)")
         tip: qsTr("Asks GitHub for the latest release; a newer one shows a banner with a link. Nothing is downloaded.")
     }
+    // window.single_instance: read by each new start (src/lib.rs), so it applies from the next
+    // start without restarting this one.
+    PrefCheck {
+        key: "single_instance"
+        text: qsTr("Allow only one application instance")
+        tip: qsTr("Starting Termigator again brings this window forward — also from the system tray or\nminimized — instead of opening a second one. Sessions, transfers and tunnels keep running.")
+    }
+    PrefHint {
+        text: qsTr("Applies from the next start, no restart needed. Termigator windows already open stay open.")
+    }
     PrefCheck {
         key: "always_on_top"
         text: qsTr("Keep the window always on top")

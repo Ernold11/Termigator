@@ -235,3 +235,134 @@ fn concurrent_starts_over_a_stale_socket_yield_one_server() {
         assert!(!p.exists());
     }
 }
+
+#[test]
+fn first_claim_is_primary_and_a_closed_one_frees_the_place() {
+    let (_d, p) = sock("claim.sock");
+    let first = claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim");
+    assert!(matches!(first, Claim::Primary(_)), "{first:?}");
+    assert!(socket_alive(&p));
+    drop(first);
+    assert!(!p.exists(), "socket left behind");
+    let again = claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim");
+    assert!(matches!(again, Claim::Primary(_)), "{again:?}");
+}
+
+#[test]
+fn second_claim_hands_show_and_token_to_the_running_one() {
+    let (_d, p) = sock("hand.sock");
+    let Claim::Primary(server) =
+        claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim")
+    else {
+        panic!("not primary");
+    };
+    let second = std::thread::scope(|s| {
+        let t = s.spawn(|| claim(&p, Command::Show, "TOK", Duration::from_secs(5)).expect("claim"));
+        assert_eq!(
+            answer(&server, 1, true),
+            vec![(Command::Show, "TOK".into())]
+        );
+        t.join().expect("join")
+    });
+    assert!(matches!(second, Claim::HandedOver), "{second:?}");
+    assert!(socket_alive(&p), "the running one keeps its socket");
+}
+
+#[test]
+fn claim_waits_for_a_running_one_that_is_still_starting() {
+    let (_d, p) = sock("slow.sock");
+    let Claim::Primary(server) =
+        claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim")
+    else {
+        panic!("not primary");
+    };
+    let second = std::thread::scope(|s| {
+        let t = s.spawn(|| claim(&p, Command::Show, "", Duration::from_secs(8)).expect("claim"));
+        // Busy starting (no answer) for the first attempts, then serving.
+        std::thread::sleep(Duration::from_millis(1800));
+        while !t.is_finished() {
+            if let Ok(r) = server.requests().recv_timeout(Duration::from_millis(100)) {
+                r.respond(true);
+            }
+        }
+        t.join().expect("join")
+    });
+    assert!(matches!(second, Claim::HandedOver), "{second:?}");
+}
+
+#[test]
+fn hung_running_one_gives_no_answer_within_the_wait_and_no_second_primary() {
+    let (_d, p) = sock("hung.sock");
+    let Claim::Primary(_server) =
+        claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim")
+    else {
+        panic!("not primary");
+    };
+    let started = std::time::Instant::now();
+    let second = claim(&p, Command::Show, "", Duration::from_millis(500)).expect("claim");
+    assert!(matches!(second, Claim::NoAnswer), "{second:?}");
+    // One attempt past the deadline at most (the server gives up on its app after 1.5 s).
+    assert!(
+        started.elapsed() < Duration::from_secs(5),
+        "{:?}",
+        started.elapsed()
+    );
+}
+
+#[test]
+fn crashed_one_leaves_a_stale_socket_that_the_next_claim_replaces() {
+    let _g = SPAWN.lock().unwrap_or_else(|e| e.into_inner());
+    let (_d, p) = sock("crash.sock");
+    drop(UnixListener::bind(&p).expect("dead")); // what a killed process leaves; its flock is gone
+    let next = claim(&p, Command::Show, "", Duration::from_secs(1)).expect("claim");
+    assert!(matches!(next, Claim::Primary(_)), "{next:?}");
+    assert!(socket_alive(&p));
+}
+
+#[test]
+fn simultaneous_claims_yield_one_primary_and_the_rest_hand_over() {
+    const STARTS: usize = 6;
+    let (_d, p) = sock("many.sock");
+    let barrier = std::sync::Barrier::new(STARTS);
+    let outcomes: Vec<&str> = std::thread::scope(|s| {
+        let starts: Vec<_> = (0..STARTS)
+            .map(|_| {
+                s.spawn(|| {
+                    barrier.wait();
+                    match claim(&p, Command::Show, "", Duration::from_secs(10)).expect("claim") {
+                        Claim::Primary(server) => {
+                            // Serve the others, as the application's timer would.
+                            let deadline = std::time::Instant::now() + Duration::from_secs(10);
+                            let mut served = 0;
+                            while served < STARTS - 1 && std::time::Instant::now() < deadline {
+                                if let Ok(r) =
+                                    server.requests().recv_timeout(Duration::from_millis(100))
+                                {
+                                    r.respond(true);
+                                    served += 1;
+                                }
+                            }
+                            "primary"
+                        }
+                        Claim::HandedOver => "handed over",
+                        Claim::NoAnswer => "no answer",
+                    }
+                })
+            })
+            .collect();
+        starts
+            .into_iter()
+            .map(|t| t.join().expect("join"))
+            .collect()
+    });
+    assert_eq!(
+        outcomes.iter().filter(|o| **o == "primary").count(),
+        1,
+        "{outcomes:?}"
+    );
+    assert_eq!(
+        outcomes.iter().filter(|o| **o == "handed over").count(),
+        STARTS - 1,
+        "{outcomes:?}"
+    );
+}

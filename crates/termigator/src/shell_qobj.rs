@@ -71,6 +71,8 @@ pub mod qobject {
         fn applyFixedLook(mode: &QString);
         #[rust_name = "startup_error"]
         fn startupError(text: &QString, folder: &QString);
+        #[rust_name = "instance_not_responding"]
+        fn instanceNotResponding();
     }
 
     #[auto_cxx_name]
@@ -290,6 +292,23 @@ pub(crate) fn app_paths() -> Paths {
 
 thread_local! {
     static APP: RefCell<Option<AppState>> = const { RefCell::new(None) };
+    static CONTROL: RefCell<Option<ControlServer>> = const { RefCell::new(None) };
+}
+
+/// `window.single_instance` (on by default), read without [`AppState::load`]: a start that only
+/// hands over to the running Termigator must not touch what that one uses (file modes, edit cache).
+pub fn single_instance_wanted() -> bool {
+    save::load(&app_paths()).map_or(true, |cfg| window_bool(&cfg, "single_instance", true))
+}
+
+/// The control server [`run`](crate::run) claimed before Qt existed, for `AppController`.
+pub fn hand_over_control(server: ControlServer) {
+    CONTROL.with(|c| *c.borrow_mut() = Some(server));
+}
+
+/// Drops a handed-over server nobody took (the window never came up), freeing the place.
+pub fn release_control() {
+    drop(CONTROL.with(|c| c.borrow_mut().take()));
 }
 
 /// Hands the loaded config to the QObjects that `ShellWindow.qml` creates.
@@ -407,10 +426,13 @@ impl cxx_qt::Initialize for qobject::AppController {
             _ => ":/qt/qml/Termigator/qml/assets".to_owned(),
         };
         qobject::set_app_icon(&QString::from(assets.as_str()));
-        // No private runtime directory, no socket; a second Termigator leaves it to the
-        // first; a failure to listen only costs `--toggle` (ignored the same way).
-        let control = control_socket_path(&ProcessEnv)
-            .and_then(|path| ControlServer::start(&path).ok().flatten());
+        // Claimed at start in single-instance mode. Otherwise: no private runtime directory, no
+        // socket; a second Termigator leaves it to the first; a failure to listen only costs
+        // `--toggle` (ignored the same way).
+        let control = CONTROL.with(|c| c.borrow_mut().take()).or_else(|| {
+            control_socket_path(&ProcessEnv)
+                .and_then(|path| ControlServer::start(&path).ok().flatten())
+        });
         self.as_mut().rust_mut().control = control;
         // The smoke test must not register a component in the user's KGlobalAccel.
         if self.smoke_test_shot.is_empty() {

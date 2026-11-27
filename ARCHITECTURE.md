@@ -363,6 +363,13 @@ before `QApplication` is created. The Wayland activation token is set before `re
 Tray through `Qt.labs.platform` SystemTrayIcon (SNI); attention alert through `QWindow.alert()`.
 Rejected: ashpd (GlobalShortcuts portal needs an async runtime) and KDBusService (would change the
 multi-instance semantics).
+Single instance (`window.single_instance`, default on): before the app state and `QApplication`,
+`single_instance::claim` either takes the control socket's `flock` (this process is the one; the
+server is handed to `AppController`) or sends `show` to the holder and exits, retrying up to 10 s
+while the holder is still starting; a holder that never answers gets a message box, not a second
+instance. The kernel drops the lock of a crashed process and its stale socket is replaced. The
+setting is read by each new start, so a change needs no restart. KDBusService stays rejected: it
+would tie the check to a session bus (none on Windows, in containers or over ssh).
 
 ### ADR-10: Data models for QML
 

@@ -44,6 +44,8 @@ frameworks installed) and Windows 11 x64 (installer with its own Qt and KF6; tes
 - **Desktop integration:** KDE look and feel (identical look elsewhere), global show / hide through
   `termigator --toggle` (bind it in System Settings → Shortcuts), `termigator --show`. With the tray
   icon on, closing the window asks whether to hide it in the tray or exit (the answer can be remembered).
+  One instance per user: starting Termigator again brings the running window forward, also from the
+  tray (Settings → Application → *Allow only one application instance* turns it off).
 - **Update check:** once a day at startup, a banner when GitHub has a newer release (nothing is
   downloaded; the request tells GitHub only your IP address). Chosen in the welcome window,
   switched off in **Settings → Configure Termigator… → Application**.

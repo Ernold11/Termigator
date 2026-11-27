@@ -340,6 +340,10 @@ pub fn page_values(cfg: &Value) -> serde_json::Value {
         json!(flag_of(w, "notify_on_disconnect", false)),
     );
     put("check_updates", json!(flag_of(w, "check_updates", true)));
+    put(
+        "single_instance",
+        json!(flag_of(w, "single_instance", true)),
+    );
     put("always_on_top", json!(flag_of(w, "always_on_top", false)));
     put(
         "session_restore",
@@ -444,6 +448,7 @@ pub fn apply_values(cfg: &mut Value, draft: &serde_json::Value) {
         "confirm_close_tab",
         "notify_on_disconnect",
         "check_updates",
+        "single_instance",
         "always_on_top",
         "session_restore",
         "environment_frame",

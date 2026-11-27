@@ -26,6 +26,9 @@ window:
   # Once a day at startup ask GitHub for the latest release and show a banner when it is newer
   # (nothing is downloaded). Also in Settings > Configure Termigator > Application.
   check_updates: true
+  # Starting Termigator again brings the running window forward (also from the tray) instead of
+  # opening a second one. Off: independent instances. Also in Settings > Application.
+  # single_instance: true
   # How many targets the toolbar's Quick connect field remembers (newest first, kept in
   # quick_history; passwords are never stored). 0 keeps none. Also in Settings > Application.
   # quick_history_limit: 20

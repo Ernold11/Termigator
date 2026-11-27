@@ -37,6 +37,7 @@ const QML_FILES: &[&str] = &[
     "qml/shell/UpdateCheck.qml",
     "qml/shell/EnvMark.qml",
     "qml/shell/KeyedMenuContent.qml",
+    "qml/shell/SingleInstanceSmoke.qml",
     "qml/shell/SmokeCheck.qml",
     "qml/shell/StartupCheck.qml",
     "qml/shell/RestartCheck.qml",

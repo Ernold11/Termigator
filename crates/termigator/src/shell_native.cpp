@@ -72,6 +72,18 @@ void startupError(const QString &text, const QString &folder)
         QDesktopServices::openUrl(QUrl::fromLocalFile(folder));
 }
 
+void instanceNotResponding()
+{
+    QMessageBox box(QMessageBox::Warning, QStringLiteral("Termigator"),
+                    QStringLiteral("Termigator is already running but does not respond."),
+                    QMessageBox::Close, nullptr);
+    box.setInformativeText(QStringLiteral(
+        "No second instance was started. Wait a moment and start Termigator again, or end the "
+        "running one (its sessions end with it). Settings → Application turns off "
+        "“Allow only one application instance”."));
+    box.exec();
+}
+
 void aboutTermigator(const QString &title, const QString &html)
 {
     QMessageBox box(QMessageBox::NoIcon, title, QString(), QMessageBox::Ok, nullptr);
