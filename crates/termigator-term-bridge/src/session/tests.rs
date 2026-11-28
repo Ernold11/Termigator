@@ -264,3 +264,66 @@ fn pixel_size_reports_use_the_cell_size_of_the_view() {
     engine.feed(b"\x1b[16t");
     assert_eq!(replies(&mut engine), "\x1b[6;26;12t");
 }
+
+#[test]
+fn find_next_selects_exactly_the_match_after_wide_and_combined_characters() {
+    // Columns, not characters: 漢 takes two cells, the acute accent none; a gap skipped with
+    // CSI n C is empty cells.
+    for line in [
+        "漢字漢字 needle\r\n",
+        "e\u{301}e\u{301} needle\r\n",
+        "👨\u{200d}👩\u{200d}👧 needle\r\n",
+        "ab\x1b[5Cneedle\r\n",
+    ] {
+        let mut engine = SessionEngine::new(40, 4, Some(100)).expect("engine");
+        engine.feed(line.as_bytes());
+        assert!(
+            engine.find_next("needle", true, false, true, false),
+            "{line:?}"
+        );
+        assert_eq!(engine.selected_text().trim(), "needle", "{line:?}");
+    }
+}
+
+#[test]
+fn case_insensitive_find_survives_characters_whose_lower_case_has_another_length() {
+    // İ lower-cases to two characters (3 bytes from 2), the Kelvin sign to one ASCII byte: the
+    // old offsets from a lower-cased copy cut the line inside a character and panicked.
+    for (line, needle, want) in [
+        ("İżółw\r\n", "ŻÓŁW", "żółw"),
+        ("\u{212a}\u{212a}żółw\r\n", "żółw", "żółw"),
+        ("İİİ x needle\r\n", "NEEDLE", "needle"),
+    ] {
+        let mut engine = SessionEngine::new(40, 4, Some(100)).expect("engine");
+        engine.feed(line.as_bytes());
+        assert!(
+            engine.find_next(needle, false, false, true, false),
+            "{line:?}"
+        );
+        assert_eq!(engine.selected_text().trim(), want, "{line:?}");
+    }
+    // A literal needle is not a pattern.
+    let mut engine = SessionEngine::new(40, 4, Some(100)).expect("engine");
+    engine.feed(b"a.c abc\r\n");
+    assert!(engine.find_next("a.c", true, false, true, false));
+    assert_eq!(engine.selected_text().trim(), "a.c");
+    assert!(engine.find_next("a.c", true, false, true, false));
+    assert_eq!(engine.selected_text().trim(), "a.c", "abc is no match");
+}
+
+#[test]
+fn url_at_finds_the_link_on_its_own_columns() {
+    // 漢字 takes columns 0-3, the URL 5-25.
+    let mut engine = SessionEngine::new(60, 4, Some(100)).expect("engine");
+    engine.feed("漢字 https://example.com/x end".as_bytes());
+    assert_eq!(engine.url_at(4, 0), "");
+    assert_eq!(engine.url_at(5, 0), "https://example.com/x");
+    assert_eq!(engine.url_at(25, 0), "https://example.com/x");
+    assert_eq!(engine.url_at(26, 0), "");
+    // A gap of empty cells before the URL (columns 2-6), the URL at 7-25.
+    let mut engine = SessionEngine::new(60, 4, Some(100)).expect("engine");
+    engine.feed(b"ab\x1b[5Chttps://example.org");
+    assert_eq!(engine.url_at(3, 0), "");
+    assert_eq!(engine.url_at(7, 0), "https://example.org");
+    assert_eq!(engine.url_at(25, 0), "https://example.org");
+}

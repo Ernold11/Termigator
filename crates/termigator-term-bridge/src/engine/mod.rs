@@ -954,10 +954,17 @@ impl Engine {
         }
         let snapshot = self.snapshot().ok()?;
         let row_data = snapshot.row_data.get(row as usize)?;
+        // An empty cell (a gap a prompt skips with `CSI n C`) still takes its column.
         let text: String = row_data
             .cells
             .iter()
-            .map(|cell| cell.text.as_str())
+            .map(|cell| {
+                if cell.text.is_empty() {
+                    " "
+                } else {
+                    cell.text.as_str()
+                }
+            })
             .collect();
         let mut start = 0usize;
         while start < text.len() {
@@ -974,8 +981,7 @@ impl Engine {
                 .find(|c: char| c.is_whitespace() || "\"'<>()[]{}".contains(c))
                 .unwrap_or(rest.len());
             if end > scheme.len() {
-                let start_col = text[..start].chars().count() as u16;
-                let end_col = start_col + rest[..end].chars().count() as u16 - 1;
+                let (start_col, end_col) = cell_span(&text, start, start + end);
                 if col >= start_col && col <= end_col {
                     return Some(rest[..end].to_owned());
                 }
@@ -1095,6 +1101,36 @@ impl Engine {
     pub fn clear(&mut self) {
         self.term.reset();
     }
+}
+
+/// The cells `line[start..end]` covers, as (first column, last column), for a line laid out the way
+/// the terminal prints it: a wide or emoji cluster takes two columns, a combining mark none.
+/// `start..end` must be a non-empty range on character boundaries.
+pub fn cell_span(line: &str, start: usize, end: usize) -> (u16, u16) {
+    let chars: Vec<(usize, char)> = line.char_indices().collect();
+    let mut first = 0u16;
+    let mut column = 0u16;
+    let mut i = 0;
+    while i < chars.len() {
+        // A cluster is a handful of characters; a bounded window keeps this linear.
+        let window: Vec<char> = chars[i..chars.len().min(i + 32)]
+            .iter()
+            .map(|&(_, c)| c)
+            .collect();
+        let (consumed, width) = ghostty_vt::unicode::grapheme_width(&window);
+        let consumed = consumed.max(1);
+        let cluster_start = chars[i].0;
+        let cluster_end = chars.get(i + consumed).map_or(line.len(), |&(at, _)| at);
+        if cluster_start <= start && start < cluster_end {
+            first = column;
+        }
+        if cluster_start < end && end <= cluster_end {
+            return (first, column + u16::from(width.max(1)) - 1);
+        }
+        column = column.saturating_add(u16::from(width));
+        i += consumed;
+    }
+    (first, column.saturating_sub(1).max(first))
 }
 
 fn ghostty_mods(mods: Mods) -> key::Mods {

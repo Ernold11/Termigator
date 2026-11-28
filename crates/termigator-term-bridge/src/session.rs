@@ -9,13 +9,13 @@ use std::fs;
 use serde_json::{Value, json};
 use termigator_core::konsole::{self, XdgDirs};
 
-use crate::engine::{CursorShape, Engine, Rgb};
+use crate::engine::{CursorShape, Engine, Rgb, cell_span};
 
 /// Engine handle owned by the session object the terminal view draws.
 pub struct SessionEngine {
     engine: Engine,
     scrollback: Option<usize>,
-    last_match: Option<(usize, usize)>,
+    last_match: Option<(usize, u16)>,
 }
 
 impl SessionEngine {
@@ -158,40 +158,28 @@ impl SessionEngine {
             self.last_match = None;
             return false;
         }
-        let matcher = if regex {
-            regex::RegexBuilder::new(needle)
-                .case_insensitive(!case_sensitive)
-                .build()
-                .ok()
+        // A literal needle is an escaped pattern: matching stays on the original line, so offsets
+        // never come from a lower-cased copy whose bytes differ (İ, K: a panic, then an abort).
+        let pattern = if regex {
+            needle.to_owned()
         } else {
-            None
+            regex::escape(needle)
         };
-        let mut matches: Vec<(usize, usize, usize)> = Vec::new();
+        let Ok(re) = regex::RegexBuilder::new(&pattern)
+            .case_insensitive(!case_sensitive)
+            .build()
+        else {
+            return false;
+        };
+        // (line, first column, last column), in cells: wide and combined characters count.
+        let mut matches: Vec<(usize, u16, u16)> = Vec::new();
         for (line_no, line) in text.lines().enumerate() {
-            if regex {
-                let Some(re) = matcher.as_ref() else {
-                    return false;
-                };
-                for found in re.find_iter(line) {
-                    if found.start() == found.end() {
-                        continue;
-                    }
-                    let start = line[..found.start()].chars().count();
-                    let end = start + line[found.start()..found.end()].chars().count();
-                    matches.push((line_no, start, end));
+            for found in re.find_iter(line) {
+                if found.start() == found.end() {
+                    continue;
                 }
-            } else if case_sensitive {
-                for (offset, _) in line.match_indices(needle) {
-                    let start = line[..offset].chars().count();
-                    matches.push((line_no, start, start + needle.chars().count()));
-                }
-            } else {
-                let haystack = line.to_lowercase();
-                let lower = needle.to_lowercase();
-                for (offset, _) in haystack.match_indices(&lower) {
-                    let start = line[..offset].chars().count();
-                    matches.push((line_no, start, start + needle.chars().count()));
-                }
+                let (start, end) = cell_span(line, found.start(), found.end());
+                matches.push((line_no, start, end));
             }
         }
         if matches.is_empty() {
@@ -223,11 +211,9 @@ impl SessionEngine {
         let rows = u32::from(self.engine.size().1);
         let top = line.saturating_sub((rows / 2) as usize);
         self.engine.scroll_to_row(top);
-        let _ = self.engine.select_screen(
-            (start as u16, line as u32),
-            ((end.saturating_sub(1)) as u16, line as u32),
-            false,
-        );
+        let _ = self
+            .engine
+            .select_screen((start, line as u32), (end, line as u32), false);
         self.last_match = Some((line, start));
         true
     }
