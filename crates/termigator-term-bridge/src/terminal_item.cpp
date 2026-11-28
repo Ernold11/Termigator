@@ -966,10 +966,11 @@ void GhosttyTerminalItem::paint(QPainter *painter)
             if (flags & (1 << 4)) // inverse swaps fg and bg
                 bg = cell.fg.isValid() ? cell.fg : m_fg;
             const QRectF rect(cell.x * cellW, y * cellH, cell.width * cellW, cellH);
-            if (flags & (1 << 9)) // selected
-                painter->fillRect(rect, QColor(70, 110, 160, 150));
             if (bg != m_bg)
                 painter->fillRect(rect, bg);
+            // Over the cell's own background: on mc's blue panels it was painted out.
+            if (flags & (1 << 9)) // selected
+                painter->fillRect(rect, QColor(70, 110, 160, 150));
         }
     }
 

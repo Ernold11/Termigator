@@ -82,6 +82,20 @@ Item {
                    "'\u2510' ends the line over the '\u2502' below" + what + "line end " + lineEnd + ", side " + JSON.stringify(side));
         }
         term.font = font;
+        // A selection shows over a coloured background (mc's panels) and over the empty cells a
+        // prompt skips with CSI n C: a block over columns 0-9 is one span against an unselected
+        // cell of the same row (blue on row 0, the default background on row 1).
+        const cw = term.cellWidth;
+        const ch = term.cellHeight;
+        ext.feedBytes("\x1b[0m\x1b[2J\x1b[H\x1b[44m" + " ".repeat(30) + "\x1b[0m\r\nab\x1b[5Ccd\x1b[H");
+        term.select(0, 0, 9, 1, true);
+        for (const row of [0, 1]) {
+            const spans = Probe.inkSpans(term, (row + 0.5) * ch, 20.5 * cw);
+            expect(spans.length >= 2 && spans[0] < 1 && Math.abs(spans[1] - 10 * cw) <= cw / 2,
+                   "selection highlighted over columns 0-9 on row " + row + ": " + JSON.stringify(spans) + ", cell " + cw);
+        }
+        term.select(0, 0, 0, 0, false);
+        ext.feedBytes("\x1b[2J\x1b[H");
         if (check.failed)
             return true;
         console.info("GRID_DONE");

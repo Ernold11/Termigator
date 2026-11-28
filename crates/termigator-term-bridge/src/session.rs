@@ -797,12 +797,13 @@ fn style_flags(style: &crate::engine::Style, selected: bool) -> u16 {
 
 /// `(column, cell)` for the cells a snapshot lists. Blank cells are left out but still advance
 /// the column: when a prompt jumps ahead with `CSI n C` (a shell's right prompt, `RPROMPT`), the
-/// gap is empty cells and the text after it has to keep its place.
+/// gap is empty cells and the text after it has to keep its place. A selected empty cell is
+/// listed, so the selection has no holes.
 fn placed_cells(row: &crate::engine::Row) -> Vec<(u16, &crate::engine::Cell)> {
     let mut out = Vec::with_capacity(row.cells.len());
     let mut column = 0u16;
     for cell in &row.cells {
-        if !cell.is_blank() || cell.width == 2 {
+        if !cell.is_blank() || cell.width == 2 || cell.selected {
             out.push((column, cell));
         }
         column = column.saturating_add(u16::from(cell.width));
