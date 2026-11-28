@@ -140,7 +140,8 @@ fn working_directory_and_errors() {
 
 /// Fields 2.. of `/proc/<pid>/stat` once the child has exec'd `sleep`.
 fn exec_stat(pid: u32) -> Vec<String> {
-    for _ in 0..200 {
+    // Up to 10 s: a busy CI runner can take a while to exec.
+    for _ in 0..1000 {
         let cmdline = std::fs::read(format!("/proc/{pid}/cmdline")).unwrap();
         if cmdline.starts_with(b"sleep\0") {
             let stat = std::fs::read_to_string(format!("/proc/{pid}/stat")).unwrap();
@@ -181,7 +182,12 @@ fn child_starts_clean() {
             .output()
             .unwrap();
         let log = String::from_utf8_lossy(&out.stdout);
-        assert!(out.status.success() && log.contains("child clean"), "{log}");
+        // The child's own assertion message is on its stderr.
+        let err = String::from_utf8_lossy(&out.stderr);
+        assert!(
+            out.status.success() && log.contains("child clean"),
+            "{log}\n{err}"
+        );
         return;
     }
     for sig in RESET {
