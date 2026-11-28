@@ -612,10 +612,12 @@ void GhosttyTerminalItem::mousePressEvent(QMouseEvent *event)
     }
     if (button == 1) {
         m_selecting = true;
+        m_dragged = false;
         m_anchor = QPoint(cell.x(), cell.y() + m_session->scrollbarOffset());
         m_dragPos = event->position();
         m_dragRectangle = event->modifiers() & Qt::AltModifier;
-        updateDragSelection();
+        // A click alone clears the selection (as in Konsole); a drag to another cell starts one.
+        m_session->clearSelection();
     }
     event->accept();
 }
@@ -640,8 +642,15 @@ void GhosttyTerminalItem::mouseMoveEvent(QMouseEvent *event)
     if (m_selecting) {
         m_dragPos = event->position();
         m_dragRectangle = event->modifiers() & Qt::AltModifier;
-        updateDragSelection();
-        updateAutoScroll();
+        // Another cell, or past the top / bottom edge (where cellAt clamps to the edge row).
+        const bool outside = m_dragPos.y() < 0 || m_dragPos.y() >= m_rows * m_cellHeight;
+        if (!m_dragged
+            && (outside || QPoint(cell.x(), cell.y() + m_session->scrollbarOffset()) != m_anchor))
+            m_dragged = true;
+        if (m_dragged) {
+            updateDragSelection();
+            updateAutoScroll();
+        }
     }
     event->accept();
 }
@@ -780,8 +789,10 @@ void GhosttyTerminalItem::wheelEvent(QWheelEvent *event)
     if (target == GhosttySession::WheelScrollback) {
         m_session->scrollBy(-steps);
         updateScrollbar();
-        if (m_selecting)
+        if (m_selecting) {
+            m_dragged = true; // the rows moved under a held button: that is a drag
             updateDragSelection();
+        }
         return;
     }
     const QPoint cell = cellAt(event->position());

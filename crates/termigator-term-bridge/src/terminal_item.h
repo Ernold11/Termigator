@@ -226,6 +226,8 @@ private:
     bool m_blurBehind = false;
     QString m_preedit;
     bool m_selecting = false;
+    // The pointer has left the anchor's cell since the press: only then is there a selection.
+    bool m_dragged = false;
     // The cell a drag selection started at; y is a screen row (0 = the oldest scrollback row),
     // so the anchor stays put while the view scrolls under the drag.
     QPoint m_anchor;

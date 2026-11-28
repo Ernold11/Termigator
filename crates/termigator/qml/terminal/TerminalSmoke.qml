@@ -1189,6 +1189,24 @@ Item {
                 expect(text.startsWith("OKLINK") && text.endsWith("BADLINK"), "a triple click selected " + JSON.stringify(text));
             }
         },
+        // A single click clears the selection and selects nothing itself (not even its own cell),
+        // once the double-click interval is over (a click inside it would be a fourth click).
+        {
+            "name": "click clears the selection",
+            "fn": () => {
+                const v = view(held.clip);
+                if (!held.clickAt) {
+                    held.clickAt = Date.now();
+                    return false;
+                }
+                if (Date.now() - held.clickAt < Qt.styleHints.mouseDoubleClickInterval + 100)
+                    return false;
+                // On text ("COPYWORD"): the old click selected the letter under it.
+                const p = v.term.mapToItem(null, 4, 4);
+                Probe.click(shell, p.x, p.y, Qt.LeftButton, 1, Qt.NoModifier);
+                expect(v.term.selectedText() === "", "a click left a selection: " + JSON.stringify(v.term.selectedText()));
+            }
+        },
         // Ctrl+click opens an http(s) link and refuses javascript:.
         {
             "name": "links",
