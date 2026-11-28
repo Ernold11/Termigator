@@ -1146,6 +1146,49 @@ Item {
                 expect(!has(t, "NOT_SELECTED"), "the selection did not reach the clipboard");
             }
         },
+        // OSC 52: a program (vim, tmux over ssh) sets the clipboard, unless the setting is off.
+        {
+            "name": "osc 52 write",
+            "fn": () => {
+                const ext = held.clip.session.ext;
+                expect(ext.clipboardWriteAllowed, "OSC 52 is off by default");
+                ext.feedBytes("\x1b]52;c;T1NDNTJURVhU\x07"); // OSC52TEXT
+                action("edit.paste");
+            }
+        },
+        {
+            "name": "osc 52 pasted",
+            "fn": () => {
+                const t = held.clip;
+                if (!has(t, "OSC52TEXT"))
+                    return false;
+                t.session.ext.clipboardWriteAllowed = false;
+                t.session.ext.feedBytes("\x1b]52;c;T1NDNTJCTE9DS0VE\x07"); // OSC52BLOCKED
+                action("edit.paste");
+            }
+        },
+        {
+            "name": "osc 52 refused",
+            "fn": () => {
+                const t = held.clip;
+                if (t.session.ext.history.split("OSC52TEXT").length < 3)
+                    return false;
+                expect(!has(t, "OSC52BLOCKED"), "OSC 52 set the clipboard with the setting off");
+                t.session.ext.clipboardWriteAllowed = true;
+            }
+        },
+        // A triple click selects the whole line (the second row: OKLINK BADLINK).
+        {
+            "name": "triple click",
+            "fn": () => {
+                const v = view(held.clip);
+                const row = v.term.height / v.term.lines;
+                const p = v.term.mapToItem(null, 4, row * 1.5);
+                Probe.click(shell, p.x, p.y, Qt.LeftButton, 3, Qt.NoModifier);
+                const text = v.term.selectedText().trim();
+                expect(text.startsWith("OKLINK") && text.endsWith("BADLINK"), "a triple click selected " + JSON.stringify(text));
+            }
+        },
         // Ctrl+click opens an http(s) link and refuses javascript:.
         {
             "name": "links",

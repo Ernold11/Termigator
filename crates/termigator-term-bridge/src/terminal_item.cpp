@@ -17,6 +17,7 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPainter>
+#include <QtGui/QStyleHints>
 #include <QtGui/QWheelEvent>
 
 #include <cstdio>
@@ -599,6 +600,16 @@ void GhosttyTerminalItem::mousePressEvent(QMouseEvent *event)
         event->accept();
         return;
     }
+    // A third click soon after a double click on the same row selects the whole line.
+    if (button == 1 && m_doubleClick.isValid()
+        && m_doubleClick.elapsed() < QGuiApplication::styleHints()->mouseDoubleClickInterval()
+        && cell.y() == m_doubleClickRow) {
+        m_doubleClick.invalidate();
+        m_session->selectLine(cell.x(), cell.y());
+        finishSelection();
+        event->accept();
+        return;
+    }
     if (button == 1) {
         m_selecting = true;
         m_anchor = QPoint(cell.x(), cell.y() + m_session->scrollbarOffset());
@@ -738,6 +749,8 @@ void GhosttyTerminalItem::mouseDoubleClickEvent(QMouseEvent *event)
     const QPoint cell = cellAt(event->position());
     m_session->selectWord(cell.x(), cell.y());
     finishSelection();
+    m_doubleClick.start();
+    m_doubleClickRow = cell.y();
     event->accept();
 }
 

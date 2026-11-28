@@ -234,6 +234,9 @@ private:
     QTimer *m_autoScrollTimer = nullptr;
     QElapsedTimer m_autoScrollClock;
     qreal m_autoScrollRows = 0;
+    // The last double click, for a triple click (select the line) on the same row.
+    QElapsedTimer m_doubleClick;
+    int m_doubleClickRow = -1;
     // Wheel turn (eighths of a degree) not yet a whole step: touchpads send small deltas.
     int m_wheelDelta = 0;
     QTimer *m_blinkTimer = nullptr;

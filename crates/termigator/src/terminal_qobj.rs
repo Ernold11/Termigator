@@ -185,7 +185,7 @@ pub mod qobject {
         /// `_terminal_look` + the `launch` options of `_apply_tab_options` as JSON: `history`,
         /// `family`, `size`, `scheme` and the booleans `blinking_cursor`, `bracketed_paste`,
         /// `confirm_multiline`, `copy_on_select`, `paste_on_right_click`, `paste_on_middle_click`,
-        /// `attention`,
+        /// `clipboard_write` (OSC 52), `attention`,
         /// `notify_on_disconnect`. `available` are the terminal's colour schemes, `dark` the UI
         /// palette.
         #[qinvokable]
@@ -400,6 +400,7 @@ pub fn look_json(
         "copy_on_select": opt_bool(lo, "copy_on_select", false),
         "paste_on_right_click": opt_bool(lo, "paste_on_right_click", false),
         "paste_on_middle_click": opt_bool(lo, "paste_on_middle_click", true),
+        "clipboard_write": opt_bool(lo, "allow_clipboard_write", true),
         "attention": opt_bool(lo, "tab_attention_marks", true),
         "opacity": background.opacity as f64 / 100.0,
         "blur": background.blur,

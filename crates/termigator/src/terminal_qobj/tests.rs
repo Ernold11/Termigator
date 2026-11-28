@@ -56,6 +56,7 @@ fn look_follows_settings_and_the_entrys_own_font() {
     assert_eq!(j["confirm_multiline"], true);
     assert_eq!(j["copy_on_select"], false);
     assert_eq!(j["paste_on_middle_click"], true);
+    assert_eq!(j["clipboard_write"], true);
 
     let conn = yaml("font_family: Fira Code\nfont_size: 9\ncolor_scheme: Solarized\n");
     let j = look_json(&lo, Some(&conn), &avail, true, &installed, &xdg_none());

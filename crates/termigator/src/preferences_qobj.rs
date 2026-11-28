@@ -291,6 +291,10 @@ pub fn page_values(cfg: &Value) -> serde_json::Value {
         json!(flag_of(l, "paste_on_middle_click", true)),
     );
     put(
+        "allow_clipboard_write",
+        json!(flag_of(l, "allow_clipboard_write", true)),
+    );
+    put(
         "session_log_auto",
         json!(flag_of(l, "session_log_auto", false)),
     );
@@ -486,6 +490,7 @@ pub fn apply_values(cfg: &mut Value, draft: &serde_json::Value) {
         "copy_on_select",
         "paste_on_right_click",
         "paste_on_middle_click",
+        "allow_clipboard_write",
         "tab_attention_marks",
         "bell_sound",
         "track_remote_folder",

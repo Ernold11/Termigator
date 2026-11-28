@@ -123,6 +123,10 @@
          true
         ],
         [
+         "allow_clipboard_write",
+         true
+        ],
+        [
          "tab_attention_marks",
          true
         ],

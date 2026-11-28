@@ -29,4 +29,9 @@ PrefPage {
     PrefHint {
         text: qsTr("Hold Shift to select or paste in programs that use the mouse (mc, tmux, vim).")
     }
+    PrefCheck {
+        key: "allow_clipboard_write"
+        text: qsTr("Let programs copy to the clipboard")
+        tip: qsTr("vim, tmux or nvim, also on a remote host, can then put text on the clipboard (OSC 52). They can never read it.")
+    }
 }

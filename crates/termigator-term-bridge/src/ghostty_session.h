@@ -34,6 +34,8 @@ class GhosttySession : public QObject
     Q_PROPERTY(QString colorScheme READ colorScheme WRITE setColorScheme NOTIFY colorSchemeChanged)
     Q_PROPERTY(int historySize READ historySize WRITE setHistorySize NOTIFY historySizeChanged)
     Q_PROPERTY(bool monitorActivity READ monitorActivity WRITE setMonitorActivity NOTIFY monitorActivityChanged)
+    // A program may set the clipboard with OSC 52 (vim, tmux, nvim over ssh); off by default.
+    Q_PROPERTY(bool clipboardWriteAllowed READ clipboardWriteAllowed WRITE setClipboardWriteAllowed NOTIFY clipboardWriteAllowedChanged)
 
 public:
     explicit GhosttySession(QObject *parent = nullptr);
@@ -53,6 +55,8 @@ public:
     void setHistorySize(int lines);
     bool monitorActivity() const { return m_monitorActivity; }
     void setMonitorActivity(bool monitor);
+    bool clipboardWriteAllowed() const { return m_clipboardWriteAllowed; }
+    void setClipboardWriteAllowed(bool allowed);
 
     Q_INVOKABLE void attachFd(int fd);
     /// Feed mode (always on Windows): no descriptor here. Rust reads the pty on a thread and calls
@@ -117,6 +121,7 @@ signals:
     void colorSchemeChanged();
     void historySizeChanged();
     void monitorActivityChanged();
+    void clipboardWriteAllowedChanged();
     void bell(const QString &message);
     void activity();
     void clipboardWrite(bool selection, const QString &text);
@@ -141,6 +146,7 @@ private:
     bool m_finished = false;
     bool m_monitorActivity = false;
     bool m_activitySent = false;
+    bool m_clipboardWriteAllowed = false;
     QString m_title;
     QString m_cwd;
     QString m_schemeName;

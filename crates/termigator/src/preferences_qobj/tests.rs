@@ -92,6 +92,7 @@ fn values_are_read_like_golden() {
     assert_eq!(v["probe_timeout"], 5); // `int("abc")` fails: default
     assert_eq!(v["copy_on_select"], true);
     assert_eq!(v["paste_on_middle_click"], false);
+    assert_eq!(v["allow_clipboard_write"], true);
     assert_eq!(v["default_terminal"], "external");
     assert_eq!(v["always_on_top"], false);
 }

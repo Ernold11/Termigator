@@ -125,6 +125,10 @@
          true
         ],
         [
+         "allow_clipboard_write",
+         true
+        ],
+        [
          "tab_attention_marks",
          true
         ],
@@ -463,6 +467,10 @@
          true
         ],
         [
+         "allow_clipboard_write",
+         true
+        ],
+        [
          "tab_attention_marks",
          true
         ],
@@ -780,6 +788,10 @@
          true
         ],
         [
+         "allow_clipboard_write",
+         true
+        ],
+        [
          "tab_attention_marks",
          true
         ],
@@ -1087,6 +1099,10 @@
         ],
         [
          "paste_on_middle_click",
+         true
+        ],
+        [
+         "allow_clipboard_write",
          true
         ],
         [
@@ -1421,6 +1437,10 @@
         ],
         [
          "paste_on_middle_click",
+         true
+        ],
+        [
+         "allow_clipboard_write",
          true
         ],
         [
@@ -1770,6 +1790,10 @@
         ],
         [
          "paste_on_middle_click",
+         true
+        ],
+        [
+         "allow_clipboard_write",
          true
         ],
         [
@@ -2127,6 +2151,10 @@
         ],
         [
          "paste_on_middle_click",
+         true
+        ],
+        [
+         "allow_clipboard_write",
          true
         ],
         [

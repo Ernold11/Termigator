@@ -12,6 +12,8 @@
 #include <QtCore/QMetaObject>
 #include <QtCore/QSocketNotifier>
 #include <QtCore/QtDebug>
+#include <QtGui/QClipboard>
+#include <QtGui/QGuiApplication>
 
 #include <cerrno>
 #include <cstring>
@@ -129,6 +131,14 @@ void GhosttySession::setMonitorActivity(bool monitor)
     // Activity fires once per arming; writing true again re-arms it (same as Konsole).
     m_activitySent = false;
     emit monitorActivityChanged();
+}
+
+void GhosttySession::setClipboardWriteAllowed(bool allowed)
+{
+    if (allowed == m_clipboardWriteAllowed)
+        return;
+    m_clipboardWriteAllowed = allowed;
+    emit clipboardWriteAllowedChanged();
 }
 
 void GhosttySession::setFinished(bool finished)
@@ -275,8 +285,16 @@ void GhosttySession::drainEvents()
                 emit cwdChanged();
             }
         } else if (type == QStringLiteral("clip")) {
-            emit clipboardWrite(event.value(QStringLiteral("sel")).toBool(),
-                                event.value(QStringLiteral("v")).toString());
+            const bool selection = event.value(QStringLiteral("sel")).toBool();
+            const QString text = event.value(QStringLiteral("v")).toString();
+            // OSC 52 "p"/"s" is the primary selection where there is one, else the clipboard.
+            if (m_clipboardWriteAllowed) {
+                QClipboard *clipboard = QGuiApplication::clipboard();
+                clipboard->setText(text, selection && clipboard->supportsSelection()
+                                             ? QClipboard::Selection
+                                             : QClipboard::Clipboard);
+            }
+            emit clipboardWrite(selection, text);
         } else if (type == QStringLiteral("notify")) {
             const QString text = event.value(QStringLiteral("v")).toString();
             const qsizetype split = text.indexOf(QLatin1Char('\n'));

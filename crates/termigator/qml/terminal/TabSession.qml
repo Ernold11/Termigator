@@ -34,6 +34,7 @@ Item {
             "copy_on_select": false,
             "paste_on_right_click": false,
             "paste_on_middle_click": true,
+            "clipboard_write": true,
             "attention": true
         })
     property string fontFamily: look.family
@@ -235,6 +236,8 @@ Item {
 
     ExternalSession {
         id: ext
+
+        clipboardWriteAllowed: s.look.clipboard_write ?? true
     }
 
     TerminalCore {

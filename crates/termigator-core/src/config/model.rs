@@ -78,6 +78,7 @@ pub fn default_config() -> Value {
                 ("copy_on_select", Bool(false)),
                 ("paste_on_right_click", Bool(false)),
                 ("paste_on_middle_click", Bool(true)),
+                ("allow_clipboard_write", Bool(true)),
                 ("tab_attention_marks", Bool(true)),
                 ("session_log_auto", Bool(false)),
                 (
