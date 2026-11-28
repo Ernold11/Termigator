@@ -517,6 +517,30 @@ Item {
                 area.closeTab(held.ctrl);
             }
         },
+        // Shift+Tab is Qt's Key_Backtab: the program gets CSI Z (shell completion, mc, dialog forms).
+        {
+            "name": "backtab open",
+            "fn": () => {
+                held.backtab = open("backtab", "stty -icanon -echo; printf 'BT_READY\\n'; exec cat -v");
+            }
+        },
+        {
+            "name": "backtab key",
+            "fn": () => {
+                if (!has(held.backtab, "BT_READY"))
+                    return false;
+                focusTab(held.backtab);
+                key(Qt.Key_Backtab, Qt.ShiftModifier, "");
+            }
+        },
+        {
+            "name": "backtab reached",
+            "fn": () => {
+                if (!has(held.backtab, "^[[Z"))
+                    return false;
+                area.closeTab(held.backtab);
+            }
+        },
         // Auto-reconnect: the countdown on the tab, then a new session in the same slot.
         {
             "name": "auto",

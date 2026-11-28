@@ -399,7 +399,11 @@ impl SessionEngine {
     /// modes. `text` is the already-translated UTF-8 text; empty when the key only produces a
     /// control sequence.
     pub fn encode_qt_key(&mut self, key: i32, modifiers: u32, text: &str) -> Vec<u8> {
-        let mods = qt_mods(modifiers);
+        let mut mods = qt_mods(modifiers);
+        // Qt reports Shift+Tab as Key_Backtab (xkb ISO_Left_Tab): Tab with Shift, `CSI Z`.
+        if key == QT_KEY_BACKTAB {
+            mods.shift = true;
+        }
         // `text` is the unmodified character. With Ctrl Qt reports the control byte itself
         // ("\x03" for Ctrl+C); passing that on makes the encoder emit `CSI 3;5u` instead of the
         // byte, and the shell never sees SIGINT. A control character is no text: the key and the
@@ -413,9 +417,9 @@ impl SessionEngine {
             ..crate::engine::KeyInput::default()
         };
         let bytes = self.engine.encode_key(&input).unwrap_or_default();
-        // Legacy mode sends nothing for Ctrl+Shift+letter, nor for Ctrl+[ \ ] ^ _ (no key mapping);
-        // xterm sends the control byte.
-        if bytes.is_empty() && mods.ctrl && !mods.alt && (0x41..=0x5f).contains(&key) {
+        // Legacy mode sends nothing for Ctrl+Shift+letter, nor for Ctrl+@ [ \ ] ^ _ (no key
+        // mapping); xterm sends the control byte (NUL for Ctrl+@).
+        if bytes.is_empty() && mods.ctrl && !mods.alt && (0x40..=0x5f).contains(&key) {
             return vec![u8::try_from(key - 0x40).unwrap_or_default()];
         }
         bytes
@@ -638,6 +642,9 @@ fn qt_mods(modifiers: u32) -> crate::engine::Mods {
     }
 }
 
+/// `Qt::Key_Backtab`.
+const QT_KEY_BACKTAB: i32 = 0x0100_0002;
+
 fn qt_key(key: i32) -> crate::engine::Key {
     use crate::engine::Key;
     match key {
@@ -715,7 +722,7 @@ fn qt_key(key: i32) -> crate::engine::Key {
         0x7d => Key::BracketRight,
         0x7e => Key::Backquote,
         0x0100_0000 => Key::Escape,
-        0x0100_0001 => Key::Tab,
+        0x0100_0001 | QT_KEY_BACKTAB => Key::Tab,
         0x0100_0003 => Key::Backspace,
         0x0100_0004 | 0x0100_0005 => Key::Enter,
         0x0100_0006 => Key::Insert,

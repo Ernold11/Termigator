@@ -327,3 +327,20 @@ fn url_at_finds_the_link_on_its_own_columns() {
     assert_eq!(engine.url_at(7, 0), "https://example.org");
     assert_eq!(engine.url_at(25, 0), "https://example.org");
 }
+
+#[test]
+fn shift_tab_and_ctrl_at_reach_the_program() {
+    let mut engine = SessionEngine::new(20, 4, None).expect("engine");
+    // Qt's Shift+Tab is Key_Backtab with Shift (xkb ISO_Left_Tab); some paths drop the Shift.
+    assert_eq!(
+        engine.encode_qt_key(0x0100_0002, 0x0200_0000, ""),
+        b"\x1b[Z"
+    );
+    assert_eq!(engine.encode_qt_key(0x0100_0002, 0, ""), b"\x1b[Z");
+    assert_eq!(
+        engine.encode_qt_key(0x0100_0001, 0x0200_0000, "\t"),
+        b"\x1b[Z"
+    );
+    // Ctrl+@ (Ctrl+Shift+2 on a US layout) is NUL, like Ctrl+Space.
+    assert_eq!(engine.encode_qt_key(0x40, 0x0600_0000, ""), b"\0");
+}
