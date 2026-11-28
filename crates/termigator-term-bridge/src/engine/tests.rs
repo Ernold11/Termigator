@@ -323,3 +323,23 @@ fn shift_wheel_bypasses_the_program() {
     };
     assert!(engine.encode_wheel(0, 0, -1, shift, CELL).is_empty());
 }
+
+#[test]
+fn bold_ansi_colours_are_drawn_bright() {
+    let mut engine = engine();
+    engine.feed(
+        b"\x1b[1;30mA\x1b[0m\x1b[30mB\x1b[0m\x1b[1;37mC\x1b[0m\x1b[1;91mD\x1b[1;38;2;1;2;3mE",
+    );
+    let snapshot = engine.snapshot().expect("snapshot");
+    let palette = snapshot.colors.palette;
+    let fg = |x: usize| snapshot.row_data[0].cells[x].style.fg;
+    assert_eq!(fg(0), Some(palette[8]), "bold black is bright black");
+    assert_eq!(fg(1), Some(palette[0]), "plain black stays");
+    assert_eq!(fg(2), Some(palette[15]), "bold white is bright white");
+    assert_eq!(fg(3), Some(palette[9]), "bright red stays bright red");
+    assert_eq!(
+        fg(4),
+        Some(Rgb { r: 1, g: 2, b: 3 }),
+        "truecolor is left alone"
+    );
+}

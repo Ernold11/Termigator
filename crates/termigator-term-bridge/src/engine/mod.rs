@@ -658,6 +658,8 @@ impl Engine {
             Dirty::Partial => Damage::Partial,
             Dirty::Full => Damage::Full,
         };
+        let colors = snap.colors()?;
+        let palette: [Rgb; 256] = colors.palette.map(Into::into);
         let mut row_data = Vec::with_capacity(self.rows_count as usize);
         {
             let mut iter = self.rows.update(&snap)?;
@@ -681,11 +683,20 @@ impl Engine {
                         let mut text = String::new();
                         cell.graphemes_utf8(&mut text)?;
                         let st = cell.style()?;
+                        let mut fg = cell.fg_color()?.map(Into::into);
+                        // Bold in one of the 8 ANSI colours is drawn in its bright twin, as xterm,
+                        // Konsole and Windows Terminal do (bold black is grey, not invisible).
+                        if st.bold
+                            && let style::StyleColor::Palette(index) = st.fg_color
+                            && usize::from(index.0) < 8
+                        {
+                            fg = Some(palette[usize::from(index.0) + 8]);
+                        }
                         cells.push(Cell {
                             text,
                             width,
                             style: Style {
-                                fg: cell.fg_color()?.map(Into::into),
+                                fg,
                                 bg: cell.bg_color()?.map(Into::into),
                                 bold: st.bold,
                                 italic: st.italic,
@@ -718,9 +729,6 @@ impl Engine {
             Some(v) => (v.x, v.y, v.at_wide_tail),
             None => (0, 0, false),
         };
-        let colors = snap.colors()?;
-        let palette = colors.palette.map(Into::into);
-
         Ok(Snapshot {
             cols: snap.cols()?,
             rows: snap.rows()?,
