@@ -150,7 +150,17 @@ fn exec_stat(pid: u32) -> Vec<String> {
         }
         std::thread::sleep(Duration::from_millis(10));
     }
-    panic!("child never exec'd");
+    // Stuck before exec: its state and the kernel function it waits in tell a deadlock after
+    // fork (S, futex_wait: a lock held by another thread at fork) from a slow machine (R).
+    let read = |f: &str| std::fs::read_to_string(format!("/proc/{pid}/{f}")).unwrap_or_default();
+    let state = read("stat")
+        .rsplit_once(") ")
+        .map_or(String::new(), |(_, r)| r[..1].to_owned());
+    panic!(
+        "child never exec'd: state {state}, wchan {:?}, cmdline {:?}",
+        read("wchan"),
+        read("cmdline")
+    );
 }
 
 /// `SigIgn:` or `SigBlk:` of `/proc/<pid>/status` as a mask.
