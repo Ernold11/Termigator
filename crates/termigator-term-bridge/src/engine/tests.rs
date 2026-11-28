@@ -82,6 +82,10 @@ fn bracketed_paste_wraps_and_plain_paste_normalizes_newlines() {
     assert!(!engine.bracketed_paste());
     let bytes = engine.encode_paste("one\ntwo", engine.bracketed_paste());
     assert_eq!(bytes, b"one\rtwo");
+    // Windows line ends are one Enter each, not two.
+    assert_eq!(engine.encode_paste("one\r\ntwo\r\n", false), b"one\rtwo\r");
+    let bytes = engine.encode_paste("one\r\ntwo", true);
+    assert_eq!(bytes, b"\x1b[200~one\ntwo\x1b[201~");
 }
 
 #[test]

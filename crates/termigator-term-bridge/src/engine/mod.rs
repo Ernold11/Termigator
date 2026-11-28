@@ -1036,6 +1036,10 @@ impl Engine {
     /// Prepares clipboard text for the pty: strips unsafe control bytes and wraps it in
     /// bracketed-paste markers when the mode is on (or the caller forces it).
     pub fn encode_paste(&self, text: &str, bracketed: bool) -> Vec<u8> {
+        // Windows line ends are one line end: unbracketed, each \n becomes Enter, and \r\n was
+        // two (blank lines in vi or nano, an empty command in a shell).
+        let text = text.replace("\r\n", "\n");
+        let text = text.as_str();
         let mut data = text.as_bytes().to_vec();
         let mut out = vec![0u8; data.len().saturating_add(32).max(64)];
         match paste::encode(&mut data, bracketed, &mut out) {
