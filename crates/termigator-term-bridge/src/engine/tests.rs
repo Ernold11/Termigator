@@ -343,3 +343,19 @@ fn bold_ansi_colours_are_drawn_bright() {
         "truecolor is left alone"
     );
 }
+
+#[test]
+fn the_cursor_is_hidden_while_the_view_shows_the_history() {
+    let mut engine = engine();
+    for i in 0..20 {
+        engine.feed(format!("line{i}\r\n").as_bytes());
+    }
+    assert!(engine.snapshot().expect("snapshot").cursor.visible);
+    engine.scroll(-5);
+    assert!(
+        !engine.snapshot().expect("snapshot").cursor.visible,
+        "drawn at (0, 0)"
+    );
+    engine.scroll_to_bottom();
+    assert!(engine.snapshot().expect("snapshot").cursor.visible);
+}

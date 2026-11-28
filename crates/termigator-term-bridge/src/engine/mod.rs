@@ -737,7 +737,8 @@ impl Engine {
             cursor: Cursor {
                 x,
                 y,
-                visible: cursor.visible,
+                // Scrolled back into the history, the cursor is off the screen: not at (0, 0).
+                visible: cursor.visible && cursor.viewport.is_some(),
                 blinking: cursor.blinking,
                 shape: match cursor.visual_style {
                     CursorVisualStyle::Bar => CursorShape::Bar,
