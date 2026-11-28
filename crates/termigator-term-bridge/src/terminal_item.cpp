@@ -1010,6 +1010,9 @@ void GhosttyTerminalItem::paint(QPainter *painter)
             QColor bg = cell.bg.isValid() ? cell.bg : m_bg;
             if (flags & (1 << 4)) // inverse
                 std::swap(fg, bg);
+            if (flags & (1 << 2)) // faint: halfway to the background, like Konsole and Ghostty
+                fg = QColor((fg.red() + bg.red()) / 2, (fg.green() + bg.green()) / 2,
+                            (fg.blue() + bg.blue()) / 2);
             const QRectF rect(cell.x * cellW, y * cellH, cell.width * cellW, cellH);
             if (flags & (1 << 5)) { // invisible
                 flush();

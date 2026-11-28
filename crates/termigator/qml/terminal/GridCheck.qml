@@ -95,6 +95,12 @@ Item {
                    "selection highlighted over columns 0-9 on row " + row + ": " + JSON.stringify(spans) + ", cell " + cw);
         }
         term.select(0, 0, 0, 0, false);
+        // Faint (SGR 2) is dimmer: of three full blocks only the faint middle one differs from the
+        // first (the rest of the row is background).
+        ext.feedBytes("\x1b[2J\x1b[2;1H█\x1b[2m█\x1b[0m█\x1b[H");
+        const faint = Probe.inkSpans(term, 1.5 * ch, 0.5 * cw);
+        expect(faint.length >= 2 && Math.abs(faint[0] - cw) <= cw / 2 && Math.abs(faint[1] - 2 * cw) <= cw / 2,
+               "faint block dimmer than the plain ones: " + JSON.stringify(faint) + ", cell " + cw);
         ext.feedBytes("\x1b[2J\x1b[H");
         if (check.failed)
             return true;
