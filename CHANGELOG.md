@@ -3,6 +3,30 @@
 All notable changes to Termigator. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.4.1] - 2026-11-28
+
+Fixes from an audit of the embedded terminal.
+
+### Embedded terminal
+
+- **Fixed a crash** of the whole application when searching without *Match case* in output that has a
+  character whose lower case is longer or shorter (Turkish `İ`, the Kelvin sign) before a match.
+- **Shift+Tab** reaches the program (reverse completion in shells, mc, dialog forms, vim); before, it sent
+  nothing. `Ctrl+@` sends NUL, as in xterm.
+- **Shift+PgUp / Shift+PgDn** page through the scrollback, and typing or pasting returns to the bottom, as in
+  xterm and Konsole. In full-screen programs (the alternate screen) the program still gets these keys.
+- htop's values, totals and thread counts are readable with the built-in Breeze scheme (its bright black was
+  almost the background colour), and bold text in the eight ANSI colours is drawn in their bright twins.
+- Faint text (`SGR 2`: zsh autosuggestions, git, systemd) is drawn dimmed.
+- The selection shows over coloured cells (mc's panels, coloured lines) and over the empty cells a prompt
+  skips; a single click clears it, and a **triple click** selects the whole line.
+- Search highlights and Ctrl+click on links hit the right text after wide characters (CJK, emoji) and
+  combining marks.
+- The cursor is no longer drawn on the top-left cell while the view shows the scrollback.
+- Text with Windows line ends (CRLF) is pasted as one Enter per line, not two.
+- **Programs can copy to the clipboard** (OSC 52: vim, nvim, tmux, also over ssh). Settings → Clipboard →
+  *Let programs copy to the clipboard* (on by default); programs can never read the clipboard.
+
 ## [0.4.0] - 2026-11-27
 
 ### Embedded terminal
