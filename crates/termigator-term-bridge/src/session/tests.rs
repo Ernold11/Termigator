@@ -344,3 +344,34 @@ fn shift_tab_and_ctrl_at_reach_the_program() {
     // Ctrl+@ (Ctrl+Shift+2 on a US layout) is NUL, like Ctrl+Space.
     assert_eq!(engine.encode_qt_key(0x40, 0x0600_0000, ""), b"\0");
 }
+
+#[test]
+fn shift_page_keys_page_the_scrollback_and_typing_returns_to_the_bottom() {
+    const SHIFT: u32 = 0x0200_0000;
+    const PAGE_UP: i32 = 0x0100_0016;
+    const PAGE_DOWN: i32 = 0x0100_0017;
+    let mut engine = SessionEngine::new(10, 5, Some(100)).expect("engine");
+    for i in 0..50 {
+        engine.feed(format!("row{i:02}\r\n").as_bytes());
+    }
+    let bottom = engine.scrollbar_offset();
+    // A page is the screen less one row, and nothing reaches the program.
+    assert!(engine.encode_qt_key(PAGE_UP, SHIFT, "").is_empty());
+    assert_eq!(engine.scrollbar_offset(), bottom - 4);
+    assert!(engine.encode_qt_key(PAGE_UP, SHIFT, "").is_empty());
+    assert!(engine.encode_qt_key(PAGE_DOWN, SHIFT, "").is_empty());
+    assert_eq!(engine.scrollbar_offset(), bottom - 4);
+    // Shift alone sends nothing and stays; a letter goes to the program and back to the bottom.
+    assert!(engine.encode_qt_key(0x0100_0020, SHIFT, "").is_empty());
+    assert_eq!(engine.scrollbar_offset(), bottom - 4);
+    assert_eq!(engine.encode_qt_key(0x41, 0, "a"), b"a");
+    assert_eq!(engine.scrollbar_offset(), bottom);
+    // So does a paste.
+    engine.scroll(-3);
+    assert_eq!(engine.paste("x"), b"x");
+    assert_eq!(engine.scrollbar_offset(), bottom);
+    // Plain PgUp, and Shift+PgUp on the alternate screen (no scrollback), are the program's.
+    assert_eq!(engine.encode_qt_key(PAGE_UP, 0, ""), b"\x1b[5~");
+    engine.feed(b"\x1b[?1049h");
+    assert_eq!(engine.encode_qt_key(PAGE_UP, SHIFT, ""), b"\x1b[5;2~");
+}

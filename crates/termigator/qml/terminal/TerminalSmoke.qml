@@ -800,6 +800,31 @@ Item {
                 expect(v.term.scrollbarCurrentValue === v.term.scrollbarMaximum, "not back at the end");
             }
         },
+        // Shift+PgUp pages back through the scrollback; the next key typed returns to the bottom.
+        {
+            "name": "scrollback shift page up",
+            "fn": () => {
+                focusTab(held.scroll);
+                key(Qt.Key_PageUp, Qt.ShiftModifier, "");
+            }
+        },
+        {
+            "name": "scrollback paged",
+            "fn": () => {
+                const v = view(held.scroll);
+                if (v.term.scrollbarCurrentValue === v.term.scrollbarMaximum)
+                    return false;
+                expect(v.term.scrollbarMaximum - v.term.scrollbarCurrentValue === v.term.lines - 1, "not a page: " + v.term.scrollbarCurrentValue + "/" + v.term.scrollbarMaximum);
+                key(Qt.Key_X, Qt.NoModifier, "x");
+            }
+        },
+        {
+            "name": "scrollback back at the bottom",
+            "fn": () => {
+                const v = view(held.scroll);
+                return v.term.scrollbarCurrentValue === v.term.scrollbarMaximum;
+            }
+        },
         // On the alternate screen (less, vim, k9s) there is no scrollback: without mouse tracking
         // a notch is three Up keys (alternate scroll, DECSET 1007); with tracking it is one SGR
         // report. `cat -v` shows what the program got, and that it got it once.

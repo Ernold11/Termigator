@@ -852,6 +852,11 @@ impl Engine {
         Ok(out)
     }
 
+    /// Whether the alternate screen (vim, less, mc: no scrollback) is showing.
+    pub fn alternate_screen(&self) -> bool {
+        matches!(self.term.active_screen(), Ok(Screen::Alternate))
+    }
+
     /// Where a wheel turn goes now. Shift keeps it in the view (the way Shift+drag selects in a
     /// program that tracks the mouse).
     pub fn wheel_target(&self, shift: bool) -> WheelTarget {

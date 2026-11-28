@@ -9,7 +9,7 @@ use std::fs;
 use serde_json::{Value, json};
 use termigator_core::konsole::{self, XdgDirs};
 
-use crate::engine::{CursorShape, Engine, Rgb, cell_span};
+use crate::engine::{CursorShape, Engine, Key, Rgb, cell_span};
 
 /// Engine handle owned by the session object the terminal view draws.
 pub struct SessionEngine {
@@ -218,14 +218,16 @@ impl SessionEngine {
         true
     }
 
-    /// Encodes clipboard text for the pty using the terminal's bracketed-paste mode.
-    pub fn paste(&self, text: &str) -> Vec<u8> {
+    /// Encodes clipboard text for the pty using the terminal's bracketed-paste mode, and shows
+    /// the bottom where it lands.
+    pub fn paste(&mut self, text: &str) -> Vec<u8> {
         let bracketed = self.engine.bracketed_paste();
-        self.engine.encode_paste(text, bracketed)
+        self.paste_mode(text, bracketed)
     }
 
     /// Encodes a paste with an explicit bracketed-paste decision (settings override).
-    pub fn paste_mode(&self, text: &str, bracketed: bool) -> Vec<u8> {
+    pub fn paste_mode(&mut self, text: &str, bracketed: bool) -> Vec<u8> {
+        self.engine.scroll_to_bottom();
         self.engine.encode_paste(text, bracketed)
     }
 
@@ -410,17 +412,35 @@ impl SessionEngine {
         // modifier alone encode it.
         let text =
             (!text.is_empty() && !text.chars().all(|c| c.is_control())).then(|| text.to_owned());
+        let key_code = qt_key(key);
+        // Shift+PgUp / Shift+PgDn page through the scrollback, as in xterm and Konsole. The
+        // alternate screen has none, so there the program gets them.
+        if mods.shift
+            && !mods.ctrl
+            && !mods.alt
+            && matches!(key_code, Key::PageUp | Key::PageDown)
+            && !self.engine.alternate_screen()
+        {
+            let page = self.engine.size().1.saturating_sub(1).max(1) as isize;
+            self.engine
+                .scroll(if key_code == Key::PageUp { -page } else { page });
+            return Vec::new();
+        }
         let input = crate::engine::KeyInput {
-            key: qt_key(key),
+            key: key_code,
             mods,
             text,
             ..crate::engine::KeyInput::default()
         };
-        let bytes = self.engine.encode_key(&input).unwrap_or_default();
+        let mut bytes = self.engine.encode_key(&input).unwrap_or_default();
         // Legacy mode sends nothing for Ctrl+Shift+letter, nor for Ctrl+@ [ \ ] ^ _ (no key
         // mapping); xterm sends the control byte (NUL for Ctrl+@).
         if bytes.is_empty() && mods.ctrl && !mods.alt && (0x40..=0x5f).contains(&key) {
-            return vec![u8::try_from(key - 0x40).unwrap_or_default()];
+            bytes = vec![u8::try_from(key - 0x40).unwrap_or_default()];
+        }
+        // Typing goes back to the prompt; a modifier alone sends nothing and stays put.
+        if !bytes.is_empty() {
+            self.engine.scroll_to_bottom();
         }
         bytes
     }
@@ -645,8 +665,7 @@ fn qt_mods(modifiers: u32) -> crate::engine::Mods {
 /// `Qt::Key_Backtab`.
 const QT_KEY_BACKTAB: i32 = 0x0100_0002;
 
-fn qt_key(key: i32) -> crate::engine::Key {
-    use crate::engine::Key;
+fn qt_key(key: i32) -> Key {
     match key {
         0x41..=0x5a => match key - 0x41 {
             0 => Key::A,

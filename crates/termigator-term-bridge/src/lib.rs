@@ -149,8 +149,8 @@ mod ffi {
         fn select_line(self: &mut SessionEngine, col: u16, row: u16);
         fn clear_selection(self: &mut SessionEngine);
         fn selected_text(self: &SessionEngine) -> String;
-        fn paste(self: &SessionEngine, text: &str) -> Vec<u8>;
-        fn paste_mode(self: &SessionEngine, text: &str, bracketed: bool) -> Vec<u8>;
+        fn paste(self: &mut SessionEngine, text: &str) -> Vec<u8>;
+        fn paste_mode(self: &mut SessionEngine, text: &str, bracketed: bool) -> Vec<u8>;
         fn bracketed_paste(self: &SessionEngine) -> bool;
         fn paste_is_safe(text: &str) -> bool;
         fn find_next(

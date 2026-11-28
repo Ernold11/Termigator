@@ -346,24 +346,30 @@ void GhosttySession::pasteText(const QString &text)
 {
     if (!attached())
         return;
+    const quint32 offset = m_engine->scrollbar_offset();
     const QByteArray utf8 = text.toUtf8();
     const rust::Vec<std::uint8_t> bytes = m_engine->paste(
         std::string(utf8.constData(), static_cast<size_t>(utf8.size())));
     m_pending.append(reinterpret_cast<const char *>(bytes.data()),
                      static_cast<qsizetype>(bytes.size()));
     flushPending();
+    if (m_engine->scrollbar_offset() != offset)
+        emit updated(); // back at the bottom
 }
 
 void GhosttySession::pasteTextMode(const QString &text, bool bracketed)
 {
     if (!attached())
         return;
+    const quint32 offset = m_engine->scrollbar_offset();
     const QByteArray utf8 = text.toUtf8();
     const rust::Vec<std::uint8_t> bytes = m_engine->paste_mode(
         std::string(utf8.constData(), static_cast<size_t>(utf8.size())), bracketed);
     m_pending.append(reinterpret_cast<const char *>(bytes.data()),
                      static_cast<qsizetype>(bytes.size()));
     flushPending();
+    if (m_engine->scrollbar_offset() != offset)
+        emit updated(); // back at the bottom
 }
 
 bool GhosttySession::pasteSafe(const QString &text)
@@ -381,6 +387,7 @@ void GhosttySession::sendKey(int key, int modifiers, const QString &text)
 {
     if (!attached())
         return;
+    const quint32 offset = m_engine->scrollbar_offset();
     const QByteArray utf8 = text.toUtf8();
     const rust::Vec<std::uint8_t> bytes = m_engine->encode_qt_key(
         key, static_cast<std::uint32_t>(modifiers),
@@ -388,6 +395,8 @@ void GhosttySession::sendKey(int key, int modifiers, const QString &text)
     m_pending.append(reinterpret_cast<const char *>(bytes.data()),
                      static_cast<qsizetype>(bytes.size()));
     flushPending();
+    if (m_engine->scrollbar_offset() != offset)
+        emit updated(); // paged, or back at the bottom
 }
 
 void GhosttySession::resizeTerminal(int cols, int rows, int cellWidth, int cellHeight)
